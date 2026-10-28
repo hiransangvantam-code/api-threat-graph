@@ -23,6 +23,8 @@ Two Docker deployments start, as in Fig. 1 of the paper:
 - **the company's Docker** (`target/docker-compose.yml`): ShopLite, a demo shop of four microservices, on its own network `customer-net`
 - **the ATG platform** (`docker-compose.yml`): joins `customer-net` and collects all four Phase 1 sources from it. A mitmproxy sidecar sits inline in front of the gateway and carries the services' east-west calls. An OpenTelemetry Collector receives their spans. ATG also probes their OpenAPI documents and reads the company's manifests, mounted read-only. EUJF records and the threat graph go to PostgreSQL.
 
+![The company's Docker and the ATG Docker: traffic through the sidecar, spans to the Collector, OpenAPI probe, manifests read-only, Phases 1-4, PostgreSQL](docs/images/two-dockers.png)
+
 The start script runs two scans, one on ShopLite as shipped and one after the company deploys the fixes. The first build takes a few minutes; the scans take about two more. The home page at http://localhost:8080 then shows the threat graph and the before/after numbers: attack-path risk drops from 472 to 13.5. [docs/PAPER_MAPPING.md](docs/PAPER_MAPPING.md) maps every part of Section III to the code.
 
 ![Home page with a preview of the threat graph and the before/after table](docs/images/home.png)

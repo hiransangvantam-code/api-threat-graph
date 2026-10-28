@@ -1,0 +1,683 @@
+{
+ "testbed": "crapi",
+ "run": "crapi-C2-s3",
+ "timing": {
+  "rule_engine_ms": 1.96,
+  "dependency_analyzer_ms": 0.05,
+  "threat_graph_ms": 3.4,
+  "attack_path_query_ms": 1123.21,
+  "phase3_total_ms": 2599.9,
+  "phase4_dashboard_ms": 10.5,
+  "dashboard_kb": 694.5,
+  "phase2_normalize_ms": 3.7
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 1.4,
+  "dependency_analyzer_ms": 0.03,
+  "threat_graph_ms": 1.96,
+  "attack_path_query_ms": 515.81,
+  "phase3_total_ms": 673.1,
+  "phase4_dashboard_ms": 7.9,
+  "dashboard_kb": 488.2
+ },
+ "graph": {
+  "nodes": 213,
+  "edges": 554,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 6,
+   "Endpoint": 73,
+   "Risk": 5,
+   "Vulnerability": 127
+  },
+  "edges_by_rel": {
+   "reaches": 63,
+   "exposes": 73,
+   "runs_on": 73,
+   "routes": 69,
+   "depends_on": 7,
+   "calls": 15,
+   "has_vuln": 127,
+   "leads_to": 127
+  },
+  "attack_paths": 809,
+  "critical_or_high_paths": 49,
+  "internet_paths": 123,
+  "hops_mean": 4.0161,
+  "hops_max": 6,
+  "apcr_median": 4.5,
+  "apcr_p90": 9.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 1263.45,
+  "findings": 127,
+  "by_severity": {
+   "critical": 6,
+   "high": 35,
+   "medium": 78,
+   "low": 8
+  },
+  "rules_fired": 13,
+  "fixes_for_70pct": 66,
+  "fixes_for_90pct": 94,
+  "remediation_actions": 117,
+  "longest_chain": 3,
+  "max_blast_radius": 3
+ },
+ "oracle_graph": {
+  "nodes": 164,
+  "edges": 409,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 6,
+   "Endpoint": 73,
+   "Risk": 5,
+   "Vulnerability": 78
+  },
+  "edges_by_rel": {
+   "reaches": 10,
+   "exposes": 73,
+   "runs_on": 73,
+   "routes": 69,
+   "depends_on": 8,
+   "calls": 20,
+   "has_vuln": 78,
+   "leads_to": 78
+  },
+  "attack_paths": 258,
+  "critical_or_high_paths": 47,
+  "internet_paths": 74,
+  "hops_mean": 4.1899,
+  "hops_max": 6,
+  "apcr_median": 6.0,
+  "apcr_p90": 12.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 797.45,
+  "findings": 78,
+  "by_severity": {
+   "critical": 6,
+   "high": 35,
+   "medium": 24,
+   "low": 13
+  },
+  "rules_fired": 14,
+  "fixes_for_70pct": 33,
+  "fixes_for_90pct": 49,
+  "remediation_actions": 68,
+  "longest_chain": 2,
+  "max_blast_radius": 4
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 72,
+   "fp": 55,
+   "fn": 6,
+   "precision": 0.5669,
+   "recall": 0.9231,
+   "f1": 0.7024,
+   "tool": 127,
+   "oracle": 78,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 0.9756,
+   "severity_agreement": 1.0,
+   "score_mae": 0.0
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API7": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-TAG": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 5,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 29,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 3,
+    "fp": 54,
+    "fn": 0,
+    "precision": 0.0526,
+    "recall": 1.0,
+    "f1": 0.1
+   },
+   "LT-02": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-03": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 5,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "TS-01": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-02": {
+    "tp": 3,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.75,
+    "recall": 0.75,
+    "f1": 0.75
+   },
+   "TS-03": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   }
+  },
+  "paths": {
+   "tp": 140,
+   "fp": 110,
+   "fn": 12,
+   "precision": 0.56,
+   "recall": 0.9211,
+   "f1": 0.6965,
+   "tool": 250,
+   "oracle": 152
+  },
+  "risk": {
+   "tool_R": 1263.45,
+   "oracle_R": 797.45,
+   "ratio": 1.5844,
+   "top10_overlap": 1.0,
+   "service_risk_spearman": 1.0,
+   "fixes_70_tool": 66,
+   "fixes_70_oracle": 33
+  },
+  "missed": [
+   "('LT-03', ('crapi-community', 'GET', '/community/api/v2/community/posts/recent'))",
+   "('LT-03', ('crapi-community', 'GET', '/community/home'))",
+   "('LT-03', ('crapi-community', 'POST', '/community/api/v2/community/posts/{}/comment'))",
+   "('LT-03', ('crapi-community', 'POST', '/community/api/v2/coupon/new-coupon'))",
+   "('LT-03', ('crapi-community', 'POST', '/community/api/v2/coupon/validate-coupon'))",
+   "('TS-02', ('svc', 'crapi-web', '/identity/'))"
+  ],
+  "extra": [
+   "('LT-01', ('crapi-chatbot', 'GET', '/chatbot/genai/health'))",
+   "('LT-01', ('crapi-chatbot', 'GET', '/chatbot/genai/history'))",
+   "('LT-01', ('crapi-chatbot', 'GET', '/chatbot/genai/state'))",
+   "('LT-01', ('crapi-chatbot', 'POST', '/chatbot/genai/init'))",
+   "('LT-01', ('crapi-chatbot', 'POST', '/chatbot/genai/reset'))",
+   "('LT-01', ('crapi-identity', 'DELETE', '/identity/api/v2/admin/videos/{}'))",
+   "('LT-01', ('crapi-identity', 'DELETE', '/identity/api/v2/user/videos/{}'))",
+   "('LT-01', ('crapi-identity', 'GET', '/identity/api/auth/jwks.json'))",
+   "('LT-01', ('crapi-identity', 'GET', '/identity/api/v2/user/dashboard'))",
+   "('LT-01', ('crapi-identity', 'GET', '/identity/api/v2/user/videos/{}'))",
+   "('LT-01', ('crapi-identity', 'GET', '/identity/api/v2/vehicle/{}/location'))",
+   "('LT-01', ('crapi-identity', 'GET', '/identity/health_check'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/forget-password'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/login'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/reset-test-users'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/unlock'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/v2/check-otp'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/v3/check-otp'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/auth/v4.0/user/login-with-token'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/change-email'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/change-phone-number'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/pictures'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/reset-password'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/verify-email-token'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/verify-phone-otp'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/user/videos'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/vehicle/add_vehicle'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/api/v2/vehicle/register_vehicle'))",
+   "('LT-01', ('crapi-identity', 'POST', '/identity/management/user/apikey'))",
+   "('LT-01', ('crapi-identity', 'PUT', '/identity/api/v2/user/videos/{}'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/admin'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/download_report'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/mechanic_report'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/receive_report'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/service_request'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/service_request/{}'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/service_request/{}/comment'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/mechanic/service_requests'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/merchant/service_requests/{}'))",
+   "('LT-01', ('crapi-workshop', 'GET', '/workshop/api/shop/orders'))"
+  ]
+ },
+ "known": {
+  "challenges": [
+   {
+    "id": 1,
+    "title": "BOLA: another user's vehicle location",
+    "owasp": "API1:2023",
+    "endpoint": "GET /identity/api/v2/vehicle/{}/location",
+    "rules": [
+     "API1"
+    ],
+    "needs": "response content (owner / location fields)",
+    "tool": "not detected",
+    "tool_rules": [
+     "LT-01"
+    ],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 2,
+    "title": "BOLA: other users' mechanic reports",
+    "owasp": "API1:2023",
+    "endpoint": "GET /workshop/api/mechanic/mechanic_report",
+    "rules": [
+     "API1"
+    ],
+    "needs": "object ID in the query string (API1 reads path IDs only)",
+    "tool": "not detected",
+    "tool_rules": [
+     "LT-01"
+    ],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 3,
+    "title": "Broken auth: reset another user's password (OTP brute force on v2)",
+    "owasp": "API2:2023",
+    "endpoint": "POST /identity/api/auth/v2/check-otp",
+    "rules": [
+     "TS-07"
+    ],
+    "needs": "failed attempts in traffic (crAPI answers 500, the rule counts 401/403)",
+    "tool": "not detected",
+    "tool_rules": [
+     "LT-01"
+    ],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 4,
+    "title": "Excessive data exposure: other users' data in community posts",
+    "owasp": "API3:2023",
+    "endpoint": "GET /community/api/v2/community/posts/recent",
+    "rules": [
+     "API3"
+    ],
+    "needs": "response content",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": [
+     "LT-03"
+    ]
+   },
+   {
+    "id": 5,
+    "title": "Excessive data exposure: internal video property",
+    "owasp": "API3:2023",
+    "endpoint": "GET /identity/api/v2/user/videos/{}",
+    "rules": [
+     "API3"
+    ],
+    "needs": "response content",
+    "tool": "not detected",
+    "tool_rules": [
+     "LT-01"
+    ],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 6,
+    "title": "Rate limiting: layer-7 DoS through contact mechanic",
+    "owasp": "API4:2023",
+    "endpoint": "POST /workshop/api/merchant/contact_mechanic",
+    "rules": [
+     "API4"
+    ],
+    "needs": "request semantics (repeat count field)",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 7,
+    "title": "BFLA: delete another user's video through the admin API",
+    "owasp": "API5:2023",
+    "endpoint": "DELETE /identity/api/v2/admin/videos/{}",
+    "rules": [
+     "API5",
+     "API1"
+    ],
+    "needs": "authenticated non-admin calls",
+    "tool": "detected",
+    "tool_rules": [
+     "API1",
+     "LT-01"
+    ],
+    "oracle": "detected",
+    "oracle_rules": [
+     "API1"
+    ]
+   },
+   {
+    "id": 8,
+    "title": "Mass assignment: get an item for free",
+    "owasp": "API3:2023",
+    "endpoint": "PUT /workshop/api/shop/orders/{}",
+    "rules": [
+     "API1"
+    ],
+    "needs": "request semantics (writable status field)",
+    "tool": "detected",
+    "tool_rules": [
+     "API1",
+     "LT-01"
+    ],
+    "oracle": "detected",
+    "oracle_rules": [
+     "API1"
+    ]
+   },
+   {
+    "id": 9,
+    "title": "Mass assignment: increase balance",
+    "owasp": "API3:2023",
+    "endpoint": "PUT /workshop/api/shop/orders/{}",
+    "rules": [
+     "API1"
+    ],
+    "needs": "request semantics (writable quantity field)",
+    "tool": "detected",
+    "tool_rules": [
+     "API1",
+     "LT-01"
+    ],
+    "oracle": "detected",
+    "oracle_rules": [
+     "API1"
+    ]
+   },
+   {
+    "id": 10,
+    "title": "Mass assignment: update internal video properties",
+    "owasp": "API3:2023",
+    "endpoint": "PUT /identity/api/v2/user/videos/{}",
+    "rules": [
+     "API1"
+    ],
+    "needs": "request semantics (writable internal field)",
+    "tool": "detected",
+    "tool_rules": [
+     "API1",
+     "LT-01"
+    ],
+    "oracle": "detected",
+    "oracle_rules": [
+     "API1"
+    ]
+   },
+   {
+    "id": 11,
+    "title": "SSRF through contact mechanic",
+    "owasp": "API7:2023",
+    "endpoint": "POST /workshop/api/merchant/contact_mechanic",
+    "rules": [
+     "API7"
+    ],
+    "needs": "URL-typed request field (named mechanic_api)",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 12,
+    "title": "NoSQL injection: free coupons",
+    "owasp": "API8:2023",
+    "endpoint": "POST /community/api/v2/coupon/validate-coupon",
+    "rules": [],
+    "needs": "payload testing",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": [
+     "LT-03"
+    ]
+   },
+   {
+    "id": 13,
+    "title": "SQL injection: redeem a used coupon",
+    "owasp": "API8:2023",
+    "endpoint": "POST /workshop/api/shop/apply_coupon",
+    "rules": [],
+    "needs": "payload testing",
+    "tool": "not detected",
+    "tool_rules": [
+     "LT-01"
+    ],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 14,
+    "title": "Unauthenticated access to order details",
+    "owasp": "API2:2023",
+    "endpoint": "GET /workshop/api/shop/orders/{}",
+    "rules": [
+     "TS-01"
+    ],
+    "needs": "response content (sensitivity of a GET)",
+    "tool": "flagged (other auth rule)",
+    "tool_rules": [
+     "LT-01",
+     "TS-03"
+    ],
+    "oracle": "flagged (other auth rule)",
+    "oracle_rules": [
+     "TS-03"
+    ]
+   },
+   {
+    "id": 15,
+    "title": "Forge valid JWT tokens",
+    "owasp": "API2:2023",
+    "endpoint": "GET /identity/api/auth/jwks.json",
+    "rules": [],
+    "needs": "token / crypto testing",
+    "tool": "not detected",
+    "tool_rules": [
+     "API9-SHADOW",
+     "LT-01"
+    ],
+    "oracle": "not detected",
+    "oracle_rules": [
+     "API9-SHADOW"
+    ]
+   },
+   {
+    "id": 16,
+    "title": "Chatbot prompt injection",
+    "owasp": "LLM",
+    "endpoint": "POST /chatbot/genai/ask",
+    "rules": [],
+    "needs": "LLM testing",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 17,
+    "title": "Chatbot leaks another user's credentials",
+    "owasp": "LLM",
+    "endpoint": "POST /chatbot/genai/ask",
+    "rules": [],
+    "needs": "LLM testing",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": []
+   },
+   {
+    "id": 18,
+    "title": "Chatbot acts on behalf of another user",
+    "owasp": "LLM",
+    "endpoint": "POST /chatbot/genai/ask",
+    "rules": [],
+    "needs": "LLM testing",
+    "tool": "not detected",
+    "tool_rules": [],
+    "oracle": "not detected",
+    "oracle_rules": []
+   }
+  ]
+ },
+ "inventory": {
+  "tool": {
+   "shadow": 29,
+   "dormant": 9,
+   "documented": 35
+  },
+  "oracle": {
+   "documented": 35,
+   "dormant": 9,
+   "shadow": 29
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 8,
+   "fp": 0,
+   "fn": 70,
+   "precision": 1.0,
+   "recall": 0.1026,
+   "f1": 0.186
+  },
+  "T": {
+   "tp": 38,
+   "fp": 115,
+   "fn": 40,
+   "precision": 0.2484,
+   "recall": 0.4872,
+   "f1": 0.329
+  },
+  "C": {
+   "tp": 35,
+   "fp": 85,
+   "fn": 43,
+   "precision": 0.2917,
+   "recall": 0.4487,
+   "f1": 0.3535
+  },
+  "OT": {
+   "tp": 42,
+   "fp": 115,
+   "fn": 36,
+   "precision": 0.2675,
+   "recall": 0.5385,
+   "f1": 0.3574
+  },
+  "TK": {
+   "tp": 63,
+   "fp": 51,
+   "fn": 15,
+   "precision": 0.5526,
+   "recall": 0.8077,
+   "f1": 0.6563
+  },
+  "OTK": {
+   "tp": 66,
+   "fp": 5,
+   "fn": 12,
+   "precision": 0.9296,
+   "recall": 0.8462,
+   "f1": 0.8859
+  },
+  "OTC": {
+   "tp": 51,
+   "fp": 169,
+   "fn": 27,
+   "precision": 0.2318,
+   "recall": 0.6538,
+   "f1": 0.3423
+  },
+  "TKC": {
+   "tp": 69,
+   "fp": 102,
+   "fn": 9,
+   "precision": 0.4035,
+   "recall": 0.8846,
+   "f1": 0.5542
+  },
+  "OTKC": {
+   "tp": 72,
+   "fp": 55,
+   "fn": 6,
+   "precision": 0.5669,
+   "recall": 0.9231,
+   "f1": 0.7024
+  }
+ }
+}

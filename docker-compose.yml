@@ -1,0 +1,42 @@
+# API Threat Graph prototype in Docker.
+#
+#   docker compose up --build        then open http://localhost:8080
+#   Windows: double-click START-Windows.bat     macOS / Linux: sh start.sh
+#   stop:    docker compose down                (or STOP-Windows.bat / sh stop.sh)
+#
+# atg       runs ShopLite's four microservices, mitmproxy and Phases 1-4 inside one container
+#           (first as shipped, then with the recommended fixes), then serves the threat graph,
+#           the dashboards and the Section IV results on http://localhost:8080
+# postgres  the graph store: each run's threat graph is saved in tables atg_nodes / atg_edges,
+#           and attack paths come from a recursive SQL query on them
+#
+# Port 8080 taken?  ATG_PORT=9090 docker compose up --build   (then open http://localhost:9090)
+name: api-threat-graph
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: atg
+      POSTGRES_PASSWORD: atg
+      POSTGRES_DB: atg
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atg -d atg"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  atg:
+    build: .
+    image: api-threat-graph:1.1
+    init: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ATG_GRAPH_STORE: postgresql://atg:atg@postgres:5432/atg
+      ATG_PUBLIC_URL: http://localhost:${ATG_PORT:-8080}
+    ports:
+      - "${ATG_PORT:-8080}:8888"
+    volumes:
+      - ./output:/app/output      # every page and JSON file also lands in ./output on your machine

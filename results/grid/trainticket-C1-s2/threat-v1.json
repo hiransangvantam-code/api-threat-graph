@@ -1,0 +1,357 @@
+{
+ "testbed": "trainticket",
+ "run": "trainticket-C1-s2",
+ "timing": {
+  "rule_engine_ms": 5.88,
+  "dependency_analyzer_ms": 0.3,
+  "threat_graph_ms": 15.45,
+  "attack_path_query_ms": 8855.58,
+  "phase3_total_ms": 14663.1,
+  "phase4_dashboard_ms": 28.1,
+  "dashboard_kb": 1633.0,
+  "phase2_normalize_ms": 25.7
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 6.17,
+  "dependency_analyzer_ms": 0.3,
+  "threat_graph_ms": 8.57,
+  "attack_path_query_ms": 7402.99,
+  "phase3_total_ms": 12136.4,
+  "phase4_dashboard_ms": 26.6,
+  "dashboard_kb": 1564.2
+ },
+ "graph": {
+  "nodes": 570,
+  "edges": 1590,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 46,
+   "Endpoint": 265,
+   "Risk": 5,
+   "Vulnerability": 252
+  },
+  "edges_by_rel": {
+   "reaches": 53,
+   "exposes": 265,
+   "runs_on": 265,
+   "routes": 249,
+   "depends_on": 123,
+   "calls": 131,
+   "has_vuln": 252,
+   "leads_to": 252
+  },
+  "attack_paths": 1230,
+  "critical_or_high_paths": 147,
+  "internet_paths": 226,
+  "hops_mean": 4.8919,
+  "hops_max": 9,
+  "apcr_median": 5.7,
+  "apcr_p90": 12.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 2926.5,
+  "findings": 252,
+  "by_severity": {
+   "critical": 43,
+   "high": 98,
+   "medium": 94,
+   "low": 17
+  },
+  "rules_fired": 13,
+  "fixes_for_70pct": 58,
+  "fixes_for_90pct": 119,
+  "remediation_actions": 186,
+  "longest_chain": 22,
+  "max_blast_radius": 21
+ },
+ "oracle_graph": {
+  "nodes": 553,
+  "edges": 1556,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 46,
+   "Endpoint": 265,
+   "Risk": 5,
+   "Vulnerability": 235
+  },
+  "edges_by_rel": {
+   "reaches": 53,
+   "exposes": 265,
+   "runs_on": 265,
+   "routes": 249,
+   "depends_on": 123,
+   "calls": 131,
+   "has_vuln": 235,
+   "leads_to": 235
+  },
+  "attack_paths": 1144,
+  "critical_or_high_paths": 130,
+  "internet_paths": 209,
+  "hops_mean": 4.9231,
+  "hops_max": 9,
+  "apcr_median": 5.42,
+  "apcr_p90": 12.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 2722.5,
+  "findings": 235,
+  "by_severity": {
+   "critical": 43,
+   "high": 81,
+   "medium": 94,
+   "low": 17
+  },
+  "rules_fired": 13,
+  "fixes_for_70pct": 60,
+  "fixes_for_90pct": 118,
+  "remediation_actions": 182,
+  "longest_chain": 2,
+  "max_blast_radius": 21
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 235,
+   "fp": 17,
+   "fn": 0,
+   "precision": 0.9325,
+   "recall": 1.0,
+   "f1": 0.9651,
+   "tool": 252,
+   "oracle": 235,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 1.0,
+   "severity_agreement": 1.0,
+   "score_mae": 0.0
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 9,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-DEBUG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 46,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 46,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 7,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 5,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-02": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-01": {
+    "tp": 40,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-02": {
+    "tp": 38,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-08": {
+    "tp": 24,
+    "fp": 17,
+    "fn": 0,
+    "precision": 0.5854,
+    "recall": 1.0,
+    "f1": 0.7385
+   }
+  },
+  "paths": {
+   "tp": 444,
+   "fp": 34,
+   "fn": 0,
+   "precision": 0.9289,
+   "recall": 1.0,
+   "f1": 0.9631,
+   "tool": 478,
+   "oracle": 444
+  },
+  "risk": {
+   "tool_R": 2926.5,
+   "oracle_R": 2722.5,
+   "ratio": 1.0749,
+   "top10_overlap": 1.0,
+   "service_risk_spearman": 1.0,
+   "fixes_70_tool": 58,
+   "fixes_70_oracle": 60
+  },
+  "missed": [],
+  "extra": [
+   "('TS-08', ('ts-config-service', 'DELETE', '/api/v1/configservice/configs/{}'))",
+   "('TS-08', ('ts-config-service', 'PUT', '/api/v1/configservice/configs'))",
+   "('TS-08', ('ts-food-service', 'POST', '/api/v1/foodservice/orders'))",
+   "('TS-08', ('ts-notification-service', 'POST', '/api/v1/notifyservice/notification/order_cancel_success'))",
+   "('TS-08', ('ts-order-other-service', 'GET', '/api/v1/orderOtherService/orderOther/{}'))",
+   "('TS-08', ('ts-order-other-service', 'POST', '/api/v1/orderOtherService/orderOther'))",
+   "('TS-08', ('ts-price-service', 'DELETE', '/api/v1/priceservice/prices/{}'))",
+   "('TS-08', ('ts-price-service', 'POST', '/api/v1/priceservice/prices'))",
+   "('TS-08', ('ts-seat-service', 'POST', '/api/v1/seatservice/seats'))",
+   "('TS-08', ('ts-train-service', 'DELETE', '/api/v1/trainservice/trains/{}'))",
+   "('TS-08', ('ts-travel-service', 'GET', '/api/v1/travelservice/admin_trip'))",
+   "('TS-08', ('ts-travel-service', 'POST', '/api/v1/travelservice/trip_detail'))",
+   "('TS-08', ('ts-travel2-service', 'DELETE', '/api/v1/travel2service/trips/{}'))",
+   "('TS-08', ('ts-user-service', 'DELETE', '/api/v1/userservice/users/{}'))",
+   "('TS-08', ('ts-user-service', 'GET', '/api/v1/userservice/users/{}'))",
+   "('TS-08', ('ts-user-service', 'PUT', '/api/v1/userservice/users'))",
+   "('TS-08', ('ts-verification-code-service', 'GET', '/api/v1/verifycode/verify/{}'))"
+  ]
+ },
+ "known": null,
+ "inventory": {
+  "tool": {
+   "documented": 210,
+   "dormant": 44,
+   "shadow": 11
+  },
+  "oracle": {
+   "documented": 210,
+   "dormant": 44,
+   "shadow": 11
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 235,
+   "precision": null,
+   "recall": 0.0,
+   "f1": null
+  },
+  "T": {
+   "tp": 59,
+   "fp": 860,
+   "fn": 176,
+   "precision": 0.0642,
+   "recall": 0.2511,
+   "f1": 0.1023
+  },
+  "C": {
+   "tp": 21,
+   "fp": 348,
+   "fn": 214,
+   "precision": 0.0569,
+   "recall": 0.0894,
+   "f1": 0.0695
+  },
+  "OT": {
+   "tp": 64,
+   "fp": 622,
+   "fn": 171,
+   "precision": 0.0933,
+   "recall": 0.2723,
+   "f1": 0.139
+  },
+  "TK": {
+   "tp": 199,
+   "fp": 714,
+   "fn": 36,
+   "precision": 0.218,
+   "recall": 0.8468,
+   "f1": 0.3467
+  },
+  "OTK": {
+   "tp": 204,
+   "fp": 299,
+   "fn": 31,
+   "precision": 0.4056,
+   "recall": 0.8681,
+   "f1": 0.5528
+  },
+  "OTC": {
+   "tp": 95,
+   "fp": 713,
+   "fn": 140,
+   "precision": 0.1176,
+   "recall": 0.4043,
+   "f1": 0.1822
+  },
+  "TKC": {
+   "tp": 235,
+   "fp": 265,
+   "fn": 0,
+   "precision": 0.47,
+   "recall": 1.0,
+   "f1": 0.6395
+  },
+  "OTKC": {
+   "tp": 235,
+   "fp": 17,
+   "fn": 0,
+   "precision": 0.9325,
+   "recall": 1.0,
+   "f1": 0.9651
+  }
+ }
+}

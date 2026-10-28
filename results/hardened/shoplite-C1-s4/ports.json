@@ -1,0 +1,6 @@
+{
+ "api-gateway": 8000,
+ "user-service": 8001,
+ "order-service": 8002,
+ "payment-service": 8003
+}

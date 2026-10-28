@@ -1,0 +1,5 @@
+Volume,Flows,Span records,Traffic extractor (ms),Trace extractor (ms),Phase 1 total (ms),Phase 1 peak RSS (MB),Normalize (ms),Normalize peak RSS (MB),Inventory entries
+×1,8011,13010,231.8,273.0,799.0,75.3,43.2,17.0,220
+×5,40055,65050,1311.2,1675.5,3322.6,257.4,38.9,16.9,220
+×10,80110,130100,2889.0,3318.9,6573.7,484.6,38.6,17.0,220
+×20,160220,260200,10047.4,6898.1,17429.0,939.1,43.4,17.0,220

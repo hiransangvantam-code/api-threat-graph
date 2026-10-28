@@ -1,0 +1,840 @@
+{
+ "testbed": "trainticket",
+ "condition": "C2",
+ "seed": 1,
+ "capture": "ns",
+ "untraced": [
+  "ts-admin-basic-info-service",
+  "ts-admin-order-service",
+  "ts-admin-travel-service",
+  "ts-admin-user-service",
+  "ts-consign-service",
+  "ts-execute-service",
+  "ts-food-service",
+  "ts-order-other-service",
+  "ts-rebook-service",
+  "ts-seat-service",
+  "ts-security-service",
+  "ts-station-service",
+  "ts-travel-service",
+  "ts-wait-order-service"
+ ],
+ "workload": {
+  "public_endpoints": 250,
+  "exercised_public": 200,
+  "internal_only": 22,
+  "jobs": 5,
+  "requests": 3010,
+  "status": {
+   "200": 2886,
+   "401": 124
+  },
+  "wall_s": 18.14,
+  "latency_ms": {
+   "p50": 36.51,
+   "p95": 104.09,
+   "mean": 47.92
+  }
+ },
+ "perf": {
+  "extract": {
+   "stage": "extract",
+   "wall_ms": 1080.0,
+   "peak_rss_mb": 62.8,
+   "detail": {
+    "runtime_traffic": 91.3,
+    "openapi": 458.3,
+    "infrastructure": 137.2,
+    "callchain": 252.5
+   },
+   "status": {
+    "runtime_traffic": "ok",
+    "openapi": "ok",
+    "infrastructure": "ok",
+    "callchain": "ok"
+   }
+  },
+  "normalize": {
+   "stage": "normalize",
+   "wall_ms": 38.9,
+   "peak_rss_mb": 16.1,
+   "detail": {
+    "endpoints": 263,
+    "dependencies": 77
+   },
+   "status": {}
+  }
+ },
+ "metrics": {
+  "testbed": "trainticket",
+  "subsets": {
+   "O": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 254,
+     "found": 254,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.9338,
+     "recall_observable": 0.9658,
+     "recall_exercised": 0.9591,
+     "f1": 0.9658
+    },
+    "M2": {
+     "entries": 254,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 254,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.1693,
+     "label_confusion": {
+      "documented->dormant": 211,
+      "dormant->dormant": 43
+     },
+     "shadow_precision": null,
+     "shadow_recall": 0.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 0,
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_exercised": 0.0
+    }
+   },
+   "T": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 270,
+     "found": 182,
+     "observable": 263,
+     "precision": 0.6741,
+     "precision_lenient": 0.6741,
+     "recall_all": 0.6691,
+     "recall_observable": 0.692,
+     "recall_exercised": 0.8273,
+     "f1": 0.6716
+    },
+    "M2": {
+     "entries": 270,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 182,
+     "service_attribution": 0.0,
+     "auth_decided": 0.6758,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.033,
+     "label_confusion": {
+      "documented->shadow": 176,
+      "shadow->shadow": 6
+     },
+     "shadow_precision": 0.033,
+     "shadow_recall": 0.6667,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 0,
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_exercised": 0.0
+    }
+   },
+   "K": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 0,
+     "found": 0,
+     "observable": 263,
+     "precision": 0.0,
+     "precision_lenient": 0.0,
+     "recall_all": 0.0,
+     "recall_observable": 0.0,
+     "recall_exercised": 0.0,
+     "f1": 0.0
+    },
+    "M2": {
+     "entries": 0,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 0,
+     "service_attribution": null,
+     "auth_decided": null,
+     "auth_accuracy": null,
+     "label_accuracy": null,
+     "label_confusion": {},
+     "shadow_precision": null,
+     "shadow_recall": 0.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 38,
+     "precision": 1.0,
+     "recall_all": 0.2923,
+     "recall_exercised": 0.3274
+    }
+   },
+   "C": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 134,
+     "found": 134,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.4926,
+     "recall_observable": 0.5095,
+     "recall_exercised": 0.6091,
+     "f1": 0.6601
+    },
+    "M2": {
+     "entries": 134,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 134,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.0672,
+     "label_confusion": {
+      "documented->shadow": 125,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 0.0672,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 76,
+     "precision": 1.0,
+     "recall_all": 0.5846,
+     "recall_exercised": 0.6726
+    }
+   },
+   "OT": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 524,
+     "found": 260,
+     "observable": 263,
+     "precision": 0.4962,
+     "precision_lenient": 0.8321,
+     "recall_all": 0.9559,
+     "recall_observable": 0.9886,
+     "recall_exercised": 0.9864,
+     "f1": 0.6533
+    },
+    "M2": {
+     "entries": 524,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 176,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 260,
+     "service_attribution": 0.9769,
+     "auth_decided": 0.0192,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.1885,
+     "label_confusion": {
+      "documented->dormant": 211,
+      "dormant->dormant": 43,
+      "shadow->shadow": 6
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 0.6667,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 0,
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_exercised": 0.0
+    }
+   },
+   "OK": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 254,
+     "found": 254,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.9338,
+     "recall_observable": 0.9658,
+     "recall_exercised": 0.9591,
+     "f1": 0.9658
+    },
+    "M2": {
+     "entries": 254,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 254,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.1693,
+     "label_confusion": {
+      "documented->dormant": 211,
+      "dormant->dormant": 43
+     },
+     "shadow_precision": null,
+     "shadow_recall": 0.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 38,
+     "precision": 1.0,
+     "recall_all": 0.2923,
+     "recall_exercised": 0.3274
+    }
+   },
+   "OC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 263,
+     "found": 263,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.9669,
+     "recall_observable": 1.0,
+     "recall_exercised": 1.0,
+     "f1": 0.9832
+    },
+    "M2": {
+     "entries": 263,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 263,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.673,
+     "label_confusion": {
+      "documented->dormant": 86,
+      "dormant->dormant": 43,
+      "documented->documented": 125,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 76,
+     "precision": 1.0,
+     "recall_all": 0.5846,
+     "recall_exercised": 0.6726
+    }
+   },
+   "TK": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 270,
+     "found": 182,
+     "observable": 263,
+     "precision": 0.6741,
+     "precision_lenient": 0.6741,
+     "recall_all": 0.6691,
+     "recall_observable": 0.692,
+     "recall_exercised": 0.8273,
+     "f1": 0.6716
+    },
+    "M2": {
+     "entries": 270,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 182,
+     "service_attribution": 1.0,
+     "auth_decided": 0.6758,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.033,
+     "label_confusion": {
+      "documented->shadow": 176,
+      "shadow->shadow": 6
+     },
+     "shadow_precision": 0.033,
+     "shadow_recall": 0.6667,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 38,
+     "precision": 1.0,
+     "recall_all": 0.2923,
+     "recall_exercised": 0.3274
+    }
+   },
+   "TC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 404,
+     "found": 208,
+     "observable": 263,
+     "precision": 0.5149,
+     "precision_lenient": 0.7822,
+     "recall_all": 0.7647,
+     "recall_observable": 0.7909,
+     "recall_exercised": 0.9455,
+     "f1": 0.6154
+    },
+    "M2": {
+     "entries": 404,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 108,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 208,
+     "service_attribution": 0.6442,
+     "auth_decided": 0.226,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.0433,
+     "label_confusion": {
+      "documented->shadow": 199,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 0.0433,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 76,
+     "precision": 1.0,
+     "recall_all": 0.5846,
+     "recall_exercised": 0.6726
+    }
+   },
+   "KC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 134,
+     "found": 134,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.4926,
+     "recall_observable": 0.5095,
+     "recall_exercised": 0.6091,
+     "f1": 0.6601
+    },
+    "M2": {
+     "entries": 134,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 134,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.0672,
+     "label_confusion": {
+      "documented->shadow": 125,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 0.0672,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 77,
+     "precision": 1.0,
+     "recall_all": 0.5923,
+     "recall_exercised": 0.6726
+    }
+   },
+   "OTK": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 269,
+     "found": 260,
+     "observable": 263,
+     "precision": 0.9665,
+     "precision_lenient": 0.9665,
+     "recall_all": 0.9559,
+     "recall_observable": 0.9886,
+     "recall_exercised": 0.9864,
+     "f1": 0.9612
+    },
+    "M2": {
+     "entries": 269,
+     "unmatched": 9,
+     "fragments": 9,
+     "split_endpoints": 0,
+     "reconciled": 79
+    },
+    "M3": {
+     "matched": 260,
+     "service_attribution": 1.0,
+     "auth_decided": 0.5192,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.9308,
+     "label_confusion": {
+      "documented->documented": 193,
+      "dormant->dormant": 43,
+      "shadow->shadow": 6,
+      "documented->dormant": 18
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 0.6667,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 38,
+     "precision": 1.0,
+     "recall_all": 0.2923,
+     "recall_exercised": 0.3274
+    }
+   },
+   "OTC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 533,
+     "found": 263,
+     "observable": 263,
+     "precision": 0.4934,
+     "precision_lenient": 0.8349,
+     "recall_all": 0.9669,
+     "recall_observable": 1.0,
+     "recall_exercised": 1.0,
+     "f1": 0.6534
+    },
+    "M2": {
+     "entries": 533,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 182,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 263,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.673,
+     "label_confusion": {
+      "documented->dormant": 86,
+      "dormant->dormant": 43,
+      "documented->documented": 125,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 76,
+     "precision": 1.0,
+     "recall_all": 0.5846,
+     "recall_exercised": 0.6726
+    }
+   },
+   "OKC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 263,
+     "found": 263,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.9669,
+     "recall_observable": 1.0,
+     "recall_exercised": 1.0,
+     "f1": 0.9832
+    },
+    "M2": {
+     "entries": 263,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 263,
+     "service_attribution": 1.0,
+     "auth_decided": 0.0,
+     "auth_accuracy": null,
+     "label_accuracy": 0.673,
+     "label_confusion": {
+      "documented->dormant": 86,
+      "dormant->dormant": 43,
+      "documented->documented": 125,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 77,
+     "precision": 1.0,
+     "recall_all": 0.5923,
+     "recall_exercised": 0.6726
+    }
+   },
+   "TKC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 244,
+     "found": 208,
+     "observable": 263,
+     "precision": 0.8525,
+     "precision_lenient": 0.8525,
+     "recall_all": 0.7647,
+     "recall_observable": 0.7909,
+     "recall_exercised": 0.9455,
+     "f1": 0.8062
+    },
+    "M2": {
+     "entries": 244,
+     "unmatched": 36,
+     "fragments": 36,
+     "split_endpoints": 0,
+     "reconciled": 52
+    },
+    "M3": {
+     "matched": 208,
+     "service_attribution": 1.0,
+     "auth_decided": 0.6298,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.0433,
+     "label_confusion": {
+      "documented->shadow": 199,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 0.0433,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 77,
+     "precision": 1.0,
+     "recall_all": 0.5923,
+     "recall_exercised": 0.6726
+    }
+   },
+   "OTKC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 263,
+     "found": 263,
+     "observable": 263,
+     "precision": 1.0,
+     "precision_lenient": 1.0,
+     "recall_all": 0.9669,
+     "recall_observable": 1.0,
+     "recall_exercised": 1.0,
+     "f1": 0.9832
+    },
+    "M2": {
+     "entries": 263,
+     "unmatched": 0,
+     "fragments": 0,
+     "split_endpoints": 0,
+     "reconciled": 88
+    },
+    "M3": {
+     "matched": 263,
+     "service_attribution": 1.0,
+     "auth_decided": 0.5171,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.9848,
+     "label_confusion": {
+      "documented->documented": 207,
+      "dormant->dormant": 43,
+      "shadow->shadow": 9,
+      "documented->dormant": 4
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 77,
+     "precision": 1.0,
+     "recall_all": 0.5923,
+     "recall_exercised": 0.6726
+    }
+   }
+  },
+  "reconcile_off": {
+   "TK": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 270,
+     "found": 182,
+     "observable": 263,
+     "precision": 0.6741,
+     "precision_lenient": 0.6741,
+     "recall_all": 0.6691,
+     "recall_observable": 0.692,
+     "recall_exercised": 0.8273,
+     "f1": 0.6716
+    },
+    "M2": {
+     "entries": 270,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 182,
+     "service_attribution": 1.0,
+     "auth_decided": 0.6758,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.033,
+     "label_confusion": {
+      "documented->shadow": 176,
+      "shadow->shadow": 6
+     },
+     "shadow_precision": 0.033,
+     "shadow_recall": 0.6667,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 38,
+     "precision": 1.0,
+     "recall_all": 0.2923,
+     "recall_exercised": 0.3274
+    }
+   },
+   "OTKC": {
+    "M1": {
+     "gt_endpoints": 272,
+     "exercised": 220,
+     "entries": 351,
+     "found": 263,
+     "observable": 263,
+     "precision": 0.7493,
+     "precision_lenient": 0.7493,
+     "recall_all": 0.9669,
+     "recall_observable": 1.0,
+     "recall_exercised": 1.0,
+     "f1": 0.8443
+    },
+    "M2": {
+     "entries": 351,
+     "unmatched": 88,
+     "fragments": 88,
+     "split_endpoints": 0,
+     "reconciled": 0
+    },
+    "M3": {
+     "matched": 263,
+     "service_attribution": 1.0,
+     "auth_decided": 0.4677,
+     "auth_accuracy": 1.0,
+     "label_accuracy": 0.9544,
+     "label_confusion": {
+      "documented->documented": 199,
+      "dormant->dormant": 43,
+      "documented->dormant": 12,
+      "shadow->shadow": 9
+     },
+     "shadow_precision": 1.0,
+     "shadow_recall": 1.0,
+     "true_shadow": 9
+    },
+    "M4": {
+     "gt_edges": 130,
+     "exercised_edges": 113,
+     "found_edges": 77,
+     "precision": 1.0,
+     "recall_all": 0.5923,
+     "recall_exercised": 0.6726
+    }
+   }
+  },
+  "raw": {
+   "flows": 3000,
+   "distinct_concrete_paths": 721,
+   "entries_single_sources_total": 658,
+   "entries_merged": 263,
+   "duplicates_collapsed": 395
+  }
+ }
+}

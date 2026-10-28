@@ -1,0 +1,47 @@
+# Phase 1 extractor config for the ShopLite demo.
+# For a real system, change service_map and the paths below; nothing else.
+
+target:
+  name: ShopLite
+  # How hosts seen on the wire map to service names.
+  # Local demo: services listen on 127.0.0.1 ports.
+  # In Docker/K8s you would list "user-service:8001: user-service" etc.
+  service_map:
+    "127.0.0.1:8000": api-gateway
+    "127.0.0.1:8001": user-service
+    "127.0.0.1:8002": order-service
+    "127.0.0.1:8003": payment-service
+    "api-gateway:8000": api-gateway
+    "user-service:8001": user-service
+    "order-service:8002": order-service
+    "payment-service:8003": payment-service
+
+sources:
+  runtime_traffic:            # MITPROXY -> runtime traffic
+    enabled: true
+    capture_files:
+      - output/capture        # *.jsonl from mitm_addon.py, *.har also accepted
+
+  openapi:                    # OPENAPI -> discovery
+    enabled: true
+    # live_targets omitted = probe every host in service_map that answers
+    live_targets:
+      - {service: api-gateway,     base_url: "http://127.0.0.1:8000"}
+      - {service: user-service,    base_url: "http://127.0.0.1:8001"}
+      - {service: order-service,   base_url: "http://127.0.0.1:8002"}
+      - {service: payment-service, base_url: "http://127.0.0.1:8003"}
+    spec_files:
+      - {path: demo_target/specs/payment-service.v1.yaml, service: payment-service}
+
+  infrastructure:             # K8S MANIFESTS -> infrastructure & gateway
+    enabled: true
+    manifest_paths:
+      - demo_target/k8s
+
+  callchain:                  # OPENTELEMETRY -> distributed trace / call chain
+    enabled: true
+    trace_paths:
+      - output/telemetry
+
+output_dir: output/raw
+report_path: output/report.html

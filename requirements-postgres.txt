@@ -1,0 +1,4 @@
+# Optional: store the threat graph in PostgreSQL instead of the built-in SQLite file.
+#   pip install -r requirements-postgres.txt
+#   set ATG_GRAPH_STORE=postgresql://atg:atg@localhost:5432/atg
+psycopg[binary]>=3.1

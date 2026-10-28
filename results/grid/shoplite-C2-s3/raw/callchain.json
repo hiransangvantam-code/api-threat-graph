@@ -1,0 +1,495 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "callchain",
+  "collector": "opentelemetry",
+  "extractor_version": "0.1.0",
+  "run_id": "20261024-064700-bb8738",
+  "collected_at": "2026-10-23T23:47:00+00:00",
+  "duration_ms": 19.3,
+  "inputs": [
+    "/home/claude/api-threat-graph/results/grid/shoplite-C2-s3/telemetry/api-gateway.jsonl",
+    "/home/claude/api-threat-graph/results/grid/shoplite-C2-s3/telemetry/order-service.jsonl",
+    "/home/claude/api-threat-graph/results/grid/shoplite-C2-s3/telemetry/user-service.jsonl"
+  ],
+  "stats": {
+    "spans": 904,
+    "spans_ignored": 13,
+    "traces": 283,
+    "services": 3,
+    "edges": 5,
+    "distinct_call_chains": 12,
+    "max_chain_depth": 3
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "service",
+      "service": "api-gateway",
+      "span_count": 547,
+      "served_operations": [
+        {
+          "operation": "DELETE /api/orders/**",
+          "count": 5,
+          "errors": 0
+        },
+        {
+          "operation": "GET /_debug/config",
+          "count": 4,
+          "errors": 0
+        },
+        {
+          "operation": "GET /api/orders/**",
+          "count": 80,
+          "errors": 0
+        },
+        {
+          "operation": "GET /api/payments/**",
+          "count": 8,
+          "errors": 0
+        },
+        {
+          "operation": "GET /api/users/**",
+          "count": 100,
+          "errors": 0
+        },
+        {
+          "operation": "POST /api/auth/**",
+          "count": 49,
+          "errors": 0
+        },
+        {
+          "operation": "POST /api/orders/**",
+          "count": 33,
+          "errors": 0
+        },
+        {
+          "operation": "POST /api/payments/**",
+          "count": 2,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "order-service",
+      "span_count": 184,
+      "served_operations": [
+        {
+          "operation": "DELETE /orders/{order_id}",
+          "count": 5,
+          "errors": 0
+        },
+        {
+          "operation": "GET /orders",
+          "count": 40,
+          "errors": 0
+        },
+        {
+          "operation": "GET /orders/{order_id}",
+          "count": 40,
+          "errors": 0
+        },
+        {
+          "operation": "POST /orders",
+          "count": 33,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "user-service",
+      "span_count": 173,
+      "served_operations": [
+        {
+          "operation": "GET /internal/users/export",
+          "count": 2,
+          "errors": 0
+        },
+        {
+          "operation": "GET /users/{user_id}",
+          "count": 85,
+          "errors": 0
+        },
+        {
+          "operation": "GET /users/{user_id}/addresses",
+          "count": 37,
+          "errors": 0
+        },
+        {
+          "operation": "POST /auth/login",
+          "count": 49,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "order-service",
+      "calls": 118,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "DELETE /orders/{order_id}",
+          "count": 5,
+          "errors": 0,
+          "p50_ms": 0.79
+        },
+        {
+          "operation": "GET /orders",
+          "count": 40,
+          "errors": 0,
+          "p50_ms": 0.76
+        },
+        {
+          "operation": "GET /orders/{order_id}",
+          "count": 40,
+          "errors": 0,
+          "p50_ms": 0.73
+        },
+        {
+          "operation": "POST /orders",
+          "count": 33,
+          "errors": 0,
+          "p50_ms": 6.67
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "payment-service",
+      "calls": 10,
+      "evidence": [
+        "uninstrumented callee"
+      ],
+      "operations": [
+        {
+          "operation": "GET GET payment-service",
+          "count": 8,
+          "errors": 0,
+          "p50_ms": 2.66
+        },
+        {
+          "operation": "POST POST payment-service",
+          "count": 2,
+          "errors": 0,
+          "p50_ms": 2.41
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "user-service",
+      "calls": 138,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "GET /users/{user_id}",
+          "count": 52,
+          "errors": 0,
+          "p50_ms": 0.96
+        },
+        {
+          "operation": "GET /users/{user_id}/addresses",
+          "count": 37,
+          "errors": 0,
+          "p50_ms": 0.94
+        },
+        {
+          "operation": "POST /auth/login",
+          "count": 49,
+          "errors": 0,
+          "p50_ms": 1.07
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "order-service",
+      "to": "payment-service",
+      "calls": 33,
+      "evidence": [
+        "uninstrumented callee"
+      ],
+      "operations": [
+        {
+          "operation": "POST POST payment-service",
+          "count": 33,
+          "errors": 0,
+          "p50_ms": 2.68
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "order-service",
+      "to": "user-service",
+      "calls": 33,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "GET /users/{user_id}",
+          "count": 33,
+          "errors": 0,
+          "p50_ms": 0.9
+        }
+      ]
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "DELETE /api/orders/**",
+      "traces": 5,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /_debug/config",
+      "traces": 4,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /api/orders/**",
+      "traces": 80,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /api/payments/**",
+      "traces": 8,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /api/users/**",
+      "traces": 100,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "POST /api/auth/**",
+      "traces": 49,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "POST /api/orders/**",
+      "traces": 33,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "POST /api/payments/**",
+      "traces": 2,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "user-service",
+      "operation": "GET /internal/users/export",
+      "traces": 2,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "call_chain",
+      "traces": 52,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/users/**"
+        },
+        {
+          "depth": 1,
+          "service": "user-service",
+          "operation": "GET /users/{user_id}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 49,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/auth/**"
+        },
+        {
+          "depth": 1,
+          "service": "user-service",
+          "operation": "POST /auth/login"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 40,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/orders/**"
+        },
+        {
+          "depth": 1,
+          "service": "order-service",
+          "operation": "GET /orders"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 40,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/orders/**"
+        },
+        {
+          "depth": 1,
+          "service": "order-service",
+          "operation": "GET /orders/{order_id}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 37,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/users/**"
+        },
+        {
+          "depth": 1,
+          "service": "user-service",
+          "operation": "GET /users/{user_id}/addresses"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 33,
+      "depth": 3,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/orders/**"
+        },
+        {
+          "depth": 1,
+          "service": "order-service",
+          "operation": "POST /orders"
+        },
+        {
+          "depth": 2,
+          "service": "user-service",
+          "operation": "GET /users/{user_id}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 11,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/users/**"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 8,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/payments/**"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 5,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "DELETE /api/orders/**"
+        },
+        {
+          "depth": 1,
+          "service": "order-service",
+          "operation": "DELETE /orders/{order_id}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 4,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /_debug/config"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 2,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/payments/**"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 2,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "user-service",
+          "operation": "GET /internal/users/export"
+        }
+      ]
+    }
+  ]
+}

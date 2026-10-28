@@ -1,0 +1,44 @@
+target:
+  name: crapi
+  service_map:
+    127.0.0.1:9200: crapi-web
+    127.0.0.1:9201: crapi-identity
+    127.0.0.1:9202: crapi-community
+    127.0.0.1:9203: crapi-workshop
+    127.0.0.1:9204: crapi-chatbot
+    127.0.0.1:9205: gateway-service
+sources:
+  runtime_traffic:
+    enabled: true
+    capture_files:
+    - /home/claude/api-threat-graph/results/grid/crapi-C1-s3/capture
+  openapi:
+    enabled: true
+    timeout_s: 2
+    spec_files:
+    - path: /home/claude/api-threat-graph/bench/testbeds/crapi/openapi/crapi-openapi-spec.json
+      service_by_prefix:
+        /identity/: crapi-identity
+        /community/: crapi-community
+        /workshop/: crapi-workshop
+        /chatbot/: crapi-chatbot
+  infrastructure:
+    enabled: true
+    manifest_paths:
+    - /home/claude/api-threat-graph/bench/testbeds/crapi/k8s
+    gateway_configs:
+    - path: /home/claude/api-threat-graph/bench/testbeds/crapi/gateway/nginx.conf.template
+      type: nginx
+      service: crapi-web
+      env_from:
+      - /home/claude/api-threat-graph/bench/testbeds/crapi/k8s/web-configmap.yaml
+      - /home/claude/api-threat-graph/bench/testbeds/crapi/k8s/web-deployment.yaml
+      - /home/claude/api-threat-graph/bench/testbeds/crapi/k8s/web-ingress.yaml
+      env:
+        HTTP_PROTOCOL: http
+  callchain:
+    enabled: true
+    trace_paths:
+    - /home/claude/api-threat-graph/results/grid/crapi-C1-s3/telemetry
+output_dir: /home/claude/api-threat-graph/results/grid/crapi-C1-s3/raw
+report_path: /home/claude/api-threat-graph/results/grid/crapi-C1-s3/report.html

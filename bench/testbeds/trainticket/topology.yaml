@@ -1,0 +1,2821 @@
+name: trainticket
+description: API surface of FudanSELab Train Ticket, mined from source
+source:
+  repo: https://github.com/FudanSELab/train-ticket
+  commit: 313886e99befb94be6cd45f085c98e0019f59829
+documentation: live-swagger
+id_style: uuid
+gateway:
+  service: ts-gateway-service
+  kind: spring-cloud-gateway
+  config: gateway/application.yml
+  routes:
+  - id: admin-basic-info
+    path: /api/v1/adminbasicservice/**
+    service: ts-admin-basic-info-service
+  - id: admin-order
+    path: /api/v1/adminorderservice/**
+    service: ts-admin-order-service
+  - id: admin-route
+    path: /api/v1/adminrouteservice/**
+    service: ts-admin-route-service
+  - id: admin-travel
+    path: /api/v1/admintravelservice/**
+    service: ts-admin-travel-service
+  - id: admin-user
+    path: /api/v1/adminuserservice/users/**
+    service: ts-admin-user-service
+  - id: assurance
+    path: /api/v1/assuranceservice/**
+    service: ts-assurance-service
+  - id: auth
+    path: /api/v1/auth/**
+    service: ts-auth-service
+  - id: auth-user
+    path: /api/v1/users/**
+    service: ts-auth-service
+  - id: avatar
+    path: /api/v1/avatar/**
+    service: ts-avatar-service
+  - id: basic
+    path: /api/v1/basicservice/**
+    service: ts-basic-service
+  - id: cancel
+    path: /api/v1/cancelservice/**
+    service: ts-cancel-service
+  - id: config
+    path: /api/v1/configservice/**
+    service: ts-config-service
+  - id: consign-price
+    path: /api/v1/consignpriceservice/**
+    service: ts-consign-price-service
+  - id: consign
+    path: /api/v1/consignservice/**
+    service: ts-consign-service
+  - id: contacts
+    path: /api/v1/contactservice/**
+    service: ts-contacts-service
+  - id: execute
+    path: /api/v1/executeservice/**
+    service: ts-execute-service
+  - id: food
+    path: /api/v1/foodservice/**
+    service: ts-food-service
+  - id: inside-payment
+    path: /api/v1/inside_pay_service/**
+    service: ts-inside-payment-service
+  - id: notification
+    path: /api/v1/notifyservice/**
+    service: ts-notification-service
+  - id: order-other
+    path: /api/v1/orderOtherService/**
+    service: ts-order-other-service
+  - id: order
+    path: /api/v1/orderservice/**
+    service: ts-order-service
+  - id: payment
+    path: /api/v1/paymentservice/**
+    service: ts-payment-service
+  - id: preserve-other
+    path: /api/v1/preserveotherservice/**
+    service: ts-preserve-other-service
+  - id: preserve
+    path: /api/v1/preserveservice/**
+    service: ts-preserve-service
+  - id: price
+    path: /api/v1/priceservice/**
+    service: ts-price-service
+  - id: rebook
+    path: /api/v1/rebookservice/**
+    service: ts-rebook-service
+  - id: route-plan
+    path: /api/v1/routeplanservice/**
+    service: ts-route-plan-service
+  - id: route
+    path: /api/v1/routeservice/**
+    service: ts-route-service
+  - id: seat
+    path: /api/v1/seatservice/**
+    service: ts-seat-service
+  - id: security
+    path: /api/v1/securityservice/**
+    service: ts-security-service
+  - id: station-food
+    path: /api/v1/stationfoodservice/**
+    service: ts-station-food-service
+  - id: station
+    path: /api/v1/stationservice/**
+    service: ts-station-service
+  - id: train-food
+    path: /api/v1/trainfoodservice/**
+    service: ts-train-food-service
+  - id: train
+    path: /api/v1/trainservice/**
+    service: ts-train-service
+  - id: travel2
+    path: /api/v1/travel2service/**
+    service: ts-travel2-service
+  - id: travel-plan
+    path: /api/v1/travelplanservice/**
+    service: ts-travel-plan-service
+  - id: travel
+    path: /api/v1/travelservice/**
+    service: ts-travel-service
+  - id: user
+    path: /api/v1/userservice/users/**
+    service: ts-user-service
+  - id: verification-code
+    path: /api/v1/verifycode/**
+    service: ts-verification-code-service
+services:
+- name: ts-admin-basic-info-service
+  lang: java/spring
+  port: 18767
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/adminbasicservice/welcome
+    auth: required
+    roles: &id001
+    - ADMIN
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/adminbasicservice/adminbasic/contacts
+    auth: none
+    roles: []
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: getAllContacts
+    calls:
+    - service: ts-contacts-service
+      method: GET
+      path: /api/v1/contactservice/contacts
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminbasicservice/adminbasic/contacts/{contactsId}
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: deleteContacts
+    calls:
+    - service: ts-contacts-service
+      method: DELETE
+      path: /api/v1/contactservice/contacts/{contactsId}
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminbasicservice/adminbasic/contacts
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: modifyContacts
+    calls:
+    - service: ts-contacts-service
+      method: PUT
+      path: /api/v1/contactservice/contacts
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminbasicservice/adminbasic/contacts
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: addContacts
+    calls:
+    - service: ts-contacts-service
+      method: POST
+      path: /api/v1/contactservice/contacts/admin
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/adminbasicservice/adminbasic/stations
+    auth: none
+    roles: []
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: getAllStations
+    calls:
+    - service: ts-station-service
+      method: GET
+      path: /api/v1/stationservice/stations
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminbasicservice/adminbasic/stations/{id}
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: deleteStation
+    calls:
+    - service: ts-station-service
+      method: POST
+      path: /api/v1/stationservice/stations
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminbasicservice/adminbasic/stations
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: modifyStation
+    calls:
+    - service: ts-station-service
+      method: DELETE
+      path: /api/v1/stationservice/stations/{stationsId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminbasicservice/adminbasic/stations
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: addStation
+    calls:
+    - service: ts-station-service
+      method: PUT
+      path: /api/v1/stationservice/stations
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/adminbasicservice/adminbasic/trains
+    auth: none
+    roles: []
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: getAllTrains
+    calls:
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminbasicservice/adminbasic/trains/{id}
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: deleteTrain
+    calls:
+    - service: ts-train-service
+      method: POST
+      path: /api/v1/trainservice/trains
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminbasicservice/adminbasic/trains
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: modifyTrain
+    calls:
+    - service: ts-train-service
+      method: DELETE
+      path: /api/v1/trainservice/trains/{id}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminbasicservice/adminbasic/trains
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: addTrain
+    calls:
+    - service: ts-train-service
+      method: PUT
+      path: /api/v1/trainservice/trains
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/adminbasicservice/adminbasic/configs
+    auth: none
+    roles: []
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: getAllConfigs
+    calls:
+    - service: ts-config-service
+      method: GET
+      path: /api/v1/configservice/configs
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminbasicservice/adminbasic/configs/{name}
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: deleteConfig
+    calls:
+    - service: ts-config-service
+      method: POST
+      path: /api/v1/configservice/configs
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminbasicservice/adminbasic/configs
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: modifyConfig
+    calls:
+    - service: ts-config-service
+      method: DELETE
+      path: /api/v1/configservice/configs/{configName}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminbasicservice/adminbasic/configs
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: addConfig
+    calls:
+    - service: ts-config-service
+      method: PUT
+      path: /api/v1/configservice/configs
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/adminbasicservice/adminbasic/prices
+    auth: none
+    roles: []
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: getAllPrices
+    calls:
+    - service: ts-price-service
+      method: GET
+      path: /api/v1/priceservice/prices
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminbasicservice/adminbasic/prices/{pricesId}
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: deletePrice
+    calls:
+    - service: ts-price-service
+      method: POST
+      path: /api/v1/priceservice/prices
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminbasicservice/adminbasic/prices
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: modifyPrice
+    calls:
+    - service: ts-price-service
+      method: DELETE
+      path: /api/v1/priceservice/prices/{pricesId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminbasicservice/adminbasic/prices
+    auth: required
+    roles: *id001
+    source: ts-admin-basic-info-service/src/main/java/adminbasic/controller/AdminBasicInfoController.java
+    handler: addPrice
+    calls:
+    - service: ts-price-service
+      method: PUT
+      path: /api/v1/priceservice/prices
+    calls_assigned: round-robin
+- name: ts-admin-order-service
+  lang: java/spring
+  port: 16112
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/adminorderservice/welcome
+    auth: required
+    roles: &id002
+    - ADMIN
+    source: ts-admin-order-service/src/main/java/adminorder/controller/AdminOrderController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/adminorderservice/adminorder
+    auth: required
+    roles: *id002
+    source: ts-admin-order-service/src/main/java/adminorder/controller/AdminOrderController.java
+    handler: getAllOrders
+    calls:
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order
+    - service: ts-order-service
+      method: PUT
+      path: /api/v1/orderservice/order/admin
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminorderservice/adminorder
+    auth: required
+    roles: *id002
+    source: ts-admin-order-service/src/main/java/adminorder/controller/AdminOrderController.java
+    handler: addOrder
+    calls:
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther
+    - service: ts-order-other-service
+      method: PUT
+      path: /api/v1/orderOtherService/orderOther/admin
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminorderservice/adminorder
+    auth: required
+    roles: *id002
+    source: ts-admin-order-service/src/main/java/adminorder/controller/AdminOrderController.java
+    handler: updateOrder
+    calls:
+    - service: ts-order-service
+      method: DELETE
+      path: /api/v1/orderservice/order/{orderId}
+    - service: ts-order-service
+      method: POST
+      path: /api/v1/orderservice/order/admin
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminorderservice/adminorder/{orderId}/{trainNumber}
+    auth: required
+    roles: *id002
+    source: ts-admin-order-service/src/main/java/adminorder/controller/AdminOrderController.java
+    handler: deleteOrder
+    calls:
+    - service: ts-order-other-service
+      method: DELETE
+      path: /api/v1/orderOtherService/orderOther/{orderId}
+    - service: ts-order-other-service
+      method: POST
+      path: /api/v1/orderOtherService/orderOther/admin
+    calls_assigned: round-robin
+- name: ts-admin-route-service
+  lang: java/spring
+  port: 16113
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/adminrouteservice/welcome
+    auth: required
+    roles: &id003
+    - ADMIN
+    source: ts-admin-route-service/src/main/java/adminroute/controller/AdminRouteController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/adminrouteservice/adminroute
+    auth: required
+    roles: *id003
+    source: ts-admin-route-service/src/main/java/adminroute/controller/AdminRouteController.java
+    handler: getAllRoutes
+    calls:
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    - service: ts-station-service
+      method: POST
+      path: /api/v1/stationservice/stations/idlist
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminrouteservice/adminroute
+    auth: required
+    roles: *id003
+    source: ts-admin-route-service/src/main/java/adminroute/controller/AdminRouteController.java
+    handler: addRoute
+    calls:
+    - service: ts-route-service
+      method: POST
+      path: /api/v1/routeservice/routes
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminrouteservice/adminroute/{routeId}
+    auth: required
+    roles: *id003
+    source: ts-admin-route-service/src/main/java/adminroute/controller/AdminRouteController.java
+    handler: deleteRoute
+    calls:
+    - service: ts-route-service
+      method: DELETE
+      path: /api/v1/routeservice/routes/{routeId}
+    calls_assigned: round-robin
+- name: ts-admin-travel-service
+  lang: java/spring
+  port: 16114
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/admintravelservice/welcome
+    auth: required
+    roles: &id004
+    - ADMIN
+    source: ts-admin-travel-service/src/main/java/admintravel/controller/AdminTravelController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/admintravelservice/admintravel
+    auth: required
+    roles: *id004
+    source: ts-admin-travel-service/src/main/java/admintravel/controller/AdminTravelController.java
+    handler: getAllTravels
+    calls:
+    - service: ts-travel-service
+      method: GET
+      path: /api/v1/travelservice/admin_trip
+    - service: ts-travel-service
+      method: PUT
+      path: /api/v1/travelservice/trips
+    - service: ts-station-service
+      method: POST
+      path: /api/v1/stationservice/stations/idlist
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/admintravelservice/admintravel
+    auth: required
+    roles: *id004
+    source: ts-admin-travel-service/src/main/java/admintravel/controller/AdminTravelController.java
+    handler: addTravel
+    calls:
+    - service: ts-travel2-service
+      method: GET
+      path: /api/v1/travel2service/admin_trip
+    - service: ts-travel2-service
+      method: PUT
+      path: /api/v1/travel2service/trips
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains/{id}
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/admintravelservice/admintravel
+    auth: required
+    roles: *id004
+    source: ts-admin-travel-service/src/main/java/admintravel/controller/AdminTravelController.java
+    handler: updateTravel
+    calls:
+    - service: ts-travel-service
+      method: POST
+      path: /api/v1/travelservice/trips
+    - service: ts-travel-service
+      method: DELETE
+      path: /api/v1/travelservice/trips/{tripId}
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/admintravelservice/admintravel/{tripId}
+    auth: required
+    roles: *id004
+    source: ts-admin-travel-service/src/main/java/admintravel/controller/AdminTravelController.java
+    handler: deleteTravel
+    calls:
+    - service: ts-travel2-service
+      method: POST
+      path: /api/v1/travel2service/trips/routes
+    - service: ts-travel2-service
+      method: DELETE
+      path: /api/v1/travel2service/trips/{tripId}
+    calls_assigned: round-robin
+- name: ts-admin-user-service
+  lang: java/spring
+  port: 16115
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/adminuserservice/users/welcome
+    auth: required
+    roles: &id005
+    - ADMIN
+    source: ts-admin-user-service/src/main/java/adminuser/controller/AdminUserController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/adminuserservice/users
+    auth: required
+    roles: *id005
+    source: ts-admin-user-service/src/main/java/adminuser/controller/AdminUserController.java
+    handler: getAllUsers
+    calls:
+    - service: ts-user-service
+      method: GET
+      path: /api/v1/userservice/users
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/adminuserservice/users
+    auth: required
+    roles: *id005
+    source: ts-admin-user-service/src/main/java/adminuser/controller/AdminUserController.java
+    handler: updateUser
+    calls:
+    - service: ts-user-service
+      method: DELETE
+      path: /api/v1/userservice/users/{userId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/adminuserservice/users
+    auth: required
+    roles: *id005
+    source: ts-admin-user-service/src/main/java/adminuser/controller/AdminUserController.java
+    handler: addUser
+    calls:
+    - service: ts-user-service
+      method: PUT
+      path: /api/v1/userservice/users
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/adminuserservice/users/{userId}
+    auth: required
+    roles: *id005
+    source: ts-admin-user-service/src/main/java/adminuser/controller/AdminUserController.java
+    handler: deleteUser
+    calls:
+    - service: ts-user-service
+      method: POST
+      path: /api/v1/userservice/users/register
+    calls_assigned: round-robin
+- name: ts-assurance-service
+  lang: java/spring
+  port: 18888
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/assuranceservice/welcome
+    auth: required
+    roles: &id006
+    - USER
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/assuranceservice/assurances
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: getAllAssurances
+    calls: []
+  - method: GET
+    path: /api/v1/assuranceservice/assurances/types
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: getAllAssuranceType
+    calls: []
+  - method: DELETE
+    path: /api/v1/assuranceservice/assurances/assuranceid/{assuranceId}
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: deleteAssurance
+    calls: []
+  - method: DELETE
+    path: /api/v1/assuranceservice/assurances/orderid/{orderId}
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: deleteAssuranceByOrderId
+    calls: []
+  - method: PATCH
+    path: /api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex}
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: modifyAssurance
+    calls: []
+  - method: GET
+    path: /api/v1/assuranceservice/assurances/{typeIndex}/{orderId}
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: createNewAssurance
+    calls: []
+  - method: GET
+    path: /api/v1/assuranceservice/assurances/assuranceid/{assuranceId}
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: getAssuranceById
+    calls: []
+  - method: GET
+    path: /api/v1/assuranceservice/assurance/orderid/{orderId}
+    auth: required
+    roles: *id006
+    source: ts-assurance-service/src/main/java/assurance/controller/AssuranceController.java
+    handler: findAssuranceByOrderId
+    calls: []
+- name: ts-auth-service
+  lang: java/spring
+  port: null
+  documented: false
+  endpoints:
+  - method: GET
+    path: /api/v1/users/hello
+    auth: required
+    roles: []
+    source: ts-auth-service/src/main/java/auth/controller/UserController.java
+    handler: getHello
+    calls:
+    - service: ts-verification-code-service
+      method: GET
+      path: /api/v1/verifycode/verify/{verifyCode}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/users/login
+    auth: none
+    roles: []
+    source: ts-auth-service/src/main/java/auth/controller/UserController.java
+    handler: getToken
+    calls: []
+  - method: GET
+    path: /api/v1/users
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-auth-service/src/main/java/auth/controller/UserController.java
+    handler: getAllUser
+    calls: []
+  - method: DELETE
+    path: /api/v1/users/{userId}
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-auth-service/src/main/java/auth/controller/UserController.java
+    handler: deleteUserById
+    calls: []
+  - method: GET
+    path: /api/v1/auth/hello
+    auth: none
+    roles: []
+    source: ts-auth-service/src/main/java/auth/controller/AuthController.java
+    handler: getHello
+    calls: []
+  - method: POST
+    path: /api/v1/auth
+    auth: none
+    roles: []
+    source: ts-auth-service/src/main/java/auth/controller/AuthController.java
+    handler: createDefaultUser
+    calls: []
+- name: ts-avatar-service
+  lang: python/flask
+  port: null
+  documented: false
+  endpoints:
+  - method: POST
+    path: /api/v1/avatar
+    auth: none
+    roles: []
+    source: ts-avatar-service/app.py
+    handler: null
+    calls: []
+- name: ts-basic-service
+  lang: java/spring
+  port: 15680
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/basicservice/welcome
+    auth: none
+    roles: &id007 []
+    source: ts-basic-service/src/main/java/fdse/microservice/controller/BasicController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/basicservice/basic/travel
+    auth: none
+    roles: *id007
+    source: ts-basic-service/src/main/java/fdse/microservice/controller/BasicController.java
+    handler: queryForTravel
+    calls:
+    - service: ts-station-service
+      method: GET
+      path: /api/v1/stationservice/stations/id/{stationNameForId}
+    - service: ts-train-service
+      method: POST
+      path: /api/v1/trainservice/trains/byNames
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/basicservice/basic/travels
+    auth: none
+    roles: *id007
+    source: ts-basic-service/src/main/java/fdse/microservice/controller/BasicController.java
+    handler: queryForTravels
+    calls:
+    - service: ts-station-service
+      method: POST
+      path: /api/v1/stationservice/stations/idlist
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains/{id}
+    - service: ts-price-service
+      method: GET
+      path: /api/v1/priceservice/prices
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/basicservice/basic/{stationName}
+    auth: none
+    roles: *id007
+    source: ts-basic-service/src/main/java/fdse/microservice/controller/BasicController.java
+    handler: queryForStationId
+    calls:
+    - service: ts-route-service
+      method: POST
+      path: /api/v1/routeservice/routes/byIds
+    - service: ts-price-service
+      method: POST
+      path: /api/v1/priceservice/prices/byRouteIdsAndTrainTypes
+    calls_assigned: round-robin
+- name: ts-cancel-service
+  lang: java/spring
+  port: 18885
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/cancelservice/welcome
+    auth: required
+    roles: &id008
+    - ADMIN
+    - USER
+    source: ts-cancel-service/src/main/java/cancel/controller/CancelController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/cancelservice/cancel/refound/{orderId}
+    auth: required
+    roles: *id008
+    source: ts-cancel-service/src/main/java/cancel/controller/CancelController.java
+    handler: calculate
+    calls:
+    - service: ts-notification-service
+      method: POST
+      path: /api/v1/notifyservice/notification/order_cancel_success
+    - service: ts-order-other-service
+      method: PUT
+      path: /api/v1/orderOtherService/orderOther
+    - service: ts-user-service
+      method: GET
+      path: /api/v1/userservice/users/{userName}
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/cancelservice/cancel/{orderId}/{loginId}
+    auth: required
+    roles: *id008
+    source: ts-cancel-service/src/main/java/cancel/controller/CancelController.java
+    handler: cancelTicket
+    calls:
+    - service: ts-order-service
+      method: PUT
+      path: /api/v1/orderservice/order
+    - service: ts-inside-payment-service
+      method: GET
+      path: /api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order
+    calls_assigned: round-robin
+- name: ts-config-service
+  lang: java/spring
+  port: 15679
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/configservice/welcome
+    auth: none
+    roles: &id009 []
+    source: ts-config-service/src/main/java/config/controller/ConfigController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/configservice/configs
+    auth: none
+    roles: *id009
+    source: ts-config-service/src/main/java/config/controller/ConfigController.java
+    handler: queryAll
+    calls: []
+  - method: POST
+    path: /api/v1/configservice/configs
+    auth: none
+    roles: *id009
+    source: ts-config-service/src/main/java/config/controller/ConfigController.java
+    handler: createConfig
+    calls: []
+  - method: PUT
+    path: /api/v1/configservice/configs
+    auth: none
+    roles: *id009
+    source: ts-config-service/src/main/java/config/controller/ConfigController.java
+    handler: updateConfig
+    calls: []
+  - method: DELETE
+    path: /api/v1/configservice/configs/{configName}
+    auth: none
+    roles: *id009
+    source: ts-config-service/src/main/java/config/controller/ConfigController.java
+    handler: deleteConfig
+    calls: []
+  - method: GET
+    path: /api/v1/configservice/configs/{configName}
+    auth: none
+    roles: *id009
+    source: ts-config-service/src/main/java/config/controller/ConfigController.java
+    handler: retrieve
+    calls: []
+- name: ts-consign-price-service
+  lang: java/spring
+  port: 16110
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/consignpriceservice/welcome
+    auth: required
+    roles: &id010
+    - ADMIN
+    - USER
+    source: ts-consign-price-service/src/main/java/consignprice/controller/ConsignPriceController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion}
+    auth: required
+    roles: *id010
+    source: ts-consign-price-service/src/main/java/consignprice/controller/ConsignPriceController.java
+    handler: getPriceByWeightAndRegion
+    calls: []
+  - method: GET
+    path: /api/v1/consignpriceservice/consignprice/price
+    auth: required
+    roles: *id010
+    source: ts-consign-price-service/src/main/java/consignprice/controller/ConsignPriceController.java
+    handler: getPriceInfo
+    calls: []
+  - method: GET
+    path: /api/v1/consignpriceservice/consignprice/config
+    auth: required
+    roles: *id010
+    source: ts-consign-price-service/src/main/java/consignprice/controller/ConsignPriceController.java
+    handler: getPriceConfig
+    calls: []
+  - method: POST
+    path: /api/v1/consignpriceservice/consignprice
+    auth: required
+    roles: *id010
+    source: ts-consign-price-service/src/main/java/consignprice/controller/ConsignPriceController.java
+    handler: modifyPriceConfig
+    calls: []
+- name: ts-consign-service
+  lang: java/spring
+  port: 16111
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/consignservice/welcome
+    auth: required
+    roles: &id011
+    - ADMIN
+    - USER
+    source: ts-consign-service/src/main/java/consign/controller/ConsignController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/consignservice/consigns
+    auth: required
+    roles: *id011
+    source: ts-consign-service/src/main/java/consign/controller/ConsignController.java
+    handler: insertConsign
+    calls:
+    - service: ts-consign-price-service
+      method: GET
+      path: /api/v1/consignpriceservice/consignprice/price
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/consignservice/consigns
+    auth: required
+    roles: *id011
+    source: ts-consign-service/src/main/java/consign/controller/ConsignController.java
+    handler: updateConsign
+    calls: []
+  - method: GET
+    path: /api/v1/consignservice/consigns/account/{id}
+    auth: required
+    roles: *id011
+    source: ts-consign-service/src/main/java/consign/controller/ConsignController.java
+    handler: findByAccountId
+    calls: []
+  - method: GET
+    path: /api/v1/consignservice/consigns/order/{id}
+    auth: required
+    roles: *id011
+    source: ts-consign-service/src/main/java/consign/controller/ConsignController.java
+    handler: findByOrderId
+    calls: []
+  - method: GET
+    path: /api/v1/consignservice/consigns/{consignee}
+    auth: required
+    roles: *id011
+    source: ts-consign-service/src/main/java/consign/controller/ConsignController.java
+    handler: findByConsignee
+    calls: []
+- name: ts-contacts-service
+  lang: java/spring
+  port: 12347
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/contactservice/contacts/welcome
+    auth: required
+    roles: &id012
+    - ADMIN
+    - USER
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/contactservice/contacts
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: getAllContacts
+    calls: []
+  - method: POST
+    path: /api/v1/contactservice/contacts
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: createNewContacts
+    calls: []
+  - method: POST
+    path: /api/v1/contactservice/contacts/admin
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: createNewContactsAdmin
+    calls: []
+  - method: DELETE
+    path: /api/v1/contactservice/contacts/{contactsId}
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: deleteContacts
+    calls: []
+  - method: PUT
+    path: /api/v1/contactservice/contacts
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: modifyContacts
+    calls: []
+  - method: GET
+    path: /api/v1/contactservice/contacts/account/{accountId}
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: findContactsByAccountId
+    calls: []
+  - method: GET
+    path: /api/v1/contactservice/contacts/{id}
+    auth: required
+    roles: *id012
+    source: ts-contacts-service/src/main/java/contacts/controller/ContactsController.java
+    handler: getContactsByContactsId
+    calls: []
+- name: ts-delivery-service
+  lang: java/spring
+  port: 18808
+  documented: true
+  endpoints: []
+- name: ts-execute-service
+  lang: java/spring
+  port: 12386
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/executeservice/welcome
+    auth: required
+    roles: &id013
+    - ADMIN
+    - USER
+    source: ts-execute-service/src/main/java/execute/controller/ExecuteControlller.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/executeservice/execute/execute/{orderId}
+    auth: required
+    roles: *id013
+    source: ts-execute-service/src/main/java/execute/controller/ExecuteControlller.java
+    handler: executeTicket
+    calls:
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order/{orderId}
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/executeservice/execute/collected/{orderId}
+    auth: required
+    roles: *id013
+    source: ts-execute-service/src/main/java/execute/controller/ExecuteControlller.java
+    handler: collectTicket
+    calls:
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther/{orderId}
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther
+    calls_assigned: round-robin
+- name: ts-food-delivery-service
+  lang: java/spring
+  port: 18957
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/fooddeliveryservice/welcome
+    auth: none
+    roles: &id014 []
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/fooddeliveryservice/orders
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: createFoodDeliveryOrder
+    calls:
+    - service: ts-station-food-service
+      method: GET
+      path: /api/v1/stationfoodservice/stationfoodstores/{stationId}
+    calls_assigned: round-robin
+  - method: DELETE
+    path: /api/v1/fooddeliveryservice/orders/d/{orderId}
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: deleteFoodDeliveryOrder
+    calls: []
+  - method: GET
+    path: /api/v1/fooddeliveryservice/orders/{orderId}
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: getFoodDeliveryOrderById
+    calls: []
+  - method: GET
+    path: /api/v1/fooddeliveryservice/orders/all
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: getAllFoodDeliveryOrders
+    calls: []
+  - method: GET
+    path: /api/v1/fooddeliveryservice/orders/store/{storeId}
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: getFoodDeliveryOrderByStoreId
+    calls: []
+  - method: PUT
+    path: /api/v1/fooddeliveryservice/orders/tripid
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: updateTripId
+    calls: []
+  - method: PUT
+    path: /api/v1/fooddeliveryservice/orders/seatno
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: updateSeatNo
+    calls: []
+  - method: PUT
+    path: /api/v1/fooddeliveryservice/orders/dtime
+    auth: none
+    roles: *id014
+    source: ts-food-delivery-service/src/main/java/food_delivery/controller/FoodDeliveryController.java
+    handler: updateDeliveryTime
+    calls: []
+- name: ts-food-service
+  lang: java/spring
+  port: 18856
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/foodservice/welcome
+    auth: none
+    roles: &id015 []
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/foodservice/test_send_delivery
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: test_send_delivery
+    calls:
+    - service: ts-train-food-service
+      method: GET
+      path: /api/v1/trainfoodservice/trainfoods
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/foodservice/orders
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: findAllFoodOrder
+    calls:
+    - service: ts-travel-service
+      method: GET
+      path: /api/v1/travelservice/routes/{tripId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/foodservice/orders
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: createFoodOrder
+    calls:
+    - service: ts-station-food-service
+      method: POST
+      path: /api/v1/stationfoodservice/stationfoodstores
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/foodservice/createOrderBatch
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: createFoodBatches
+    calls: []
+  - method: PUT
+    path: /api/v1/foodservice/orders
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: updateFoodOrder
+    calls: []
+  - method: DELETE
+    path: /api/v1/foodservice/orders/{orderId}
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: deleteFoodOrder
+    calls: []
+  - method: GET
+    path: /api/v1/foodservice/orders/{orderId}
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: findFoodOrderByOrderId
+    calls: []
+  - method: GET
+    path: /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}
+    auth: none
+    roles: *id015
+    source: ts-food-service/src/main/java/foodsearch/controller/FoodController.java
+    handler: getAllFood
+    calls: []
+- name: ts-inside-payment-service
+  lang: java/spring
+  port: 18673
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/inside_pay_service/welcome
+    auth: required
+    roles: &id016
+    - ADMIN
+    - USER
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/inside_pay_service/inside_payment
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: pay
+    calls:
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/inside_pay_service/inside_payment/account
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: createAccount
+    calls:
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber}
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/inside_pay_service/inside_payment/{userId}/{money}
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: addMoney
+    calls:
+    - service: ts-payment-service
+      method: POST
+      path: /api/v1/paymentservice/payment
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/inside_pay_service/inside_payment/payment
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: queryPayment
+    calls: []
+  - method: GET
+    path: /api/v1/inside_pay_service/inside_payment/account
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: queryAccount
+    calls:
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order/{orderId}
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: drawBack
+    calls:
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther/{orderId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/inside_pay_service/inside_payment/difference
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: payDifference
+    calls: []
+  - method: GET
+    path: /api/v1/inside_pay_service/inside_payment/money
+    auth: required
+    roles: *id016
+    source: ts-inside-payment-service/src/main/java/inside_payment/controller/InsidePaymentController.java
+    handler: queryAddMoney
+    calls: []
+- name: ts-news-service
+  lang: go/web.go
+  port: null
+  documented: false
+  endpoints:
+  - method: GET
+    path: /{path}
+    auth: none
+    roles: []
+    source: ts-news-service/src/main/main.go
+    handler: null
+    calls: []
+- name: ts-notification-service
+  lang: java/spring
+  port: 17853
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/notifyservice/welcome
+    auth: none
+    roles: &id017 []
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/notifyservice/test_send_mq
+    auth: none
+    roles: *id017
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: test_send
+    calls: []
+  - method: GET
+    path: /api/v1/notifyservice/test_send_mail
+    auth: none
+    roles: *id017
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: test_send_mail
+    calls: []
+  - method: POST
+    path: /api/v1/notifyservice/notification/preserve_success
+    auth: none
+    roles: *id017
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: preserve_success
+    calls: []
+  - method: POST
+    path: /api/v1/notifyservice/notification/order_create_success
+    auth: none
+    roles: *id017
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: order_create_success
+    calls: []
+  - method: POST
+    path: /api/v1/notifyservice/notification/order_changed_success
+    auth: none
+    roles: *id017
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: order_changed_success
+    calls: []
+  - method: POST
+    path: /api/v1/notifyservice/notification/order_cancel_success
+    auth: none
+    roles: *id017
+    source: ts-notification-service/src/main/java/notification/controller/NotificationController.java
+    handler: order_cancel_success
+    calls: []
+- name: ts-order-other-service
+  lang: java/spring
+  port: 12032
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/orderOtherService/welcome
+    auth: required
+    roles: []
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/orderOtherService/orderOther/tickets
+    auth: none
+    roles: &id018 []
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: getTicketListByDateAndTripId
+    calls:
+    - service: ts-station-service
+      method: POST
+      path: /api/v1/stationservice/stations/namelist
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/orderOtherService/orderOther
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: createNewOrder
+    calls: []
+  - method: POST
+    path: /api/v1/orderOtherService/orderOther/admin
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: addcreateNewOrder
+    calls: []
+  - method: POST
+    path: /api/v1/orderOtherService/orderOther/query
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: queryOrders
+    calls: []
+  - method: POST
+    path: /api/v1/orderOtherService/orderOther/refresh
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: queryOrdersForRefresh
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: calculateSoldTicket
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther/price/{orderId}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: getOrderPrice
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther/orderPay/{orderId}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: payOrder
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther/{orderId}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: getOrderById
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther/status/{orderId}/{status}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: modifyOrder
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: securityInfoCheck
+    calls: []
+  - method: PUT
+    path: /api/v1/orderOtherService/orderOther
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: saveOrderInfo
+    calls: []
+  - method: PUT
+    path: /api/v1/orderOtherService/orderOther/admin
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: updateOrder
+    calls: []
+  - method: DELETE
+    path: /api/v1/orderOtherService/orderOther/{orderId}
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: deleteOrder
+    calls: []
+  - method: GET
+    path: /api/v1/orderOtherService/orderOther
+    auth: none
+    roles: *id018
+    source: ts-order-other-service/src/main/java/other/controller/OrderOtherController.java
+    handler: findAllOrder
+    calls: []
+- name: ts-order-service
+  lang: java/spring
+  port: 12031
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/orderservice/welcome
+    auth: required
+    roles: []
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/orderservice/order/tickets
+    auth: none
+    roles: &id019 []
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: getTicketListByDateAndTripId
+    calls:
+    - service: ts-station-service
+      method: POST
+      path: /api/v1/stationservice/stations/namelist
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/orderservice/order
+    auth: required
+    roles:
+    - USER
+    - ADMIN
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: createNewOrder
+    calls: []
+  - method: POST
+    path: /api/v1/orderservice/order/admin
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: addcreateNewOrder
+    calls: []
+  - method: POST
+    path: /api/v1/orderservice/order/query
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: queryOrders
+    calls: []
+  - method: POST
+    path: /api/v1/orderservice/order/refresh
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: queryOrdersForRefresh
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order/{travelDate}/{trainNumber}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: calculateSoldTicket
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order/price/{orderId}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: getOrderPrice
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order/orderPay/{orderId}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: payOrder
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order/{orderId}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: getOrderById
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order/status/{orderId}/{status}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: modifyOrder
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order/security/{checkDate}/{accountId}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: securityInfoCheck
+    calls: []
+  - method: PUT
+    path: /api/v1/orderservice/order
+    auth: required
+    roles:
+    - USER
+    - ADMIN
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: saveOrderInfo
+    calls: []
+  - method: PUT
+    path: /api/v1/orderservice/order/admin
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: updateOrder
+    calls: []
+  - method: DELETE
+    path: /api/v1/orderservice/order/{orderId}
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: deleteOrder
+    calls: []
+  - method: GET
+    path: /api/v1/orderservice/order
+    auth: none
+    roles: *id019
+    source: ts-order-service/src/main/java/order/controller/OrderController.java
+    handler: findAllOrder
+    calls: []
+- name: ts-payment-service
+  lang: java/spring
+  port: 19001
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/paymentservice/welcome
+    auth: required
+    roles: &id020
+    - ADMIN
+    - USER
+    source: ts-payment-service/src/main/java/com/trainticket/controller/PaymentController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/paymentservice/payment
+    auth: required
+    roles: *id020
+    source: ts-payment-service/src/main/java/com/trainticket/controller/PaymentController.java
+    handler: pay
+    calls: []
+  - method: POST
+    path: /api/v1/paymentservice/payment/money
+    auth: required
+    roles: *id020
+    source: ts-payment-service/src/main/java/com/trainticket/controller/PaymentController.java
+    handler: addMoney
+    calls: []
+  - method: GET
+    path: /api/v1/paymentservice/payment
+    auth: required
+    roles: *id020
+    source: ts-payment-service/src/main/java/com/trainticket/controller/PaymentController.java
+    handler: query
+    calls: []
+- name: ts-preserve-other-service
+  lang: java/spring
+  port: 14569
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/preserveotherservice/welcome
+    auth: required
+    roles: &id021
+    - ADMIN
+    - USER
+    source: ts-preserve-other-service/src/main/java/preserveOther/controller/PreserveOtherController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/preserveotherservice/preserveOther
+    auth: required
+    roles: *id021
+    source: ts-preserve-other-service/src/main/java/preserveOther/controller/PreserveOtherController.java
+    handler: preserve
+    calls:
+    - service: ts-basic-service
+      method: POST
+      path: /api/v1/basicservice/basic/travel
+    - service: ts-seat-service
+      method: POST
+      path: /api/v1/seatservice/seats
+    - service: ts-user-service
+      method: GET
+      path: /api/v1/userservice/users/{userName}
+    - service: ts-assurance-service
+      method: GET
+      path: /api/v1/assuranceservice/assurances
+    - service: ts-station-service
+      method: GET
+      path: /api/v1/stationservice/stations/id/{stationNameForId}
+    - service: ts-security-service
+      method: GET
+      path: /api/v1/securityservice/securityConfigs
+    - service: ts-travel2-service
+      method: POST
+      path: /api/v1/travel2service/trip_detail
+    - service: ts-contacts-service
+      method: GET
+      path: /api/v1/contactservice/contacts
+    - service: ts-order-other-service
+      method: POST
+      path: /api/v1/orderOtherService/orderOther
+    - service: ts-food-service
+      method: POST
+      path: /api/v1/foodservice/orders
+    - service: ts-consign-service
+      method: POST
+      path: /api/v1/consignservice/consigns
+    calls_assigned: round-robin
+- name: ts-preserve-service
+  lang: java/spring
+  port: 14568
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/preserveservice/welcome
+    auth: required
+    roles: &id022
+    - ADMIN
+    - USER
+    source: ts-preserve-service/src/main/java/preserve/controller/PreserveController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/preserveservice/preserve
+    auth: required
+    roles: *id022
+    source: ts-preserve-service/src/main/java/preserve/controller/PreserveController.java
+    handler: preserve
+    calls:
+    - service: ts-basic-service
+      method: POST
+      path: /api/v1/basicservice/basic/travel
+    - service: ts-seat-service
+      method: POST
+      path: /api/v1/seatservice/seats
+    - service: ts-user-service
+      method: GET
+      path: /api/v1/userservice/users/{userName}
+    - service: ts-assurance-service
+      method: GET
+      path: /api/v1/assuranceservice/assurances
+    - service: ts-station-service
+      method: GET
+      path: /api/v1/stationservice/stations/id/{stationNameForId}
+    - service: ts-security-service
+      method: GET
+      path: /api/v1/securityservice/securityConfigs
+    - service: ts-travel-service
+      method: POST
+      path: /api/v1/travelservice/trip_detail
+    - service: ts-contacts-service
+      method: GET
+      path: /api/v1/contactservice/contacts
+    - service: ts-order-service
+      method: POST
+      path: /api/v1/orderservice/order
+    - service: ts-food-service
+      method: POST
+      path: /api/v1/foodservice/orders
+    - service: ts-consign-service
+      method: POST
+      path: /api/v1/consignservice/consigns
+    calls_assigned: round-robin
+- name: ts-price-service
+  lang: java/spring
+  port: 16579
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/priceservice/prices/welcome
+    auth: none
+    roles: &id023 []
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/priceservice/prices/{routeId}/{trainType}
+    auth: none
+    roles: *id023
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: query
+    calls: []
+  - method: POST
+    path: /api/v1/priceservice/prices/byRouteIdsAndTrainTypes
+    auth: none
+    roles: *id023
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: query
+    calls: []
+  - method: GET
+    path: /api/v1/priceservice/prices
+    auth: none
+    roles: *id023
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: queryAll
+    calls: []
+  - method: POST
+    path: /api/v1/priceservice/prices
+    auth: none
+    roles: *id023
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: create
+    calls: []
+  - method: DELETE
+    path: /api/v1/priceservice/prices/{pricesId}
+    auth: none
+    roles: *id023
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: delete
+    calls: []
+  - method: PUT
+    path: /api/v1/priceservice/prices
+    auth: none
+    roles: *id023
+    source: ts-price-service/src/main/java/price/controller/PriceController.java
+    handler: update
+    calls: []
+- name: ts-rebook-service
+  lang: java/spring
+  port: 18886
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/rebookservice/welcome
+    auth: required
+    roles: &id024
+    - ADMIN
+    - USER
+    source: ts-rebook-service/src/main/java/rebook/controller/RebookController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/rebookservice/rebook/difference
+    auth: required
+    roles: *id024
+    source: ts-rebook-service/src/main/java/rebook/controller/RebookController.java
+    handler: payDifference
+    calls:
+    - service: ts-seat-service
+      method: POST
+      path: /api/v1/seatservice/seats
+    - service: ts-travel2-service
+      method: GET
+      path: /api/v1/travel2service/train_types/{tripId}
+    - service: ts-order-other-service
+      method: POST
+      path: /api/v1/orderOtherService/orderOther/tickets
+    - service: ts-order-other-service
+      method: PUT
+      path: /api/v1/orderOtherService/orderOther
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber}
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    - service: ts-inside-payment-service
+      method: GET
+      path: /api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/rebookservice/rebook
+    auth: required
+    roles: *id024
+    source: ts-rebook-service/src/main/java/rebook/controller/RebookController.java
+    handler: rebook
+    calls:
+    - service: ts-travel-service
+      method: POST
+      path: /api/v1/travelservice/trip_detail
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order
+    - service: ts-order-service
+      method: PUT
+      path: /api/v1/orderservice/order
+    - service: ts-order-service
+      method: POST
+      path: /api/v1/orderservice/order
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains/{id}
+    - service: ts-inside-payment-service
+      method: POST
+      path: /api/v1/inside_pay_service/inside_payment/difference
+    calls_assigned: round-robin
+- name: ts-route-plan-service
+  lang: java/spring
+  port: 14578
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/routeplanservice/welcome
+    auth: none
+    roles: &id025 []
+    source: ts-route-plan-service/src/main/java/plan/controller/RoutePlanController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/routeplanservice/routePlan/cheapestRoute
+    auth: none
+    roles: *id025
+    source: ts-route-plan-service/src/main/java/plan/controller/RoutePlanController.java
+    handler: getCheapestRoutes
+    calls:
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    - service: ts-travel-service
+      method: GET
+      path: /api/v1/travelservice/routes/{tripId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/routeplanservice/routePlan/quickestRoute
+    auth: none
+    roles: *id025
+    source: ts-route-plan-service/src/main/java/plan/controller/RoutePlanController.java
+    handler: getQuickestRoutes
+    calls:
+    - service: ts-travel-service
+      method: POST
+      path: /api/v1/travelservice/trips/routes
+    - service: ts-travel-service
+      method: POST
+      path: /api/v1/travelservice/trips/left
+    - service: ts-travel2-service
+      method: GET
+      path: /api/v1/travel2service/train_types/{tripId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/routeplanservice/routePlan/minStopStations
+    auth: none
+    roles: *id025
+    source: ts-route-plan-service/src/main/java/plan/controller/RoutePlanController.java
+    handler: getMinStopStations
+    calls:
+    - service: ts-travel2-service
+      method: POST
+      path: /api/v1/travel2service/trips/routes
+    - service: ts-travel2-service
+      method: POST
+      path: /api/v1/travel2service/trips/left
+    calls_assigned: round-robin
+- name: ts-route-service
+  lang: java/spring
+  port: 11178
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/routeservice/welcome
+    auth: none
+    roles: &id026 []
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/routeservice/routes
+    auth: none
+    roles: *id026
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: createAndModifyRoute
+    calls: []
+  - method: DELETE
+    path: /api/v1/routeservice/routes/{routeId}
+    auth: none
+    roles: *id026
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: deleteRoute
+    calls: []
+  - method: GET
+    path: /api/v1/routeservice/routes/{routeId}
+    auth: none
+    roles: *id026
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: queryById
+    calls: []
+  - method: POST
+    path: /api/v1/routeservice/routes/byIds
+    auth: none
+    roles: *id026
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: queryByIds
+    calls: []
+  - method: GET
+    path: /api/v1/routeservice/routes
+    auth: none
+    roles: *id026
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: queryAll
+    calls: []
+  - method: GET
+    path: /api/v1/routeservice/routes/{start}/{end}
+    auth: none
+    roles: *id026
+    source: ts-route-service/src/main/java/route/controller/RouteController.java
+    handler: queryByStartAndTerminal
+    calls: []
+- name: ts-seat-service
+  lang: java/spring
+  port: 18898
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/seatservice/welcome
+    auth: none
+    roles: &id027 []
+    source: ts-seat-service/src/main/java/seat/controller/SeatController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/seatservice/seats
+    auth: none
+    roles: *id027
+    source: ts-seat-service/src/main/java/seat/controller/SeatController.java
+    handler: create
+    calls:
+    - service: ts-order-service
+      method: POST
+      path: /api/v1/orderservice/order/tickets
+    - service: ts-config-service
+      method: GET
+      path: /api/v1/configservice/configs
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/seatservice/seats/left_tickets
+    auth: none
+    roles: *id027
+    source: ts-seat-service/src/main/java/seat/controller/SeatController.java
+    handler: getLeftTicketOfInterval
+    calls:
+    - service: ts-order-other-service
+      method: POST
+      path: /api/v1/orderOtherService/orderOther/tickets
+    calls_assigned: round-robin
+- name: ts-security-service
+  lang: java/spring
+  port: 11188
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/securityservice/welcome
+    auth: required
+    roles: &id028
+    - ADMIN
+    - USER
+    source: ts-security-service/src/main/java/security/controller/SecurityController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/securityservice/securityConfigs
+    auth: required
+    roles: *id028
+    source: ts-security-service/src/main/java/security/controller/SecurityController.java
+    handler: findAllSecurityConfig
+    calls:
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order/{orderId}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/securityservice/securityConfigs
+    auth: required
+    roles: *id028
+    source: ts-security-service/src/main/java/security/controller/SecurityController.java
+    handler: create
+    calls:
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther/{orderId}
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/securityservice/securityConfigs
+    auth: required
+    roles: *id028
+    source: ts-security-service/src/main/java/security/controller/SecurityController.java
+    handler: update
+    calls: []
+  - method: DELETE
+    path: /api/v1/securityservice/securityConfigs/{id}
+    auth: required
+    roles: *id028
+    source: ts-security-service/src/main/java/security/controller/SecurityController.java
+    handler: delete
+    calls: []
+  - method: GET
+    path: /api/v1/securityservice/securityConfigs/{accountId}
+    auth: required
+    roles: *id028
+    source: ts-security-service/src/main/java/security/controller/SecurityController.java
+    handler: check
+    calls: []
+- name: ts-station-food-service
+  lang: java/spring
+  port: 18855
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/stationfoodservice/stationfoodstores/welcome
+    auth: none
+    roles: &id029 []
+    source: ts-station-food-service/src/main/java/food/controller/StationFoodController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/stationfoodservice/stationfoodstores
+    auth: none
+    roles: *id029
+    source: ts-station-food-service/src/main/java/food/controller/StationFoodController.java
+    handler: getAllFoodStores
+    calls: []
+  - method: GET
+    path: /api/v1/stationfoodservice/stationfoodstores/{stationId}
+    auth: none
+    roles: *id029
+    source: ts-station-food-service/src/main/java/food/controller/StationFoodController.java
+    handler: getFoodStoresOfStation
+    calls: []
+  - method: POST
+    path: /api/v1/stationfoodservice/stationfoodstores
+    auth: none
+    roles: *id029
+    source: ts-station-food-service/src/main/java/food/controller/StationFoodController.java
+    handler: getFoodStoresByStationNames
+    calls: []
+  - method: GET
+    path: /api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId}
+    auth: none
+    roles: *id029
+    source: ts-station-food-service/src/main/java/food/controller/StationFoodController.java
+    handler: getFoodListByStationFoodStoreId
+    calls: []
+- name: ts-station-service
+  lang: java/spring
+  port: 12345
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/stationservice/welcome
+    auth: none
+    roles: &id030 []
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/stationservice/stations
+    auth: none
+    roles: *id030
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: query
+    calls: []
+  - method: POST
+    path: /api/v1/stationservice/stations
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: create
+    calls: []
+  - method: PUT
+    path: /api/v1/stationservice/stations
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: update
+    calls: []
+  - method: DELETE
+    path: /api/v1/stationservice/stations/{stationsId}
+    auth: none
+    roles: *id030
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: delete
+    calls: []
+  - method: GET
+    path: /api/v1/stationservice/stations/id/{stationNameForId}
+    auth: none
+    roles: *id030
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: queryForStationId
+    calls: []
+  - method: POST
+    path: /api/v1/stationservice/stations/idlist
+    auth: none
+    roles: *id030
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: queryForIdBatch
+    calls: []
+  - method: GET
+    path: /api/v1/stationservice/stations/name/{stationIdForName}
+    auth: none
+    roles: *id030
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: queryById
+    calls: []
+  - method: POST
+    path: /api/v1/stationservice/stations/namelist
+    auth: none
+    roles: *id030
+    source: ts-station-service/src/main/java/fdse/microservice/controller/StationController.java
+    handler: queryForNameBatch
+    calls: []
+- name: ts-ticket-office-service
+  lang: node/express
+  port: null
+  documented: false
+  endpoints:
+  - method: GET
+    path: /office/
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+  - method: GET
+    path: /office/getRegionList
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+  - method: GET
+    path: /office/getAll
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+  - method: POST
+    path: /office/getSpecificOffices
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+  - method: POST
+    path: /office/addOffice
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+  - method: POST
+    path: /office/deleteOffice
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+  - method: POST
+    path: /office/updateOffice
+    auth: none
+    roles: []
+    source: ts-ticket-office-service/bin/router.js
+    handler: null
+    calls: []
+- name: ts-train-food-service
+  lang: java/spring
+  port: 19999
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/trainfoodservice/trainfoods/welcome
+    auth: none
+    roles: &id031 []
+    source: ts-train-food-service/src/main/java/trainFood/controller/TrainFoodController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/trainfoodservice/trainfoods
+    auth: none
+    roles: *id031
+    source: ts-train-food-service/src/main/java/trainFood/controller/TrainFoodController.java
+    handler: getAllTrainFood
+    calls: []
+  - method: GET
+    path: /api/v1/trainfoodservice/trainfoods/{tripId}
+    auth: none
+    roles: *id031
+    source: ts-train-food-service/src/main/java/trainFood/controller/TrainFoodController.java
+    handler: getTrainFoodOfTrip
+    calls: []
+- name: ts-train-service
+  lang: java/spring
+  port: 14567
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/trainservice/trains/welcome
+    auth: none
+    roles: &id032 []
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/trainservice/trains
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: create
+    calls: []
+  - method: GET
+    path: /api/v1/trainservice/trains/{id}
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: retrieve
+    calls: []
+  - method: GET
+    path: /api/v1/trainservice/trains/byName/{name}
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: retrieveByName
+    calls: []
+  - method: POST
+    path: /api/v1/trainservice/trains/byNames
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: retrieveByName
+    calls: []
+  - method: PUT
+    path: /api/v1/trainservice/trains
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: update
+    calls: []
+  - method: DELETE
+    path: /api/v1/trainservice/trains/{id}
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: delete
+    calls: []
+  - method: GET
+    path: /api/v1/trainservice/trains
+    auth: none
+    roles: *id032
+    source: ts-train-service/src/main/java/train/controller/TrainController.java
+    handler: query
+    calls: []
+- name: ts-travel-plan-service
+  lang: java/spring
+  port: 14322
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/travelplanservice/welcome
+    auth: none
+    roles: &id033 []
+    source: ts-travel-plan-service/src/main/java/travelplan/controller/TravelPlanController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/travelplanservice/travelPlan/transferResult
+    auth: none
+    roles: *id033
+    source: ts-travel-plan-service/src/main/java/travelplan/controller/TravelPlanController.java
+    handler: getTransferResult
+    calls:
+    - service: ts-seat-service
+      method: POST
+      path: /api/v1/seatservice/seats/left_tickets
+    - service: ts-travel-service
+      method: POST
+      path: /api/v1/travelservice/trips/left
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travelplanservice/travelPlan/cheapest
+    auth: none
+    roles: *id033
+    source: ts-travel-plan-service/src/main/java/travelplan/controller/TravelPlanController.java
+    handler: getByCheapest
+    calls:
+    - service: ts-route-plan-service
+      method: POST
+      path: /api/v1/routeplanservice/routePlan/cheapestRoute
+    - service: ts-travel2-service
+      method: POST
+      path: /api/v1/travel2service/trips/left
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travelplanservice/travelPlan/quickest
+    auth: none
+    roles: *id033
+    source: ts-travel-plan-service/src/main/java/travelplan/controller/TravelPlanController.java
+    handler: getByQuickest
+    calls:
+    - service: ts-route-plan-service
+      method: POST
+      path: /api/v1/routeplanservice/routePlan/quickestRoute
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains/{id}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travelplanservice/travelPlan/minStation
+    auth: none
+    roles: *id033
+    source: ts-travel-plan-service/src/main/java/travelplan/controller/TravelPlanController.java
+    handler: getByMinStation
+    calls:
+    - service: ts-route-plan-service
+      method: POST
+      path: /api/v1/routeplanservice/routePlan/minStopStations
+    calls_assigned: round-robin
+- name: ts-travel-service
+  lang: java/spring
+  port: 12346
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/travelservice/welcome
+    auth: none
+    roles: &id034 []
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/travelservice/train_types/{tripId}
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: getTrainTypeByTripId
+    calls:
+    - service: ts-basic-service
+      method: POST
+      path: /api/v1/basicservice/basic/travels
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/travelservice/routes/{tripId}
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: getRouteByTripId
+    calls:
+    - service: ts-basic-service
+      method: POST
+      path: /api/v1/basicservice/basic/travel
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travelservice/trips/routes
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: getTripsByRouteId
+    calls:
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains/{id}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travelservice/trips
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: createTrip
+    calls:
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/travelservice/trips/{tripId}
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: retrieve
+    calls:
+    - service: ts-seat-service
+      method: POST
+      path: /api/v1/seatservice/seats/left_tickets
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/travelservice/trips
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: updateTrip
+    calls: []
+  - method: DELETE
+    path: /api/v1/travelservice/trips/{tripId}
+    auth: required
+    roles:
+    - ADMIN
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: deleteTrip
+    calls: []
+  - method: POST
+    path: /api/v1/travelservice/trips/left
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: queryInfo
+    calls: []
+  - method: POST
+    path: /api/v1/travelservice/trips/left_parallel
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: queryInfoInparallel
+    calls: []
+  - method: POST
+    path: /api/v1/travelservice/trip_detail
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: getTripAllDetailInfo
+    calls: []
+  - method: GET
+    path: /api/v1/travelservice/trips
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: queryAll
+    calls: []
+  - method: GET
+    path: /api/v1/travelservice/admin_trip
+    auth: none
+    roles: *id034
+    source: ts-travel-service/src/main/java/travel/controller/TravelController.java
+    handler: adminQueryAll
+    calls: []
+- name: ts-travel2-service
+  lang: java/spring
+  port: 16346
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/travel2service/welcome
+    auth: none
+    roles: &id035 []
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: home
+    calls: []
+  - method: GET
+    path: /api/v1/travel2service/train_types/{tripId}
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: getTrainTypeByTripId
+    calls:
+    - service: ts-basic-service
+      method: POST
+      path: /api/v1/basicservice/basic/travels
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/travel2service/routes/{tripId}
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: getRouteByTripId
+    calls:
+    - service: ts-basic-service
+      method: POST
+      path: /api/v1/basicservice/basic/travel
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travel2service/trips/routes
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: getTripsByRouteId
+    calls:
+    - service: ts-train-service
+      method: GET
+      path: /api/v1/trainservice/trains/{id}
+    calls_assigned: round-robin
+  - method: POST
+    path: /api/v1/travel2service/trips
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: createTrip
+    calls:
+    - service: ts-route-service
+      method: GET
+      path: /api/v1/routeservice/routes
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/travel2service/trips/{tripId}
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: retrieve
+    calls:
+    - service: ts-seat-service
+      method: POST
+      path: /api/v1/seatservice/seats/left_tickets
+    calls_assigned: round-robin
+  - method: PUT
+    path: /api/v1/travel2service/trips
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: updateTrip
+    calls: []
+  - method: DELETE
+    path: /api/v1/travel2service/trips/{tripId}
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: deleteTrip
+    calls: []
+  - method: POST
+    path: /api/v1/travel2service/trips/left
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: queryInfo
+    calls: []
+  - method: POST
+    path: /api/v1/travel2service/trip_detail
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: getTripAllDetailInfo
+    calls: []
+  - method: GET
+    path: /api/v1/travel2service/trips
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: queryAll
+    calls: []
+  - method: GET
+    path: /api/v1/travel2service/admin_trip
+    auth: none
+    roles: *id035
+    source: ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java
+    handler: adminQueryAll
+    calls: []
+- name: ts-user-service
+  lang: java/spring
+  port: null
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/userservice/users/hello
+    auth: none
+    roles: &id036 []
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: testHello
+    calls:
+    - service: ts-auth-service
+      method: POST
+      path: /api/v1/auth
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/userservice/users
+    auth: none
+    roles: *id036
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: getAllUser
+    calls:
+    - service: ts-auth-service
+      method: DELETE
+      path: /api/v1/users/{userId}
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/userservice/users/{userName}
+    auth: none
+    roles: *id036
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: getUserByUserName
+    calls: []
+  - method: GET
+    path: /api/v1/userservice/users/id/{userId}
+    auth: none
+    roles: *id036
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: getUserByUserId
+    calls: []
+  - method: POST
+    path: /api/v1/userservice/users/register
+    auth: none
+    roles: *id036
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: registerUser
+    calls: []
+  - method: DELETE
+    path: /api/v1/userservice/users/{userId}
+    auth: none
+    roles: *id036
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: deleteUserById
+    calls: []
+  - method: PUT
+    path: /api/v1/userservice/users
+    auth: none
+    roles: *id036
+    source: ts-user-service/src/main/java/user/controller/UserController.java
+    handler: updateUser
+    calls: []
+- name: ts-verification-code-service
+  lang: java/spring
+  port: 15678
+  documented: false
+  endpoints:
+  - method: GET
+    path: /api/v1/verifycode/generate
+    auth: none
+    roles: &id037 []
+    source: ts-verification-code-service/src/main/java/verifycode/controller/VerifyCodeController.java
+    handler: imageCode
+    calls: []
+  - method: GET
+    path: /api/v1/verifycode/verify/{verifyCode}
+    auth: none
+    roles: *id037
+    source: ts-verification-code-service/src/main/java/verifycode/controller/VerifyCodeController.java
+    handler: verifyCode
+    calls: []
+- name: ts-voucher-service
+  lang: python/tornado
+  port: null
+  documented: false
+  endpoints:
+  - method: POST
+    path: /getVoucher
+    auth: none
+    roles: []
+    source: ts-voucher-service/server.py
+    handler: null
+    calls:
+    - service: ts-order-service
+      method: GET
+      path: /api/v1/orderservice/order/{orderId}
+    - service: ts-order-other-service
+      method: GET
+      path: /api/v1/orderOtherService/orderOther/{orderId}
+- name: ts-wait-order-service
+  lang: java/spring
+  port: 17525
+  documented: true
+  endpoints:
+  - method: GET
+    path: /api/v1/waitorderservice/welcome
+    auth: required
+    roles: []
+    source: ts-wait-order-service/src/main/java/waitorder/controller/WaitListOrderController.java
+    handler: home
+    calls: []
+  - method: POST
+    path: /api/v1/waitorderservice/order
+    auth: required
+    roles: []
+    source: ts-wait-order-service/src/main/java/waitorder/controller/WaitListOrderController.java
+    handler: createNewOrder
+    calls:
+    - service: ts-preserve-service
+      method: POST
+      path: /api/v1/preserveservice/preserve
+    calls_assigned: round-robin
+  - method: GET
+    path: /api/v1/waitorderservice/orders
+    auth: required
+    roles: []
+    source: ts-wait-order-service/src/main/java/waitorder/controller/WaitListOrderController.java
+    handler: getAllOrders
+    calls: []
+  - method: GET
+    path: /api/v1/waitorderservice/waitlistorders
+    auth: required
+    roles: []
+    source: ts-wait-order-service/src/main/java/waitorder/controller/WaitListOrderController.java
+    handler: getWaitListOrders
+    calls: []

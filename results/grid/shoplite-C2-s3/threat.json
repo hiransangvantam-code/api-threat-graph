@@ -1,0 +1,482 @@
+{
+ "testbed": "shoplite",
+ "run": "shoplite-C2-s3",
+ "timing": {
+  "rule_engine_ms": 0.59,
+  "dependency_analyzer_ms": 0.03,
+  "threat_graph_ms": 0.8,
+  "attack_path_query_ms": 27.83,
+  "risk_propagation_ms": 0.47,
+  "mitigation_plan_ms": 12.0,
+  "phase3_total_ms": 43.7,
+  "phase4_dashboard_ms": 3.6,
+  "dashboard_kb": 213.2,
+  "phase2_normalize_ms": 2.6
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 0.74,
+  "dependency_analyzer_ms": 0.03,
+  "threat_graph_ms": 1.01,
+  "attack_path_query_ms": 38.16,
+  "risk_propagation_ms": 0.53,
+  "mitigation_plan_ms": 16.6,
+  "phase3_total_ms": 59.4,
+  "phase4_dashboard_ms": 3.6,
+  "dashboard_kb": 235.5
+ },
+ "graph": {
+  "nodes": 66,
+  "edges": 123,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 12,
+   "Risk": 8,
+   "Vulnerability": 34
+  },
+  "edges_by_rel": {
+   "reaches": 6,
+   "uses": 3,
+   "exposes": 12,
+   "runs_on": 12,
+   "routes": 10,
+   "handles": 6,
+   "depends_on": 5,
+   "calls": 1,
+   "has_vuln": 34,
+   "leads_to": 34
+  },
+  "attack_paths": 108,
+  "critical_or_high_paths": 32,
+  "internet_paths": 49,
+  "hops_mean": 3.9722,
+  "hops_max": 5,
+  "apcr_median": 8.0,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 412.5,
+  "findings": 34,
+  "by_severity": {
+   "critical": 6,
+   "high": 14,
+   "medium": 10,
+   "low": 4
+  },
+  "rules_fired": 21,
+  "fixes_for_70pct": 13,
+  "fixes_for_90pct": 20,
+  "remediation_actions": 28,
+  "longest_chain": 3,
+  "max_blast_radius": 2
+ },
+ "oracle_graph": {
+  "nodes": 72,
+  "edges": 138,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 12,
+   "Risk": 8,
+   "Vulnerability": 40
+  },
+  "edges_by_rel": {
+   "reaches": 6,
+   "uses": 3,
+   "exposes": 12,
+   "runs_on": 12,
+   "routes": 10,
+   "handles": 8,
+   "depends_on": 5,
+   "calls": 2,
+   "has_vuln": 40,
+   "leads_to": 40
+  },
+  "attack_paths": 135,
+  "critical_or_high_paths": 36,
+  "internet_paths": 55,
+  "hops_mean": 4.1111,
+  "hops_max": 6,
+  "apcr_median": 7.5,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 476.0,
+  "findings": 40,
+  "by_severity": {
+   "critical": 7,
+   "high": 19,
+   "medium": 9,
+   "low": 5
+  },
+  "rules_fired": 22,
+  "fixes_for_70pct": 14,
+  "fixes_for_90pct": 22,
+  "remediation_actions": 31,
+  "longest_chain": 2,
+  "max_blast_radius": 2
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 34,
+   "fp": 0,
+   "fn": 6,
+   "precision": 1.0,
+   "recall": 0.85,
+   "f1": 0.9189,
+   "tool": 34,
+   "oracle": 40,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 0.8077,
+   "severity_agreement": 0.9706,
+   "score_mae": 0.1471
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API3": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "API4": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "API8-DEBUG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-PRIV": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-TAG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-ZOMBIE": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-03": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.6667,
+    "f1": 0.8
+   },
+   "TS-01": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "TS-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-03": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "TS-04": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-05": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-07": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   }
+  },
+  "paths": {
+   "tp": 66,
+   "fp": 0,
+   "fn": 9,
+   "precision": 1.0,
+   "recall": 0.88,
+   "f1": 0.9362,
+   "tool": 66,
+   "oracle": 75
+  },
+  "risk": {
+   "tool_R": 412.5,
+   "oracle_R": 476.0,
+   "ratio": 0.8666,
+   "top10_overlap": 0.9,
+   "service_risk_spearman": 1.0,
+   "fixes_70_tool": 13,
+   "fixes_70_oracle": 14
+  },
+  "missed": [
+   "('API3', ('user-service', 'GET', '/internal/users/export'))",
+   "('API5', ('user-service', 'GET', '/internal/users/export'))",
+   "('LT-03', ('payment-service', 'POST', '/charge'))",
+   "('TS-01', ('payment-service', 'POST', '/charge'))",
+   "('TS-01', ('user-service', 'GET', '/internal/users/export'))",
+   "('TS-03', ('payment-service', 'POST', '/charge'))"
+  ],
+  "extra": []
+ },
+ "known": {
+  "tool": {
+   "tp": 31,
+   "fp": 3,
+   "fn": 9,
+   "precision": 0.9118,
+   "recall": 0.775,
+   "f1": 0.8378,
+   "planted_found": 31,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [
+    "('API3', ('user-service', 'GET', '/internal/users/export'))",
+    "('API5', ('user-service', 'GET', '/internal/users/export'))",
+    "('TS-01', ('payment-service', 'POST', '/charge'))",
+    "('TS-01', ('user-service', 'GET', '/internal/users/export'))",
+    "('TS-03', ('payment-service', 'POST', '/charge'))",
+    "('TS-08', ('payment-service', 'POST', '/charge'))"
+   ],
+   "extra": [
+    "('LT-02', 'payment-service')",
+    "('LT-03', ('payment-service', 'GET', '/admin/transactions'))",
+    "('LT-03', ('payment-service', 'POST', '/refund'))"
+   ]
+  },
+  "oracle": {
+   "tp": 36,
+   "fp": 4,
+   "fn": 4,
+   "precision": 0.9,
+   "recall": 0.9,
+   "f1": 0.9,
+   "planted_found": 36,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [
+    "('TS-08', ('payment-service', 'POST', '/charge'))"
+   ],
+   "extra": [
+    "('LT-02', 'payment-service')",
+    "('LT-03', ('payment-service', 'GET', '/admin/transactions'))",
+    "('LT-03', ('payment-service', 'POST', '/charge'))",
+    "('LT-03', ('payment-service', 'POST', '/refund'))"
+   ]
+  }
+ },
+ "inventory": {
+  "tool": {
+   "shadow": 4,
+   "documented": 6,
+   "zombie": 1,
+   "dormant": 1
+  },
+  "oracle": {
+   "shadow": 4,
+   "documented": 7,
+   "zombie": 1
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 2,
+   "fp": 0,
+   "fn": 38,
+   "precision": 1.0,
+   "recall": 0.05,
+   "f1": 0.0952
+  },
+  "T": {
+   "tp": 12,
+   "fp": 18,
+   "fn": 28,
+   "precision": 0.4,
+   "recall": 0.3,
+   "f1": 0.3429
+  },
+  "C": {
+   "tp": 3,
+   "fp": 20,
+   "fn": 37,
+   "precision": 0.1304,
+   "recall": 0.075,
+   "f1": 0.0952
+  },
+  "OT": {
+   "tp": 14,
+   "fp": 18,
+   "fn": 26,
+   "precision": 0.4375,
+   "recall": 0.35,
+   "f1": 0.3889
+  },
+  "TK": {
+   "tp": 28,
+   "fp": 22,
+   "fn": 12,
+   "precision": 0.56,
+   "recall": 0.7,
+   "f1": 0.6222
+  },
+  "OTK": {
+   "tp": 32,
+   "fp": 11,
+   "fn": 8,
+   "precision": 0.7442,
+   "recall": 0.8,
+   "f1": 0.7711
+  },
+  "OTC": {
+   "tp": 17,
+   "fp": 25,
+   "fn": 23,
+   "precision": 0.4048,
+   "recall": 0.425,
+   "f1": 0.4146
+  },
+  "OKC": {
+   "tp": 21,
+   "fp": 0,
+   "fn": 19,
+   "precision": 1.0,
+   "recall": 0.525,
+   "f1": 0.6885
+  },
+  "TKC": {
+   "tp": 30,
+   "fp": 11,
+   "fn": 10,
+   "precision": 0.7317,
+   "recall": 0.75,
+   "f1": 0.7407
+  },
+  "OTKC": {
+   "tp": 34,
+   "fp": 0,
+   "fn": 6,
+   "precision": 1.0,
+   "recall": 0.85,
+   "f1": 0.9189
+  }
+ }
+}

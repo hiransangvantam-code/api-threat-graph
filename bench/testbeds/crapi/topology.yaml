@@ -1,0 +1,557 @@
+name: crapi
+description: API surface of OWASP crAPI, mined from source; documentation = crAPI's published OpenAPI spec
+source:
+  repo: https://github.com/OWASP/crAPI
+  commit: b5fc307f3e5f875809b095b771108ef342a33724
+documentation: spec-file
+spec_file: openapi/crapi-openapi-spec.json
+id_style: int
+gateway:
+  service: crapi-web
+  kind: nginx
+  config: gateway/nginx.conf.template
+  uninstrumented: true
+  routes:
+  - path: /identity/
+    service: crapi-identity
+  - path: /community/
+    service: crapi-community
+  - path: /workshop/
+    service: crapi-workshop
+  - path: /chatbot/
+    service: crapi-chatbot
+spec_only_operations: []
+services:
+- name: crapi-identity
+  lang: java/spring
+  port: 8080
+  endpoints:
+  - method: POST
+    path: /identity/api/auth/login
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/signup
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/verify
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: false
+  - method: GET
+    path: /identity/api/auth/jwks.json
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/api/auth/forget-password
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/v2/check-otp
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/v3/check-otp
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/v4.0/user/login-with-token
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/v2.7/user/login-with-token
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/auth/reset-test-users
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/api/auth/unlock
+    auth: none
+    source: AuthController.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/api/v2/user/change-email
+    auth: required
+    source: ChangeEmailController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/v2/user/verify-email-token
+    auth: required
+    source: ChangeEmailController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/v2/user/change-phone-number
+    auth: required
+    source: ChangePhoneController.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/api/v2/user/verify-phone-otp
+    auth: required
+    source: ChangePhoneController.java
+    calls: []
+    documented: false
+  - method: GET
+    path: /identity/health_check
+    auth: none
+    source: HealthCheckController.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/management/admin/lockUser
+    auth: required
+    source: ManagementControlller.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/management/user/apikey
+    auth: none
+    source: ManagementControlller.java
+    calls: []
+    documented: false
+  - method: GET
+    path: /identity/api/v2/user/videos/{video_id}
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/v2/user/pictures
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/v2/user/videos
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: PUT
+    path: /identity/api/v2/user/videos/{video_id}
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: DELETE
+    path: /identity/api/v2/user/videos/{video_id}
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: DELETE
+    path: /identity/api/v2/admin/videos/{video_id}
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: GET
+    path: /identity/api/v2/user/videos/convert_video
+    auth: required
+    source: ProfileController.java
+    calls: []
+    documented: true
+  - method: GET
+    path: /identity/api/v2/user/dashboard
+    auth: none
+    source: UserController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/v2/user/reset-password
+    auth: required
+    source: UserController.java
+    calls: []
+    documented: true
+  - method: POST
+    path: /identity/api/v2/vehicle/register_vehicle
+    auth: required
+    source: VehicleController.java
+    calls: []
+    documented: false
+  - method: POST
+    path: /identity/api/v2/vehicle/add_vehicle
+    auth: required
+    source: VehicleController.java
+    calls:
+    - service: gateway-service
+      method: GET
+      path: /v1/vin/ownership
+    documented: true
+  - method: POST
+    path: /identity/api/v2/vehicle/resend_email
+    auth: required
+    source: VehicleController.java
+    calls: []
+    documented: true
+  - method: GET
+    path: /identity/api/v2/vehicle/vehicles
+    auth: required
+    source: VehicleController.java
+    calls: []
+    documented: true
+  - method: GET
+    path: /identity/api/v2/vehicle/{carId}/location
+    auth: required
+    source: VehicleController.java
+    calls: []
+    documented: true
+  documented: spec-file
+- name: crapi-community
+  lang: go/gorilla
+  port: 8087
+  endpoints:
+  - method: GET
+    path: /community/api/v2/community/posts/recent
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - &id001
+      service: crapi-identity
+      method: POST
+      path: /identity/api/auth/verify
+    documented: true
+  - method: GET
+    path: /community/api/v2/community/posts/search
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - *id001
+    documented: false
+  - method: GET
+    path: /community/api/v2/community/posts/{postID}
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /community/api/v2/community/posts
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /community/api/v2/community/posts/{postID}/comment
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /community/api/v2/coupon/new-coupon
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /community/api/v2/coupon/validate-coupon
+    auth: required
+    source: api/router/routes.go
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /community/home
+    auth: none
+    source: api/router/routes.go
+    calls: []
+    documented: false
+  documented: spec-file
+- name: crapi-workshop
+  lang: python/django
+  port: 8000
+  endpoints:
+  - method: GET
+    path: /workshop/admin
+    auth: none
+    source: urls
+    calls: []
+    documented: false
+  - method: GET
+    path: /workshop/health_check
+    auth: none
+    source: urls
+    calls: []
+    documented: false
+  - method: POST
+    path: /workshop/api/mechanic/signup
+    auth: none
+    source: crapi.mechanic.views
+    calls: []
+    documented: true
+  - method: GET
+    path: /workshop/api/mechanic/receive_report
+    auth: none
+    source: crapi.mechanic.views
+    calls: []
+    documented: true
+  - method: GET
+    path: /workshop/api/mechanic/mechanic_report
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /workshop/api/mechanic/service_request/{service_request_id}/comment
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: false
+  - method: GET
+    path: /workshop/api/mechanic/service_request/{service_request_id}/comment
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: false
+  - method: PUT
+    path: /workshop/api/mechanic/service_request/{service_request_id}
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: false
+  - method: GET
+    path: /workshop/api/mechanic/service_request/{service_request_id}
+    auth: none
+    source: crapi.mechanic.views
+    calls: []
+    documented: false
+  - method: GET
+    path: /workshop/api/mechanic/service_requests
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /workshop/api/mechanic/service_request
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: false
+  - method: GET
+    path: /workshop/api/mechanic/download_report
+    auth: none
+    source: crapi.mechanic.views
+    calls: []
+    documented: false
+  - method: GET
+    path: /workshop/api/mechanic
+    auth: required
+    source: crapi.mechanic.views
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /workshop/api/merchant/contact_mechanic
+    auth: required
+    source: crapi.merchant.views
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /workshop/api/merchant/service_requests/{vin}
+    auth: none
+    source: crapi.merchant.views
+    calls: []
+    documented: false
+  - method: GET
+    path: /workshop/api/shop/products
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /workshop/api/shop/products
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /workshop/api/shop/orders/all
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: true
+  - method: POST
+    path: /workshop/api/shop/orders/return_order
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /workshop/api/shop/orders/{order_id}
+    auth: none
+    source: crapi.shop.views
+    calls: []
+    documented: true
+  - method: POST
+    path: /workshop/api/shop/orders/{order_id}
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: false
+  - method: PUT
+    path: /workshop/api/shop/orders/{order_id}
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /workshop/api/shop/orders
+    auth: none
+    source: crapi.shop.views
+    calls: []
+    documented: false
+  - method: POST
+    path: /workshop/api/shop/orders
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    - service: gateway-service
+      method: POST
+      path: /v1/payment
+    documented: true
+  - method: PUT
+    path: /workshop/api/shop/orders
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: false
+  - method: POST
+    path: /workshop/api/shop/apply_coupon
+    auth: required
+    source: crapi.shop.views
+    calls:
+    - *id001
+    documented: true
+  - method: GET
+    path: /workshop/api/shop/return_qr_code
+    auth: none
+    source: crapi.shop.views
+    calls: []
+    documented: true
+  - method: GET
+    path: /workshop/api/management/users/all
+    auth: required
+    source: crapi.user.views
+    calls:
+    - *id001
+    documented: true
+  documented: spec-file
+- name: crapi-chatbot
+  lang: python/flask
+  port: 5002
+  endpoints:
+  - method: GET
+    path: /chatbot
+    auth: none
+    source: app.py
+    calls: []
+    documented: false
+  - method: POST
+    path: /chatbot/genai/init
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  - method: POST
+    path: /chatbot/genai/model
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  - method: POST
+    path: /chatbot/genai/ask
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  - method: GET
+    path: /chatbot/genai/state
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  - method: GET
+    path: /chatbot/genai/history
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  - method: POST
+    path: /chatbot/genai/reset
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  - method: GET
+    path: /chatbot/genai/health
+    auth: none
+    source: chat_api.py
+    calls: []
+    documented: false
+  documented: spec-file
+- name: gateway-service
+  lang: go/net-http
+  port: 443
+  endpoints:
+  - method: GET
+    path: /
+    auth: none
+    source: main.go
+    calls: []
+    documented: false
+  - method: GET
+    path: /v1/vin/ownership
+    auth: required
+    source: main.go
+    calls: []
+    documented: false
+  - method: POST
+    path: /v1/payment
+    auth: required
+    source: main.go
+    calls: []
+    documented: false
+  documented: spec-file

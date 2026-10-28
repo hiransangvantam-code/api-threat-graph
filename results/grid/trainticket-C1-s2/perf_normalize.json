@@ -1,0 +1,10 @@
+{
+ "stage": "normalize",
+ "wall_ms": 46.4,
+ "peak_rss_mb": 17.7,
+ "detail": {
+  "endpoints": 265,
+  "dependencies": 123
+ },
+ "status": {}
+}

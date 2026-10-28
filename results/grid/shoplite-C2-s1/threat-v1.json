@@ -1,0 +1,493 @@
+{
+ "testbed": "shoplite",
+ "run": "shoplite-C2-s1",
+ "timing": {
+  "rule_engine_ms": 0.42,
+  "dependency_analyzer_ms": 0.02,
+  "threat_graph_ms": 0.57,
+  "attack_path_query_ms": 18.49,
+  "phase3_total_ms": 24.8,
+  "phase4_dashboard_ms": 1.9,
+  "dashboard_kb": 171.4,
+  "phase2_normalize_ms": 1.3
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 0.52,
+  "dependency_analyzer_ms": 0.02,
+  "threat_graph_ms": 0.83,
+  "attack_path_query_ms": 35.71,
+  "phase3_total_ms": 55.4,
+  "phase4_dashboard_ms": 3.1,
+  "dashboard_kb": 243.4
+ },
+ "graph": {
+  "nodes": 52,
+  "edges": 94,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 3,
+   "Endpoint": 11,
+   "Risk": 8,
+   "Vulnerability": 24
+  },
+  "edges_by_rel": {
+   "reaches": 5,
+   "uses": 3,
+   "exposes": 11,
+   "runs_on": 11,
+   "routes": 10,
+   "depends_on": 5,
+   "calls": 1,
+   "has_vuln": 24,
+   "leads_to": 24
+  },
+  "attack_paths": 88,
+  "critical_or_high_paths": 25,
+  "internet_paths": 37,
+  "hops_mean": 4.2045,
+  "hops_max": 6,
+  "apcr_median": 7.12,
+  "apcr_p90": 15.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 285.0,
+  "findings": 24,
+  "by_severity": {
+   "critical": 3,
+   "high": 11,
+   "medium": 8,
+   "low": 2
+  },
+  "rules_fired": 16,
+  "fixes_for_70pct": 9,
+  "fixes_for_90pct": 14,
+  "remediation_actions": 19,
+  "longest_chain": 3,
+  "max_blast_radius": 2
+ },
+ "oracle_graph": {
+  "nodes": 74,
+  "edges": 142,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 12,
+   "Risk": 8,
+   "Vulnerability": 42
+  },
+  "edges_by_rel": {
+   "reaches": 6,
+   "uses": 3,
+   "exposes": 12,
+   "runs_on": 12,
+   "routes": 10,
+   "handles": 8,
+   "depends_on": 5,
+   "calls": 2,
+   "has_vuln": 42,
+   "leads_to": 42
+  },
+  "attack_paths": 134,
+  "critical_or_high_paths": 40,
+  "internet_paths": 53,
+  "hops_mean": 4.1269,
+  "hops_max": 6,
+  "apcr_median": 8.0,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 508.0,
+  "findings": 42,
+  "by_severity": {
+   "critical": 10,
+   "high": 18,
+   "medium": 8,
+   "low": 6
+  },
+  "rules_fired": 23,
+  "fixes_for_70pct": 14,
+  "fixes_for_90pct": 22,
+  "remediation_actions": 32,
+  "longest_chain": 2,
+  "max_blast_radius": 2
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 18,
+   "precision": 1.0,
+   "recall": 0.5714,
+   "f1": 0.7273,
+   "tool": 24,
+   "oracle": 42,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 0.5,
+   "severity_agreement": 1.0,
+   "score_mae": 0.3333
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 3,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+   },
+   "API3": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 2,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "API4": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "API8-DEBUG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-PRIV": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-TAG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571
+   },
+   "API9-ZOMBIE": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "LT-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-03": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 4,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "TS-01": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "TS-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-03": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "TS-04": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-05": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "TS-07": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "TS-08": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   }
+  },
+  "paths": {
+   "tp": 48,
+   "fp": 0,
+   "fn": 30,
+   "precision": 1.0,
+   "recall": 0.6154,
+   "f1": 0.7619,
+   "tool": 48,
+   "oracle": 78
+  },
+  "risk": {
+   "tool_R": 285.0,
+   "oracle_R": 508.0,
+   "ratio": 0.561,
+   "top10_overlap": 0.4,
+   "service_risk_spearman": 0.2722,
+   "fixes_70_tool": 9,
+   "fixes_70_oracle": 14
+  },
+  "missed": [
+   "('API1', ('order-service', 'GET', '/orders/{}'))",
+   "('API1', ('user-service', 'GET', '/users/{}'))",
+   "('API1', ('user-service', 'GET', '/users/{}/addresses'))",
+   "('API3', ('payment-service', 'GET', '/admin/transactions'))",
+   "('API3', ('user-service', 'GET', '/internal/users/export'))",
+   "('API5', ('user-service', 'GET', '/internal/users/export'))",
+   "('API9-SHADOW', ('user-service', 'GET', '/internal/users/export'))",
+   "('LT-01', ('user-service', 'GET', '/internal/users/export'))",
+   "('LT-03', ('user-service', 'GET', '/internal/users/export'))",
+   "('LT-03', ('user-service', 'GET', '/users/{}'))",
+   "('LT-03', ('user-service', 'GET', '/users/{}/addresses'))",
+   "('LT-03', ('user-service', 'POST', '/auth/login'))",
+   "('TS-01', ('payment-service', 'POST', '/charge'))",
+   "('TS-01', ('user-service', 'GET', '/internal/users/export'))",
+   "('TS-03', ('payment-service', 'POST', '/charge'))",
+   "('TS-05', ('svc', 'api-gateway', 'ingress shop.example.com/ serves the API over plain HTTP'))",
+   "('TS-07', ('user-service', 'POST', '/auth/login'))",
+   "('TS-08', ('payment-service', 'POST', '/charge'))"
+  ],
+  "extra": []
+ },
+ "known": {
+  "tool": {
+   "tp": 23,
+   "fp": 1,
+   "fn": 17,
+   "precision": 0.9583,
+   "recall": 0.575,
+   "f1": 0.7188,
+   "planted_found": 23,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [
+    "('API1', ('order-service', 'GET', '/orders/{}'))",
+    "('API1', ('user-service', 'GET', '/users/{}'))",
+    "('API1', ('user-service', 'GET', '/users/{}/addresses'))",
+    "('API3', ('payment-service', 'GET', '/admin/transactions'))",
+    "('API3', ('user-service', 'GET', '/internal/users/export'))",
+    "('API5', ('user-service', 'GET', '/internal/users/export'))",
+    "('API9-SHADOW', ('user-service', 'GET', '/internal/users/export'))",
+    "('LT-01', ('user-service', 'GET', '/internal/users/export'))",
+    "('TS-01', ('payment-service', 'POST', '/charge'))",
+    "('TS-01', ('user-service', 'GET', '/internal/users/export'))",
+    "('TS-03', ('payment-service', 'POST', '/charge'))",
+    "('TS-05', 'api-gateway')",
+    "('TS-07', ('user-service', 'POST', '/auth/login'))",
+    "('TS-08', ('payment-service', 'POST', '/charge'))"
+   ],
+   "extra": [
+    "('LT-02', 'user-service')"
+   ]
+  },
+  "oracle": {
+   "tp": 37,
+   "fp": 5,
+   "fn": 3,
+   "precision": 0.881,
+   "recall": 0.925,
+   "f1": 0.9024,
+   "planted_found": 37,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [],
+   "extra": [
+    "('LT-02', 'user-service')",
+    "('LT-03', ('user-service', 'GET', '/internal/users/export'))",
+    "('LT-03', ('user-service', 'GET', '/users/{}'))",
+    "('LT-03', ('user-service', 'GET', '/users/{}/addresses'))",
+    "('LT-03', ('user-service', 'POST', '/auth/login'))"
+   ]
+  }
+ },
+ "inventory": {
+  "tool": {
+   "shadow": 3,
+   "documented": 7,
+   "zombie": 1
+  },
+  "oracle": {
+   "shadow": 4,
+   "documented": 7,
+   "zombie": 1
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 2,
+   "fp": 0,
+   "fn": 40,
+   "precision": 1.0,
+   "recall": 0.0476,
+   "f1": 0.0909
+  },
+  "T": {
+   "tp": 13,
+   "fp": 17,
+   "fn": 29,
+   "precision": 0.4333,
+   "recall": 0.3095,
+   "f1": 0.3611
+  },
+  "C": {
+   "tp": 4,
+   "fp": 17,
+   "fn": 38,
+   "precision": 0.1905,
+   "recall": 0.0952,
+   "f1": 0.127
+  },
+  "OT": {
+   "tp": 15,
+   "fp": 17,
+   "fn": 27,
+   "precision": 0.4688,
+   "recall": 0.3571,
+   "f1": 0.4054
+  },
+  "TK": {
+   "tp": 22,
+   "fp": 13,
+   "fn": 20,
+   "precision": 0.6286,
+   "recall": 0.5238,
+   "f1": 0.5714
+  },
+  "OTK": {
+   "tp": 24,
+   "fp": 4,
+   "fn": 18,
+   "precision": 0.8571,
+   "recall": 0.5714,
+   "f1": 0.6857
+  },
+  "OTC": {
+   "tp": 16,
+   "fp": 24,
+   "fn": 26,
+   "precision": 0.4,
+   "recall": 0.381,
+   "f1": 0.3902
+  },
+  "TKC": {
+   "tp": 22,
+   "fp": 10,
+   "fn": 20,
+   "precision": 0.6875,
+   "recall": 0.5238,
+   "f1": 0.5946
+  },
+  "OTKC": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 18,
+   "precision": 1.0,
+   "recall": 0.5714,
+   "f1": 0.7273
+  }
+ }
+}

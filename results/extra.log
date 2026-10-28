@@ -1,0 +1,84 @@
+trainticket none   rep1  p50=33.51 p95=202.91 wall=24.07s
+trainticket ns     rep1  p50=37.64 p95=206.81 wall=25.22s
+trainticket ns+ew  rep1  p50=47.6 p95=248.5 wall=30.75s
+trainticket none   rep2  p50=34.01 p95=119.46 wall=19.17s
+trainticket ns     rep2  p50=36.99 p95=113.54 wall=19.36s
+trainticket ns+ew  rep2  p50=49.02 p95=147.56 wall=25.06s
+trainticket none   rep3  p50=33.33 p95=136.43 wall=19.1s
+trainticket ns     rep3  p50=35.13 p95=131.81 wall=18.88s
+trainticket ns+ew  rep3  p50=47.9 p95=171.43 wall=25.12s
+crapi none   rep1  p50=28.1 p95=48.68 wall=5.93s
+crapi ns     rep1  p50=30.21 p95=53.01 wall=6.26s
+crapi ns+ew  rep1  p50=43.11 p95=70.15 wall=8.72s
+crapi none   rep2  p50=25.44 p95=49.55 wall=5.57s
+crapi ns     rep2  p50=30.64 p95=56.86 wall=6.43s
+crapi ns+ew  rep2  p50=42.48 p95=74.02 wall=8.72s
+crapi none   rep3  p50=26.83 p95=52.47 wall=5.8s
+crapi ns     rep3  p50=29.67 p95=55.31 wall=6.24s
+crapi ns+ew  rep3  p50=43.87 p95=74.09 wall=8.95s
+{"factor": 1, "flows": 8011, "span_lines": 13010, "extract_ms": 810.7, "extract_rss_mb": 75.2, "traffic_ms": 227.9, "traces_ms": 286.4, "infra_ms": 129.3, "normalize_ms": 40.5, "normalize_rss_mb": 17.0, "inventory": 220}
+Traceback (most recent call last):
+  File "/home/claude/api-threat-graph/bench/run_experiment.py", line 368, in <module>
+    main()
+  File "/home/claude/api-threat-graph/bench/run_experiment.py", line 364, in main
+    {"grid": grid, "overhead": overhead, "scale": scale, "curve": curve}[a.cmd](a)
+  File "/home/claude/api-threat-graph/bench/run_experiment.py", line 304, in scale
+    subprocess.run([PY, str(ROOT / "bench/timed.py"), "extract", str(d / "extractor.yaml"),
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/claude/venv/bin/python', '/home/claude/api-threat-graph/bench/timed.py', 'extract', '/home/claude/api-threat-graph/results/scale/trainticket-x5/extractor.yaml', '/home/claude/api-threat-graph/results/scale/trainticket-x5/perf_extract.json']' died with <Signals.SIGKILL: 9>.
+{"requests": 100, "seed": 1, "T": 0.3272, "C": 0.375, "TC": 0.375, "OTKC": 0.9632, "edges_T_C": 0.5154, "edges_all": 0.6}
+{"requests": 100, "seed": 2, "T": 0.3382, "C": 0.364, "TC": 0.364, "OTKC": 0.9596, "edges_T_C": 0.5, "edges_all": 0.5692}
+{"requests": 100, "seed": 3, "T": 0.3015, "C": 0.3456, "TC": 0.3456, "OTKC": 0.9449, "edges_T_C": 0.4154, "edges_all": 0.4769}
+{"requests": 250, "seed": 1, "T": 0.5184, "C": 0.5662, "TC": 0.5662, "OTKC": 0.9596, "edges_T_C": 0.6846, "edges_all": 0.7231}
+{"requests": 250, "seed": 2, "T": 0.5221, "C": 0.5699, "TC": 0.5699, "OTKC": 0.9559, "edges_T_C": 0.7462, "edges_all": 0.7615}
+{"requests": 250, "seed": 3, "T": 0.5699, "C": 0.6213, "TC": 0.6213, "OTKC": 0.9522, "edges_T_C": 0.7769, "edges_all": 0.7923}
+{"requests": 500, "seed": 1, "T": 0.6654, "C": 0.739, "TC": 0.739, "OTKC": 0.9853, "edges_T_C": 0.8231, "edges_all": 0.8231}
+{"requests": 500, "seed": 2, "T": 0.625, "C": 0.6985, "TC": 0.6985, "OTKC": 0.9706, "edges_T_C": 0.7692, "edges_all": 0.7769}
+{"requests": 500, "seed": 3, "T": 0.6434, "C": 0.7206, "TC": 0.7206, "OTKC": 0.9669, "edges_T_C": 0.7231, "edges_all": 0.7308}
+{"requests": 1000, "seed": 1, "T": 0.7574, "C": 0.8382, "TC": 0.8382, "OTKC": 0.9669, "edges_T_C": 0.8846, "edges_all": 0.8846}
+{"requests": 1000, "seed": 2, "T": 0.7757, "C": 0.8603, "TC": 0.8603, "OTKC": 0.9669, "edges_T_C": 0.9308, "edges_all": 0.9308}
+{"requests": 1000, "seed": 3, "T": 0.7684, "C": 0.8566, "TC": 0.8566, "OTKC": 0.9743, "edges_T_C": 0.8462, "edges_all": 0.8462}
+{"requests": 2000, "seed": 1, "T": 0.8309, "C": 0.9228, "TC": 0.9228, "OTKC": 0.9743, "edges_T_C": 0.9692, "edges_all": 0.9692}
+{"requests": 2000, "seed": 2, "T": 0.8382, "C": 0.9301, "TC": 0.9301, "OTKC": 0.9779, "edges_T_C": 0.9923, "edges_all": 0.9923}
+{"requests": 2000, "seed": 3, "T": 0.8125, "C": 0.9081, "TC": 0.9081, "OTKC": 0.9743, "edges_T_C": 0.8769, "edges_all": 0.8769}
+{"requests": 4000, "seed": 1, "T": 0.8493, "C": 0.9449, "TC": 0.9449, "OTKC": 0.9779, "edges_T_C": 0.9692, "edges_all": 0.9692}
+{"requests": 4000, "seed": 2, "T": 0.8456, "C": 0.9449, "TC": 0.9449, "OTKC": 0.9743, "edges_T_C": 0.9769, "edges_all": 0.9769}
+{"requests": 4000, "seed": 3, "T": 0.8713, "C": 0.9706, "TC": 0.9706, "OTKC": 0.9926, "edges_T_C": 0.9923, "edges_all": 0.9923}
+{"requests": 8000, "seed": 1, "T": 0.8346, "C": 0.9301, "TC": 0.9301, "OTKC": 0.9743, "edges_T_C": 0.9692, "edges_all": 0.9692}
+{"requests": 8000, "seed": 2, "T": 0.8566, "C": 0.9522, "TC": 0.9522, "OTKC": 0.9816, "edges_T_C": 0.9692, "edges_all": 0.9692}
+{"requests": 8000, "seed": 3, "T": 0.8493, "C": 0.9449, "TC": 0.9449, "OTKC": 0.9706, "edges_T_C": 0.9923, "edges_all": 0.9923}
+shoplite     C1 s1  recall=1.000 prec=1.000 edgesR=1.0  (6s)
+shoplite     C1 s2  recall=1.000 prec=1.000 edgesR=1.0  (6s)
+shoplite     C1 s3  recall=1.000 prec=1.000 edgesR=1.0  (7s)
+shoplite     C1 s4  recall=1.000 prec=1.000 edgesR=1.0  (6s)
+shoplite     C1 s5  recall=0.917 prec=1.000 edgesR=1.0  (6s)
+shoplite     C2 s1  recall=0.917 prec=1.000 edgesR=1.0  (6s)
+shoplite     C2 s2  recall=1.000 prec=1.000 edgesR=1.0  (5s)
+shoplite     C2 s3  recall=1.000 prec=1.000 edgesR=1.0  (6s)
+shoplite     C2 s4  recall=1.000 prec=1.000 edgesR=1.0  (5s)
+shoplite     C2 s5  recall=0.833 prec=1.000 edgesR=1.0  (6s)
+trainticket  C1 s1  recall=0.967 prec=1.000 edgesR=0.8769  (31s)
+trainticket  C1 s2  recall=0.974 prec=1.000 edgesR=0.9462  (33s)
+trainticket  C1 s3  recall=0.974 prec=1.000 edgesR=0.8462  (32s)
+trainticket  C1 s4  recall=0.967 prec=1.000 edgesR=0.8077  (32s)
+trainticket  C1 s5  recall=0.967 prec=1.000 edgesR=0.9462  (32s)
+trainticket  C2 s1  recall=0.967 prec=1.000 edgesR=0.5923  (24s)
+trainticket  C2 s2  recall=0.971 prec=1.000 edgesR=0.7846  (25s)
+trainticket  C2 s3  recall=0.974 prec=1.000 edgesR=0.5385  (25s)
+trainticket  C2 s4  recall=0.967 prec=1.000 edgesR=0.7154  (24s)
+trainticket  C2 s5  recall=0.963 prec=1.000 edgesR=0.7923  (25s)
+crapi        C1 s1  recall=0.899 prec=1.000 edgesR=0.875  (13s)
+crapi        C1 s2  recall=0.886 prec=1.000 edgesR=1.0  (12s)
+crapi        C1 s3  recall=0.924 prec=1.000 edgesR=1.0  (12s)
+crapi        C1 s4  recall=0.911 prec=1.000 edgesR=1.0  (12s)
+crapi        C1 s5  recall=0.911 prec=1.000 edgesR=1.0  (13s)
+crapi        C2 s1  recall=0.899 prec=1.000 edgesR=0.75  (9s)
+crapi        C2 s2  recall=0.848 prec=1.000 edgesR=0.875  (9s)
+crapi        C2 s3  recall=0.924 prec=1.000 edgesR=0.875  (9s)
+crapi        C2 s4  recall=0.873 prec=1.000 edgesR=0.875  (9s)
+crapi        C2 s5  recall=0.861 prec=1.000 edgesR=0.875  (9s)
+{"factor": 1, "flows": 8011, "span_lines": 13010, "extract_ms": 799.0, "extract_rss_mb": 75.3, "traffic_ms": 231.8, "traces_ms": 273.0, "infra_ms": 143.7, "normalize_ms": 43.2, "normalize_rss_mb": 17.0, "inventory": 220}
+{"factor": 5, "flows": 40055, "span_lines": 65050, "extract_ms": 3322.6, "extract_rss_mb": 257.4, "traffic_ms": 1311.2, "traces_ms": 1675.5, "infra_ms": 122.1, "normalize_ms": 38.9, "normalize_rss_mb": 16.9, "inventory": 220}
+{"factor": 10, "flows": 80110, "span_lines": 130100, "extract_ms": 6573.7, "extract_rss_mb": 484.6, "traffic_ms": 2889.0, "traces_ms": 3318.9, "infra_ms": 120.9, "normalize_ms": 38.6, "normalize_rss_mb": 17.0, "inventory": 220}
+{"factor": 20, "flows": 160220, "span_lines": 260200, "extract_ms": 17429.0, "extract_rss_mb": 939.1, "traffic_ms": 10047.4, "traces_ms": 6898.1, "infra_ms": 106.1, "normalize_ms": 43.4, "normalize_rss_mb": 17.0, "inventory": 220}

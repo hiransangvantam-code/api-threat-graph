@@ -1,0 +1,518 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "openapi",
+  "collector": "openapi-prober",
+  "extractor_version": "0.1.0",
+  "run_id": "20261024-065026-a29391",
+  "collected_at": "2026-10-23T23:50:26+00:00",
+  "duration_ms": 92.8,
+  "inputs": [
+    "http://127.0.0.1:8001/openapi.json",
+    "http://127.0.0.1:8002/openapi.json",
+    "http://127.0.0.1:8003/openapi.json",
+    "/home/claude/api-threat-graph/demo_target/specs/payment-service.v1.yaml"
+  ],
+  "stats": {
+    "specs": 4,
+    "services_with_spec": [
+      "order-service",
+      "payment-service",
+      "user-service"
+    ],
+    "services_without_live_spec": [
+      "api-gateway"
+    ],
+    "operations": 12,
+    "probes": 11
+  },
+  "warnings": [
+    "api-gateway: no live spec at any probed path"
+  ],
+  "records": [
+    {
+      "kind": "spec",
+      "service": "user-service",
+      "origin": "live",
+      "location": "http://127.0.0.1:8001/openapi.json",
+      "spec_version": "3.1.0",
+      "title": "user-service",
+      "api_version": "1.5.0",
+      "servers": [],
+      "security_schemes": {
+        "HTTPBearer": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      },
+      "global_security": null,
+      "operation_count": 4,
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/auth/login",
+          "operation_id": "login_auth_login_post",
+          "summary": "Login",
+          "tags": [
+            "auth"
+          ],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "username": "string",
+              "password": "string"
+            }
+          },
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/users/{user_id}",
+          "operation_id": "get_user_users__user_id__get",
+          "summary": "Get User",
+          "tags": [
+            "users"
+          ],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/users/{user_id}/addresses",
+          "operation_id": "get_addresses_users__user_id__addresses_get",
+          "summary": "Get Addresses",
+          "tags": [
+            "users"
+          ],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/internal/users/export",
+          "operation_id": "export_users_internal_users_export_get",
+          "summary": "Export Users",
+          "tags": [
+            "admin"
+          ],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "order-service",
+      "origin": "live",
+      "location": "http://127.0.0.1:8002/openapi.json",
+      "spec_version": "3.1.0",
+      "title": "order-service",
+      "api_version": "2.1.0",
+      "servers": [],
+      "security_schemes": {
+        "HTTPBearer": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      },
+      "global_security": null,
+      "operation_count": 4,
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/orders/{order_id}",
+          "operation_id": "get_order_orders__order_id__get",
+          "summary": "Get Order",
+          "tags": [
+            "orders"
+          ],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "DELETE",
+          "path": "/orders/{order_id}",
+          "operation_id": "cancel_order_orders__order_id__delete",
+          "summary": "Cancel Order",
+          "tags": [
+            "orders"
+          ],
+          "deprecated": true,
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/orders",
+          "operation_id": "list_orders_orders_get",
+          "summary": "List Orders",
+          "tags": [
+            "orders"
+          ],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "query",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "POST",
+          "path": "/orders",
+          "operation_id": "create_order_orders_post",
+          "summary": "Create Order",
+          "tags": [
+            "orders"
+          ],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "user_id": "integer",
+              "items": "array",
+              "total": "number"
+            }
+          },
+          "responses": [
+            "201",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "payment-service",
+      "origin": "live",
+      "location": "http://127.0.0.1:8003/openapi.json",
+      "spec_version": "3.1.0",
+      "title": "payment-service",
+      "api_version": "1.0.0",
+      "servers": [],
+      "security_schemes": {
+        "APIKeyHeader": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-Service-Token"
+        },
+        "HTTPBearer": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      },
+      "global_security": null,
+      "operation_count": 3,
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/charge",
+          "operation_id": "charge_charge_post",
+          "summary": "Charge",
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "user_id": "integer",
+              "amount": "number",
+              "card_token": "string"
+            }
+          },
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "POST",
+          "path": "/refund",
+          "operation_id": "refund_refund_post",
+          "summary": "Refund",
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "payment_id": "string",
+              "reason": "string?"
+            }
+          },
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "APIKeyHeader": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/admin/transactions",
+          "operation_id": "admin_transactions_admin_transactions_get",
+          "summary": "Admin Transactions",
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200",
+            "422"
+          ],
+          "security": [
+            {
+              "HTTPBearer": []
+            }
+          ],
+          "auth_declared": "required"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "payment-service",
+      "origin": "file",
+      "location": "/home/claude/api-threat-graph/demo_target/specs/payment-service.v1.yaml",
+      "spec_version": "3.0.3",
+      "title": "payment-service",
+      "api_version": "0.7.0",
+      "servers": [
+        "http://payment-service:8003"
+      ],
+      "security_schemes": {
+        "serviceToken": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-Service-Token"
+        }
+      },
+      "global_security": null,
+      "operation_count": 1,
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/charge",
+          "operation_id": "charge",
+          "summary": "Charge a card token",
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "user_id": "integer",
+              "amount": "number",
+              "card_token": "string"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "serviceToken": []
+            }
+          ],
+          "auth_declared": "required"
+        }
+      ]
+    }
+  ],
+  "probe_log": [
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "api-gateway",
+      "url": "http://127.0.0.1:8000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "user-service",
+      "url": "http://127.0.0.1:8001/openapi.json",
+      "result": "spec"
+    },
+    {
+      "service": "order-service",
+      "url": "http://127.0.0.1:8002/openapi.json",
+      "result": "spec"
+    },
+    {
+      "service": "payment-service",
+      "url": "http://127.0.0.1:8003/openapi.json",
+      "result": "spec"
+    }
+  ]
+}

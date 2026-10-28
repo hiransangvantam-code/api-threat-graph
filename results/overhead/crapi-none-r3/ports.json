@@ -1,0 +1,8 @@
+{
+ "crapi-web": 9200,
+ "crapi-identity": 9201,
+ "crapi-community": 9202,
+ "crapi-workshop": 9203,
+ "crapi-chatbot": 9204,
+ "gateway-service": 9205
+}

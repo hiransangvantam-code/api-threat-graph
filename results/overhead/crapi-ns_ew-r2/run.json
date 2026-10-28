@@ -1,0 +1,24 @@
+{
+ "testbed": "crapi",
+ "condition": "C1",
+ "seed": 102,
+ "capture": "ns+ew",
+ "untraced": [],
+ "workload": {
+  "public_endpoints": 75,
+  "exercised_public": 60,
+  "internal_only": 2,
+  "jobs": 2,
+  "requests": 1504,
+  "status": {
+   "200": 1419,
+   "401": 85
+  },
+  "wall_s": 8.72,
+  "latency_ms": {
+   "p50": 42.48,
+   "p95": 74.02,
+   "mean": 46.09
+  }
+ }
+}

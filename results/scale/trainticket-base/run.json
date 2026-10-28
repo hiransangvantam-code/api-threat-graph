@@ -1,0 +1,24 @@
+{
+ "testbed": "trainticket",
+ "condition": "C1",
+ "seed": 1,
+ "capture": "ns+ew",
+ "untraced": [],
+ "workload": {
+  "public_endpoints": 250,
+  "exercised_public": 200,
+  "internal_only": 22,
+  "jobs": 5,
+  "requests": 3010,
+  "status": {
+   "200": 2886,
+   "401": 124
+  },
+  "wall_s": 23.58,
+  "latency_ms": {
+   "p50": 47.56,
+   "p95": 134.87,
+   "mean": 62.39
+  }
+ }
+}

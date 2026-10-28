@@ -1,0 +1,7 @@
+Testbed,Cond.,Traffic (ms),OpenAPI (ms),K8s/gateway (ms),Traces (ms),Phase 1 total (ms),Phase 1 peak RSS (MB),Phase 2 normalize (ms),Phase 2 peak RSS (MB)
+ShopLite,C1,13,89,14,28,263,35.1 ± 0.2,18,12.8 ± 0.0
+ShopLite,C2,5,92,14,15,211,34.3 ± 1.0,22,12.8 ± 0.0
+Train Ticket,C1,253,396,138,315,1252,79.8 ± 1.6,49,17.7 ± 0.2
+Train Ticket,C2,79,403,145,228,987,60.8 ± 6.4,35,16.2 ± 0.1
+crAPI,C1,93,110,33,60,402,48.9 ± 0.5,27,13.8 ± 0.2
+crAPI,C2,37,116,34,36,327,41.4 ± 1.0,24,13.4 ± 0.1

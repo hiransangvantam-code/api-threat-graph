@@ -1,0 +1,28 @@
+target:
+  name: shoplite
+  service_map:
+    127.0.0.1:8000: api-gateway
+    127.0.0.1:8001: user-service
+    127.0.0.1:8002: order-service
+    127.0.0.1:8003: payment-service
+sources:
+  runtime_traffic:
+    enabled: true
+    capture_files:
+    - /home/claude/api-threat-graph/results/hardened/shoplite-C2-s2/capture
+  openapi:
+    enabled: true
+    timeout_s: 2
+    spec_files:
+    - path: /home/claude/api-threat-graph/demo_target/specs/payment-service.v1.yaml
+      service: payment-service
+  infrastructure:
+    enabled: true
+    manifest_paths:
+    - /home/claude/api-threat-graph/demo_target/k8s-hardened
+  callchain:
+    enabled: true
+    trace_paths:
+    - /home/claude/api-threat-graph/results/hardened/shoplite-C2-s2/telemetry
+output_dir: /home/claude/api-threat-graph/results/hardened/shoplite-C2-s2/raw
+report_path: /home/claude/api-threat-graph/results/hardened/shoplite-C2-s2/report.html

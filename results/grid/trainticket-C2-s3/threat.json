@@ -1,0 +1,400 @@
+{
+ "testbed": "trainticket",
+ "run": "trainticket-C2-s3",
+ "timing": {
+  "rule_engine_ms": 7.86,
+  "dependency_analyzer_ms": 0.21,
+  "threat_graph_ms": 9.67,
+  "attack_path_query_ms": 5631.26,
+  "risk_propagation_ms": 4.98,
+  "mitigation_plan_ms": 11356.31,
+  "phase3_total_ms": 17036.2,
+  "phase4_dashboard_ms": 32.8,
+  "dashboard_kb": 1815.1,
+  "phase2_normalize_ms": 24.1
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 7.79,
+  "dependency_analyzer_ms": 0.32,
+  "threat_graph_ms": 11.51,
+  "attack_path_query_ms": 12549.33,
+  "risk_propagation_ms": 4.69,
+  "mitigation_plan_ms": 25334.29,
+  "phase3_total_ms": 37954.2,
+  "phase4_dashboard_ms": 36.7,
+  "dashboard_kb": 2039.9
+ },
+ "graph": {
+  "nodes": 629,
+  "edges": 1598,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 46,
+   "Endpoint": 265,
+   "Risk": 4,
+   "Vulnerability": 312
+  },
+  "edges_by_rel": {
+   "reaches": 87,
+   "exposes": 265,
+   "runs_on": 265,
+   "routes": 248,
+   "depends_on": 70,
+   "calls": 39,
+   "has_vuln": 312,
+   "leads_to": 312
+  },
+  "attack_paths": 1070,
+  "critical_or_high_paths": 100,
+  "internet_paths": 280,
+  "hops_mean": 4.0748,
+  "hops_max": 7,
+  "apcr_median": 4.5,
+  "apcr_p90": 10.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 2832.5,
+  "findings": 312,
+  "by_severity": {
+   "critical": 32,
+   "high": 58,
+   "medium": 129,
+   "low": 93
+  },
+  "rules_fired": 13,
+  "fixes_for_70pct": 98,
+  "fixes_for_90pct": 186,
+  "remediation_actions": 273,
+  "longest_chain": 5,
+  "max_blast_radius": 8
+ },
+ "oracle_graph": {
+  "nodes": 676,
+  "edges": 1827,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 46,
+   "Endpoint": 265,
+   "Risk": 5,
+   "Vulnerability": 358
+  },
+  "edges_by_rel": {
+   "reaches": 107,
+   "exposes": 265,
+   "runs_on": 265,
+   "routes": 248,
+   "depends_on": 110,
+   "calls": 116,
+   "has_vuln": 358,
+   "leads_to": 358
+  },
+  "attack_paths": 1887,
+  "critical_or_high_paths": 121,
+  "internet_paths": 326,
+  "hops_mean": 4.5162,
+  "hops_max": 8,
+  "apcr_median": 4.27,
+  "apcr_p90": 10.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 3324.5,
+  "findings": 358,
+  "by_severity": {
+   "critical": 38,
+   "high": 72,
+   "medium": 149,
+   "low": 99
+  },
+  "rules_fired": 14,
+  "fixes_for_70pct": 116,
+  "fixes_for_90pct": 212,
+  "remediation_actions": 311,
+  "longest_chain": 2,
+  "max_blast_radius": 20
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 312,
+   "fp": 0,
+   "fn": 46,
+   "precision": 1.0,
+   "recall": 0.8715,
+   "f1": 0.9313,
+   "tool": 312,
+   "oracle": 358,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 0.8182,
+   "severity_agreement": 1.0,
+   "score_mae": 0.0
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-DEBUG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 46,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 46,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 7,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 39,
+    "fp": 0,
+    "fn": 20,
+    "precision": 1.0,
+    "recall": 0.661,
+    "f1": 0.7959
+   },
+   "LT-02": {
+    "tp": 18,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-03": {
+    "tp": 62,
+    "fp": 0,
+    "fn": 6,
+    "precision": 1.0,
+    "recall": 0.9118,
+    "f1": 0.9538
+   },
+   "TS-01": {
+    "tp": 28,
+    "fp": 0,
+    "fn": 6,
+    "precision": 1.0,
+    "recall": 0.8235,
+    "f1": 0.9032
+   },
+   "TS-02": {
+    "tp": 38,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-08": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 14,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0
+   }
+  },
+  "paths": {
+   "tp": 592,
+   "fp": 0,
+   "fn": 92,
+   "precision": 1.0,
+   "recall": 0.8655,
+   "f1": 0.9279,
+   "tool": 592,
+   "oracle": 684
+  },
+  "risk": {
+   "tool_R": 2832.5,
+   "oracle_R": 3324.5,
+   "ratio": 0.852,
+   "top10_overlap": 1.0,
+   "service_risk_spearman": 0.9304,
+   "fixes_70_tool": 98,
+   "fixes_70_oracle": 116
+  },
+  "missed": [
+   "('LT-01', ('ts-assurance-service', 'GET', '/api/v1/assuranceservice/assurances'))",
+   "('LT-01', ('ts-basic-service', 'POST', '/api/v1/basicservice/basic/travel'))",
+   "('LT-01', ('ts-basic-service', 'POST', '/api/v1/basicservice/basic/travels'))",
+   "('LT-01', ('ts-contacts-service', 'GET', '/api/v1/contactservice/contacts'))",
+   "('LT-01', ('ts-order-service', 'DELETE', '/api/v1/orderservice/order/{}'))",
+   "('LT-01', ('ts-order-service', 'GET', '/api/v1/orderservice/order'))",
+   "('LT-01', ('ts-order-service', 'GET', '/api/v1/orderservice/order/{}'))",
+   "('LT-01', ('ts-order-service', 'POST', '/api/v1/orderservice/order'))",
+   "('LT-01', ('ts-order-service', 'POST', '/api/v1/orderservice/order/admin'))",
+   "('LT-01', ('ts-order-service', 'PUT', '/api/v1/orderservice/order'))",
+   "('LT-01', ('ts-order-service', 'PUT', '/api/v1/orderservice/order/admin'))",
+   "('LT-01', ('ts-security-service', 'GET', '/api/v1/securityservice/securityConfigs'))",
+   "('LT-01', ('ts-travel2-service', 'DELETE', '/api/v1/travel2service/trips/{}'))",
+   "('LT-01', ('ts-travel2-service', 'GET', '/api/v1/travel2service/admin_trip'))",
+   "('LT-01', ('ts-travel2-service', 'GET', '/api/v1/travel2service/train_types/{}'))",
+   "('LT-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trip_detail'))",
+   "('LT-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/left'))",
+   "('LT-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/routes'))",
+   "('LT-01', ('ts-travel2-service', 'PUT', '/api/v1/travel2service/trips'))",
+   "('LT-01', ('ts-user-service', 'GET', '/api/v1/userservice/users/{}'))",
+   "('LT-03', ('ts-order-service', 'GET', '/api/v1/orderservice/order/{}'))",
+   "('LT-03', ('ts-order-service', 'POST', '/api/v1/orderservice/order/tickets'))",
+   "('LT-03', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/left'))",
+   "('LT-03', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/routes'))",
+   "('LT-03', ('ts-travel2-service', 'PUT', '/api/v1/travel2service/trips'))",
+   "('LT-03', ('ts-user-service', 'GET', '/api/v1/userservice/users'))",
+   "('TS-01', ('ts-order-service', 'POST', '/api/v1/orderservice/order/tickets'))",
+   "('TS-01', ('ts-seat-service', 'POST', '/api/v1/seatservice/seats/left_tickets'))",
+   "('TS-01', ('ts-station-service', 'POST', '/api/v1/stationservice/stations/namelist'))",
+   "('TS-01', ('ts-travel-service', 'POST', '/api/v1/travelservice/trips/left'))",
+   "('TS-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/left'))",
+   "('TS-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/routes'))",
+   "('TS-08', ('ts-config-service', 'GET', '/api/v1/configservice/configs'))",
+   "('TS-08', ('ts-order-other-service', 'POST', '/api/v1/orderOtherService/orderOther/tickets'))",
+   "('TS-08', ('ts-price-service', 'GET', '/api/v1/priceservice/prices'))",
+   "('TS-08', ('ts-route-plan-service', 'POST', '/api/v1/routeplanservice/routePlan/cheapestRoute'))",
+   "('TS-08', ('ts-route-plan-service', 'POST', '/api/v1/routeplanservice/routePlan/minStopStations'))",
+   "('TS-08', ('ts-route-service', 'GET', '/api/v1/routeservice/routes'))",
+   "('TS-08', ('ts-seat-service', 'POST', '/api/v1/seatservice/seats/left_tickets'))",
+   "('TS-08', ('ts-station-service', 'GET', '/api/v1/stationservice/stations/id/{}'))"
+  ],
+  "extra": []
+ },
+ "known": null,
+ "inventory": {
+  "tool": {
+   "documented": 206,
+   "dormant": 48,
+   "shadow": 11
+  },
+  "oracle": {
+   "documented": 212,
+   "dormant": 42,
+   "shadow": 11
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 358,
+   "precision": null,
+   "recall": 0.0,
+   "f1": 0.0
+  },
+  "T": {
+   "tp": 99,
+   "fp": 488,
+   "fn": 259,
+   "precision": 0.1687,
+   "recall": 0.2765,
+   "f1": 0.2095
+  },
+  "C": {
+   "tp": 54,
+   "fp": 286,
+   "fn": 304,
+   "precision": 0.1588,
+   "recall": 0.1508,
+   "f1": 0.1547
+  },
+  "OT": {
+   "tp": 99,
+   "fp": 488,
+   "fn": 259,
+   "precision": 0.1687,
+   "recall": 0.2765,
+   "f1": 0.2095
+  },
+  "TK": {
+   "tp": 257,
+   "fp": 553,
+   "fn": 101,
+   "precision": 0.3173,
+   "recall": 0.7179,
+   "f1": 0.4401
+  },
+  "OTK": {
+   "tp": 268,
+   "fp": 179,
+   "fn": 90,
+   "precision": 0.5996,
+   "recall": 0.7486,
+   "f1": 0.6658
+  },
+  "OTC": {
+   "tp": 147,
+   "fp": 585,
+   "fn": 211,
+   "precision": 0.2008,
+   "recall": 0.4106,
+   "f1": 0.2697
+  },
+  "OKC": {
+   "tp": 211,
+   "fp": 1,
+   "fn": 147,
+   "precision": 0.9953,
+   "recall": 0.5894,
+   "f1": 0.7404
+  },
+  "TKC": {
+   "tp": 305,
+   "fp": 288,
+   "fn": 53,
+   "precision": 0.5143,
+   "recall": 0.852,
+   "f1": 0.6414
+  },
+  "OTKC": {
+   "tp": 312,
+   "fp": 0,
+   "fn": 46,
+   "precision": 1.0,
+   "recall": 0.8715,
+   "f1": 0.9313
+  }
+ }
+}

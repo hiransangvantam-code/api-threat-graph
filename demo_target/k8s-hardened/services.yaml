@@ -1,0 +1,198 @@
+# ShopLite after applying the dashboard's recommendations (services side).
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shoplite-secrets
+  namespace: shoplite
+type: Opaque
+data:
+  jwt-secret: Y2hhbmdlbWUxMjM=
+  service-token: c3ZjLWRlbW8tdG9rZW4=
+  payment-provider-api-key: c2tfbGl2ZV9kZW1v
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: shoplite
+  labels: {app: user-service}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: user-service}
+  template:
+    metadata:
+      labels: {app: user-service}
+    spec:
+      containers:
+        - name: user-service
+          image: shoplite/user-service:1.4.0
+          ports:
+            - containerPort: 8001
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef: {name: shoplite-secrets, key: jwt-secret}
+          resources:
+            limits: {cpu: 500m, memory: 256Mi}
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: shoplite
+spec:
+  type: ClusterIP
+  selector: {app: user-service}
+  ports:
+    - port: 8001
+      targetPort: 8001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: shoplite
+  labels: {app: order-service}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: order-service}
+  template:
+    metadata:
+      labels: {app: order-service}
+    spec:
+      containers:
+        - name: order-service
+          image: shoplite/order-service:2.1.0
+          ports:
+            - containerPort: 8002
+          env:
+            - name: USER_SERVICE_URL
+              value: http://user-service:8001
+            - name: PAYMENT_SERVICE_URL
+              value: http://payment-service:8003
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef: {name: shoplite-secrets, key: jwt-secret}
+            - name: SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef: {name: shoplite-secrets, key: service-token}
+          resources:
+            limits: {cpu: 500m, memory: 256Mi}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: shoplite
+spec:
+  type: ClusterIP
+  selector: {app: order-service}
+  ports:
+    - port: 8002
+      targetPort: 8002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: shoplite
+  labels: {app: payment-service}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: payment-service}
+  template:
+    metadata:
+      labels: {app: payment-service}
+    spec:
+      containers:
+        - name: payment-service
+          image: shoplite/payment-service:1.0.0
+          ports:
+            - containerPort: 8003
+          env:
+            - name: PAYMENT_PROVIDER_API_KEY
+              valueFrom:
+                secretKeyRef: {name: shoplite-secrets, key: payment-provider-api-key}
+            - name: SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef: {name: shoplite-secrets, key: service-token}
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef: {name: shoplite-secrets, key: jwt-secret}
+          resources:
+            limits: {cpu: 500m, memory: 256Mi}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: shoplite
+spec:
+  type: ClusterIP                  # was NodePort
+  selector: {app: payment-service}
+  ports:
+    - port: 8003
+      targetPort: 8003
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: user-service-ingress
+  namespace: shoplite
+spec:
+  podSelector:
+    matchLabels: {app: user-service}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector: {matchLabels: {app: api-gateway}}
+        - podSelector: {matchLabels: {app: order-service}}
+      ports:
+        - port: 8001
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: order-service-ingress
+  namespace: shoplite
+spec:
+  podSelector:
+    matchLabels: {app: order-service}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector: {matchLabels: {app: api-gateway}}
+      ports:
+        - port: 8002
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: payment-service-ingress
+  namespace: shoplite
+spec:
+  podSelector:
+    matchLabels: {app: payment-service}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector: {matchLabels: {app: order-service}}
+        - podSelector: {matchLabels: {app: api-gateway}}
+      ports:
+        - port: 8003

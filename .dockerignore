@@ -1,0 +1,11 @@
+output/
+venv/
+.venv/
+**/__pycache__/
+.pytest_cache/
+*.pyc
+.git/
+*.zip
+# raw traffic and traces of the experiment runs (hundreds of MB, not needed to run or view)
+results/*/*/capture/
+results/*/*/telemetry/

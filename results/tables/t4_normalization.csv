@@ -1,0 +1,7 @@
+Testbed,Cond.,Captured flows,Distinct concrete paths,"Entries, sum of single-source inventories","Entries, merged",Duplicates collapsed,"Fragments, traffic only","Fragments, all four, no reconciliation","Fragments, all four",Paths reconciled,"Precision, no reconciliation","Precision, with reconciliation"
+ShopLite,C1,585,188,41,12,29,0.0 ± 0.0,0.0 ± 0.0,0.0 ± 0.0,0.0 ± 0.0,1.000 ± 0.000,1.000 ± 0.000
+ShopLite,C2,270,94,27,11,15,0.0 ± 0.0,0.0 ± 0.0,0.0 ± 0.0,0.0 ± 0.0,1.000 ± 0.000,1.000 ± 0.000
+Train Ticket,C1,8355,1383,1084,264,821,228.6 ± 57.3,133.6 ± 48.9,0.0 ± 0.0,228.6 ± 57.3,0.671 ± 0.072,1.000 ± 0.000
+Train Ticket,C2,3000,819,683,263,419,95.0 ± 8.7,95.0 ± 8.7,0.0 ± 0.0,95.0 ± 8.7,0.735 ± 0.018,1.000 ± 0.000
+crAPI,C1,3514,396,262,72,191,31.6 ± 43.5,15.8 ± 21.7,0.0 ± 0.0,31.6 ± 43.5,0.851 ± 0.165,1.000 ± 0.000
+crAPI,C2,1500,393,164,70,95,15.8 ± 21.7,15.8 ± 21.7,0.0 ± 0.0,16.0 ± 21.6,0.850 ± 0.164,1.000 ± 0.000

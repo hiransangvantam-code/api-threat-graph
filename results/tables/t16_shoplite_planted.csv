@@ -1,0 +1,5 @@
+Cond.,Side,Planted found,Planted (incl. 3 no rule covers),Precision,Recall
+C1,tool,36.6 ± 0.9,40,1.000 ± 0.000,0.915 ± 0.022
+C1,oracle,36.6 ± 0.9,40,1.000 ± 0.000,0.915 ± 0.022
+C2,tool,29.8 ± 1.8,40,0.903 ± 0.028,0.745 ± 0.045
+C2,oracle,36.2 ± 0.8,40,0.901 ± 0.029,0.905 ± 0.021

@@ -1,0 +1,106 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261024-064704-7005ac",
+  "target": "shoplite",
+  "started_at": "2026-10-23T23:47:04+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/home/claude/api-threat-graph/results/grid/shoplite-C2-s4/raw/runtime_traffic.json",
+      "sha256": "e918d095e845b78f05725e2aa05585524bdba857ecca94fd011642f768cd6975",
+      "records": 10,
+      "stats": {
+        "flows": 264,
+        "flows_ignored": 2,
+        "endpoints": 10,
+        "services": 1,
+        "flows_by_capture_point": {
+          "north-south": 264
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 4.9
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/home/claude/api-threat-graph/results/grid/shoplite-C2-s4/raw/openapi.json",
+      "sha256": "c28925bd5aedb2afcc8245119a6e41abb21167b5f52477c229e006df03fe1ddd",
+      "records": 3,
+      "stats": {
+        "specs": 3,
+        "services_with_spec": [
+          "order-service",
+          "payment-service",
+          "user-service"
+        ],
+        "services_without_live_spec": [
+          "api-gateway",
+          "payment-service"
+        ],
+        "operations": 8,
+        "probes": 18
+      },
+      "warnings": [
+        "api-gateway: no live spec at any probed path",
+        "payment-service: no live spec at any probed path"
+      ],
+      "duration_ms": 79.5
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/home/claude/api-threat-graph/results/grid/shoplite-C2-s4/raw/infrastructure.json",
+      "sha256": "26d0341f21aba1875f5c04d8604a05f7fc4db29e22704e4f478a8e0c54068411",
+      "records": 22,
+      "stats": {
+        "files": 2,
+        "workloads": 4,
+        "services": 4,
+        "ingress_paths": 1,
+        "gateway_routes": 4,
+        "network_policies": 1,
+        "secrets": 1,
+        "internet_exposed_workloads": [
+          "api-gateway",
+          "order-service",
+          "payment-service",
+          "user-service"
+        ],
+        "node_exposed_workloads": [
+          "payment-service"
+        ],
+        "workloads_without_network_policy": [
+          "api-gateway",
+          "order-service",
+          "payment-service"
+        ],
+        "plaintext_env_with_sensitive_name": 2,
+        "ignored_kinds": {
+          "Namespace": 1
+        }
+      },
+      "warnings": [],
+      "duration_ms": 12.8
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/home/claude/api-threat-graph/results/grid/shoplite-C2-s4/raw/callchain.json",
+      "sha256": "1befdd1b52783561cf65fab89dff62b8318200dcb7fe8742b0ce6efaad59cfca",
+      "records": 29,
+      "stats": {
+        "spans": 817,
+        "spans_ignored": 13,
+        "traces": 266,
+        "services": 3,
+        "edges": 5,
+        "distinct_call_chains": 12,
+        "max_chain_depth": 3
+      },
+      "warnings": [],
+      "duration_ms": 17.1
+    }
+  },
+  "finished_at": "2026-10-23T23:47:04+00:00",
+  "total_duration_ms": 117.1
+}

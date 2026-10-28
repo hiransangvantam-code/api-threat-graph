@@ -1,0 +1,54 @@
+[
+ {
+  "factor": 1,
+  "flows": 8011,
+  "span_lines": 13010,
+  "extract_ms": 799.0,
+  "extract_rss_mb": 75.3,
+  "traffic_ms": 231.8,
+  "traces_ms": 273.0,
+  "infra_ms": 143.7,
+  "normalize_ms": 43.2,
+  "normalize_rss_mb": 17.0,
+  "inventory": 220
+ },
+ {
+  "factor": 5,
+  "flows": 40055,
+  "span_lines": 65050,
+  "extract_ms": 3322.6,
+  "extract_rss_mb": 257.4,
+  "traffic_ms": 1311.2,
+  "traces_ms": 1675.5,
+  "infra_ms": 122.1,
+  "normalize_ms": 38.9,
+  "normalize_rss_mb": 16.9,
+  "inventory": 220
+ },
+ {
+  "factor": 10,
+  "flows": 80110,
+  "span_lines": 130100,
+  "extract_ms": 6573.7,
+  "extract_rss_mb": 484.6,
+  "traffic_ms": 2889.0,
+  "traces_ms": 3318.9,
+  "infra_ms": 120.9,
+  "normalize_ms": 38.6,
+  "normalize_rss_mb": 17.0,
+  "inventory": 220
+ },
+ {
+  "factor": 20,
+  "flows": 160220,
+  "span_lines": 260200,
+  "extract_ms": 17429.0,
+  "extract_rss_mb": 939.1,
+  "traffic_ms": 10047.4,
+  "traces_ms": 6898.1,
+  "infra_ms": 106.1,
+  "normalize_ms": 43.4,
+  "normalize_rss_mb": 17.0,
+  "inventory": 220
+ }
+]

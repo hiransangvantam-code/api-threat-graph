@@ -1,0 +1,576 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261024-065058-3e57b7",
+  "collected_at": "2026-10-24T00:09:35+00:00",
+  "duration_ms": 18.9,
+  "inputs": [
+    "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml",
+    "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml"
+  ],
+  "stats": {
+    "files": 2,
+    "workloads": 4,
+    "services": 4,
+    "ingress_paths": 1,
+    "gateway_routes": 4,
+    "network_policies": 4,
+    "secrets": 1,
+    "internet_exposed_workloads": [
+      "api-gateway",
+      "order-service",
+      "payment-service",
+      "user-service"
+    ],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [],
+    "plaintext_env_with_sensitive_name": 0,
+    "ignored_kinds": {
+      "Namespace": 1
+    }
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "api-gateway",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml",
+      "labels": {
+        "app": "api-gateway"
+      },
+      "replicas": 2,
+      "service_account": "default",
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "gateway",
+          "image": "shoplite/api-gateway:1.1.0",
+          "image_tag": "1.1.0",
+          "ports": [
+            8000
+          ],
+          "env": [
+            {
+              "name": "GATEWAY_CONFIG",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 24
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "network_policies": [
+        "api-gateway-ingress"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "user-service",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "labels": {
+        "app": "user-service"
+      },
+      "replicas": 2,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "user-service",
+          "image": "shoplite/user-service:1.4.0",
+          "image_tag": "1.4.0",
+          "ports": [
+            8001
+          ],
+          "env": [
+            {
+              "name": "JWT_SECRET",
+              "source": "secretRef",
+              "ref": "shoplite-secrets",
+              "sensitive_name": true
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "network_policies": [
+        "user-service-ingress"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "order-service",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "labels": {
+        "app": "order-service"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "order-service",
+          "image": "shoplite/order-service:2.1.0",
+          "image_tag": "2.1.0",
+          "ports": [
+            8002
+          ],
+          "env": [
+            {
+              "name": "USER_SERVICE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://user-service:8001",
+              "references_service": "user-service"
+            },
+            {
+              "name": "PAYMENT_SERVICE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://payment-service:8003",
+              "references_service": "payment-service"
+            },
+            {
+              "name": "JWT_SECRET",
+              "source": "secretRef",
+              "ref": "shoplite-secrets",
+              "sensitive_name": true
+            },
+            {
+              "name": "SERVICE_TOKEN",
+              "source": "secretRef",
+              "ref": "shoplite-secrets",
+              "sensitive_name": true
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "network_policies": [
+        "order-service-ingress"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "payment-service",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "labels": {
+        "app": "payment-service"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "payment-service",
+          "image": "shoplite/payment-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8003
+          ],
+          "env": [
+            {
+              "name": "PAYMENT_PROVIDER_API_KEY",
+              "source": "secretRef",
+              "ref": "shoplite-secrets",
+              "sensitive_name": true
+            },
+            {
+              "name": "SERVICE_TOKEN",
+              "source": "secretRef",
+              "ref": "shoplite-secrets",
+              "sensitive_name": true
+            },
+            {
+              "name": "JWT_SECRET",
+              "source": "secretRef",
+              "ref": "shoplite-secrets",
+              "sensitive_name": true
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "network_policies": [
+        "payment-service-ingress"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "api-gateway",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "api-gateway"
+      },
+      "ports": [
+        {
+          "port": 8000,
+          "targetPort": 8000
+        }
+      ],
+      "selects_workloads": [
+        "api-gateway"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "user-service",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "user-service"
+      },
+      "ports": [
+        {
+          "port": 8001,
+          "targetPort": 8001
+        }
+      ],
+      "selects_workloads": [
+        "user-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "order-service",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "order-service"
+      },
+      "ports": [
+        {
+          "port": 8002,
+          "targetPort": 8002
+        }
+      ],
+      "selects_workloads": [
+        "order-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "payment-service",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "payment-service"
+      },
+      "ports": [
+        {
+          "port": 8003,
+          "targetPort": 8003
+        }
+      ],
+      "selects_workloads": [
+        "payment-service"
+      ]
+    },
+    {
+      "kind": "ingress",
+      "name": "shoplite-public",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml",
+      "host": "shop.example.com",
+      "path": "/",
+      "tls": true,
+      "backend_service": "api-gateway",
+      "backend_port": 8000,
+      "annotations": [
+        "nginx.ingress.kubernetes.io/ssl-redirect"
+      ]
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "configmap",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml (ConfigMap gateway-routes/routes.yaml)",
+      "match_prefix": "/api/auth",
+      "upstream": "http://user-service:8001",
+      "upstream_service": "user-service",
+      "strip_prefix": "/api",
+      "auth": "none"
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "configmap",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml (ConfigMap gateway-routes/routes.yaml)",
+      "match_prefix": "/api/users",
+      "upstream": "http://user-service:8001",
+      "upstream_service": "user-service",
+      "strip_prefix": "/api",
+      "auth": "required"
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "configmap",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml (ConfigMap gateway-routes/routes.yaml)",
+      "match_prefix": "/api/orders",
+      "upstream": "http://order-service:8002",
+      "upstream_service": "order-service",
+      "strip_prefix": "/api",
+      "auth": "required"
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "configmap",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml (ConfigMap gateway-routes/routes.yaml)",
+      "match_prefix": "/api/payments",
+      "upstream": "http://payment-service:8003",
+      "upstream_service": "payment-service",
+      "strip_prefix": "/api/payments",
+      "auth": "required"
+    },
+    {
+      "kind": "network_policy",
+      "name": "api-gateway-ingress",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml",
+      "pod_selector": {
+        "app": "api-gateway"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "namespaceSelector": {
+            "kubernetes.io/metadata.name": "ingress-nginx"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "user-service-ingress",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "pod_selector": {
+        "app": "user-service"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "api-gateway"
+          }
+        },
+        {
+          "podSelector": {
+            "app": "order-service"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "order-service-ingress",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "pod_selector": {
+        "app": "order-service"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "api-gateway"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "payment-service-ingress",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "pod_selector": {
+        "app": "payment-service"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "order-service"
+          }
+        },
+        {
+          "podSelector": {
+            "app": "api-gateway"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "secret",
+      "name": "shoplite-secrets",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/services.yaml",
+      "type": "Opaque",
+      "keys": [
+        "jwt-secret",
+        "payment-provider-api-key",
+        "service-token"
+      ]
+    },
+    {
+      "kind": "configmap",
+      "name": "gateway-routes",
+      "namespace": "shoplite",
+      "defined_in": "/home/claude/api-threat-graph/demo_target/k8s-hardened/gateway.yaml",
+      "keys": [
+        "routes.yaml"
+      ],
+      "is_gateway_config": true
+    },
+    {
+      "kind": "exposure",
+      "workload": "api-gateway",
+      "level": "internet",
+      "via": [
+        "Ingress shoplite-public shop.example.com/",
+        "Service api-gateway"
+      ],
+      "tls": true
+    },
+    {
+      "kind": "exposure",
+      "workload": "user-service",
+      "level": "internet",
+      "via": [
+        "gateway route /api/auth (auth: none)",
+        "Service user-service"
+      ],
+      "gateway_auth": "none"
+    },
+    {
+      "kind": "exposure",
+      "workload": "user-service",
+      "level": "internet",
+      "via": [
+        "gateway route /api/users (auth: required)",
+        "Service user-service"
+      ],
+      "gateway_auth": "required"
+    },
+    {
+      "kind": "exposure",
+      "workload": "order-service",
+      "level": "internet",
+      "via": [
+        "gateway route /api/orders (auth: required)",
+        "Service order-service"
+      ],
+      "gateway_auth": "required"
+    },
+    {
+      "kind": "exposure",
+      "workload": "payment-service",
+      "level": "internet",
+      "via": [
+        "gateway route /api/payments (auth: required)",
+        "Service payment-service"
+      ],
+      "gateway_auth": "required"
+    }
+  ]
+}

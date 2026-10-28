@@ -1,0 +1,429 @@
+{
+ "testbed": "trainticket",
+ "run": "trainticket-C2-s2",
+ "timing": {
+  "rule_engine_ms": 6.56,
+  "dependency_analyzer_ms": 0.27,
+  "threat_graph_ms": 10.83,
+  "attack_path_query_ms": 9431.24,
+  "phase3_total_ms": 40124.8,
+  "phase4_dashboard_ms": 51.4,
+  "dashboard_kb": 2067.1,
+  "phase2_normalize_ms": 13.4
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 7.33,
+  "dependency_analyzer_ms": 0.38,
+  "threat_graph_ms": 11.07,
+  "attack_path_query_ms": 10835.54,
+  "phase3_total_ms": 27869.2,
+  "phase4_dashboard_ms": 32.3,
+  "dashboard_kb": 1946.8
+ },
+ "graph": {
+  "nodes": 676,
+  "edges": 1861,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 46,
+   "Endpoint": 264,
+   "Risk": 4,
+   "Vulnerability": 360
+  },
+  "edges_by_rel": {
+   "reaches": 198,
+   "exposes": 264,
+   "runs_on": 264,
+   "routes": 249,
+   "depends_on": 102,
+   "calls": 64,
+   "has_vuln": 360,
+   "leads_to": 360
+  },
+  "attack_paths": 1981,
+  "critical_or_high_paths": 100,
+  "internet_paths": 335,
+  "hops_mean": 4.2625,
+  "hops_max": 8,
+  "apcr_median": 4.5,
+  "apcr_p90": 9.5,
+  "apcr_max": 25.0,
+  "total_path_risk": 3631.0,
+  "findings": 360,
+  "by_severity": {
+   "critical": 35,
+   "high": 57,
+   "medium": 238,
+   "low": 30
+  },
+  "rules_fired": 12,
+  "fixes_for_70pct": 159,
+  "fixes_for_90pct": 240,
+  "remediation_actions": 322,
+  "longest_chain": 16,
+  "max_blast_radius": 16
+ },
+ "oracle_graph": {
+  "nodes": 651,
+  "edges": 1781,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 46,
+   "Endpoint": 265,
+   "Risk": 5,
+   "Vulnerability": 333
+  },
+  "edges_by_rel": {
+   "reaches": 82,
+   "exposes": 265,
+   "runs_on": 265,
+   "routes": 249,
+   "depends_on": 123,
+   "calls": 131,
+   "has_vuln": 333,
+   "leads_to": 333
+  },
+  "attack_paths": 1823,
+  "critical_or_high_paths": 122,
+  "internet_paths": 305,
+  "hops_mean": 4.746,
+  "hops_max": 9,
+  "apcr_median": 4.27,
+  "apcr_p90": 10.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 3191.5,
+  "findings": 333,
+  "by_severity": {
+   "critical": 43,
+   "high": 73,
+   "medium": 123,
+   "low": 94
+  },
+  "rules_fired": 14,
+  "fixes_for_70pct": 100,
+  "fixes_for_90pct": 190,
+  "remediation_actions": 285,
+  "longest_chain": 2,
+  "max_blast_radius": 21
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 237,
+   "fp": 123,
+   "fn": 96,
+   "precision": 0.6583,
+   "recall": 0.7117,
+   "f1": 0.684,
+   "tool": 360,
+   "oracle": 333,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 0.7931,
+   "severity_agreement": 1.0,
+   "score_mae": 0.0
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 9,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-DEBUG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 46,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 46,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 7,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 10,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.9091,
+    "f1": 0.9524
+   },
+   "LT-01": {
+    "tp": 27,
+    "fp": 123,
+    "fn": 7,
+    "precision": 0.18,
+    "recall": 0.7941,
+    "f1": 0.2935
+   },
+   "LT-02": {
+    "tp": 17,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-03": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 64,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "TS-01": {
+    "tp": 32,
+    "fp": 0,
+    "fn": 8,
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1": 0.8889
+   },
+   "TS-02": {
+    "tp": 38,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-08": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 16,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   }
+  },
+  "paths": {
+   "tp": 449,
+   "fp": 246,
+   "fn": 189,
+   "precision": 0.646,
+   "recall": 0.7038,
+   "f1": 0.6737,
+   "tool": 695,
+   "oracle": 638
+  },
+  "risk": {
+   "tool_R": 3631.0,
+   "oracle_R": 3191.5,
+   "ratio": 1.1377,
+   "top10_overlap": 0.9,
+   "service_risk_spearman": 0.9418,
+   "fixes_70_tool": 159,
+   "fixes_70_oracle": 100
+  },
+  "missed": [
+   "('API9-SHADOW', ('ts-news-service', 'GET', '/{}'))",
+   "('LT-01', ('ts-inside-payment-service', 'GET', '/api/v1/inside_pay_service/inside_payment/drawback/{}/{}'))",
+   "('LT-01', ('ts-inside-payment-service', 'POST', '/api/v1/inside_pay_service/inside_payment/difference'))",
+   "('LT-01', ('ts-news-service', 'GET', '/{}'))",
+   "('LT-01', ('ts-train-service', 'GET', '/api/v1/trainservice/trains/{}'))",
+   "('LT-01', ('ts-travel2-service', 'GET', '/api/v1/travel2service/train_types/{}'))",
+   "('LT-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/left'))",
+   "('LT-01', ('ts-travel2-service', 'POST', '/api/v1/travel2service/trips/routes'))",
+   "('LT-03', ('ts-admin-user-service', 'DELETE', '/api/v1/adminuserservice/users/{}'))",
+   "('LT-03', ('ts-admin-user-service', 'GET', '/api/v1/adminuserservice/users'))",
+   "('LT-03', ('ts-admin-user-service', 'GET', '/api/v1/adminuserservice/users/welcome'))",
+   "('LT-03', ('ts-admin-user-service', 'POST', '/api/v1/adminuserservice/users'))",
+   "('LT-03', ('ts-admin-user-service', 'PUT', '/api/v1/adminuserservice/users'))",
+   "('LT-03', ('ts-avatar-service', 'POST', '/api/v1/avatar'))",
+   "('LT-03', ('ts-consign-service', 'GET', '/api/v1/consignservice/consigns/account/{}'))",
+   "('LT-03', ('ts-consign-service', 'GET', '/api/v1/consignservice/consigns/{}'))",
+   "('LT-03', ('ts-consign-service', 'GET', '/api/v1/consignservice/welcome'))",
+   "('LT-03', ('ts-consign-service', 'POST', '/api/v1/consignservice/consigns'))",
+   "('LT-03', ('ts-consign-service', 'PUT', '/api/v1/consignservice/consigns'))",
+   "('LT-03', ('ts-contacts-service', 'DELETE', '/api/v1/contactservice/contacts/{}'))",
+   "('LT-03', ('ts-contacts-service', 'GET', '/api/v1/contactservice/contacts'))",
+   "('LT-03', ('ts-contacts-service', 'GET', '/api/v1/contactservice/contacts/account/{}'))",
+   "('LT-03', ('ts-contacts-service', 'GET', '/api/v1/contactservice/contacts/welcome'))",
+   "('LT-03', ('ts-contacts-service', 'GET', '/api/v1/contactservice/contacts/{}'))",
+   "('LT-03', ('ts-contacts-service', 'POST', '/api/v1/contactservice/contacts'))",
+   "('LT-03', ('ts-contacts-service', 'POST', '/api/v1/contactservice/contacts/admin'))",
+   "('LT-03', ('ts-contacts-service', 'PUT', '/api/v1/contactservice/contacts'))",
+   "('LT-03', ('ts-inside-payment-service', 'GET', '/api/v1/inside_pay_service/inside_payment/account'))",
+   "('LT-03', ('ts-inside-payment-service', 'GET', '/api/v1/inside_pay_service/inside_payment/drawback/{}/{}'))",
+   "('LT-03', ('ts-inside-payment-service', 'GET', '/api/v1/inside_pay_service/inside_payment/payment'))",
+   "('LT-03', ('ts-inside-payment-service', 'GET', '/api/v1/inside_pay_service/inside_payment/{}/{}'))",
+   "('LT-03', ('ts-inside-payment-service', 'POST', '/api/v1/inside_pay_service/inside_payment'))",
+   "('LT-03', ('ts-inside-payment-service', 'POST', '/api/v1/inside_pay_service/inside_payment/account'))",
+   "('LT-03', ('ts-inside-payment-service', 'POST', '/api/v1/inside_pay_service/inside_payment/difference'))",
+   "('LT-03', ('ts-news-service', 'GET', '/{}'))",
+   "('LT-03', ('ts-price-service', 'DELETE', '/api/v1/priceservice/prices/{}'))",
+   "('LT-03', ('ts-price-service', 'GET', '/api/v1/priceservice/prices'))",
+   "('LT-03', ('ts-price-service', 'GET', '/api/v1/priceservice/prices/welcome'))",
+   "('LT-03', ('ts-price-service', 'GET', '/api/v1/priceservice/prices/{}/{}'))",
+   "('LT-03', ('ts-price-service', 'POST', '/api/v1/priceservice/prices'))"
+  ],
+  "extra": [
+   "('LT-01', ('ts-admin-basic-info-service', 'DELETE', '/api/v1/adminbasicservice/adminbasic/contacts/{}'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'DELETE', '/api/v1/adminbasicservice/adminbasic/prices/{}'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'DELETE', '/api/v1/adminbasicservice/adminbasic/trains/{}'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'GET', '/api/v1/adminbasicservice/adminbasic/configs'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'GET', '/api/v1/adminbasicservice/adminbasic/contacts'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'GET', '/api/v1/adminbasicservice/adminbasic/prices'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'GET', '/api/v1/adminbasicservice/adminbasic/stations'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'GET', '/api/v1/adminbasicservice/welcome'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'POST', '/api/v1/adminbasicservice/adminbasic/configs'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'POST', '/api/v1/adminbasicservice/adminbasic/contacts'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'POST', '/api/v1/adminbasicservice/adminbasic/prices'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'POST', '/api/v1/adminbasicservice/adminbasic/stations'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'POST', '/api/v1/adminbasicservice/adminbasic/trains'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'PUT', '/api/v1/adminbasicservice/adminbasic/configs'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'PUT', '/api/v1/adminbasicservice/adminbasic/contacts'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'PUT', '/api/v1/adminbasicservice/adminbasic/prices'))",
+   "('LT-01', ('ts-admin-basic-info-service', 'PUT', '/api/v1/adminbasicservice/adminbasic/trains'))",
+   "('LT-01', ('ts-admin-order-service', 'DELETE', '/api/v1/adminorderservice/adminorder/{}/{}'))",
+   "('LT-01', ('ts-admin-order-service', 'GET', '/api/v1/adminorderservice/adminorder'))",
+   "('LT-01', ('ts-admin-order-service', 'PUT', '/api/v1/adminorderservice/adminorder'))",
+   "('LT-01', ('ts-admin-route-service', 'DELETE', '/api/v1/adminrouteservice/adminroute/{}'))",
+   "('LT-01', ('ts-admin-route-service', 'GET', '/api/v1/adminrouteservice/adminroute'))",
+   "('LT-01', ('ts-admin-route-service', 'GET', '/api/v1/adminrouteservice/welcome'))",
+   "('LT-01', ('ts-admin-route-service', 'POST', '/api/v1/adminrouteservice/adminroute'))",
+   "('LT-01', ('ts-admin-travel-service', 'DELETE', '/api/v1/admintravelservice/admintravel/{}'))",
+   "('LT-01', ('ts-admin-travel-service', 'GET', '/api/v1/admintravelservice/admintravel'))",
+   "('LT-01', ('ts-admin-travel-service', 'GET', '/api/v1/admintravelservice/welcome'))",
+   "('LT-01', ('ts-admin-travel-service', 'POST', '/api/v1/admintravelservice/admintravel'))",
+   "('LT-01', ('ts-admin-travel-service', 'PUT', '/api/v1/admintravelservice/admintravel'))",
+   "('LT-01', ('ts-assurance-service', 'DELETE', '/api/v1/assuranceservice/assurances/orderid/{}'))",
+   "('LT-01', ('ts-assurance-service', 'GET', '/api/v1/assuranceservice/assurance/orderid/{}'))",
+   "('LT-01', ('ts-assurance-service', 'GET', '/api/v1/assuranceservice/assurances'))",
+   "('LT-01', ('ts-assurance-service', 'GET', '/api/v1/assuranceservice/assurances/assuranceid/{}'))",
+   "('LT-01', ('ts-assurance-service', 'GET', '/api/v1/assuranceservice/assurances/{}/{}'))",
+   "('LT-01', ('ts-auth-service', 'DELETE', '/api/v1/users/{}'))",
+   "('LT-01', ('ts-auth-service', 'GET', '/api/v1/auth/hello'))",
+   "('LT-01', ('ts-auth-service', 'GET', '/api/v1/users'))",
+   "('LT-01', ('ts-auth-service', 'GET', '/api/v1/users/hello'))",
+   "('LT-01', ('ts-auth-service', 'POST', '/api/v1/users/login'))",
+   "('LT-01', ('ts-basic-service', 'GET', '/api/v1/basicservice/welcome'))"
+  ]
+ },
+ "known": null,
+ "inventory": {
+  "tool": {
+   "documented": 205,
+   "dormant": 49,
+   "shadow": 10
+  },
+  "oracle": {
+   "documented": 210,
+   "dormant": 44,
+   "shadow": 11
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 333,
+   "precision": null,
+   "recall": 0.0,
+   "f1": null
+  },
+  "T": {
+   "tp": 97,
+   "fp": 492,
+   "fn": 236,
+   "precision": 0.1647,
+   "recall": 0.2913,
+   "f1": 0.2104
+  },
+  "C": {
+   "tp": 39,
+   "fp": 315,
+   "fn": 294,
+   "precision": 0.1102,
+   "recall": 0.1171,
+   "f1": 0.1135
+  },
+  "OT": {
+   "tp": 97,
+   "fp": 492,
+   "fn": 236,
+   "precision": 0.1647,
+   "recall": 0.2913,
+   "f1": 0.2104
+  },
+  "TK": {
+   "tp": 200,
+   "fp": 340,
+   "fn": 133,
+   "precision": 0.3704,
+   "recall": 0.6006,
+   "f1": 0.4582
+  },
+  "OTK": {
+   "tp": 206,
+   "fp": 41,
+   "fn": 127,
+   "precision": 0.834,
+   "recall": 0.6186,
+   "f1": 0.7103
+  },
+  "OTC": {
+   "tp": 131,
+   "fp": 615,
+   "fn": 202,
+   "precision": 0.1756,
+   "recall": 0.3934,
+   "f1": 0.2428
+  },
+  "TKC": {
+   "tp": 236,
+   "fp": 380,
+   "fn": 97,
+   "precision": 0.3831,
+   "recall": 0.7087,
+   "f1": 0.4974
+  },
+  "OTKC": {
+   "tp": 237,
+   "fp": 123,
+   "fn": 96,
+   "precision": 0.6583,
+   "recall": 0.7117,
+   "f1": 0.684
+  }
+ }
+}

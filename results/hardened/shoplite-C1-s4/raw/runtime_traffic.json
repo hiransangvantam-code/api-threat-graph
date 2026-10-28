@@ -1,0 +1,1186 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261024-065044-33ba09",
+  "collected_at": "2026-10-23T23:50:44+00:00",
+  "duration_ms": 11.5,
+  "inputs": [
+    "/home/claude/api-threat-graph/results/hardened/shoplite-C1-s4/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 548,
+    "flows_ignored": 2,
+    "endpoints": 20,
+    "services": 4,
+    "flows_by_capture_point": {
+      "east-west": 284,
+      "north-south": 264
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/_debug/config",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 4,
+      "status_codes": {
+        "404": 4
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "404": 4
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.79,
+        "max": 2.28
+      },
+      "example_paths": [
+        "/_debug/config"
+      ],
+      "first_seen": 1792799440.801809,
+      "last_seen": 1792799442.575903
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/auth/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 53,
+      "status_codes": {
+        "200": 41,
+        "401": 3,
+        "429": 9
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 53,
+        "status_codes_without_auth": {
+          "200": 41,
+          "401": 3,
+          "429": 9
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "token": "string",
+          "user_id": "integer",
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.61,
+        "max": 22.84
+      },
+      "example_paths": [
+        "/api/auth/login"
+      ],
+      "first_seen": 1792799440.5779424,
+      "last_seen": 1792799442.8050878
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/orders",
+      "path_params": [],
+      "query_params": [
+        "user_id"
+      ],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 40,
+      "status_codes": {
+        "200": 40
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 40,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "user_id": "integer",
+            "total": "integer|number",
+            "status": "string",
+            "payment_id": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.28,
+        "max": 20.98
+      },
+      "example_paths": [
+        "/api/orders"
+      ],
+      "first_seen": 1792799440.618914,
+      "last_seen": 1792799442.6960938
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/orders",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 20,
+      "status_codes": {
+        "201": 20
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 20,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user_id": "integer",
+          "items": [
+            "string"
+          ],
+          "total": "number"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "user_id": "integer",
+          "total": "number",
+          "status": "string",
+          "payment_id": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 15.75,
+        "max": 35.33
+      },
+      "example_paths": [
+        "/api/orders"
+      ],
+      "first_seen": 1792799440.689788,
+      "last_seen": 1792799442.703501
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "DELETE",
+      "path_template": "/api/orders/{int}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 2,
+      "status_codes": {
+        "403": 2
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 2,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.62,
+        "max": 6.92
+      },
+      "example_paths": [
+        "/api/orders/1007",
+        "/api/orders/1016"
+      ],
+      "first_seen": 1792799441.646756,
+      "last_seen": 1792799442.7318063
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/orders/{int}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 40,
+      "status_codes": {
+        "403": 40
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 40,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.08,
+        "max": 8.73
+      },
+      "example_paths": [
+        "/api/orders/1030",
+        "/api/orders/1016",
+        "/api/orders/1018"
+      ],
+      "first_seen": 1792799440.6411119,
+      "last_seen": 1792799442.722848
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/payments/admin/transactions",
+      "path_params": [],
+      "query_params": [
+        "limit"
+      ],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 7,
+      "status_codes": {
+        "200": 1,
+        "401": 3,
+        "403": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 4,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string",
+          "error": "string",
+          "count": "integer",
+          "items": [
+            {
+              "payment_id": "string",
+              "user_id": "integer",
+              "amount": "number"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.04,
+        "max": 8.72
+      },
+      "example_paths": [
+        "/api/payments/admin/transactions"
+      ],
+      "first_seen": 1792799440.73821,
+      "last_seen": 1792799442.7498062
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/payments/refund",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 8,
+      "status_codes": {
+        "401": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 8,
+        "status_codes_without_auth": {
+          "401": 8
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "payment_id": "string",
+          "reason": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.84,
+        "max": 3.02
+      },
+      "example_paths": [
+        "/api/payments/refund"
+      ],
+      "first_seen": 1792799440.8537369,
+      "last_seen": 1792799442.6185958
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/users/{int}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 56,
+      "status_codes": {
+        "200": 41,
+        "401": 7,
+        "403": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 49,
+        "authorization_header_missing": 7,
+        "status_codes_without_auth": {
+          "401": 7
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "name": "string",
+          "email": "string:email",
+          "role": "string",
+          "phone": "string:phone",
+          "error": "string",
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.19,
+        "max": 39.97
+      },
+      "example_paths": [
+        "/api/users/17",
+        "/api/users/36",
+        "/api/users/13"
+      ],
+      "first_seen": 1792799440.602096,
+      "last_seen": 1792799442.681702
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/users/{int}/addresses",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 34,
+      "status_codes": {
+        "200": 26,
+        "403": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 34,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "line1": "string",
+            "city": "string",
+            "zip": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.24,
+        "max": 8.8
+      },
+      "example_paths": [
+        "/api/users/17/addresses",
+        "/api/users/36/addresses",
+        "/api/users/40/addresses"
+      ],
+      "first_seen": 1792799440.6104138,
+      "last_seen": 1792799442.6888597
+    },
+    {
+      "kind": "endpoint",
+      "service": "order-service",
+      "method": "GET",
+      "path_template": "/orders",
+      "path_params": [],
+      "query_params": [
+        "user_id"
+      ],
+      "hosts": [
+        "127.0.0.1:8002"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 40,
+      "status_codes": {
+        "200": 40
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 40,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "user_id": "integer",
+            "total": "integer|number",
+            "status": "string",
+            "payment_id": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.48,
+        "max": 16.19
+      },
+      "example_paths": [
+        "/orders"
+      ],
+      "first_seen": 1792799440.6217852,
+      "last_seen": 1792799442.698039
+    },
+    {
+      "kind": "endpoint",
+      "service": "order-service",
+      "method": "POST",
+      "path_template": "/orders",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8002"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 20,
+      "status_codes": {
+        "201": 20
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 20,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user_id": "integer",
+          "items": [
+            "string"
+          ],
+          "total": "number"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "user_id": "integer",
+          "total": "number",
+          "status": "string",
+          "payment_id": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 12.06,
+        "max": 31.35
+      },
+      "example_paths": [
+        "/orders"
+      ],
+      "first_seen": 1792799440.691808,
+      "last_seen": 1792799442.7058299
+    },
+    {
+      "kind": "endpoint",
+      "service": "order-service",
+      "method": "DELETE",
+      "path_template": "/orders/{int}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8002"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 2,
+      "status_codes": {
+        "403": 2
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 2,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.72,
+        "max": 2.79
+      },
+      "example_paths": [
+        "/orders/1007",
+        "/orders/1016"
+      ],
+      "first_seen": 1792799441.6486351,
+      "last_seen": 1792799442.7340627
+    },
+    {
+      "kind": "endpoint",
+      "service": "order-service",
+      "method": "GET",
+      "path_template": "/orders/{int}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8002"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 40,
+      "status_codes": {
+        "403": 40
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 40,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.36,
+        "max": 3.59
+      },
+      "example_paths": [
+        "/orders/1030",
+        "/orders/1016",
+        "/orders/1018"
+      ],
+      "first_seen": 1792799440.6433198,
+      "last_seen": 1792799442.7252436
+    },
+    {
+      "kind": "endpoint",
+      "service": "payment-service",
+      "method": "GET",
+      "path_template": "/admin/transactions",
+      "path_params": [],
+      "query_params": [
+        "limit"
+      ],
+      "hosts": [
+        "127.0.0.1:8003"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 4,
+      "status_codes": {
+        "200": 1,
+        "403": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 4,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string",
+          "count": "integer",
+          "items": [
+            {
+              "payment_id": "string",
+              "user_id": "integer",
+              "amount": "number"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 3.2,
+        "max": 3.65
+      },
+      "example_paths": [
+        "/admin/transactions"
+      ],
+      "first_seen": 1792799440.7415395,
+      "last_seen": 1792799442.7521334
+    },
+    {
+      "kind": "endpoint",
+      "service": "payment-service",
+      "method": "POST",
+      "path_template": "/charge",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8003"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 20,
+      "status_codes": {
+        "200": 20
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 20,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "apiKey(x-service-token)"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user_id": "integer",
+          "amount": "number",
+          "card_token": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "payment_id": "string",
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.32,
+        "max": 17.4
+      },
+      "example_paths": [
+        "/charge"
+      ],
+      "first_seen": 1792799440.702918,
+      "last_seen": 1792799442.7134578
+    },
+    {
+      "kind": "endpoint",
+      "service": "user-service",
+      "method": "POST",
+      "path_template": "/auth/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8001"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 53,
+      "status_codes": {
+        "200": 41,
+        "401": 3,
+        "429": 9
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 53,
+        "status_codes_without_auth": {
+          "200": 41,
+          "401": 3,
+          "429": 9
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "token": "string",
+          "user_id": "integer",
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.8,
+        "max": 15.88
+      },
+      "example_paths": [
+        "/auth/login"
+      ],
+      "first_seen": 1792799440.5825727,
+      "last_seen": 1792799442.807547
+    },
+    {
+      "kind": "endpoint",
+      "service": "user-service",
+      "method": "GET",
+      "path_template": "/internal/users/export",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8001"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 2,
+      "status_codes": {
+        "401": 2
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 2,
+        "status_codes_without_auth": {
+          "401": 2
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.81,
+        "max": 4.61
+      },
+      "example_paths": [
+        "/internal/users/export"
+      ],
+      "first_seen": 1792799442.8742454,
+      "last_seen": 1792799442.8804405
+    },
+    {
+      "kind": "endpoint",
+      "service": "user-service",
+      "method": "GET",
+      "path_template": "/users/{int}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8001"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 69,
+      "status_codes": {
+        "200": 61,
+        "403": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 69,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "name": "string",
+          "email": "string:email",
+          "role": "string",
+          "phone": "string:phone",
+          "detail": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.51,
+        "max": 3.72
+      },
+      "example_paths": [
+        "/users/17",
+        "/users/36",
+        "/users/13"
+      ],
+      "first_seen": 1792799440.6042438,
+      "last_seen": 1792799442.708744
+    },
+    {
+      "kind": "endpoint",
+      "service": "user-service",
+      "method": "GET",
+      "path_template": "/users/{int}/addresses",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "127.0.0.1:8001"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 34,
+      "status_codes": {
+        "200": 26,
+        "403": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 34,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "line1": "string",
+            "city": "string",
+            "zip": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.5,
+        "max": 3.8
+      },
+      "example_paths": [
+        "/users/17/addresses",
+        "/users/36/addresses",
+        "/users/40/addresses"
+      ],
+      "first_seen": 1792799440.612759,
+      "last_seen": 1792799442.6906948
+    }
+  ]
+}

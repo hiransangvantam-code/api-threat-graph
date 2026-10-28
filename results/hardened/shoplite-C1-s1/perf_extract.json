@@ -1,0 +1,17 @@
+{
+ "stage": "extract",
+ "wall_ms": 273.5,
+ "peak_rss_mb": 35.1,
+ "detail": {
+  "runtime_traffic": 12.6,
+  "openapi": 92.8,
+  "infrastructure": 21.0,
+  "callchain": 31.5
+ },
+ "status": {
+  "runtime_traffic": "ok",
+  "openapi": "ok",
+  "infrastructure": "ok",
+  "callchain": "ok"
+ }
+}

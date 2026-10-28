@@ -1,0 +1,434 @@
+{
+ "testbed": "shoplite",
+ "run": "shoplite-C1-s5",
+ "timing": {
+  "rule_engine_ms": 0.44,
+  "dependency_analyzer_ms": 0.02,
+  "threat_graph_ms": 0.67,
+  "attack_path_query_ms": 25.71,
+  "phase3_total_ms": 36.3,
+  "phase4_dashboard_ms": 2.4,
+  "dashboard_kb": 219.2,
+  "phase2_normalize_ms": 1.4
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 0.5,
+  "dependency_analyzer_ms": 0.02,
+  "threat_graph_ms": 0.7,
+  "attack_path_query_ms": 26.13,
+  "phase3_total_ms": 37.2,
+  "phase4_dashboard_ms": 2.4,
+  "dashboard_kb": 219.4
+ },
+ "graph": {
+  "nodes": 66,
+  "edges": 126,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 11,
+   "Risk": 8,
+   "Vulnerability": 35
+  },
+  "edges_by_rel": {
+   "reaches": 6,
+   "uses": 3,
+   "exposes": 11,
+   "runs_on": 11,
+   "routes": 10,
+   "handles": 8,
+   "depends_on": 5,
+   "calls": 2,
+   "has_vuln": 35,
+   "leads_to": 35
+  },
+  "attack_paths": 118,
+  "critical_or_high_paths": 36,
+  "internet_paths": 47,
+  "hops_mean": 4.1102,
+  "hops_max": 6,
+  "apcr_median": 8.0,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 445.0,
+  "findings": 35,
+  "by_severity": {
+   "critical": 7,
+   "high": 18,
+   "medium": 9,
+   "low": 1
+  },
+  "rules_fired": 20,
+  "fixes_for_70pct": 12,
+  "fixes_for_90pct": 18,
+  "remediation_actions": 25,
+  "longest_chain": 4,
+  "max_blast_radius": 2
+ },
+ "oracle_graph": {
+  "nodes": 66,
+  "edges": 126,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 11,
+   "Risk": 8,
+   "Vulnerability": 35
+  },
+  "edges_by_rel": {
+   "reaches": 6,
+   "uses": 3,
+   "exposes": 11,
+   "runs_on": 11,
+   "routes": 10,
+   "handles": 8,
+   "depends_on": 5,
+   "calls": 2,
+   "has_vuln": 35,
+   "leads_to": 35
+  },
+  "attack_paths": 118,
+  "critical_or_high_paths": 38,
+  "internet_paths": 47,
+  "hops_mean": 4.1102,
+  "hops_max": 6,
+  "apcr_median": 8.0,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 463.0,
+  "findings": 35,
+  "by_severity": {
+   "critical": 10,
+   "high": 16,
+   "medium": 8,
+   "low": 1
+  },
+  "rules_fired": 20,
+  "fixes_for_70pct": 12,
+  "fixes_for_90pct": 18,
+  "remediation_actions": 25,
+  "longest_chain": 2,
+  "max_blast_radius": 2
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 35,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tool": 35,
+   "oracle": 35,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 1.0,
+   "severity_agreement": 0.8857,
+   "score_mae": 1.0286
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API3": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API4": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-PRIV": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-TAG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-ZOMBIE": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-01": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-03": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-04": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-05": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-07": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-08": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   }
+  },
+  "paths": {
+   "tp": 65,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tool": 65,
+   "oracle": 65
+  },
+  "risk": {
+   "tool_R": 445.0,
+   "oracle_R": 463.0,
+   "ratio": 0.9611,
+   "top10_overlap": 1.0,
+   "service_risk_spearman": 0.8165,
+   "fixes_70_tool": 12,
+   "fixes_70_oracle": 12
+  },
+  "missed": [],
+  "extra": []
+ },
+ "known": {
+  "tool": {
+   "tp": 35,
+   "fp": 0,
+   "fn": 5,
+   "precision": 1.0,
+   "recall": 0.875,
+   "f1": 0.9333,
+   "planted_found": 35,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [
+    "('API8-DEBUG', ('api-gateway', 'GET', '/_debug/config'))",
+    "('API9-SHADOW', ('api-gateway', 'GET', '/_debug/config'))"
+   ],
+   "extra": []
+  },
+  "oracle": {
+   "tp": 35,
+   "fp": 0,
+   "fn": 5,
+   "precision": 1.0,
+   "recall": 0.875,
+   "f1": 0.9333,
+   "planted_found": 35,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [
+    "('API8-DEBUG', ('api-gateway', 'GET', '/_debug/config'))",
+    "('API9-SHADOW', ('api-gateway', 'GET', '/_debug/config'))"
+   ],
+   "extra": []
+  }
+ },
+ "inventory": {
+  "tool": {
+   "documented": 7,
+   "zombie": 1,
+   "shadow": 3
+  },
+  "oracle": {
+   "documented": 7,
+   "shadow": 3,
+   "zombie": 1
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 2,
+   "fp": 0,
+   "fn": 33,
+   "precision": 1.0,
+   "recall": 0.0571,
+   "f1": 0.1081
+  },
+  "T": {
+   "tp": 14,
+   "fp": 24,
+   "fn": 21,
+   "precision": 0.3684,
+   "recall": 0.4,
+   "f1": 0.3836
+  },
+  "C": {
+   "tp": 5,
+   "fp": 18,
+   "fn": 30,
+   "precision": 0.2174,
+   "recall": 0.1429,
+   "f1": 0.1724
+  },
+  "OT": {
+   "tp": 19,
+   "fp": 21,
+   "fn": 16,
+   "precision": 0.475,
+   "recall": 0.5429,
+   "f1": 0.5067
+  },
+  "TK": {
+   "tp": 28,
+   "fp": 27,
+   "fn": 7,
+   "precision": 0.5091,
+   "recall": 0.8,
+   "f1": 0.6222
+  },
+  "OTK": {
+   "tp": 33,
+   "fp": 15,
+   "fn": 2,
+   "precision": 0.6875,
+   "recall": 0.9429,
+   "f1": 0.7952
+  },
+  "OTC": {
+   "tp": 21,
+   "fp": 29,
+   "fn": 14,
+   "precision": 0.42,
+   "recall": 0.6,
+   "f1": 0.4941
+  },
+  "TKC": {
+   "tp": 30,
+   "fp": 12,
+   "fn": 5,
+   "precision": 0.7143,
+   "recall": 0.8571,
+   "f1": 0.7792
+  },
+  "OTKC": {
+   "tp": 35,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  }
+ }
+}

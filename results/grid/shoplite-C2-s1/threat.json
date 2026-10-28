@@ -1,0 +1,494 @@
+{
+ "testbed": "shoplite",
+ "run": "shoplite-C2-s1",
+ "timing": {
+  "rule_engine_ms": 0.48,
+  "dependency_analyzer_ms": 0.03,
+  "threat_graph_ms": 0.8,
+  "attack_path_query_ms": 27.45,
+  "risk_propagation_ms": 0.44,
+  "mitigation_plan_ms": 11.82,
+  "phase3_total_ms": 43.1,
+  "phase4_dashboard_ms": 3.0,
+  "dashboard_kb": 207.7,
+  "phase2_normalize_ms": 2.5
+ },
+ "oracle_timing": {
+  "rule_engine_ms": 0.76,
+  "dependency_analyzer_ms": 0.03,
+  "threat_graph_ms": 1.06,
+  "attack_path_query_ms": 39.17,
+  "risk_propagation_ms": 0.52,
+  "mitigation_plan_ms": 17.59,
+  "phase3_total_ms": 61.8,
+  "phase4_dashboard_ms": 3.7,
+  "dashboard_kb": 243.3
+ },
+ "graph": {
+  "nodes": 64,
+  "edges": 118,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 11,
+   "Risk": 8,
+   "Vulnerability": 33
+  },
+  "edges_by_rel": {
+   "reaches": 5,
+   "uses": 3,
+   "exposes": 11,
+   "runs_on": 11,
+   "routes": 10,
+   "handles": 6,
+   "depends_on": 5,
+   "calls": 1,
+   "has_vuln": 33,
+   "leads_to": 33
+  },
+  "attack_paths": 109,
+  "critical_or_high_paths": 32,
+  "internet_paths": 47,
+  "hops_mean": 4.1468,
+  "hops_max": 6,
+  "apcr_median": 8.0,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 409.0,
+  "findings": 33,
+  "by_severity": {
+   "critical": 6,
+   "high": 14,
+   "medium": 8,
+   "low": 5
+  },
+  "rules_fired": 20,
+  "fixes_for_70pct": 13,
+  "fixes_for_90pct": 19,
+  "remediation_actions": 27,
+  "longest_chain": 3,
+  "max_blast_radius": 2
+ },
+ "oracle_graph": {
+  "nodes": 74,
+  "edges": 142,
+  "nodes_by_type": {
+   "Actor": 2,
+   "API": 4,
+   "Dependency": 6,
+   "Endpoint": 12,
+   "Risk": 8,
+   "Vulnerability": 42
+  },
+  "edges_by_rel": {
+   "reaches": 6,
+   "uses": 3,
+   "exposes": 12,
+   "runs_on": 12,
+   "routes": 10,
+   "handles": 8,
+   "depends_on": 5,
+   "calls": 2,
+   "has_vuln": 42,
+   "leads_to": 42
+  },
+  "attack_paths": 134,
+  "critical_or_high_paths": 38,
+  "internet_paths": 53,
+  "hops_mean": 4.1269,
+  "hops_max": 6,
+  "apcr_median": 7.6,
+  "apcr_p90": 16.0,
+  "apcr_max": 25.0,
+  "total_path_risk": 490.0,
+  "findings": 42,
+  "by_severity": {
+   "critical": 7,
+   "high": 20,
+   "medium": 9,
+   "low": 6
+  },
+  "rules_fired": 23,
+  "fixes_for_70pct": 14,
+  "fixes_for_90pct": 22,
+  "remediation_actions": 32,
+  "longest_chain": 2,
+  "max_blast_radius": 2
+ },
+ "vs_oracle": {
+  "findings": {
+   "tp": 33,
+   "fp": 0,
+   "fn": 9,
+   "precision": 1.0,
+   "recall": 0.7857,
+   "f1": 0.88,
+   "tool": 33,
+   "oracle": 42,
+   "duplicate_tool_findings": 0,
+   "recall_critical_high": 0.7407,
+   "severity_agreement": 1.0,
+   "score_mae": 0.0
+  },
+  "per_rule": {
+   "API1": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API3": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "API4": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API5": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "API8-DEBUG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NETPOL": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-NODEPORT": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-PRIV": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-ROOT": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API8-TAG": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-NOSPEC": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "API9-SHADOW": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571
+   },
+   "API9-ZOMBIE": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-01": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "LT-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "LT-03": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571
+   },
+   "TS-01": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667
+   },
+   "TS-02": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-03": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "TS-04": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-05": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-07": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "TS-08": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": 0.0
+   }
+  },
+  "paths": {
+   "tp": 66,
+   "fp": 0,
+   "fn": 12,
+   "precision": 1.0,
+   "recall": 0.8462,
+   "f1": 0.9167,
+   "tool": 66,
+   "oracle": 78
+  },
+  "risk": {
+   "tool_R": 409.0,
+   "oracle_R": 490.0,
+   "ratio": 0.8347,
+   "top10_overlap": 0.9,
+   "service_risk_spearman": 1.0,
+   "fixes_70_tool": 13,
+   "fixes_70_oracle": 14
+  },
+  "missed": [
+   "('API3', ('user-service', 'GET', '/internal/users/export'))",
+   "('API5', ('user-service', 'GET', '/internal/users/export'))",
+   "('API9-SHADOW', ('user-service', 'GET', '/internal/users/export'))",
+   "('LT-01', ('user-service', 'GET', '/internal/users/export'))",
+   "('LT-03', ('user-service', 'GET', '/internal/users/export'))",
+   "('TS-01', ('payment-service', 'POST', '/charge'))",
+   "('TS-01', ('user-service', 'GET', '/internal/users/export'))",
+   "('TS-03', ('payment-service', 'POST', '/charge'))",
+   "('TS-08', ('payment-service', 'POST', '/charge'))"
+  ],
+  "extra": []
+ },
+ "known": {
+  "tool": {
+   "tp": 29,
+   "fp": 4,
+   "fn": 11,
+   "precision": 0.8788,
+   "recall": 0.725,
+   "f1": 0.7945,
+   "planted_found": 29,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [
+    "('API3', ('user-service', 'GET', '/internal/users/export'))",
+    "('API5', ('user-service', 'GET', '/internal/users/export'))",
+    "('API9-SHADOW', ('user-service', 'GET', '/internal/users/export'))",
+    "('LT-01', ('user-service', 'GET', '/internal/users/export'))",
+    "('TS-01', ('payment-service', 'POST', '/charge'))",
+    "('TS-01', ('user-service', 'GET', '/internal/users/export'))",
+    "('TS-03', ('payment-service', 'POST', '/charge'))",
+    "('TS-08', ('payment-service', 'POST', '/charge'))"
+   ],
+   "extra": [
+    "('LT-02', 'user-service')",
+    "('LT-03', ('user-service', 'GET', '/users/{}'))",
+    "('LT-03', ('user-service', 'GET', '/users/{}/addresses'))",
+    "('LT-03', ('user-service', 'POST', '/auth/login'))"
+   ]
+  },
+  "oracle": {
+   "tp": 37,
+   "fp": 5,
+   "fn": 3,
+   "precision": 0.881,
+   "recall": 0.925,
+   "f1": 0.9024,
+   "planted_found": 37,
+   "planted": 40,
+   "uncovered_by_rules": 3,
+   "missed": [],
+   "extra": [
+    "('LT-02', 'user-service')",
+    "('LT-03', ('user-service', 'GET', '/internal/users/export'))",
+    "('LT-03', ('user-service', 'GET', '/users/{}'))",
+    "('LT-03', ('user-service', 'GET', '/users/{}/addresses'))",
+    "('LT-03', ('user-service', 'POST', '/auth/login'))"
+   ]
+  }
+ },
+ "inventory": {
+  "tool": {
+   "shadow": 3,
+   "documented": 7,
+   "zombie": 1
+  },
+  "oracle": {
+   "shadow": 4,
+   "documented": 7,
+   "zombie": 1
+  }
+ },
+ "ablation": {
+  "O": {
+   "tp": 2,
+   "fp": 0,
+   "fn": 40,
+   "precision": 1.0,
+   "recall": 0.0476,
+   "f1": 0.0909
+  },
+  "T": {
+   "tp": 13,
+   "fp": 17,
+   "fn": 29,
+   "precision": 0.4333,
+   "recall": 0.3095,
+   "f1": 0.3611
+  },
+  "C": {
+   "tp": 4,
+   "fp": 17,
+   "fn": 38,
+   "precision": 0.1905,
+   "recall": 0.0952,
+   "f1": 0.127
+  },
+  "OT": {
+   "tp": 15,
+   "fp": 17,
+   "fn": 27,
+   "precision": 0.4688,
+   "recall": 0.3571,
+   "f1": 0.4054
+  },
+  "TK": {
+   "tp": 29,
+   "fp": 21,
+   "fn": 13,
+   "precision": 0.58,
+   "recall": 0.6905,
+   "f1": 0.6304
+  },
+  "OTK": {
+   "tp": 33,
+   "fp": 10,
+   "fn": 9,
+   "precision": 0.7674,
+   "recall": 0.7857,
+   "f1": 0.7765
+  },
+  "OTC": {
+   "tp": 16,
+   "fp": 24,
+   "fn": 26,
+   "precision": 0.4,
+   "recall": 0.381,
+   "f1": 0.3902
+  },
+  "OKC": {
+   "tp": 22,
+   "fp": 0,
+   "fn": 20,
+   "precision": 1.0,
+   "recall": 0.5238,
+   "f1": 0.6875
+  },
+  "TKC": {
+   "tp": 29,
+   "fp": 12,
+   "fn": 13,
+   "precision": 0.7073,
+   "recall": 0.6905,
+   "f1": 0.6988
+  },
+  "OTKC": {
+   "tp": 33,
+   "fp": 0,
+   "fn": 9,
+   "precision": 1.0,
+   "recall": 0.7857,
+   "f1": 0.88
+  }
+ }
+}

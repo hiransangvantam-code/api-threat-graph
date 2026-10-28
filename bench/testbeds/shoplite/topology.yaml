@@ -1,0 +1,42 @@
+# Ground truth for ShopLite (vulnerable build), written by hand from
+# demo_target/services/*.py and demo_target/k8s/*.yaml. ShopLite is a real
+# implementation (not a replica); this file is only used for evaluation.
+name: shoplite
+description: ShopLite demo microservices (FastAPI), vulnerable build
+documentation: mixed        # live FastAPI specs for user/order, stale file for payment
+id_style: int
+gateway:
+  service: api-gateway
+  kind: configmap-routes
+  routes:
+    - {path: /api/auth, service: user-service, strip_prefix: /api}
+    - {path: /api/users, service: user-service, strip_prefix: /api}
+    - {path: /api/orders, service: order-service, strip_prefix: /api}
+    - {path: /api/payments, service: payment-service, strip_prefix: /api/payments}
+services:
+  - name: api-gateway
+    endpoints:
+      - {method: GET, path: /_debug/config, auth: none, documented: false, calls: []}
+  - name: user-service
+    endpoints:
+      - {method: POST, path: /auth/login, auth: none, documented: true, calls: []}
+      - {method: GET, path: "/users/{user_id}", auth: required, documented: true, calls: []}
+      - {method: GET, path: "/users/{user_id}/addresses", auth: required, documented: true, calls: []}
+      - {method: GET, path: /internal/users/export, auth: none, documented: false, calls: []}
+  - name: order-service
+    endpoints:
+      - {method: GET, path: "/orders/{order_id}", auth: required, documented: true, calls: []}
+      - {method: GET, path: /orders, auth: required, documented: true, calls: []}
+      - method: POST
+        path: /orders
+        auth: required
+        documented: true
+        calls:
+          - {service: user-service, method: GET, path: "/users/{user_id}"}
+          - {service: payment-service, method: POST, path: /charge}
+      - {method: DELETE, path: "/orders/{order_id}", auth: required, documented: true, deprecated: true, calls: []}
+  - name: payment-service
+    endpoints:
+      - {method: POST, path: /charge, auth: none, documented: true, calls: []}
+      - {method: POST, path: /refund, auth: none, documented: false, calls: []}
+      - {method: GET, path: /admin/transactions, auth: none, documented: false, calls: []}

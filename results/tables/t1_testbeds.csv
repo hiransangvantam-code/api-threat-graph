@@ -1,0 +1,4 @@
+Testbed,Services,GT endpoints,Documented,Undocumented,Public via gateway,GT edges,Exercised per run,Spec source,Origin
+ShopLite,4,12,8,4,11,5,12,mixed,this repo (demo_target/)
+Train Ticket,45,272,254,18,250,130,221,live-swagger,https://github.com/FudanSELab/train-ticket
+crAPI,6,79,44,35,75,8,63,spec-file,https://github.com/OWASP/crAPI

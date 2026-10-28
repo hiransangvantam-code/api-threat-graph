@@ -1,0 +1,128 @@
+# ShopLite after applying the dashboard's recommendations (gateway side).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shoplite
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-routes
+  namespace: shoplite
+  labels:
+    app.kubernetes.io/component: api-gateway
+data:
+  routes.yaml: |
+    routes:
+      - prefix: /api/auth
+        service: user-service
+        upstream: http://user-service:8001
+        strip_prefix: /api
+        auth: none
+      - prefix: /api/users
+        service: user-service
+        upstream: http://user-service:8001
+        strip_prefix: /api
+        auth: required
+      - prefix: /api/orders
+        service: order-service
+        upstream: http://order-service:8002
+        strip_prefix: /api
+        auth: required
+      - prefix: /api/payments
+        service: payment-service
+        upstream: http://payment-service:8003
+        strip_prefix: /api/payments
+        auth: required          # was: none
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: shoplite
+  labels: {app: api-gateway}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: api-gateway}
+  template:
+    metadata:
+      labels: {app: api-gateway}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: gateway
+          image: shoplite/api-gateway:1.1.0
+          ports:
+            - containerPort: 8000
+          env:
+            - name: GATEWAY_CONFIG
+              value: /etc/gateway/routes.yaml
+          volumeMounts:
+            - name: routes
+              mountPath: /etc/gateway
+          resources:
+            limits: {cpu: 500m, memory: 256Mi}
+            requests: {cpu: 100m, memory: 128Mi}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+      volumes:
+        - name: routes
+          configMap: {name: gateway-routes}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: shoplite
+spec:
+  type: ClusterIP
+  selector: {app: api-gateway}
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shoplite-public
+  namespace: shoplite
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [shop.example.com]
+      secretName: shop-tls
+  rules:
+    - host: shop.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port: {number: 8000}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-gateway-ingress
+  namespace: shoplite
+spec:
+  podSelector:
+    matchLabels: {app: api-gateway}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: ingress-nginx}
+      ports:
+        - port: 8000

@@ -1,0 +1,70 @@
+target:
+  name: trainticket
+  service_map:
+    127.0.0.1:9200: ts-gateway-service
+    127.0.0.1:9201: ts-admin-basic-info-service
+    127.0.0.1:9202: ts-admin-order-service
+    127.0.0.1:9203: ts-admin-route-service
+    127.0.0.1:9204: ts-admin-travel-service
+    127.0.0.1:9205: ts-admin-user-service
+    127.0.0.1:9206: ts-assurance-service
+    127.0.0.1:9207: ts-auth-service
+    127.0.0.1:9208: ts-avatar-service
+    127.0.0.1:9209: ts-basic-service
+    127.0.0.1:9210: ts-cancel-service
+    127.0.0.1:9211: ts-config-service
+    127.0.0.1:9212: ts-consign-price-service
+    127.0.0.1:9213: ts-consign-service
+    127.0.0.1:9214: ts-contacts-service
+    127.0.0.1:9215: ts-delivery-service
+    127.0.0.1:9216: ts-execute-service
+    127.0.0.1:9217: ts-food-delivery-service
+    127.0.0.1:9218: ts-food-service
+    127.0.0.1:9219: ts-inside-payment-service
+    127.0.0.1:9220: ts-news-service
+    127.0.0.1:9221: ts-notification-service
+    127.0.0.1:9222: ts-order-other-service
+    127.0.0.1:9223: ts-order-service
+    127.0.0.1:9224: ts-payment-service
+    127.0.0.1:9225: ts-preserve-other-service
+    127.0.0.1:9226: ts-preserve-service
+    127.0.0.1:9227: ts-price-service
+    127.0.0.1:9228: ts-rebook-service
+    127.0.0.1:9229: ts-route-plan-service
+    127.0.0.1:9230: ts-route-service
+    127.0.0.1:9231: ts-seat-service
+    127.0.0.1:9232: ts-security-service
+    127.0.0.1:9233: ts-station-food-service
+    127.0.0.1:9234: ts-station-service
+    127.0.0.1:9235: ts-ticket-office-service
+    127.0.0.1:9236: ts-train-food-service
+    127.0.0.1:9237: ts-train-service
+    127.0.0.1:9238: ts-travel-plan-service
+    127.0.0.1:9239: ts-travel-service
+    127.0.0.1:9240: ts-travel2-service
+    127.0.0.1:9241: ts-user-service
+    127.0.0.1:9242: ts-verification-code-service
+    127.0.0.1:9243: ts-voucher-service
+    127.0.0.1:9244: ts-wait-order-service
+sources:
+  runtime_traffic:
+    enabled: true
+    capture_files:
+    - /home/claude/api-threat-graph/results/scale/trainticket-base/capture
+  openapi:
+    enabled: true
+    timeout_s: 2
+  infrastructure:
+    enabled: true
+    manifest_paths:
+    - /home/claude/api-threat-graph/bench/testbeds/trainticket/k8s
+    gateway_configs:
+    - path: /home/claude/api-threat-graph/bench/testbeds/trainticket/gateway/application.yml
+      type: spring-cloud-gateway
+      service: ts-gateway-service
+  callchain:
+    enabled: true
+    trace_paths:
+    - /home/claude/api-threat-graph/results/scale/trainticket-base/telemetry
+output_dir: /home/claude/api-threat-graph/results/scale/trainticket-base/raw
+report_path: /home/claude/api-threat-graph/results/scale/trainticket-base/report.html

@@ -1,0 +1,13 @@
+Testbed,True → predicted,Count
+ShopLite,documented → documented,68
+ShopLite,documented → dormant,2
+ShopLite,shadow → shadow,36
+ShopLite,zombie → zombie,10
+Train Ticket,documented → documented,2089
+Train Ticket,documented → dormant,19
+Train Ticket,dormant → dormant,432
+Train Ticket,shadow → shadow,96
+crAPI,documented → documented,358
+crAPI,dormant → documented,1
+crAPI,dormant → dormant,81
+crAPI,shadow → shadow,266

@@ -1,0 +1,49 @@
+# Phase 1 config for the real crAPI (docker compose) on your own machine.
+# Run from the project folder:  python -m extractor --config realcheck/extractor-crapi-real.yaml
+#
+# Only three sources apply here. crAPI ships without OpenTelemetry, so there are no traces.
+#   runtime traffic  : what mitmproxy captured in front of crapi-web (realcheck/capture.py)
+#   OpenAPI          : crAPI's own published spec, split per backend by path prefix
+#   K8s + gateway    : crAPI's Kubernetes manifests and its nginx route template
+
+target:
+  name: crAPI (real, docker compose)
+  service_map:
+    "127.0.0.1:8888": crapi-web
+    "localhost:8888": crapi-web
+    "localhost:9888": crapi-web
+
+sources:
+  runtime_traffic:
+    enabled: true
+    capture_files:
+      - realcheck/out/capture
+    skip_web_assets: true        # drop the web app's own .js/.css/images/HTML pages
+
+  openapi:
+    enabled: true
+    live_targets: []             # the backends are not reachable from outside docker
+    spec_files:
+      - path: bench/testbeds/crapi/openapi/crapi-openapi-spec.json
+        service_by_prefix:
+          /identity/: crapi-identity
+          /community/: crapi-community
+          /workshop/: crapi-workshop
+          /chatbot/: crapi-chatbot
+
+  infrastructure:
+    enabled: true
+    manifest_paths:
+      - bench/testbeds/crapi/k8s
+    gateway_configs:
+      - path: bench/testbeds/crapi/gateway/nginx.conf.template
+        type: nginx
+        service: crapi-web
+        env_from: [bench/testbeds/crapi/k8s/web-configmap.yaml]
+        env: {HTTP_PROTOCOL: http}
+
+  callchain:
+    enabled: false
+
+output_dir: realcheck/out/raw
+report_path: realcheck/out/report.html

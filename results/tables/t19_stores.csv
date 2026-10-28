@@ -1,0 +1,4 @@
+Run,Attack paths,SQLite query (ms),PostgreSQL query (ms),Identical paths
+shoplite-C1-s1,122,33,6,yes
+crapi-C1-s1,221,470,16,yes
+trainticket-C1-s1,1006,6545,54,yes

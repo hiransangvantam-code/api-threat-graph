@@ -1,0 +1,4 @@
+# keep Windows scripts with CRLF and shell scripts with LF on every machine
+*.bat text eol=crlf
+*.sh  text eol=lf
+*.png binary

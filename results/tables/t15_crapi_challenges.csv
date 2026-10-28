@@ -1,0 +1,19 @@
+#,Challenge,OWASP,Endpoint,Rule family,What a passive tool would need to see,Oracle (perfect discovery),Tool C1,Tool C2,"Rules that fired on it (C2, any seed)"
+1,BOLA: another user's vehicle location,API1:2023,GET /identity/api/v2/vehicle/{}/location,API1,response content (owner / location fields),not detected,not detected,not detected,LT-03
+2,BOLA: other users' mechanic reports,API1:2023,GET /workshop/api/mechanic/mechanic_report,API1,object ID in the query string (API1 reads path IDs only),not detected,not detected,not detected,none
+3,Broken auth: reset another user's password (OTP brute force on v2),API2:2023,POST /identity/api/auth/v2/check-otp,TS-07,"failed attempts in traffic (crAPI answers 500, the rule counts 401/403)",not detected,not detected,not detected,LT-03
+4,Excessive data exposure: other users' data in community posts,API3:2023,GET /community/api/v2/community/posts/recent,API3,response content,not detected,not detected,not detected,LT-03
+5,Excessive data exposure: internal video property,API3:2023,GET /identity/api/v2/user/videos/{},API3,response content,not detected,not detected,not detected,LT-03
+6,Rate limiting: layer-7 DoS through contact mechanic,API4:2023,POST /workshop/api/merchant/contact_mechanic,API4,request semantics (repeat count field),not detected,not detected,not detected,none
+7,BFLA: delete another user's video through the admin API,API5:2023,DELETE /identity/api/v2/admin/videos/{},API5,calls by an authenticated non-admin user succeeding,flagged by another auth rule,flagged by another auth rule,flagged by another auth rule,"API1, LT-03"
+8,Mass assignment: get an item for free,API3:2023,PUT /workshop/api/shop/orders/{},no rule,request semantics (writable status field); no mass-assignment rule,flagged by another auth rule,flagged by another auth rule,flagged by another auth rule,API1
+9,Mass assignment: increase balance,API3:2023,PUT /workshop/api/shop/orders/{},no rule,request semantics (writable quantity field); no mass-assignment rule,flagged by another auth rule,flagged by another auth rule,flagged by another auth rule,API1
+10,Mass assignment: update internal video properties,API3:2023,PUT /identity/api/v2/user/videos/{},no rule,request semantics (writable internal field); no mass-assignment rule,flagged by another auth rule,flagged by another auth rule,flagged by another auth rule,"API1, LT-03"
+11,SSRF through contact mechanic,API7:2023,POST /workshop/api/merchant/contact_mechanic,API7,URL-typed request field (named mechanic_api),not detected,not detected,not detected,none
+12,NoSQL injection: free coupons,API8:2023,POST /community/api/v2/coupon/validate-coupon,out of scope,payload testing,out of scope,out of scope,out of scope,LT-03
+13,SQL injection: redeem a used coupon,API8:2023,POST /workshop/api/shop/apply_coupon,out of scope,payload testing,out of scope,out of scope,out of scope,none
+14,Unauthenticated access to order details,API2:2023,GET /workshop/api/shop/orders/{},"TS-01, TS-03","an anonymous request in the traffic (TS-03: spec says auth, it succeeds); TS-01 also needs response content","not detected 4/5, detected 1/5","not detected 4/5, detected 1/5","not detected 4/5, detected 1/5",TS-03
+15,Forge valid JWT tokens,API2:2023,GET /identity/api/auth/jwks.json,out of scope,token / crypto testing,out of scope,out of scope,out of scope,"API9-SHADOW, LT-03"
+16,Chatbot prompt injection,LLM,POST /chatbot/genai/ask,out of scope,LLM testing,out of scope,out of scope,out of scope,"API9-SHADOW, TS-01"
+17,Chatbot leaks another user's credentials,LLM,POST /chatbot/genai/ask,out of scope,LLM testing,out of scope,out of scope,out of scope,"API9-SHADOW, TS-01"
+18,Chatbot acts on behalf of another user,LLM,POST /chatbot/genai/ask,out of scope,LLM testing,out of scope,out of scope,out of scope,"API9-SHADOW, TS-01"

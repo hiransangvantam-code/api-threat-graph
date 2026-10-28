@@ -1,0 +1,43 @@
+{
+ "testbed": "shoplite",
+ "condition": "C2",
+ "seed": 1,
+ "capture": "ns",
+ "hardened": true,
+ "untraced": [
+  "user-service"
+ ],
+ "workload": {
+  "rounds": 40,
+  "wall_s": 1.83
+ },
+ "perf": {
+  "extract": {
+   "stage": "extract",
+   "wall_ms": 191.8,
+   "peak_rss_mb": 34.3,
+   "detail": {
+    "runtime_traffic": 5.0,
+    "openapi": 78.5,
+    "infrastructure": 17.8,
+    "callchain": 15.0
+   },
+   "status": {
+    "runtime_traffic": "ok",
+    "openapi": "ok",
+    "infrastructure": "ok",
+    "callchain": "ok"
+   }
+  },
+  "normalize": {
+   "stage": "normalize",
+   "wall_ms": 16.3,
+   "peak_rss_mb": 12.8,
+   "detail": {
+    "endpoints": 11,
+    "dependencies": 5
+   },
+   "status": {}
+  }
+ }
+}

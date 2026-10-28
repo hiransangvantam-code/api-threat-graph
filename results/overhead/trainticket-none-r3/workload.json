@@ -1,0 +1,17 @@
+{
+ "public_endpoints": 250,
+ "exercised_public": 200,
+ "internal_only": 22,
+ "jobs": 10,
+ "requests": 3020,
+ "status": {
+  "200": 2879,
+  "401": 141
+ },
+ "wall_s": 19.1,
+ "latency_ms": {
+  "p50": 33.33,
+  "p95": 136.43,
+  "mean": 50.43
+ }
+}

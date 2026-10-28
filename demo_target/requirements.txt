@@ -1,0 +1,7 @@
+# ShopLite, the demo target system (runs in its own Docker: target/docker-compose.yml)
+fastapi>=0.110
+uvicorn>=0.29
+httpx>=0.27
+PyYAML>=6.0
+opentelemetry-sdk>=1.24
+opentelemetry-exporter-otlp-proto-http>=1.24

@@ -18,7 +18,12 @@ docker compose up --build        # then open http://localhost:8080
 - **macOS / Linux:** `sh start.sh`; stop with `sh stop.sh`
 - **Thai guide:** [HOW-TO-RUN.md](HOW-TO-RUN.md)
 
-The first build takes a few minutes. After that, each start runs ShopLite, a demo shop of four microservices, through all four phases twice: once as shipped and once with the recommended fixes applied. About a minute later the home page at http://localhost:8080 shows the threat graph and the before/after numbers. Attack-path risk drops from 472 to 13.5.
+Two Docker deployments start, as in Fig. 1 of the paper:
+
+- **the company's Docker** (`target/docker-compose.yml`): ShopLite, a demo shop of four microservices, on its own network `customer-net`
+- **the ATG platform** (`docker-compose.yml`): joins `customer-net` and collects all four Phase 1 sources from it. A mitmproxy sidecar sits inline in front of the gateway and carries the services' east-west calls. An OpenTelemetry Collector receives their spans. ATG also probes their OpenAPI documents and reads the company's manifests, mounted read-only. EUJF records and the threat graph go to PostgreSQL.
+
+The start script runs two scans, one on ShopLite as shipped and one after the company deploys the fixes. The first build takes a few minutes; the scans take about two more. The home page at http://localhost:8080 then shows the threat graph and the before/after numbers: attack-path risk drops from 472 to 13.5. [docs/PAPER_MAPPING.md](docs/PAPER_MAPPING.md) maps every part of Section III to the code.
 
 ![Home page with a preview of the threat graph and the before/after table](docs/images/home.png)
 
@@ -41,7 +46,7 @@ The first build takes a few minutes. After that, each start runs ShopLite, a dem
 
 ### โชว์เพื่อนยังไง
 
-1. **ด้วย Docker (ง่ายสุด):** Windows ดับเบิลคลิก `START-Windows.bat`, Mac/Linux `sh start.sh` หรือ `docker compose up --build` แล้วเปิด http://localhost:8080 หน้าแรกคือ threat graph พร้อมผลก่อน/หลังแก้ วิธีละเอียดอยู่ใน `HOW-TO-RUN.md`
+1. **ด้วย Docker (ง่ายสุด):** Windows ดับเบิลคลิก `START-Windows.bat` ส่วน Mac/Linux พิมพ์ `sh start.sh` สคริปต์จะเปิด Docker 2 ชุด คือ Docker ของบริษัท (ShopLite) กับ Docker ของ ATG ที่เข้าไปต่อกับ network ของบริษัท จากนั้น scan ก่อนและหลังแก้ แล้วเปิด http://localhost:8080 ให้ วิธีละเอียดอยู่ใน `HOW-TO-RUN.md` และตารางเทียบ paper กับโค้ดอยู่ใน `docs/PAPER_MAPPING.md`
 2. **ไม่มี Docker และไม่อยากรันอะไร:** เปิด `results/dashboards/crapi-C2.html` หรือ `results/dashboards/trainticket-C2.html` ในเบราว์เซอร์ได้เลย เป็น dashboard ของ Phase 4 บน API ของ crAPI (OWASP) และ Train Ticket ที่สร้างตามซอร์สโค้ดจริง
 3. **ไม่มี Docker แต่มี Python:** ทำตาม Quick start ด้านล่าง ใช้เวลาราว 30 วินาที
 
@@ -140,9 +145,14 @@ A test checks that both backends return identical attack paths (`ATG_TEST_PG=pos
 
 ## Docker details
 
-Two containers: `atg` runs ShopLite's four services, mitmproxy and Phases 1-4 (vulnerable, then hardened) and serves the pages; `postgres` is the graph store. The home page opens on the threat graph, with links to both dashboards, the Phase 1 reports and the Section IV results. Everything is also written to `output/site/`. Thai guide: `HOW-TO-RUN.md`.
+| Compose project | Containers | Role |
+|---|---|---|
+| `target/docker-compose.yml` (`shoplite`) | api-gateway, user-service, order-service, payment-service; `users` on demand | the company's system; two settings point it at ATG for the review: `MESH_PROXY` and `OTEL_EXPORTER_OTLP_ENDPOINT` |
+| `docker-compose.yml` (`atg`) | atg-proxy (mitmproxy), atg-collector (OpenTelemetry Collector 0.111.0), atg-postgres (PostgreSQL 16), atg (scanner + web) | our platform, attached to `customer-net` |
 
-Tested end to end with `docker compose up --build` from a clean copy. That test machine could not reach Docker Hub, so it used locally built stand-ins for `python:3.12-slim` (Python 3.12 on Ubuntu 24.04) and `postgres:16-alpine` (PostgreSQL 16, UTF-8, same environment variables); a normal machine pulls the official images.
+By hand: start the target (`docker compose -f target/docker-compose.yml up -d --build --wait`), then ATG (`docker compose up -d --build`), send customers (`docker compose -f target/docker-compose.yml run --rm users`) and scan (`docker compose exec atg python docker/scan.py --label vulnerable`). Each scan reads only what the sidecar and the Collector wrote since the previous scan. All pages and per-phase files are also written to `output/site/`. Thai guide: `HOW-TO-RUN.md`.
+
+Tested end to end with `sh start.sh` from a clean copy: 407 HTTP flows through the sidecar and 32 span batches through the Collector in the first scan, giving the same findings and attack-path risk as the local demo. That test machine could not reach Docker Hub, so it used locally built stand-ins. For `python:3.12-slim` it used Python 3.12 on Ubuntu 24.04, and for `postgres:16-alpine` PostgreSQL 16 with UTF-8 and the same environment variables. For `otel/opentelemetry-collector-contrib:0.111.0` it used the official 0.111.0 binary from GitHub. A normal machine pulls the official images.
 
 ## Point it at a real system
 
@@ -160,12 +170,14 @@ atg/dashboard.py      Phase 4 dashboard
 atg/pipeline.py       runs Phases 1-4 (python -m atg)
 demo_target/          ShopLite: services, k8s (vulnerable), k8s-hardened, stale spec, traffic generator
 scripts/              run_demo.py (Phases 1-4), run_extractor.py (Phase 1 only)
-docker/serve.py       what the Docker image runs: both scenarios, the pages, a web server on port 8080
-Dockerfile, docker-compose.yml, START-Windows.bat, start.sh, HOW-TO-RUN.md   running it with Docker
+target/               the company's Docker: ShopLite compose file and Dockerfile
+docker-compose.yml    the ATG platform's Docker (sidecar proxy, OTel Collector, PostgreSQL, scanner + web)
+docker/               scan.py (one scan, Phases 1-4), serve.py + pages.py (web view), otel-collector.yaml, extractor-target.yaml
+START-Windows.bat, start.sh, HOW-TO-RUN.md   start both Dockers and run the before/after review
 bench/                Section IV experiment: miners, replicas, workload, oracle, evaluation, report
 bench/testbeds/       ground truth for ShopLite, Train Ticket, crAPI (topology.yaml + source files)
 results/              tables, figures, dashboards, and every run's metrics and raw Phase 1 output
 realcheck/            kit to repeat Phase 1 on the real crAPI in Docker (Thai guide)
-docs/                 EXPERIMENT.md, THREAT_MODEL.md, RAW_DATA_CONTRACT.md, PHASE1_DESIGN.md
+docs/                 PAPER_MAPPING.md (paper ↔ code), EXPERIMENT.md, THREAT_MODEL.md, RAW_DATA_CONTRACT.md, PHASE1_DESIGN.md
 tests/                unit tests (Phase 1), regression tests on the demo (Phases 2-4), harness checks
 ```

@@ -1,0 +1,75 @@
+# The COMPANY's Docker: ShopLite, the microservice system under review.
+#
+# It runs on its own network, customer-net. The ATG platform (../docker-compose.yml)
+# is a separate Docker that joins this network; the company changes two settings
+# for the review (marked "review" below): east-west calls go through ATG's sidecar
+# proxy, and spans go to ATG's OpenTelemetry Collector.
+#
+#   docker compose -f target/docker-compose.yml up -d --build --wait start the company's system
+#   docker compose -f target/docker-compose.yml run --rm users       customers use the shop (through ATG)
+#   SHOPLITE_HARDENED=1 SHOPLITE_MANIFESTS=k8s-hardened \
+#     docker compose -f target/docker-compose.yml up -d --wait       deploy the version with the fixes
+name: shoplite
+
+x-shoplite: &shoplite
+  build:
+    context: ..
+    dockerfile: target/Dockerfile
+  image: shoplite:1.0
+  environment:
+    SHOPLITE_HARDENED: ${SHOPLITE_HARDENED:-0}
+    GATEWAY_CONFIG: /app/demo_target/${SHOPLITE_MANIFESTS:-k8s}/gateway.yaml
+    MESH_PROXY: http://atg-proxy:8081                          # review: east-west calls via the ATG sidecar
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://atg-collector:4318     # review: spans to the ATG Collector
+    OTEL_BSP_SCHEDULE_DELAY: "500"
+  networks: [customer-net]
+  restart: unless-stopped
+
+services:
+  api-gateway:
+    <<: *shoplite
+    command: uvicorn gateway:app --app-dir demo_target/services --host 0.0.0.0 --port 8000
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  user-service:
+    <<: *shoplite
+    command: uvicorn user_service:app --app-dir demo_target/services --host 0.0.0.0 --port 8001
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  order-service:
+    <<: *shoplite
+    command: uvicorn order_service:app --app-dir demo_target/services --host 0.0.0.0 --port 8002
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  payment-service:
+    <<: *shoplite
+    command: uvicorn payment_service:app --app-dir demo_target/services --host 0.0.0.0 --port 8003
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8003/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  # Customers (and one internal cron job). Customers reach the shop through the ATG
+  # sidecar, which sits inline in front of the gateway. Started on demand.
+  users:
+    <<: *shoplite
+    profiles: [users]
+    restart: "no"
+    command: >
+      python demo_target/traffic_generator.py --wait 90 --rounds 25
+      --gateway http://atg-proxy:8080 --mesh-proxy http://atg-proxy:8081
+      --user-service http://user-service:8001
+
+networks:
+  customer-net:
+    name: customer-net

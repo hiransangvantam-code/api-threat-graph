@@ -2,9 +2,11 @@
 Shared plumbing for the ShopLite demo services.
 
 Two things live here:
-  1. Tracing: every service emits OpenTelemetry spans and writes them as
-     OTLP/JSON lines (the same shape the OTel Collector "file" exporter
-     produces), so the call-chain extractor reads a real format.
+  1. Tracing: every service emits OpenTelemetry spans. In Docker they go over
+     OTLP/HTTP to an OpenTelemetry Collector (set OTEL_EXPORTER_OTLP_ENDPOINT);
+     otherwise they are written as OTLP/JSON lines, the same shape the
+     Collector's "file" exporter produces, so the call-chain extractor reads
+     one real format either way.
   2. Service-to-service HTTP: outgoing calls go through MESH_PROXY when it
      is set. In the demo that is mitmproxy, which plays the role of a
      sidecar and lets us capture east-west traffic too.
@@ -148,9 +150,17 @@ class ServiceKit:
                 {"service.name": service_name, "service.namespace": "shoplite"}
             )
         )
-        provider.add_span_processor(
-            SimpleSpanProcessor(OTLPJsonFileExporter(telemetry_dir / f"{service_name}.jsonl"))
-        )
+        if os.environ.get("OTEL_EXPORTER_OTLP_ENDPOINT") or os.environ.get("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT"):
+            # Docker deployment: standard OTLP/HTTP export to an OpenTelemetry Collector
+            # (the ATG platform runs one); W3C traceparent is the default propagator
+            from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+            from opentelemetry.sdk.trace.export import BatchSpanProcessor
+            provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
+        else:
+            # local demo and experiment: the same OTLP/JSON lines, written straight to a file
+            provider.add_span_processor(
+                SimpleSpanProcessor(OTLPJsonFileExporter(telemetry_dir / f"{service_name}.jsonl"))
+            )
         self.tracer = provider.get_tracer("shoplite") if self.traced else trace.NoOpTracer()
         proxy = (os.environ.get("MESH_PROXY") or None) if service_name not in no_sidecar else None
         # trust_env=False: ignore any machine-wide proxy settings, only use ours

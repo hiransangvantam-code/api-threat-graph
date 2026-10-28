@@ -1,5 +1,7 @@
 """
-Graph store for the threat graph ("POSTGRESQL GRAPH" in Fig. 1).
+Graph store for the threat graph ("POSTGRESQL GRAPH" in Fig. 1), and the
+place where Phase 2 persists the normalized API inventory in the Extended
+Universal JSON Format (paper III-C).
 
 Two backends with the same schema and the same SQL:
   postgresql://user:pass@host/db   real PostgreSQL (needs: pip install "psycopg[binary]")
@@ -10,6 +12,8 @@ the same query works on a laptop (SQLite) and on the team's PostgreSQL server.
 
 Tables (every row is tagged with run_id, so runs can be compared over time):
   atg_runs      one row per pipeline run + summary JSON (feeds "Trend & insight")
+  atg_eujf      Phase 2: one EUJF record per API (api_id, service, endpoint, method,
+                auth, evidence confidence) + the full record as JSON
   atg_nodes     id, type (Actor/API/Endpoint/Dependency/Vulnerability/Risk), label, risk, props
   atg_edges     src -> dst, rel, props
   atg_findings  one row per vulnerability finding
@@ -24,6 +28,9 @@ from pathlib import Path
 SCHEMA = [
     """CREATE TABLE IF NOT EXISTS atg_runs (
          run_id TEXT PRIMARY KEY, target TEXT, created_at TEXT, summary TEXT)""",
+    """CREATE TABLE IF NOT EXISTS atg_eujf (
+         run_id TEXT NOT NULL, api_id TEXT NOT NULL, service TEXT, endpoint TEXT, method TEXT, auth TEXT,
+         confidence TEXT, inventory_status TEXT, record TEXT, PRIMARY KEY (run_id, api_id))""",
     """CREATE TABLE IF NOT EXISTS atg_nodes (
          run_id TEXT NOT NULL, id TEXT NOT NULL, type TEXT NOT NULL, label TEXT,
          own_risk REAL, propagated_risk REAL, props TEXT, PRIMARY KEY (run_id, id))""",
@@ -39,7 +46,7 @@ SCHEMA = [
 ]
 
 # Walk from every Actor along attack-relevant edges until a Risk node.
-# After a 'runs_on' hop (endpoint -> its service) only 'has_vuln' may follow,
+# After a RUNS_ON hop (endpoint -> its service) only HAS_FINDING may follow,
 # so reaching one endpoint never "teleports" you to the service's other endpoints.
 ATTACK_PATH_SQL = """
 WITH RECURSIVE walk(node, path, rels, last_rel, depth) AS (
@@ -50,8 +57,8 @@ WITH RECURSIVE walk(node, path, rels, last_rel, depth) AS (
     FROM walk w
     JOIN atg_edges e ON e.run_id = {p} AND e.src = w.node
     WHERE w.depth < {p}
-      AND e.rel IN ('reaches', 'exposes', 'routes', 'calls', 'runs_on', 'has_vuln', 'leads_to')
-      AND (w.last_rel <> 'runs_on' OR e.rel = 'has_vuln')
+      AND e.rel IN ('REACHES', 'EXPOSES', 'ROUTES_TO', 'CALLS', 'RUNS_ON', 'HAS_FINDING', 'LEADS_TO')
+      AND (w.last_rel <> 'RUNS_ON' OR e.rel = 'HAS_FINDING')
       AND {notin}
 )
 SELECT w.path, w.rels FROM walk w
@@ -91,6 +98,17 @@ class GraphStore:
 
     def _q(self, sql: str) -> str:
         return sql.replace("?", self.p)
+
+    def save_eujf(self, eujf: dict) -> int:
+        """Phase 2 output -> table atg_eujf (one row per API)."""
+        cur = self.conn.cursor()
+        cur.execute(self._q("DELETE FROM atg_eujf WHERE run_id = ?"), (eujf["run_id"],))
+        rows = [(eujf["run_id"], e["api_id"], e["service"], e["endpoint"], e["method"], e["auth"],
+                 e["evidence"]["confidence"], e["inventory_status"], json.dumps(e)) for e in eujf["endpoints"]]
+        cur.executemany(self._q("INSERT INTO atg_eujf (run_id, api_id, service, endpoint, method, auth, confidence, "
+                                "inventory_status, record) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"), rows)
+        self.conn.commit()
+        return len(rows)
 
     def save_graph(self, run_id: str, target: str, created_at: str, nodes: list[dict], edges: list[dict]) -> None:
         cur = self.conn.cursor()

@@ -83,7 +83,7 @@ def load_yaml_docs(path: Path) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Path templating: /api/users/17/addresses  ->  /api/users/{int}/addresses
+# Path templating: /api/users/17/addresses  ->  /api/users/{id}/addresses
 # ---------------------------------------------------------------------------
 _UUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.I)
 _HEX = re.compile(r"^[0-9a-f]{12,}$", re.I)
@@ -121,7 +121,8 @@ def template_path(path: str) -> tuple[str, list[dict]]:
     for i, seg in enumerate(segs):
         kind = classify_segment(seg) if seg else None
         if kind:
-            out.append("{" + kind + "}")
+            # numeric ids collapse to {id} (paper III-C); uuid/date/hex keep their own name
+            out.append("{" + ("id" if kind == "int" else kind) + "}")
             params.append({"position": i, "kind": kind})
         else:
             out.append(seg)

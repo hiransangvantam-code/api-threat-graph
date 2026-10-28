@@ -114,6 +114,7 @@ def _routes_from_configmap(doc: dict, src: str) -> list[dict]:
                     "upstream_service": r.get("service") or urlsplit(up).hostname,
                     "strip_prefix": r.get("strip_prefix"),
                     "auth": r.get("auth", "unspecified"),
+                    "rate_limit": {"directive": f"rate_limit: {r['rate_limit']}"} if r.get("rate_limit") else None,
                 })
     return out
 
@@ -132,6 +133,7 @@ def _routes_from_virtualservice(doc: dict, src: str) -> list[dict]:
                     "defined_in": f"{src} (VirtualService {doc['metadata'].get('name')})",
                     "match_prefix": p, "upstream": host, "upstream_service": host,
                     "strip_prefix": (http.get("rewrite") or {}).get("uri"), "auth": "unspecified",
+                    "rate_limit": None,
                 })
     return out
 
@@ -144,11 +146,13 @@ def _routes_from_kong(doc: dict, src: str) -> list[dict]:
         for r in svc.get("routes", []):
             rp = plugins | {p.get("name") for p in r.get("plugins", [])}
             auth = "required" if rp & {"jwt", "key-auth", "basic-auth", "oauth2", "openid-connect"} else "none"
+            rl = sorted(x for x in rp if x and "rate-limiting" in x)
             for p in r.get("paths", ["/"]):
                 out.append({
                     "kind": "gateway_route", "gateway": "kong", "defined_in": f"{src} (Kong service {svc.get('name')})",
                     "match_prefix": p, "upstream": up, "upstream_service": urlsplit(up).hostname,
                     "strip_prefix": p if r.get("strip_path", True) else None, "auth": auth,
+                    "rate_limit": {"directive": f"Kong plugin {rl[0]}"} if rl else None,
                 })
     return out
 
@@ -175,16 +179,20 @@ def _routes_from_scg(path: Path, gateway_service: str | None, env: dict) -> list
     gw = (((doc.get("spring") or {}).get("cloud") or {}).get("gateway") or {})
     name = gateway_service or ((doc.get("spring") or {}).get("application") or {}).get("name")
     out = []
+    default_rl = any("RequestRateLimiter" in str(f) for f in gw.get("default-filters", []) or [])
     for r in gw.get("routes", []) or []:
         upstream = _subst(str(r.get("uri", "")), env)
         strip = 0
         auth = "none"
+        rate_limit = {"directive": "RequestRateLimiter (default-filters)"} if default_rl else None
         for f in r.get("filters", []) or []:
             f = str(f)
             if f.startswith("StripPrefix="):
                 strip = int(f.split("=", 1)[1] or 0)
             if re.search(r"TokenRelay|Jwt|OAuth|Auth", f):
                 auth = "required"
+            if "RequestRateLimiter" in f:
+                rate_limit = {"directive": "RequestRateLimiter filter"}
         for pred in r.get("predicates", []) or []:
             pred = str(pred)
             if not pred.startswith("Path="):
@@ -198,6 +206,7 @@ def _routes_from_scg(path: Path, gateway_service: str | None, env: dict) -> list
                     "defined_in": f"{path} (route {r.get('id')})", "match_prefix": prefix, "pattern": pat,
                     "upstream": upstream, "upstream_service": _host_service(upstream.replace("lb://", "http://")),
                     "strip_prefix": "/" + "/".join(segs[:strip]) if strip else None, "auth": auth,
+                    "rate_limit": rate_limit,
                 })
     return out
 
@@ -230,6 +239,7 @@ def _routes_from_nginx(path: Path, gateway_service: str | None, env: dict) -> li
             "strip_prefix": m.group(1).rstrip("/") if uri else None,
             "replace_with": uri,
             "auth": "required" if re.search(r"\bauth_(request|basic|jwt)\b", block) else "none",
+            "rate_limit": {"directive": rl.group(0).strip()} if (rl := re.search(r"limit_req\s+[^;]+;", block)) else None,
         })
     return out
 
@@ -248,6 +258,7 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
     files = iter_files(cfg.get("manifest_paths", []), (".yaml", ".yml"))
     warnings: list[str] = []
     workloads, services, ingresses, routes, netpols, secrets, configmaps = [], [], [], [], [], [], []
+    mtls_policies: list[dict] = []
     unknown_kinds: dict[str, int] = {}
 
     for f in files:
@@ -268,6 +279,8 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
             name = meta.get("name")
             if kind in WORKLOAD_KINDS:
                 pod, labels = _pod_spec(doc)
+                tmeta = (((doc.get("spec") or {}).get("template") or {}).get("metadata") or {})
+                annotations = {**(meta.get("annotations") or {}), **(tmeta.get("annotations") or {})}
                 workloads.append({
                     "kind": "workload", "workload_kind": kind, "name": name, "namespace": ns,
                     "defined_in": src, "labels": labels,
@@ -278,6 +291,7 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                     "pod_security_context": pod.get("securityContext") or {},
                     "containers": [_container(c) for c in pod.get("containers", [])],
                     "init_containers": [c.get("image") for c in pod.get("initContainers", [])],
+                    "mesh": "linkerd" if str(annotations.get("linkerd.io/inject", "")).lower() == "enabled" else None,
                 })
             elif kind == "Service":
                 spec = doc.get("spec") or {}
@@ -301,6 +315,8 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                             "backend_service": be.get("name") or (p.get("backend") or {}).get("serviceName"),
                             "backend_port": (be.get("port") or {}).get("number") or (p.get("backend") or {}).get("servicePort"),
                             "annotations": sorted((meta.get("annotations") or {}).keys()),
+                            "rate_limit": next(({"directive": f"{k}: {v}"} for k, v in sorted((meta.get("annotations") or {}).items())
+                                                if k.split("/")[-1] in ("limit-rps", "limit-rpm", "limit-connections")), None),
                         })
             elif kind == "NetworkPolicy":
                 spec = doc.get("spec") or {}
@@ -326,6 +342,19 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                                    "keys": sorted((doc.get("data") or {}).keys()), "is_gateway_config": bool(found)})
             elif kind == "VirtualService":
                 routes += _routes_from_virtualservice(doc, src)
+            elif kind == "PeerAuthentication":  # Istio: server-side mTLS for the selected workloads
+                spec = doc.get("spec") or {}
+                mtls_policies.append({
+                    "kind": "mtls_policy", "source": "PeerAuthentication", "name": name, "namespace": ns,
+                    "defined_in": src, "selector": (spec.get("selector") or {}).get("matchLabels") or {},
+                    "mode": ((spec.get("mtls") or {}).get("mode") or "UNSET").upper()})
+            elif kind == "DestinationRule":  # Istio: client-side TLS towards a host
+                spec = doc.get("spec") or {}
+                mode = (((spec.get("trafficPolicy") or {}).get("tls") or {}).get("mode") or "").upper()
+                if mode:
+                    mtls_policies.append({
+                        "kind": "mtls_policy", "source": "DestinationRule", "name": name, "namespace": ns,
+                        "defined_in": src, "host": str(spec.get("host", "")).split(".")[0], "mode": mode})
             elif kind:
                 unknown_kinds[kind] = unknown_kinds.get(kind, 0) + 1
 
@@ -356,6 +385,15 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
     workload_names = {w["name"] for w in workloads}
 
     for w in workloads:
+        via = []
+        for m in mtls_policies:
+            if m["source"] == "PeerAuthentication" and m["mode"] == "STRICT" and \
+                    (m["namespace"] in (w["namespace"], "istio-system")) and \
+                    (not m["selector"] or _matches(m["selector"], w["labels"])):
+                via.append(f"PeerAuthentication {m['name']} (STRICT)")
+        if w.get("mesh") == "linkerd":
+            via.append("Linkerd proxy injected (automatic mTLS)")
+        w["mtls"] = {"enforced": bool(via), "via": via}
         w["network_policies"] = [n["name"] for n in netpols
                                  if n["namespace"] == w["namespace"] and
                                  (not n["pod_selector"] or _matches(n["pod_selector"], w["labels"]))]
@@ -407,7 +445,7 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
         if r["upstream_service"] not in svc_by_name and r["upstream_service"] not in workload_names:
             warnings.append(f"gateway route {r['match_prefix']} points at '{r['upstream_service']}', which no manifest defines")
 
-    records = workloads + services + ingresses + routes + netpols + secrets + configmaps + exposure
+    records = workloads + services + ingresses + routes + netpols + secrets + configmaps + mtls_policies + exposure
     plaintext_sensitive = sum(1 for w in workloads for c in w["containers"] for e in c["env"]
                               if e["source"] == "plaintext" and e["sensitive_name"])
     stats = {
@@ -417,6 +455,8 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
         "ingress_paths": len(ingresses),
         "gateway_routes": len(routes),
         "network_policies": len(netpols),
+        "mtls_policies": len(mtls_policies),
+        "rate_limited_routes": sum(1 for r in routes if r.get("rate_limit")),
         "secrets": len(secrets),
         "internet_exposed_workloads": sorted({e["workload"] for e in exposure if e["level"] == "internet"}),
         "node_exposed_workloads": sorted({e["workload"] for e in exposure if e["level"] == "node"}),

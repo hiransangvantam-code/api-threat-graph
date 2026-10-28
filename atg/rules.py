@@ -72,6 +72,7 @@ class Rule:
     snippet: str = ""
     exposure_sensitive: bool = True   # adjust likelihood by how reachable the target is
     check: Callable = None
+    table_i: str = ""                 # identifier of the matching row in the paper's Table I
 
 
 @dataclass
@@ -114,6 +115,18 @@ class Context:
     @staticmethod
     def is_login(e) -> bool:
         return bool(LOGIN_PATH.search(e["path"]))
+
+    def rate_limit_directive(self, e) -> str | None:
+        """A rate-limiting directive that covers this endpoint: on its gateway route, or on
+        an Ingress in front of the gateway (Phase 1 infrastructure discovery)."""
+        route = e.get("gateway_route") or {}
+        if route.get("rate_limit"):
+            return f"gateway route {route['prefix']}: {route['rate_limit']}"
+        if e.get("public_paths"):
+            for ing in self.d.get("ingress", []):
+                if ing.get("rate_limit") and ing.get("backend_service") == self.gateway:
+                    return f"Ingress {ing['host']}{ing['path']}: {ing['rate_limit']['directive']}"
+        return None
 
     @staticmethod
     def sources_of(e, *wanted) -> list[str]:
@@ -259,7 +272,8 @@ def ts06(ctx: Context):
 
 
 @rule(id="TS-07", group="Token security", title="Login has no visible brute-force protection",
-      description="The login endpoint returned failures but never a 429 or lockout, so password guessing is "
+      description="The login endpoint returned failures but never a 429 or lockout, and no rate-limiting "
+                  "directive in the gateway or Ingress configuration covers it, so password guessing is "
                   "not being slowed down.",
       risk="account_takeover", likelihood=3, impact=4, owasp="API2:2023 Broken Authentication",
       cwe=["CWE-307"], attack=["T1110"], nist=["SP 800-63B"],
@@ -271,9 +285,10 @@ def ts07(ctx: Context):
             continue
         codes = e.get("status_observed") or (e["sources"].get("traffic") or {}).get("status_codes", {})
         fails = codes.get("401", 0) + codes.get("403", 0)
-        if fails and not e["auth_observed"]["throttled_seen"]:
+        if fails and not e["auth_observed"]["throttled_seen"] and not ctx.rate_limit_directive(e):
             yield Hit(e["id"], f"{ctx.label(e)}: {fails} failed logins, no 429 seen",
-                      [f"status codes: {codes}"], ctx.sources_of(e),
+                      [f"status codes: {codes}", "no rate-limiting directive on its gateway route or Ingress"],
+                      ctx.sources_of(e, "infrastructure"),
                       f"Add rate limiting and lockout to {e['path']}.", confidence="medium")
 
 
@@ -289,10 +304,12 @@ def ts08(ctx: Context):
     for e in ctx.endpoints:
         tr = e["sources"].get("trace") or {}
         callers = [c for c in tr.get("callers", []) if c != ctx.gateway]
-        if callers and e["auth_observed"]["anonymous_success_internal"]:
+        mtls = (ctx.svc(e).get("mtls") or {}).get("enforced")  # workload identity is checked by the mesh
+        if callers and e["auth_observed"]["anonymous_success_internal"] and not mtls:
             yield Hit(e["id"], f"{', '.join(callers)} -> {ctx.label(e)} with no credential",
                       [f"callers from traces: {', '.join(callers)}",
-                       f"{e['auth_observed']['anonymous_success_internal']} east-west calls without Authorization succeeded"],
+                       f"{e['auth_observed']['anonymous_success_internal']} east-west calls without Authorization succeeded",
+                       f"no mTLS enforced for {e['service']} (no STRICT PeerAuthentication or mesh injection)"],
                       ["callchain", "runtime_traffic"],
                       f"Require service identity (mTLS or a service token) on {e['path']} in {e['service']}.")
 
@@ -492,8 +509,10 @@ def api8_netpol(ctx: Context):
     for s in ctx.services.values():
         if s["in_manifests"] and not s["network_policy"]["present"]:
             allowed = sorted(callers.get(s["name"], []))
+            mt = s.get("mtls") or {}
             yield Hit(s["id"], f"{s['name']} accepts traffic from any pod",
                       ["no NetworkPolicy selects this workload",
+                       f"mTLS: enforced ({', '.join(mt['via'])})" if mt.get("enforced") else "mTLS: not enforced either",
                        f"callers seen in traces: {', '.join(allowed) or 'none (only external clients)'}"],
                       ["infrastructure", "callchain"],
                       f"Add a NetworkPolicy for {s['name']} allowing only: {', '.join(allowed) or 'the ingress controller'}.")
@@ -651,6 +670,15 @@ def lt04(ctx: Context):
                       ctx.sources_of(e), f"Handle errors in {e['path']} and alert on them.")
 
 
+# Rows of the paper's Table I ("Examples of deterministic rule definitions") and the rules
+# that implement them. Table I's NIST row (lateral boundary: east-west traffic without mTLS
+# or network policy) is covered by two rules here.
+TABLE_I = {"API1": "API1", "TS-01": "API2", "TS-02": "API2", "TS-03": "API2", "API7": "API7",
+           "TS-07": "SEC18", "TS-08": "NIST", "API8-NETPOL": "NIST"}
+for _r in RULES:
+    _r.table_i = TABLE_I.get(_r.id, "")
+
+
 def catalog() -> list[dict]:
-    return [{k: getattr(r, k) for k in ("id", "group", "title", "description", "risk", "likelihood", "impact",
+    return [{k: getattr(r, k) for k in ("id", "table_i", "group", "title", "description", "risk", "likelihood", "impact",
                                          "owasp", "cwe", "attack", "nist", "mitigation", "snippet")} for r in RULES]

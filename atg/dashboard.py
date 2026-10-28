@@ -73,7 +73,7 @@ def _chip(text, tone="info"):
 # ---------------------------------------------------------------------------
 def _graph_svg(analysis: dict) -> str:
     nodes = {n["id"]: n for n in analysis["graph"]["nodes"]}
-    edges = [e for e in analysis["graph"]["edges"] if e["rel"] not in ("runs_on",)]
+    edges = [e for e in analysis["graph"]["edges"] if e["rel"] not in ("RUNS_ON",)]
     cols: dict[str, list[str]] = defaultdict(list)
     for n in nodes.values():
         cols[n["type"]].append(n["id"])
@@ -263,10 +263,10 @@ CSS = BASE_CSS + """
 .tgraph{display:block;font-family:var(--f-body)}
 .tgraph .gcol{font:600 11px var(--f-mono);letter-spacing:.08em;fill:var(--muted)}
 .tgraph .ge{fill:none;stroke:var(--line);stroke-width:1.1;opacity:.9}
-.tgraph .ge.r-has_vuln{stroke:var(--t-vuln);opacity:.35}
-.tgraph .ge.r-leads_to{stroke:var(--t-risk);opacity:.3}
-.tgraph .ge.r-calls{stroke:var(--src-trace);stroke-dasharray:3 3}
-.tgraph .ge.r-reaches{stroke:var(--crit);opacity:.5}
+.tgraph .ge.r-HAS_FINDING{stroke:var(--t-vuln);opacity:.35}
+.tgraph .ge.r-LEADS_TO{stroke:var(--t-risk);opacity:.3}
+.tgraph .ge.r-CALLS{stroke:var(--src-trace);stroke-dasharray:3 3}
+.tgraph .ge.r-REACHES{stroke:var(--crit);opacity:.5}
 .tgraph .ge.hl{stroke:var(--accent);stroke-width:2.4;opacity:1}
 .tgraph .gn{cursor:pointer}
 .tgraph .gn rect{fill:var(--surface-2);stroke:var(--line)}
@@ -312,6 +312,7 @@ CSS = BASE_CSS + """
 .sources-mini i{width:9px;height:9px;border-radius:2px;background:var(--c);display:inline-block}
 .sources-mini i.off{background:var(--surface-2);outline:1px solid var(--line)}
 .inv td.path{min-width:150px}
+.inv td:first-child,.inv td:nth-child(2){white-space:nowrap}
 .wrap a{color:var(--t-api)}
 """
 
@@ -439,7 +440,8 @@ def build_dashboard(analysis: dict, eujf: dict, history: list[dict], out_path, t
             f'<tr class="frow" tabindex="0" aria-expanded="false" data-id="{f["id"]}" data-sev="{f["severity"]}" data-grp="{grp_short[f["group"]]}">'
             f'<td class="mono">{f["id"]}</td><td>{_sev(f["severity"])}</td>'
             f'<td class="num"><span class="score">{f["score"]}</span> <span class="muted">{f["likelihood"]}×{f["impact"]}</span></td>'
-            f'<td><b>{E(f["title"])}</b><br><span class="muted mono">{E(f["rule_id"])} · {E(f["owasp"].split(" ")[0])}</span></td>'
+            f'<td><b>{E(f["title"])}</b><br><span class="muted mono">{E(f["rule_id"])} · {E(f["owasp"].split(" ")[0])}'
+            f'{" · Table I " + E(f["table_i"]) if f.get("table_i") else ""}</span></td>'
             f'<td class="path">{E(f["affected_api"])}<br><span class="muted">{"whole service" if f["target_kind"] == "service" else E(f["service"])}</span></td>'
             f'<td>{minisrc(f["sources"])}</td><td class="num">{f["attack_paths"] or "–"}</td></tr>'
             f'<tr class="fdetail" id="d-{f["id"]}" hidden><td colspan="7"><div class="fbody">'
@@ -515,6 +517,7 @@ def build_dashboard(analysis: dict, eujf: dict, history: list[dict], out_path, t
     for f in findings:
         fcount[f["target"]] += 1
     tone = {"documented": "ok", "shadow": "warn", "zombie": "warn", "dormant": "info"}
+    conf_tone = {"HIGH": "ok", "MEDIUM": "warn", "ZOMBIE": "info"}
     auth_tone = {"enforced": "ok", "declared": "info", "not_enforced": "crit", "unknown": "info"}
     inv_rows = []
     for e in eujf["endpoints"]:
@@ -522,15 +525,37 @@ def build_dashboard(analysis: dict, eujf: dict, history: list[dict], out_path, t
         used = {srcs[k] for k in e["sources"] if k in srcs}
         if e["gateway_route"] or e["service"] == eujf.get("gateway"):
             used.add("infrastructure")
+        conf = (e.get("evidence") or {}).get("confidence", "–")
         inv_rows.append([
+            f'<span class="mono">{E(e.get("api_id", "–"))}</span>',
             f'<span class="method">{E(e["method"])}</span>', f'<span class="mono">{E(e["path"])}</span>',
             E(e["service"]), f'<span class="mono">{E(", ".join(e["public_paths"]) or "internal only")}</span>',
-            _chip(e["inventory_status"], tone[e["inventory_status"]]), _chip(e["auth_required"].replace("_", " "), auth_tone[e["auth_required"]]),
+            _chip(e["inventory_status"], tone[e["inventory_status"]]), _chip(conf, conf_tone.get(conf, "info")),
+            _chip(e["auth_required"].replace("_", " "), auth_tone[e["auth_required"]]),
             E(", ".join(e["data_classes"]) or "–"), minisrc(used), str(fcount.get(e["id"], 0) or "–")])
-    inv_table = ('<div class="scroll"><table class="inv"><thead><tr><th>Method</th><th>Path</th><th>Service</th><th>Public path</th>'
-                 '<th>Inventory</th><th>Auth observed</th><th>Sensitive data</th><th>Sources</th><th class="num">Findings</th></tr></thead><tbody>'
-                 + "".join("<tr>" + "".join(f'<td class="{"num" if i == 8 else "path" if i in (1, 3) else ""}">{c}</td>' for i, c in enumerate(r)) + "</tr>"
+    inv_table = ('<div class="scroll"><table class="inv"><thead><tr><th>API ID</th><th>Method</th><th>Path</th><th>Service</th><th>Public path</th>'
+                 '<th>Inventory</th><th>Confidence</th><th>Auth observed</th><th>Sensitive data</th><th>Sources</th><th class="num">Findings</th></tr></thead><tbody>'
+                 + "".join("<tr>" + "".join(f'<td class="{"num" if i == 10 else "path" if i in (2, 4) else ""}">{c}</td>' for i, c in enumerate(r)) + "</tr>"
                            for r in inv_rows) + "</tbody></table></div>")
+    # API overview summary (paper III-E): total APIs, source breakdown, evidence confidence
+    ev = [e.get("evidence") or {} for e in eujf["endpoints"]]
+    n_api = len(eujf["endpoints"])
+    cdist = {k: sum(1 for x in ev if x.get("confidence") == k) for k in ("HIGH", "MEDIUM", "ZOMBIE")}
+    ccol = {"HIGH": "var(--ok)", "MEDIUM": "var(--warn)", "ZOMBIE": "var(--info)"}
+    cbar = "".join(f'<i style="width:{100 * v / max(1, n_api):.2f}%;background:{ccol[k]}" title="{k}: {v}"></i>'
+                   for k, v in cdist.items() if v)
+    api_overview = f"""
+    <div class="kpis">
+      <div class="kpi"><b>{n_api}</b><span>APIs discovered (EUJF records)</span></div>
+      <div class="kpi"><b>{sum(1 for x in ev if x.get("openapi_declared"))}</b><span>declared in an OpenAPI spec</span></div>
+      <div class="kpi"><b>{sum(1 for x in ev if x.get("traffic_observed"))}</b><span>seen in proxy traffic</span></div>
+      <div class="kpi"><b>{sum(1 for x in ev if x.get("gateway_routed"))}</b><span>routed by the gateway</span></div>
+      <div class="kpi"><b>{sum(1 for x in ev if x.get("trace_observed"))}</b><span>seen in traces</span></div>
+    </div>
+    <div style="display:grid;gap:6px"><div class="sevbar" role="img" aria-label="Evidence confidence">{cbar}</div>
+    <div class="legend">{"".join(f'<span><i class="box" style="--c:{ccol[k]}"></i>{k} {v}</span>' for k, v in cdist.items())}</div>
+    <p class="muted" style="margin:0;font-size:13px">HIGH: in a spec and seen running. MEDIUM: seen running only (shadow).
+    ZOMBIE: in a spec but no runtime traffic in this window.</p></div>"""
     dep = analysis["dependency"]
     svcs = {x["name"]: x for x in eujf["services"]}
     dep_rows = "".join(
@@ -555,7 +580,8 @@ def build_dashboard(analysis: dict, eujf: dict, history: list[dict], out_path, t
     for f in findings:
         fired[f["rule_id"]] += 1
     cat_rows = "".join(
-        f'<tr><td class="mono">{E(r["id"])}</td><td><b>{E(r["title"])}</b><br><span class="muted">{E(r["group"])}</span></td>'
+        f'<tr><td class="mono">{E(r["id"])}{"<br><span class=muted>Table I: " + E(r["table_i"]) + "</span>" if r.get("table_i") else ""}</td>'
+        f'<td><b>{E(r["title"])}</b><br><span class="muted">{E(r["group"])}</span></td>'
         f'<td>{_owasp_link(r["owasp"])}</td><td>{" ".join(_cwe_link(c) for c in r["cwe"])}</td>'
         f'<td>{" ".join(_attack_link(t) for t in r["attack"])}</td><td>{" ".join(_nist_link(n) for n in r["nist"])}</td>'
         f'<td class="num">{r["likelihood"]}×{r["impact"]}</td><td class="num">{fired.get(r["id"], 0) or "–"}</td></tr>'
@@ -569,7 +595,7 @@ def build_dashboard(analysis: dict, eujf: dict, history: list[dict], out_path, t
     navhtml = ('<nav class="navlinks" aria-label="Pages">'
                + "".join(f'<a href="{E(h)}">{E(t)}</a>' for t, h in nav) + "</nav>") if nav else ""
     if view == "graph":
-        n_edges = sum(1 for e in analysis["graph"]["edges"] if e["rel"] != "runs_on")
+        n_edges = sum(1 for e in analysis["graph"]["edges"] if e["rel"] != "RUNS_ON")
         body = f"""
 <title>{E(target)} threat graph</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -667,6 +693,7 @@ def build_dashboard(analysis: dict, eujf: dict, history: list[dict], out_path, t
 
   <section aria-labelledby="h-api">
     <h2 id="h-api">API overview</h2>
+    {api_overview}
     {inv_table}
     <h3>Service dependencies</h3>
     {dep_table}

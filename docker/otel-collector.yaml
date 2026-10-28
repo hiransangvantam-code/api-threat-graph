@@ -1,0 +1,31 @@
+# OpenTelemetry Collector of the ATG platform (Phase 1, distributed trace discovery).
+# The target's services export spans here over OTLP (W3C traceparent propagation);
+# the file exporter writes OTLP/JSON lines that the call-chain extractor reads.
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+processors:
+  batch:
+    timeout: 1s
+
+exporters:
+  file:
+    path: /data/telemetry/spans.jsonl
+    flush_interval: 1s
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [file]

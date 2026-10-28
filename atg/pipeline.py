@@ -52,16 +52,19 @@ def run(config, extract: bool = True, label: str | None = None, quiet: bool = Fa
         timings["phase1_ms"] = (time.perf_counter() - t) * 1000
 
     say("Phase 2 - API Normalizer")
+    store = GraphStore(os.environ.get("ATG_GRAPH_STORE") or cfg.get("graph_store") or f"sqlite:///{out / 'atg.db'}")
     t = time.perf_counter()
     eujf = normalize(raw_dir)
     timings["phase2_ms"] = (time.perf_counter() - t) * 1000
     _write(out / "eujf.json", eujf)
-    inv = eujf["summary"]["inventory"]
+    stored = store.save_eujf(eujf)  # the API inventory, persisted in the graph store's database
+    inv, conf = eujf["summary"]["inventory"], eujf["summary"]["confidence"]
     say(f"  [ok]   {eujf['summary']['endpoints']} endpoints in {eujf['summary']['services']} services "
         f"({', '.join(f'{v} {k}' for k, v in sorted(inv.items()))})  -> {out / 'eujf.json'}")
+    say(f"         EUJF confidence: HIGH {conf['HIGH']}, MEDIUM {conf['MEDIUM']}, ZOMBIE {conf['ZOMBIE']}; "
+        f"{stored} records -> table atg_eujf ({store.label})")
 
     say("Phase 3 - Analysis & risk assessment")
-    store = GraphStore(os.environ.get("ATG_GRAPH_STORE") or cfg.get("graph_store") or f"sqlite:///{out / 'atg.db'}")
     t = time.perf_counter()
     analysis = analyze(eujf, store)
     timings["phase3_ms"] = (time.perf_counter() - t) * 1000

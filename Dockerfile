@@ -1,5 +1,5 @@
-# API Threat Graph prototype: ShopLite demo + Phases 1-4 + the result pages, in one image.
-#   docker compose up --build      then open http://localhost:8080
+# The ATG platform image (Phases 1-4 and the web pages). The same image runs the
+# mitmproxy sidecar (atg-proxy) and the scanner/web view (atg); see docker-compose.yml.
 FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \

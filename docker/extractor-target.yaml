@@ -1,0 +1,38 @@
+# Phase 1 configuration for scanning the target (company) Docker from the ATG platform.
+# docker/scan.py fills in, for each scan: the new capture and trace files, and the
+# manifests folder. To review another system, change the service names and URLs here.
+
+target:
+  name: ShopLite
+  # host:port seen on the wire (customer-net DNS names) -> service name
+  service_map:
+    "api-gateway:8000": api-gateway
+    "user-service:8001": user-service
+    "order-service:8002": order-service
+    "payment-service:8003": payment-service
+
+sources:
+  runtime_traffic:            # MITMPROXY sidecar -> runtime traffic
+    enabled: true
+    capture_files: []         # set by scan.py: the lines the sidecar wrote since the last scan
+
+  openapi:                    # OPENAPI -> probed live over customer-net
+    enabled: true
+    live_targets:
+      - {service: api-gateway,     base_url: "http://api-gateway:8000"}
+      - {service: user-service,    base_url: "http://user-service:8001"}
+      - {service: order-service,   base_url: "http://order-service:8002"}
+      - {service: payment-service, base_url: "http://payment-service:8003"}
+    spec_files:               # relative to the company's config folder mounted at /target
+      - {path: specs/payment-service.v1.yaml, service: payment-service}
+
+  infrastructure:             # K8S MANIFESTS + gateway routes, mounted read-only
+    enabled: true
+    manifest_paths: []        # set by scan.py: /target/<--manifests>
+
+  callchain:                  # OPENTELEMETRY -> spans received by the Collector
+    enabled: true
+    trace_paths: []           # set by scan.py: the span batches written since the last scan
+
+output_dir: output/raw
+report_path: output/report.html

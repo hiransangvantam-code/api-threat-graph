@@ -24,18 +24,23 @@ Threat graph node types (the professor asked for these to be defined):
   Vulnerability  One finding from the rule engine (id vuln:F-001).
   Risk           A business consequence (data breach, fraud, account takeover...).
 
-Edge types:
-  reaches   Actor -> API / Endpoint   network reachability (Ingress, NodePort, no NetworkPolicy,
-                                      or an observed call from an untraced caller)
-  exposes   API -> Endpoint           the service serves this endpoint
-  routes    API(gateway) -> Endpoint  a gateway route forwards a public path to it
-  calls     Endpoint -> Endpoint      seen in a distributed trace call chain
-  depends_on API -> API               service dependency (traces / config / routes)
-  runs_on   Endpoint -> API           used only to reach service-level vulnerabilities
-  handles   Endpoint -> Dependency    the endpoint returns this data asset
-  uses      API -> Dependency         the service holds this credential
-  has_vuln  Endpoint/API -> Vulnerability
-  leads_to  Vulnerability -> Risk
+Edge types (names follow the paper's graph schema, eq. 3: ROUTES_TO, CALLS,
+QUERIES, HAS_FINDING; the others connect the attacker and the business impact):
+  REACHES     Actor -> API / Endpoint    network reachability (Ingress, NodePort, no NetworkPolicy,
+                                         or an observed call from an untraced caller)
+  EXPOSES     API -> Endpoint            the service serves this endpoint
+  ROUTES_TO   API(gateway) -> Endpoint   a gateway route forwards a public path to it
+  CALLS       Endpoint -> Endpoint       seen in a distributed trace call chain
+  DEPENDS_ON  API -> API                 service dependency (traces / config / routes)
+  RUNS_ON     Endpoint -> API            used only to reach service-level vulnerabilities
+  QUERIES     Endpoint -> Dependency     the endpoint reads / returns this data asset (data sink)
+  USES        API -> Dependency          the service holds this credential
+  HAS_FINDING Endpoint/API -> Vulnerability
+  LEADS_TO    Vulnerability -> Risk
+
+Node types follow Fig. 1 (API, Endpoint, Dependency, Vulnerability, Risk) plus Actor.
+In the notation of eq. 3: Ingress = Actor and the gateway's routes, Service = API,
+DBSink = Dependency, Finding = Vulnerability.
 
 Attack Path Contextual Risk (APCR), per path, 0-25 like L x I:
     APCR = L(finding) x I(finding) x entry_factor x 0.95^(chained calls)
@@ -111,7 +116,7 @@ def run_rules(eujf: dict) -> tuple[list[dict], dict]:
             L, I = _clamp(L), _clamp(I)
             label, service = labels.get(h.target, (h.target, h.target.split(":")[1] if ":" in h.target else h.target))
             findings.append({
-                "rule_id": r.id, "group": r.group, "title": r.title, "description": r.description,
+                "rule_id": r.id, "table_i": r.table_i, "group": r.group, "title": r.title, "description": r.description,
                 "detail": h.detail, "target": h.target, "target_kind": "endpoint" if h.target.startswith("ep:") else "service",
                 "affected_api": label, "service": service,
                 "likelihood": L, "impact": I, "score": L * I, "severity": severity(L * I), "factors": factors,
@@ -192,17 +197,17 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
         node(s["id"], "API", s["name"], role=s["role"], exposure=s["exposure"]["level"],
              network_policy=s["network_policy"]["present"])
         if s["role"] == "gateway" and s["exposure"]["level"] == "internet":
-            edge("actor:internet", s["id"], "reaches", via="Ingress")
+            edge("actor:internet", s["id"], "REACHES", via="Ingress")
         if s["node_port"]:
-            edge("actor:internet", s["id"], "reaches", via="NodePort")
+            edge("actor:internet", s["id"], "REACHES", via="NodePort")
         if s["in_manifests"] and not s["network_policy"]["present"]:
-            edge("actor:in-cluster", s["id"], "reaches", via="no NetworkPolicy")
+            edge("actor:in-cluster", s["id"], "REACHES", via="no NetworkPolicy")
         for sec in s["secret_refs"]:
             node(f"dep:secret:{sec}", "Dependency", f"Secret {sec}", kind="credential")
-            edge(s["id"], f"dep:secret:{sec}", "uses")
+            edge(s["id"], f"dep:secret:{sec}", "USES")
         for env in s["plaintext_sensitive_env"]:
             nid = node(f"dep:env:{s['name']}:{env}", "Dependency", f"{env} (plaintext)", kind="credential")
-            edge(s["id"], nid, "uses")
+            edge(s["id"], nid, "USES")
 
     for e in eujf["endpoints"]:
         node(e["id"], "Endpoint", f"{e['method']} {e['path']}", service=e["service"],
@@ -210,15 +215,15 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
              data=list(e["data_classes"]))
         svc = services.get(e["service"])
         if svc:
-            edge(svc["id"], e["id"], "exposes")
-            edge(e["id"], svc["id"], "runs_on")
+            edge(svc["id"], e["id"], "EXPOSES")
+            edge(e["id"], svc["id"], "RUNS_ON")
         if e["gateway_route"] and gateway and e["service"] != gateway:
-            edge(services[gateway]["id"], e["id"], "routes", prefix=e["gateway_route"]["prefix"],
+            edge(services[gateway]["id"], e["id"], "ROUTES_TO", prefix=e["gateway_route"]["prefix"],
                  auth=e["gateway_route"]["auth"])
         for cls in e["data_classes"]:
             nid = node(f"dep:data:{e['service']}:{cls}", "Dependency",
                        f"{DATA_ASSET_LABEL.get(cls, cls)} ({e['service']})", kind="data", data_class=cls)
-            edge(e["id"], nid, "handles")
+            edge(e["id"], nid, "QUERIES")
 
     for ent in eujf["entrypoints"]:
         if ent["from_outside_gateway"]:
@@ -226,11 +231,11 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
             ep = next((x for x in eujf["endpoints"] if x["service"] == ent["service"] and x["method"] == method
                        and x["path"] == path), None)
             if ep:
-                edge("actor:in-cluster", ep["id"], "reaches", via="observed untraced caller", traces=ent["traces"])
+                edge("actor:in-cluster", ep["id"], "REACHES", via="observed untraced caller", traces=ent["traces"])
 
     for d in eujf["dependencies"]:
         if d["from"] in services and d["to"] in services:
-            edge(services[d["from"]]["id"], services[d["to"]]["id"], "depends_on", evidence=d["evidence"], calls=d["calls"])
+            edge(services[d["from"]]["id"], services[d["to"]]["id"], "DEPENDS_ON", evidence=d["evidence"], calls=d["calls"])
 
     # endpoint -> endpoint calls from distinct trace chains (skip the gateway hop, it is a router)
     by_op = {(e["service"], f"{e['method']} {e['path']}"): e["id"] for e in eujf["endpoints"]}
@@ -243,7 +248,7 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
             parent = stack.get(hop["depth"] - 1)
             if eid and parent and (parent, eid) not in seen:
                 seen.add((parent, eid))
-                edge(parent, eid, "calls", traces=ch["traces"])
+                edge(parent, eid, "CALLS", traces=ch["traces"])
 
     for key, (title, desc) in RISKS.items():
         node(f"risk:{key}", "Risk", title, description=desc)
@@ -251,8 +256,8 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
         vid = node(f"vuln:{f['id']}", "Vulnerability", f"{f['id']} {f['title']}", finding=f["id"], rule=f["rule_id"],
                    severity=f["severity"], score=f["score"])
         nodes[vid]["own_risk"] = f["score"]
-        edge(f["target"], vid, "has_vuln")
-        edge(vid, f"risk:{f['risk']}", "leads_to")
+        edge(f["target"], vid, "HAS_FINDING")
+        edge(vid, f"risk:{f['risk']}", "LEADS_TO")
 
     used = {e["src"] for e in edges} | {e["dst"] for e in edges}
     return [n for n in nodes.values() if n["id"] in used or n["type"] != "Risk"], edges
@@ -269,7 +274,7 @@ def score_paths(raw_paths, findings: list[dict], nodes: dict) -> list[dict]:
         f = by_vuln.get(vuln)
         if not f:
             continue
-        chained = rels.count("calls")
+        chained = rels.count("CALLS")
         apcr = round(f["likelihood"] * f["impact"] * ENTRY_FACTOR.get(ids[0], 0.5) * (0.95 ** chained), 2)
         # one path per (entry actor, first hop, finding): the other variants only differ
         # in which sibling endpoint was used to reach a service-level weakness
@@ -290,11 +295,11 @@ def score_paths(raw_paths, findings: list[dict], nodes: dict) -> list[dict]:
 def propagate(nodes: dict, edges: list[dict], findings: list[dict]) -> dict[str, tuple[float, float]]:
     own = defaultdict(float)
     for e in edges:
-        if e["rel"] == "has_vuln":
+        if e["rel"] == "HAS_FINDING":
             own[e["src"]] = max(own[e["src"]], nodes[e["dst"]].get("own_risk", 0))
     children = defaultdict(list)
     for e in edges:
-        if e["rel"] in ("reaches", "exposes", "routes", "calls"):
+        if e["rel"] in ("REACHES", "EXPOSES", "ROUTES_TO", "CALLS"):
             children[e["src"]].append(e["dst"])
     prop = {n: own[n] for n in nodes}
     for _ in range(len(nodes)):

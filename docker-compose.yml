@@ -1,20 +1,47 @@
-# API Threat Graph prototype in Docker.
+# The ATG platform: OUR Docker. It runs next to the company's Docker (target/) and
+# joins the company's network, customer-net, so nothing leaves that network.
 #
-#   docker compose up --build        then open http://localhost:8080
-#   Windows: double-click START-Windows.bat     macOS / Linux: sh start.sh
-#   stop:    docker compose down                (or STOP-Windows.bat / sh stop.sh)
+#   1. company system:  docker compose -f target/docker-compose.yml up -d --build
+#   2. ATG platform:    docker compose up -d --build              -> http://localhost:8080
+#   3. customers:       docker compose -f target/docker-compose.yml run --rm users
+#   4. scan:            docker compose exec atg python docker/scan.py --label vulnerable
+#   START-Windows.bat / sh start.sh do all of it, plus a second scan after the fixes.
 #
-# atg       runs ShopLite's four microservices, mitmproxy and Phases 1-4 inside one container
-#           (first as shipped, then with the recommended fixes), then serves the threat graph,
-#           the dashboards and the Section IV results on http://localhost:8080
-# postgres  the graph store: each run's threat graph is saved in tables atg_nodes / atg_edges,
-#           and attack paths come from a recursive SQL query on them
-#
-# Port 8080 taken?  ATG_PORT=9090 docker compose up --build   (then open http://localhost:9090)
-name: api-threat-graph
+# Phase 1 sources and where they come from:
+#   runtime traffic   atg-proxy      mitmproxy, inline in front of the gateway (:8080) and as the
+#                                    services' east-west proxy (:8081)
+#   traces            atg-collector  OpenTelemetry Collector; the services export spans over OTLP
+#   OpenAPI           atg            probes the services' /openapi.json over customer-net
+#   infrastructure    atg            the company's manifests and gateway routes, mounted read-only
+# Phase 2 EUJF records and the Phase 3 threat graph go to atg-postgres.
+name: atg
+
+x-atg-image: &atg-image
+  build: .
+  image: api-threat-graph:1.2
 
 services:
-  postgres:
+  atg-proxy:
+    <<: *atg-image
+    command: >
+      mitmdump -q -s extractor/mitm_addon.py
+      --mode reverse:${TARGET_GATEWAY:-http://api-gateway:8000}@8080
+      --mode regular@8081
+      --set atg_capture=/data/capture/flows.jsonl
+    volumes:
+      - atg-capture:/data/capture
+    networks: [customer-net]
+
+  atg-collector:
+    image: otel/opentelemetry-collector-contrib:0.111.0
+    user: "0:0"                     # so it can write to the shared volume
+    command: ["--config=/etc/atg/otel-collector.yaml"]
+    volumes:
+      - ./docker/otel-collector.yaml:/etc/atg/otel-collector.yaml:ro
+      - atg-telemetry:/data/telemetry
+    networks: [customer-net]
+
+  atg-postgres:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: atg
@@ -25,18 +52,36 @@ services:
       interval: 2s
       timeout: 3s
       retries: 30
+    networks: [atg-internal]
 
   atg:
-    build: .
-    image: api-threat-graph:1.1
+    <<: *atg-image
     init: true
     depends_on:
-      postgres:
+      atg-postgres:
         condition: service_healthy
+      atg-proxy:
+        condition: service_started
+      atg-collector:
+        condition: service_started
     environment:
-      ATG_GRAPH_STORE: postgresql://atg:atg@postgres:5432/atg
+      ATG_GRAPH_STORE: postgresql://atg:atg@atg-postgres:5432/atg
       ATG_PUBLIC_URL: http://localhost:${ATG_PORT:-8080}
     ports:
       - "${ATG_PORT:-8080}:8888"
     volumes:
-      - ./output:/app/output      # every page and JSON file also lands in ./output on your machine
+      - atg-capture:/data/capture:ro
+      - atg-telemetry:/data/telemetry:ro
+      - ${TARGET_CONFIG:-./demo_target}:/target:ro   # the company's manifests, gateway routes and spec files
+      - ./output:/app/output                          # every page and JSON file, also on your machine
+    networks: [atg-internal, customer-net]
+
+volumes:
+  atg-capture:
+  atg-telemetry:
+
+networks:
+  atg-internal:
+  customer-net:
+    external: true
+    name: customer-net

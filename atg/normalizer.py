@@ -8,7 +8,7 @@ What it does
   1. Builds one service list from all sources (manifests, traces, traffic, specs).
   2. Finds the edge gateway (the workload an Ingress points at) and folds its
      traffic into the backend endpoints using the gateway route table, so
-     "GET /api/users/{int}" at the gateway and "GET /users/{user_id}" at
+     "GET /api/users/{id}" at the gateway and "GET /users/{user_id}" at
      user-service become ONE endpoint with a public path and a backend path.
   3. Joins every endpoint across spec / traffic / trace on
      (service, method, path shape), keeping provenance per source.
@@ -91,6 +91,30 @@ def _is_collection(shape) -> bool:
 
 def _owner_fields(shape) -> list[str]:
     return sorted({f for f, _ in _walk_shape(shape) if OWNER_FIELDS.match(f.split(".")[-1].replace("[]", ""))})
+
+
+def _scheme_labels(security, schemes: dict) -> list[str]:
+    """OpenAPI security requirement -> readable scheme names, e.g. ["Bearer JWT"] or ["OAuth2"]."""
+    out = set()
+    for req in security or []:
+        for name in (req or {}):
+            sc = schemes.get(name) or {}
+            t, scheme = (sc.get("type") or "").lower(), (sc.get("scheme") or "").lower()
+            if t == "http" and scheme == "bearer":
+                out.add("Bearer JWT" if (sc.get("bearerFormat") or "").upper() == "JWT" else "Bearer")
+            elif t == "http" and scheme:
+                out.add(scheme.capitalize())
+            elif t == "basic":
+                out.add("Basic")
+            elif t == "oauth2":
+                out.add("OAuth2")
+            elif t == "openidconnect":
+                out.add("OpenID Connect")
+            elif t == "apikey":
+                out.add("API key")
+            else:
+                out.add(t or name)
+    return sorted(out)
 
 
 def _merge_counts(a: dict, b: dict) -> dict:
@@ -188,7 +212,7 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
                 "path_params": re.findall(r"{([^}]*)}", path), "query_params": set(),
                 "sources": {},
             }
-        # prefer real parameter names ({user_id}) over traffic guesses ({int})
+        # prefer real parameter names ({user_id}) over traffic guesses ({id})
         if re.search(r"{(?!int}|uuid}|hex}|id})[^}]+}", path):
             e["path"] = path
             e["path_params"] = re.findall(r"{([^}]*)}", path)
@@ -198,7 +222,8 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         for o in s["operations"]:
             e = ep(s["service"], o["method"], o["path"])
             src = e["sources"].setdefault("spec", {"documents": [], "auth_declared": o["auth_declared"],
-                                                   "deprecated": False, "request_fields": {}, "parameters": []})
+                                                   "auth_schemes": [], "deprecated": False, "request_fields": {},
+                                                   "parameters": []})
             src["documents"].append({"origin": s["origin"], "location": s["location"], "api_version": s["api_version"]})
             # a live spec beats a stale file for the declared contract
             if s["origin"] == "live" or src["auth_declared"] == "none":
@@ -206,6 +231,8 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             src["deprecated"] |= o["deprecated"]
             src["request_fields"].update((o.get("request_body") or {}).get("fields") or {})
             src["parameters"] = o["parameters"] or src["parameters"]
+            src["auth_schemes"] = sorted(set(src["auth_schemes"]) | set(_scheme_labels(o.get("security"),
+                                                                                       s.get("security_schemes") or {})))
             e["query_params"] |= {p["name"] for p in o["parameters"] if p.get("in") == "query"}
 
     def route_for(path: str):
@@ -323,7 +350,8 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
                 continue
             public = _to_public(r, e["path"])
             if public:
-                e["gateway_route"] = {"prefix": r["match_prefix"], "auth": r["auth"], "defined_in": r["defined_in"]}
+                e["gateway_route"] = {"prefix": r["match_prefix"], "auth": r["auth"], "defined_in": r["defined_in"],
+                                  "rate_limit": (r.get("rate_limit") or {}).get("directive")}
                 e["public_paths"].append(public)
                 break
 
@@ -348,7 +376,8 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         pub["status_without_auth"] = _merge_counts(pub["status_without_auth"], t["auth"].get("status_codes_without_auth", {}))
         pub["gateway_paths"].append(f'{t["method"]} {t["path_template"]}')
         if not e["gateway_route"]:
-            e["gateway_route"] = {"prefix": r["match_prefix"], "auth": r["auth"], "defined_in": r["defined_in"]}
+            e["gateway_route"] = {"prefix": r["match_prefix"], "auth": r["auth"], "defined_in": r["defined_in"],
+                                  "rate_limit": (r.get("rate_limit") or {}).get("directive")}
             e["public_paths"].append(t["path_template"])
 
     # ---- 5. classification + derived facts ----------------------------------
@@ -395,6 +424,23 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             "forbidden_seen": e["status_observed"].get("403", 0),
             "throttled_seen": e["status_observed"].get("429", 0),
         }
+        # Algorithm 1 (paper III-C): where the endpoint comes from, and how sure we are
+        #   HIGH    declared in an OpenAPI spec AND seen at runtime (proxy traffic or traces)
+        #   MEDIUM  seen at runtime only (shadow API)
+        #   ZOMBIE  declared, but no runtime traffic in the observation window
+        e["evidence"] = {
+            "traffic_observed": bool(traffic or s.get("public_traffic")),
+            "openapi_declared": bool(spec),
+            "gateway_routed": bool(e.get("gateway_route")),
+            "trace_observed": bool(trace),
+            "confidence": "HIGH" if spec and observed else "MEDIUM" if observed else "ZOMBIE",
+        }
+        declared = (spec or {}).get("auth_schemes") or []
+        seen = sorted(set((traffic or {}).get("schemes") or []))
+        e["auth"] = (" / ".join(declared) if declared
+                     else "required (scheme not named)" if spec and spec["auth_declared"] == "required"
+                     else " / ".join(seen) + " (seen in traffic)" if seen
+                     else "none")
         e["auth_required"] = (
             "enforced" if e["auth_observed"]["anonymous_denied"] and not e["auth_observed"]["anonymous_success"]
             else "not_enforced" if e["auth_observed"]["anonymous_success"]
@@ -440,6 +486,7 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             "node_port": any(x["level"] == "node" for x in exposure.get(name, [])),
             "spec": {"live": "live" in svc_spec[name], "file": "file" in svc_spec[name]},
             "network_policy": {"present": bool(pols), "allowed_from": allowed_from},
+            "mtls": (w or {}).get("mtls") or {"enforced": False, "via": []},
             "container_flags": flags,
             "plaintext_sensitive_env": plaintext,
             "secret_refs": secret_refs,
@@ -479,9 +526,14 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         return not (e_ and "public_traffic" in e_["sources"])
 
     eps = sorted(endpoints.values(), key=lambda e: (e["service"], e["path"], e["method"]))
+    # the Algorithm 1 fields first, then everything else the rules need
+    eps = [{"api_id": f"API-{i:04d}", "service": e["service"], "endpoint": e["path"], "method": e["method"],
+            "auth": e["auth"], "evidence": e["evidence"], **e} for i, e in enumerate(eps, 1)]
     inv = defaultdict(int)
+    conf = defaultdict(int)
     for e in eps:
         inv[e["inventory_status"]] += 1
+        conf[e["evidence"]["confidence"]] += 1
     return {
         "schema": SCHEMA,
         "run_id": manifest.get("run_id"),
@@ -492,10 +544,11 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         "services": services,
         "endpoints": eps,
         "gateway_routes": [{k: r.get(k) for k in ("match_prefix", "upstream_service", "strip_prefix", "replace_with", "auth",
-                                                 "gateway", "defined_in")}
+                                                 "gateway", "defined_in", "rate_limit")}
                            for r in sorted(routes, key=lambda r: r["match_prefix"])],
         "dependencies": sorted(deps, key=lambda d: (d["from"], d["to"])),
-        "ingress": [{k: i[k] for k in ("host", "path", "tls", "backend_service")} for i in ingresses],
+        "ingress": [{**{k: i[k] for k in ("host", "path", "tls", "backend_service")}, "rate_limit": i.get("rate_limit")}
+                    for i in ingresses],
         "secrets": [{"name": s["name"], "keys": s["keys"]} for s in secrets.values()],
         "trace_services": [{"service": s["service"], "spans": s["span_count"]} for s in _recs(cc, "service")],
         "entrypoints": [{"service": x["service"], "operation": x["operation"], "traces": x["traces"],
@@ -505,6 +558,7 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             "services": len(services),
             "endpoints": len(eps),
             "inventory": dict(inv),
+            "confidence": {k: conf.get(k, 0) for k in ("HIGH", "MEDIUM", "ZOMBIE")},
             "public_endpoints": sum(1 for e in eps if e["public_paths"]),
             "endpoints_with_sensitive_data": sum(1 for e in eps if e["data_classes"]),
             "dependencies": len(deps),

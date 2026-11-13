@@ -5,7 +5,9 @@
 #   2. ATG platform:    docker compose up -d --build              -> http://localhost:8080
 #   3. customers:       docker compose -f target/docker-compose.yml run --rm users
 #   4. scan:            docker compose exec atg python docker/scan.py --label vulnerable
-#   START-Windows.bat / sh start.sh do all of it, plus a second scan after the fixes.
+#   5. finish:          docker compose down -v      (deletes every piece of review data)
+#   START-Windows.bat / sh start.sh do 1-4 plus a second scan after the fixes;
+#   STOP-Windows.bat / sh stop.sh do 5.
 #
 # Phase 1 sources and where they come from:
 #   runtime traffic   atg-proxy      mitmproxy, inline in front of the gateway (:8080) and as the
@@ -14,11 +16,18 @@
 #   OpenAPI           atg            probes the services' /openapi.json over customer-net
 #   infrastructure    atg            the company's manifests and gateway routes, mounted read-only
 # Phase 2 EUJF records and the Phase 3 threat graph go to atg-postgres.
+#
+# Data handling (the company's data never stays on this computer):
+#   captured traffic and spans   in-memory volumes (tmpfs); each scan clears what it has read
+#   Phase 1 files, EUJF JSON     in-memory folder /work of the atg container
+#   PostgreSQL                   in-memory data folder
+#   on disk (./output/site)      only the report pages and the threat graph exports
+#   `docker compose down -v` (STOP) removes every in-memory volume and the database.
 name: atg
 
 x-atg-image: &atg-image
   build: .
-  image: api-threat-graph:1.2
+  image: api-threat-graph:1.3
 
 services:
   atg-proxy:
@@ -29,7 +38,7 @@ services:
       --mode regular@8081
       --set atg_capture=/data/capture/flows.jsonl
     volumes:
-      - atg-capture:/data/capture
+      - capture:/data/capture
     networks: [customer-net]
 
   atg-collector:
@@ -38,7 +47,7 @@ services:
     command: ["--config=/etc/atg/otel-collector.yaml"]
     volumes:
       - ./docker/otel-collector.yaml:/etc/atg/otel-collector.yaml:ro
-      - atg-telemetry:/data/telemetry
+      - telemetry:/data/telemetry
     networks: [customer-net]
 
   atg-postgres:
@@ -47,6 +56,8 @@ services:
       POSTGRES_USER: atg
       POSTGRES_PASSWORD: atg
       POSTGRES_DB: atg
+    tmpfs:
+      - /var/lib/postgresql/data    # the database is in memory only; STOP deletes it
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U atg -d atg"]
       interval: 2s
@@ -67,21 +78,28 @@ services:
     environment:
       ATG_GRAPH_STORE: postgresql://atg:atg@atg-postgres:5432/atg
       ATG_PUBLIC_URL: http://localhost:${ATG_PORT:-8080}
+      ATG_WORK: /work
     ports:
       - "${ATG_PORT:-8080}:8888"
     volumes:
-      - atg-capture:/data/capture:ro
-      - atg-telemetry:/data/telemetry:ro
+      - capture:/data/capture                         # read by each scan, then cleared
+      - telemetry:/data/telemetry
+      - type: tmpfs                                   # Phase 1 files and intermediate results, in memory only
+        target: /work
+        tmpfs:
+          size: 1073741824
       - ${TARGET_CONFIG:-./demo_target}:/target:ro   # the company's manifests, gateway routes and spec files
-      - ./output:/app/output                          # every page and JSON file, also on your machine
+      - ./output:/app/output                          # report pages and graph exports only
     networks: [atg-internal, customer-net]
 
 volumes:
-  atg-capture:
-  atg-telemetry:
+  capture:                    # what the mitmproxy sidecar captured: kept in memory, never on disk
+    driver_opts: {type: tmpfs, device: tmpfs, o: "size=1g"}
+  telemetry:                  # spans the Collector received: kept in memory, never on disk
+    driver_opts: {type: tmpfs, device: tmpfs, o: "size=1g"}
 
 networks:
   atg-internal:
   customer-net:
     external: true
-    name: customer-net
+    name: ${TARGET_NETWORK:-customer-net}      # the company's Docker network

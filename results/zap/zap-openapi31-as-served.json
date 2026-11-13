@@ -1,0 +1,891 @@
+{
+ "zap_version": "2.16.1",
+ "specs": [
+  "order-service",
+  "payment-service (file)",
+  "user-service"
+ ],
+ "gateway": {
+  "mode": "gateway",
+  "bases": [
+   "http://172.18.0.3:8000"
+  ],
+  "import_s": 1.2,
+  "total_s": 24.7,
+  "messages": 2514,
+  "urls": [
+   "http://172.18.0.3:8000",
+   "http://172.18.0.3:8000/api",
+   "http://172.18.0.3:8000/api/auth",
+   "http://172.18.0.3:8000/api/auth/login",
+   "http://172.18.0.3:8000/api/orders",
+   "http://172.18.0.3:8000/api/orders/",
+   "http://172.18.0.3:8000/api/orders?user_id=",
+   "http://172.18.0.3:8000/api/payments",
+   "http://172.18.0.3:8000/api/payments/charge",
+   "http://172.18.0.3:8000/api/users",
+   "http://172.18.0.3:8000/api/users/",
+   "http://172.18.0.3:8000/api/users//addresses"
+  ],
+  "alerts": [
+   {
+    "pluginId": "10111",
+    "alert": "Authentication Request Identified",
+    "risk": "Informational",
+    "confidence": "High",
+    "cweid": "-1",
+    "wascid": "-1",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/auth/login",
+    "param": "username",
+    "attack": "",
+    "evidence": "password"
+   },
+   {
+    "pluginId": "10024",
+    "alert": "Information Disclosure - Sensitive Information in URL",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "598",
+    "wascid": "13",
+    "method": "GET",
+    "url": "http://172.18.0.3:8000/api/orders?user_id=",
+    "param": "user_id",
+    "attack": "",
+    "evidence": "user_id"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "wascid": "15",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "x-content-type-options",
+    "attack": "",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "msnbot/1.1 (+http://search.msn.com/msnbot.htm)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.3:8000/api/payments/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "evidence": ""
+   }
+  ]
+ },
+ "internal": {
+  "mode": "internal",
+  "bases": [
+   "http://172.18.0.2:8001",
+   "http://172.18.0.4:8002",
+   "http://172.18.0.5:8003"
+  ],
+  "import_s": 0.2,
+  "total_s": 14.8,
+  "messages": 2644,
+  "urls": [
+   "http://172.18.0.2:8001",
+   "http://172.18.0.2:8001/auth",
+   "http://172.18.0.2:8001/auth/login",
+   "http://172.18.0.2:8001/users",
+   "http://172.18.0.2:8001/users/",
+   "http://172.18.0.2:8001/users//addresses",
+   "http://172.18.0.4:8002",
+   "http://172.18.0.4:8002/orders",
+   "http://172.18.0.4:8002/orders/",
+   "http://172.18.0.4:8002/orders?user_id=",
+   "http://172.18.0.5:8003",
+   "http://172.18.0.5:8003/charge"
+  ],
+  "alerts": [
+   {
+    "pluginId": "10111",
+    "alert": "Authentication Request Identified",
+    "risk": "Informational",
+    "confidence": "High",
+    "cweid": "-1",
+    "wascid": "-1",
+    "method": "POST",
+    "url": "http://172.18.0.2:8001/auth/login",
+    "param": "username",
+    "attack": "",
+    "evidence": "password"
+   },
+   {
+    "pluginId": "10024",
+    "alert": "Information Disclosure - Sensitive Information in URL",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "598",
+    "wascid": "13",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders?user_id=",
+    "param": "user_id",
+    "attack": "",
+    "evidence": "user_id"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "msnbot/1.1 (+http://search.msn.com/msnbot.htm)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "DELETE",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "msnbot/1.1 (+http://search.msn.com/msnbot.htm)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "GET",
+    "url": "http://172.18.0.4:8002/orders/",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "wascid": "15",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "x-content-type-options",
+    "attack": "",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3739.0 Safari/537.36 Edg/75.0.109.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "msnbot/1.1 (+http://search.msn.com/msnbot.htm)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/91.0",
+    "evidence": ""
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "wascid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8003/charge",
+    "param": "Header User-Agent",
+    "attack": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "evidence": ""
+   }
+  ]
+ },
+ "ips": {
+  "api-gateway": "172.18.0.3",
+  "user-service": "172.18.0.2",
+  "order-service": "172.18.0.4",
+  "payment-service": "172.18.0.5"
+ },
+ "atg": {
+  "scan_wall_s": 33.0,
+  "pipeline_ms": 175.0,
+  "timings": {
+   "phase1_ms": 136.90328899974702,
+   "phase2_ms": 4.100853999716492,
+   "phase3_ms": 29.209375000391447,
+   "phase4_ms": 4.8285339998983545
+  },
+  "requests_to_target": 18
+ },
+ "score": {
+  "planted_total": 40,
+  "atg": {
+   "found": 37,
+   "findings": 37,
+   "extra": 0,
+   "endpoints": 12
+  },
+  "gateway": {
+   "found": 0,
+   "found_items": [],
+   "messages": 2514,
+   "total_s": 24.7,
+   "alerts": 15,
+   "endpoints_touched": 4,
+   "endpoints_total": 12,
+   "alert_types": [
+    {
+     "alert": "Authentication Request Identified",
+     "risk": "Informational",
+     "cwe": "-1",
+     "instances": 1,
+     "endpoints": [
+      "POST user-service/auth/login"
+     ],
+     "family": null
+    },
+    {
+     "alert": "Information Disclosure - Sensitive Information in URL",
+     "risk": "Informational",
+     "cwe": "598",
+     "instances": 1,
+     "endpoints": [
+      "GET order-service/orders"
+     ],
+     "family": null
+    },
+    {
+     "alert": "X-Content-Type-Options Header Missing",
+     "risk": "Low",
+     "cwe": "693",
+     "instances": 1,
+     "endpoints": [
+      "POST payment-service/charge"
+     ],
+     "family": null
+    },
+    {
+     "alert": "User Agent Fuzzer",
+     "risk": "Informational",
+     "cwe": "0",
+     "instances": 12,
+     "endpoints": [
+      "POST payment-service/charge"
+     ],
+     "family": null
+    }
+   ]
+  },
+  "internal": {
+   "found": 0,
+   "found_items": [],
+   "messages": 2644,
+   "total_s": 14.8,
+   "alerts": 39,
+   "endpoints_touched": 4,
+   "endpoints_total": 12,
+   "alert_types": [
+    {
+     "alert": "Authentication Request Identified",
+     "risk": "Informational",
+     "cwe": "-1",
+     "instances": 1,
+     "endpoints": [
+      "POST user-service/auth/login"
+     ],
+     "family": null
+    },
+    {
+     "alert": "Information Disclosure - Sensitive Information in URL",
+     "risk": "Informational",
+     "cwe": "598",
+     "instances": 1,
+     "endpoints": [
+      "GET order-service/orders"
+     ],
+     "family": null
+    },
+    {
+     "alert": "User Agent Fuzzer",
+     "risk": "Informational",
+     "cwe": "0",
+     "instances": 36,
+     "endpoints": [
+      "GET order-service/orders",
+      "POST payment-service/charge"
+     ],
+     "family": null
+    },
+    {
+     "alert": "X-Content-Type-Options Header Missing",
+     "risk": "Low",
+     "cwe": "693",
+     "instances": 1,
+     "endpoints": [
+      "POST payment-service/charge"
+     ],
+     "family": null
+    }
+   ]
+  }
+ }
+}

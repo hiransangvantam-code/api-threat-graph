@@ -13,6 +13,11 @@ docker info >nul 2>nul
 if errorlevel 1 goto notrunning
 
 echo.
+echo   Every start is a fresh review: the pages of the previous review in output\site are replaced.
+rem versions before 1.3 kept captured traffic in these volumes on disk; remove them if they are still there
+docker volume rm atg_atg-capture atg_atg-telemetry >nul 2>nul
+
+echo.
 echo == 1/6 Company Docker: start ShopLite as shipped (first time: a few minutes to build)
 set SHOPLITE_HARDENED=0
 set SHOPLITE_MANIFESTS=k8s
@@ -62,7 +67,9 @@ if errorlevel 1 goto failed
 
 echo.
 echo   Done. http://localhost:8080 shows the threat graph, both scans and the trend.
-echo   To stop both Dockers: double-click STOP-Windows.bat
+echo   The threat graph files (GraphML, JSON, SARIF, SVG) are in output\site\exports.
+echo   STOP-Windows.bat  stops both Dockers and deletes the review data (pages and exports stay).
+echo   CLEAN-Windows.bat deletes the pages and exports too, once you have handed them over.
 echo.
 pause
 exit /b 0

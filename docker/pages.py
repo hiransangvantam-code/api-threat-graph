@@ -2,12 +2,16 @@
 Pages of the ATG web view (output/site, served on http://localhost:8080), plus the
 scan state shared by serve.py and scan.py.
 
+On disk (output/site), kept after STOP until CLEAN:
   index.html                    status while waiting for traffic, then the results home page
   threat-graph-<scan>.html      the threat graph of one scan (Phase 3 output, drawn by Phase 4)
   dashboard-<scan>.html         the full Phase 4 dashboard of one scan
+  exports/<scan>/               the threat graph as GraphML, JSON, SARIF and SVG (atg/export.py)
+  results/                      the Section IV experiment results that ship with the code
+
+In memory (/work/live, served under /live/), gone at STOP:
   phase1-report-<scan>.html     what each Phase 1 source found
   scans/<scan>/                 the files each phase wrote: raw/*.json (1), eujf.json (2), analysis.json (3)
-  results/                      the Section IV experiment results that ship with the code
 """
 from __future__ import annotations
 
@@ -30,8 +34,10 @@ from atg.dashboard import CSS as DASH_CSS, NAV_CSS, _graph_svg, build_dashboard 
 from extractor.report import CSS as BASE_CSS  # noqa: E402
 
 OUT = ROOT / "output"
-SITE = OUT / "site"
-STATE = OUT / "scan-state.json"
+SITE = OUT / "site"                                                       # on disk: pages + exports
+WORK = Path(os.environ.get("ATG_WORK", "/work"))                          # in memory (tmpfs) in Docker
+LIVE = WORK / "live"
+STATE = WORK / "scan-state.json"
 CAPTURE = Path(os.environ.get("ATG_CAPTURE_DIR", "/data/capture"))      # written by the mitmproxy sidecar
 TELEMETRY = Path(os.environ.get("ATG_TELEMETRY_DIR", "/data/telemetry"))  # written by the OTel Collector
 TARGET_CFG = ROOT / "docker" / "extractor-target.yaml"
@@ -61,6 +67,8 @@ def new_lines(st: dict) -> dict:
         for f in folder.glob("*.jsonl"):
             off = st["offsets"].get(str(f), 0)
             try:
+                if off > f.stat().st_size:  # cleared by a scan
+                    off = 0
                 with f.open("rb") as fh:
                     fh.seek(off)
                     n += fh.read().count(b"\n")
@@ -314,18 +322,46 @@ def experiment_pages() -> list[tuple[str, str, str]]:
 <nav class="navlinks"><a href="../index.html">Home</a><a href="figures.html">Figures</a></nav></header>
 <section class="md">{md_to_html(tables.read_text(encoding="utf-8"))}</section>"""))
         cards.append(("Tables 1-20", "results/tables.html", "Every number in Section IV, mean ± sd over 5 seeds."))
+    for src, name, title, text in (
+            ("stress", "stress.html", "Tables 21-22: stress test", "How large a system Phases 3-4 handle, version 1.2 vs 1.3."),
+            ("zap", "zap.html", "Tables 23-24: ATG vs OWASP ZAP", "Speed and planted weaknesses found on the same ShopLite build.")):
+        md = ROOT / "results" / src / "tables.md"
+        if md.exists():
+            write(res / name, page(title, f"""
+<header class="head"><div class="eyebrow">Section IV · experiment results</div>
+<nav class="navlinks"><a href="../index.html">Home</a><a href="tables.html">Tables 1-20</a><a href="figures.html">Figures</a></nav></header>
+<section class="md">{md_to_html(md.read_text(encoding="utf-8"))}</section>"""))
+            cards.append((title, f"results/{name}", text))
     return cards
 
 
 # ---------------------------------------------------------------- results home page
+FORMATS = [  # (key, file name, what it is, open it with)
+    ("graphml", "GraphML", "The graph itself, with node types, risk scores and every property (Endpoint nodes carry their EUJF record).",
+     "Gephi, yEd, Cytoscape, Neo4j (apoc.import.graphml), NetworkX"),
+    ("json", "JSON", "The same graph as node-link JSON, plus the findings, ranked attack paths and fix plan.",
+     "Python or JavaScript, D3, NetworkX; loading a scan back later"),
+    ("sarif", "SARIF 2.1.0", "The findings only, in the OASIS standard for security tool results, with a stable fingerprint per finding.",
+     "SARIF viewers (VS Code), vulnerability trackers such as DefectDojo, CI pipelines"),
+    ("svg", "SVG", "The drawing of the threat graph as a vector image.", "Any browser, Word, PowerPoint, LaTeX (via Inkscape)"),
+]
+EXPORT_FILES = {"graphml": "threat-graph.graphml", "json": "threat-graph.json", "sarif": "findings.sarif",
+                "svg": "threat-graph.svg"}
+
+
+def _kb(n: int) -> str:
+    return f"{n / 1024:,.0f} KB" if n >= 1024 else f"{n} B"
+
+
 def build_results(store_url: str | None, started: float) -> None:
-    """Rebuild every page from the scans stored under output/runs and the graph store."""
+    """Rebuild every page from the scans kept in memory (WORK/runs) and the graph store."""
     from atg.graphstore import GraphStore
 
-    runs = sorted(p for p in (OUT / "runs").iterdir() if p.is_dir() and (p / "analysis.json").exists())
+    runs_dir = WORK / "runs"
+    runs = sorted(p for p in runs_dir.iterdir() if p.is_dir() and (p / "analysis.json").exists()) if runs_dir.exists() else []
     if not runs:
         return
-    store = GraphStore(store_url or f"sqlite:///{OUT / 'atg.db'}")
+    store = GraphStore(store_url or f"sqlite:///{WORK / 'atg.db'}")
     scans = []
     for i, rd in enumerate(runs, 1):
         analysis = json.loads((rd / "analysis.json").read_text(encoding="utf-8"))
@@ -345,20 +381,23 @@ def build_results(store_url: str | None, started: float) -> None:
             counts.append(cur.fetchone()[0])
         sc["rows"] = dict(zip(("eujf", "nodes", "edges"), counts))
         sc["drawn_edges"] = sum(1 for e in a["graph"]["edges"] if e["rel"] != "RUNS_ON")
-        # the files each phase wrote, so every phase can be opened on its own
-        d = SITE / "scans" / s
-        (d / "raw").mkdir(parents=True, exist_ok=True)
-        for f in (sc["dir"] / "raw").glob("*.json"):
-            shutil.copy(f, d / "raw" / f.name)
+        # Phase 2 and 3 JSON of this scan: in memory, readable under /live/ while the review runs
+        d = LIVE / "scans" / s
+        d.mkdir(parents=True, exist_ok=True)
         for f in ("eujf.json", "analysis.json"):
             shutil.copy(sc["dir"] / f, d / f)
+        ex = f"exports/{s}/"
         others = [(f"Threat graph: {o['label']}", f"threat-graph-{o['slug']}.html") for o in scans if o is not sc]
         build_dashboard(a, sc["eujf"], history, SITE / f"threat-graph-{s}.html", sc["timings"], view="graph",
-                        nav=[("Home", "index.html"), ("Full dashboard", f"dashboard-{s}.html")] + others)
+                        nav=[("Home", "index.html"), ("Full dashboard", f"dashboard-{s}.html")] + others
+                        + [("Download GraphML", ex + EXPORT_FILES["graphml"]), ("JSON", ex + EXPORT_FILES["json"]),
+                           ("SARIF", ex + EXPORT_FILES["sarif"]), ("SVG", ex + EXPORT_FILES["svg"])])
         build_dashboard(a, sc["eujf"], history, SITE / f"dashboard-{s}.html", sc["timings"],
-                        phase1_report=f"phase1-report-{s}.html",
+                        phase1_report=f"live/phase1-report-{s}.html",
                         nav=[("Home", "index.html"), ("Threat graph only", f"threat-graph-{s}.html"),
-                             ("Phase 1 report", f"phase1-report-{s}.html"), ("EUJF (Phase 2)", f"scans/{s}/eujf.json")])
+                             ("Export the graph", "index.html#exports"),
+                             ("Phase 1 report (while running)", f"live/phase1-report-{s}.html"),
+                             ("EUJF JSON (while running)", f"live/scans/{s}/eujf.json")])
     store.close()
     first, last = scans[0], scans[-1]
     shutil.copy(SITE / f"threat-graph-{first['slug']}.html", SITE / "threat-graph.html")
@@ -393,34 +432,76 @@ def build_results(store_url: str | None, started: float) -> None:
     s1 = first["slug"]
     phases = f"""
 <div class="cards">
-  <a class="card" href="phase1-report-{s1}.html"><b>1 · Extractor</b><span>Runtime traffic from the mitmproxy sidecar, OpenAPI from the
+  <a class="card" href="live/phase1-report-{s1}.html"><b>1 · Extractor</b><span>Runtime traffic from the mitmproxy sidecar, OpenAPI from the
   services, Kubernetes manifests and gateway routes, OpenTelemetry spans from the Collector.
-  Raw output: <code>scans/{s1}/raw/*.json</code></span></a>
-  <a class="card" href="scans/{s1}/eujf.json"><b>2 · API Normalizer → EUJF</b><span>{first['eujf']['summary']['endpoints']} APIs as Extended
+  Phase 1 report and <code>live/scans/{s1}/raw/*.json</code>, in memory while the review runs.</span></a>
+  <a class="card" href="live/scans/{s1}/eujf.json"><b>2 · API Normalizer → EUJF</b><span>{first['eujf']['summary']['endpoints']} APIs as Extended
   Universal JSON Format records (confidence HIGH {conf.get('HIGH', 0)}, MEDIUM {conf.get('MEDIUM', 0)}, ZOMBIE {conf.get('ZOMBIE', 0)}),
-  stored in PostgreSQL table <code>atg_eujf</code> ({first['rows']['eujf']} rows).</span></a>
-  <a class="card" href="scans/{s1}/analysis.json"><b>3 · Analysis &amp; risk</b><span>{first['analysis']['summary']['rules_evaluated']} rules,
+  stored in PostgreSQL table <code>atg_eujf</code> ({first['rows']['eujf']} rows). Kept after STOP inside the graph export.</span></a>
+  <a class="card" href="exports/{s1}/threat-graph.json"><b>3 · Analysis &amp; risk</b><span>{first['analysis']['summary']['rules_evaluated']} rules,
   {first['analysis']['summary']['findings']} findings, threat graph with {first['rows']['nodes']} nodes and {first['rows']['edges']} edges in
   <code>atg_nodes</code> / <code>atg_edges</code>, {first['analysis']['summary']['attack_paths']} attack paths from a recursive SQL query.</span></a>
   <a class="card" href="dashboard-{s1}.html"><b>4 · Output</b><span>API overview, risk summary, top vulnerabilities, trend &amp; insight,
-  and the threat graph with propagated risk.</span></a>
+  the threat graph with propagated risk, and the graph exports.</span></a>
 </div>"""
+
+    fmt_rows = "".join(f"<tr><td><b>{E(name)}</b></td><td class='mono'>{E(EXPORT_FILES[k])}</td><td>{E(what)}</td><td>{E(tools)}</td></tr>"
+                       for k, name, what, tools in FORMATS)
+    exp_rows = "".join(
+        f"<tr><td><b>{E(sc['label'])}</b></td>"
+        + "".join(f"<td><a href='exports/{sc['slug']}/{EXPORT_FILES[k]}' download>{E(EXPORT_FILES[k])}</a></td>" for k, *_ in FORMATS)
+        + "</tr>" for sc in scans)
+    exports = f"""
+<section id="exports"><h2>Export the threat graph</h2>
+<p class="muted">Each scan's graph is saved in four formats under <code>output/site/exports/&lt;scan&gt;/</code>. Use GraphML to open
+the graph in another tool, SARIF to put the findings into a tracker, JSON for scripts, and SVG for a report or the paper.</p>
+<div class="scroll"><table><thead><tr><th>Scan</th>{''.join(f'<th>{E(n)}</th>' for _, n, *_ in FORMATS)}</tr></thead>
+<tbody>{exp_rows}</tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Format</th><th>File</th><th>What is in it</th><th>Open it with</th></tr></thead>
+<tbody>{fmt_rows}</tbody></table></div></section>"""
+
+    data_rows = "".join(
+        f"<tr><td><b>{E(sc['label'])}</b></td><td class='num'>{sc['meta'].get('flows', 0)}</td>"
+        f"<td class='num'>{sc['meta'].get('span_batches', 0)}</td>"
+        f"<td class='num'>{_kb(sc['meta'].get('data', {}).get('read_bytes', 0))}</td>"
+        f"<td class='num'>{_kb(sc['meta'].get('data', {}).get('cleared_bytes', 0))}</td>"
+        f"<td>{'deleted' if sc['meta'].get('data', {}).get('input_copy_deleted') else '–'}</td></tr>" for sc in scans)
+    data = f"""
+<section id="data"><h2>What is kept and what is deleted</h2>
+<p class="muted">The company's data stays inside the company network and is not kept on this computer after the review.</p>
+<div class="cards">
+  <div class="card"><b>Never written to disk</b><span>Captured traffic (request shapes, never values or tokens) and the spans live in
+  in-memory volumes. Each scan clears what it has read from them.</span></div>
+  <div class="card"><b>In memory until STOP</b><span>Phase 1 files, the Phase 1 report, EUJF and analysis JSON (the
+  <code>live/</code> links), and the PostgreSQL database. STOP deletes all of it.</span></div>
+  <div class="card"><b>On disk until CLEAN</b><span>These report pages and the threat graph exports in <code>output/site/</code>, to hand
+  over to the company. CLEAN deletes them.</span></div>
+</div>
+<div class="scroll"><table><thead><tr><th>Scan</th><th class="num">HTTP flows read</th><th class="num">Span batches read</th>
+<th class="num">Input read</th><th class="num">Cleared from memory</th><th>Scan's copy of the input</th></tr></thead>
+<tbody>{data_rows}</tbody></table></div>
+<p class="muted">Links marked "while running" work only while the review is running. Opened later from the
+<code>output/site</code> folder, they lead nowhere, because that data no longer exists.</p></section>"""
+
     exp_cards = "".join(f'<a class="card" href="{E(href)}"><b>{E(t)}</b><span>{E(x)}</span></a>'
                         for t, href, x in experiment_pages())
     store_label = first["analysis"]["store"]
     is_pg = store_label.startswith("PostgreSQL")
     q1 = ('docker compose exec atg-postgres psql -U atg -c "SELECT api_id, method, endpoint, auth, confidence FROM atg_eujf ORDER BY run_id, api_id;"'
-          if is_pg else "sqlite3 output/atg.db \"SELECT api_id, method, endpoint, auth, confidence FROM atg_eujf;\"")
+          if is_pg else "docker compose exec atg sqlite3 /work/atg.db \"SELECT api_id, method, endpoint, auth, confidence FROM atg_eujf;\"")
     q2 = ('docker compose exec atg-postgres psql -U atg -c "SELECT type, COUNT(*) FROM atg_nodes GROUP BY type;"'
-          if is_pg else "sqlite3 output/atg.db \"SELECT type, COUNT(*) FROM atg_nodes GROUP BY type;\"")
+          if is_pg else "docker compose exec atg sqlite3 /work/atg.db \"SELECT type, COUNT(*) FROM atg_nodes GROUP BY type;\"")
     body = f"""
 <header class="head"><div class="eyebrow">Automatic API Security Design Review · two Docker deployments</div>
 <h1>API Threat Graph</h1>
 <p class="muted">The ATG platform (our Docker) joined the network of ShopLite, the company's system under review (its own Docker).
 Customer traffic went through ATG's mitmproxy sidecar, the services sent their spans to ATG's OpenTelemetry Collector, and ATG read
-the services' OpenAPI documents and the company's deployment manifests. Nothing left the company network.</p>
-<div class="meta"><span>graph store {E(store_label)}</span><span>{len(scans)} scan{'s' if len(scans) > 1 else ''}</span>
+the services' OpenAPI documents and the company's deployment manifests. Nothing left the company network, and only the
+threat graph and these pages are kept after the review.</p>
+<div class="meta"><span>graph store {E(store_label)}, in memory</span><span>{len(scans)} scan{'s' if len(scans) > 1 else ''}</span>
 <span>updated {time.strftime('%H:%M:%S')}</span></div>
+<nav class="navlinks" aria-label="Sections"><a href="#exports">Export the graph</a><a href="#data">Kept and deleted data</a>
+<a href="#scans">Scans</a><a href="#experiment">Experiment results</a></nav>
 </header>
 
 <section class="hero">
@@ -434,22 +515,24 @@ the services' OpenAPI documents and the company's deployment manifests. Nothing 
 
 <section><h2>The four phases on the first scan</h2>{phases}</section>
 
-<section><h2>Scans</h2>
+<section id="scans"><h2>Scans</h2>
 <div class="scroll"><table><thead><tr><th>#</th><th>Label</th><th>Run</th><th class="num">HTTP flows</th><th class="num">Span batches</th>
 <th class="num">APIs</th><th class="num">Findings</th><th class="num">Paths</th><th class="num">Path risk</th><th>Pages</th></tr></thead>
 <tbody>{scan_rows}</tbody></table></div></section>
-
+{exports}
+{data}
 <section><h2>How the two Dockers are connected</h2><div class="arch">{ARCH_SVG}
 <p class="muted" style="margin:6px 8px 2px;font-size:13px">{ARCH_NOTE}</p></div></section>
 
-<section><h2>Experiment results (Section IV)</h2>
+<section id="experiment"><h2>Experiment results (Section IV)</h2>
 <p class="muted">Computed earlier on three systems, two capture conditions and five seeds each. They ship with the code.</p>
 <div class="cards">{exp_cards}</div></section>
 
-<section><h2>Look inside PostgreSQL</h2>
+<section><h2>Look inside PostgreSQL (while running)</h2>
 <p class="muted">Open a second terminal in this folder. The EUJF records (Phase 2):</p>
 <p><code class="cmd">{E(q1)}</code></p>
 <p class="muted">The threat graph (Phase 3):</p>
 <p><code class="cmd">{E(q2)}</code></p>
-<p class="muted">Stop everything with STOP-Windows.bat or <code class="cmd">sh stop.sh</code>. These pages stay in <code>output/site/</code>.</p></section>"""
+<p class="muted">STOP-Windows.bat or <code class="cmd">sh stop.sh</code> stops both Dockers and deletes the review data, the database included.
+These pages and the exports stay in <code>output/site/</code> until CLEAN-Windows.bat or <code class="cmd">sh clean.sh</code>.</p></section>"""
     write(SITE / "index.html", page("API Threat Graph", body, dash_css=True))

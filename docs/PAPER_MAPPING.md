@@ -9,7 +9,8 @@
 | Paper | Code | See it running |
 |---|---|---|
 | On-premise, self-hosted, deployed inside the customer's infrastructure with Docker Compose | Two Compose projects: the company's system `target/docker-compose.yml` (network `customer-net`) and the ATG platform `docker-compose.yml`, which joins `customer-net` as an external network | `docker compose ps` and `docker compose -f target/docker-compose.yml ps` |
-| No source code, raw traces or telemetry leave the organisation | ATG reads only what crosses the network plus the manifests mounted read-only; the capture keeps body *shapes* and header *names*, never values (`extractor/mitm_addon.py`); nothing is sent outside `customer-net` | `output/site/scans/<scan>/raw/runtime_traffic.json` |
+| No source code, raw traces or telemetry leave the organisation | ATG reads only what crosses the network plus the manifests mounted read-only; the capture keeps body *shapes* and header *names*, never values (`extractor/mitm_addon.py`); nothing is sent outside `customer-net` | `live/scans/<scan>/raw/runtime_traffic.json` (while running) |
+| (new in 1.3) Nothing of the customer's is kept after the review except the threat graph | Captured traffic and spans in tmpfs volumes, cleared after each scan; Phase 1 files, EUJF/analysis JSON and PostgreSQL in memory; only report pages and exports on disk; STOP = `docker compose down -v`, CLEAN deletes `output/` (`docker-compose.yml`, `docker/scan.py`, `docs/DATA_HANDLING.md`) | Home page, "What is kept and what is deleted" |
 
 ## Phase 1: Multi-source extractor (III-B)
 
@@ -50,6 +51,7 @@
 | Risk summary | "Risk summary" | Dashboard |
 | Top vulnerabilities ranked by R_local | "Top vulnerabilities" | Dashboard |
 | Trends & insights: threat graph, APCR paths, remediation | "Attack paths", "Threat graph", "Recommended fixes", "Trend & insight"; full-screen graph page `view="graph"` | `threat-graph.html`, home page before/after table |
+| (new in 1.3) Export of the threat graph | `atg/export.py`: GraphML, node-link JSON, SARIF 2.1.0, SVG per scan (`docs/EXPORT_FORMATS.md`) | `output/site/exports/<scan>/`; download buttons on `threat-graph.html` |
 
 ## Where the paper and the code still differ
 

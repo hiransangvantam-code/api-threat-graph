@@ -12,6 +12,10 @@ T="docker compose -f target/docker-compose.yml"
 step() { printf "\n== %s\n" "$1"; }
 fail() { echo; echo "Stopped: $1"; exit 1; }
 
+echo "Every start is a fresh review: the pages of the previous review in output/site are replaced."
+# versions before 1.3 kept captured traffic in these volumes on disk; remove them if they are still there
+docker volume rm atg_atg-capture atg_atg-telemetry >/dev/null 2>&1
+
 step "1/6 Company Docker: start ShopLite as shipped (first time: a few minutes to build)"
 export SHOPLITE_HARDENED=0 SHOPLITE_MANIFESTS=k8s
 $T up -d --build --wait || fail "the company's system did not start"
@@ -47,4 +51,6 @@ docker compose exec -T atg python docker/scan.py --label hardened --manifests k8
 
 echo
 echo "Done. $URL shows the threat graph, both scans and the trend."
-echo "Stop everything with: sh stop.sh"
+echo "The threat graph files (GraphML, JSON, SARIF, SVG) are in output/site/exports/."
+echo "sh stop.sh   stops both Dockers and deletes the review data (pages and exports stay)."
+echo "sh clean.sh  deletes the pages and exports too, once you have handed them over."

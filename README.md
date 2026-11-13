@@ -14,9 +14,9 @@ cd api-threat-graph
 docker compose up --build        # then open http://localhost:8080
 ```
 
-- **Windows:** double-click `START-Windows.bat`; stop with `STOP-Windows.bat`
-- **macOS / Linux:** `sh start.sh`; stop with `sh stop.sh`
-- **Thai guide:** [HOW-TO-RUN.md](HOW-TO-RUN.md)
+- **Windows:** run `START-Windows.bat`; stop with `STOP-Windows.bat`; delete everything with `CLEAN-Windows.bat`
+- **macOS / Linux:** `sh start.sh`; stop with `sh stop.sh`; delete everything with `sh clean.sh`
+- **Step-by-step guide:** [HOW-TO-RUN.md](HOW-TO-RUN.md), including how to review a system other than ShopLite
 
 Two Docker deployments start, as in Fig. 1 of the paper:
 
@@ -28,6 +28,18 @@ Two Docker deployments start, as in Fig. 1 of the paper:
 The start script runs two scans, one on ShopLite as shipped and one after the company deploys the fixes. The first build takes a few minutes; the scans take about two more. The home page at http://localhost:8080 then shows the threat graph and the before/after numbers: attack-path risk drops from 472 to 13.5. [docs/PAPER_MAPPING.md](docs/PAPER_MAPPING.md) maps every part of Section III to the code.
 
 ![Home page with a preview of the threat graph and the before/after table](docs/images/home.png)
+
+## What is kept after a review
+
+The system under review belongs to another company, so ATG keeps as little of it as it can ([docs/DATA_HANDLING.md](docs/DATA_HANDLING.md)):
+
+- Captured traffic and spans are held in memory only (tmpfs volumes), never on disk. Each scan clears what it has read.
+- Phase 1 files, EUJF and analysis JSON and the PostgreSQL database are in memory too. STOP deletes all of it.
+- Only the report pages and the threat graph exports are written to disk (`output/site/`). CLEAN deletes those once they have been handed over.
+
+## Exporting the threat graph
+
+Each scan writes its graph to `output/site/exports/<scan>/` as GraphML (for Gephi, yEd, Cytoscape, Neo4j, NetworkX), node-link JSON (for scripts; includes attack paths and the fix plan), SARIF 2.1.0 (the findings, for trackers and CI) and SVG (for reports). Why these formats: [docs/EXPORT_FORMATS.md](docs/EXPORT_FORMATS.md).
 
 ## How it works
 
@@ -74,10 +86,6 @@ The start script runs two scans, one on ShopLite as shipped and one after the co
 - **ตรวจกับรายการช่องโหว่ของ OWASP เอง (crAPI 18 ข้อ):** ข้อที่การวิเคราะห์ระดับ design แบบไม่ยิง payload มองเห็นได้มี 12 ข้อ เครื่องมือชี้ endpoint ที่มีปัญหาได้ 4 ข้อในทุกรอบ (ข้อ 7-10 ในฐานะ BOLA) และข้อ 14 อีกข้อใน 1 จาก 5 seeds ซึ่งเป็นข้อเดียวที่ตรงหมวด ข้อที่พลาดไม่ได้เกิดจากการเก็บข้อมูล (oracle ก็พลาดเหมือนกัน) แต่มาจาก rule ที่ยังไม่รองรับ จาก replica ที่ไม่มีเนื้อหา response จริง (ข้อ 1, 4, 5) และจาก workload (ข้อ 14) รายละเอียดอยู่ในตาราง 15
 - ระหว่างทดลองเจอ bug ของเครื่องมือ 9 ตัว แก้ไปแล้วทั้งหมด (ตาราง 20 แสดงผลก่อนและหลังแก้) ต้องเขียนเรื่องนี้ในรายงาน
 
-### ระวังเรื่องตัวเลขใน draft เดิม
-
-ตัวเลขใน draft ของ paper ที่เคยเขียนไว้ (F1 1.0, precision 93.5%, 36 วินาที, RAM 1.7 GB, ระบบทดสอบ Sock Shop / Online Boutique) ไม่ได้มาจากการทดลองชุดนี้ ให้เปลี่ยนเป็นตัวเลขใน `results/tables.md` และเปลี่ยนชื่อระบบทดสอบเป็น ShopLite, Train Ticket และ crAPI
-
 ## Run without Docker (Python)
 
 ```bash
@@ -107,10 +115,15 @@ python -m pytest -q
 |---|---|
 | `results/tables.md` | Tables 1-10 (Phase 1) and 11-20 (Phases 2-4), mean ± sd over 5 seeds |
 | `results/tables/*.csv` | the same tables as CSV |
-| `results/figures/*.png` | 9 figures |
+| `results/stress/tables.md` | Tables 21-22: stress test, system size and call-chain density, version 1.2 vs 1.3 (`bench/stress.py`) |
+| `results/zap/tables.md` | Tables 23-24: ATG vs OWASP ZAP 2.16.1 on the same ShopLite build (`bench/compare_zap.py`) |
+| `results/figures/*.png` | 10 figures (`fig_stress.png` is the stress test) |
 | `results/dashboards/*.html` | Phase 4 output for every testbed and condition |
 | `docs/EXPERIMENT.md` | method, oracle, metric definitions, the nine fixes, threats to validity |
 | `docs/THREAT_MODEL.md` | node and edge types, scoring, APCR, propagation, rule limitations |
+| `docs/LIMITS.md` | what a passive review cannot detect, by OWASP category, and how large a system it handles |
+| `docs/COMPARISON_ZAP.md` | the ZAP comparison: setup, results, what it does and does not show |
+| `docs/REVIEW_RESPONSES.md` | the seven review points and what changed for each |
 
 Each run folder keeps its metrics and threat-model output. To keep the repository small, it leaves out the raw captured traffic, traces and ground-truth access logs of the 84 experiment runs (about 420 MB), plus the Phase 1 output of the Train Ticket and crAPI runs. `python bench/report.py` still rebuilds every table and figure from what is here, byte for byte. Rerunning the experiment regenerates the rest.
 
@@ -152,13 +165,15 @@ A test checks that both backends return identical attack paths (`ATG_TEST_PG=pos
 | `target/docker-compose.yml` (`shoplite`) | api-gateway, user-service, order-service, payment-service; `users` on demand | the company's system; two settings point it at ATG for the review: `MESH_PROXY` and `OTEL_EXPORTER_OTLP_ENDPOINT` |
 | `docker-compose.yml` (`atg`) | atg-proxy (mitmproxy), atg-collector (OpenTelemetry Collector 0.111.0), atg-postgres (PostgreSQL 16), atg (scanner + web) | our platform, attached to `customer-net` |
 
-By hand: start the target (`docker compose -f target/docker-compose.yml up -d --build --wait`), then ATG (`docker compose up -d --build`), send customers (`docker compose -f target/docker-compose.yml run --rm users`) and scan (`docker compose exec atg python docker/scan.py --label vulnerable`). Each scan reads only what the sidecar and the Collector wrote since the previous scan. All pages and per-phase files are also written to `output/site/`. Thai guide: `HOW-TO-RUN.md`.
+By hand: start the target (`docker compose -f target/docker-compose.yml up -d --build --wait`), then ATG (`docker compose up -d --build`), send customers (`docker compose -f target/docker-compose.yml run --rm users`) and scan (`docker compose exec atg python docker/scan.py --label vulnerable`). Each scan reads only what the sidecar and the Collector wrote since the previous scan, then clears it from their in-memory buffers. The report pages and exports are written to `output/site/`; the per-phase files stay in memory under http://localhost:8080/live/ until STOP. Guide: `HOW-TO-RUN.md`.
 
 Tested end to end with `sh start.sh` from a clean copy: 407 HTTP flows through the sidecar and 32 span batches through the Collector in the first scan, giving the same findings and attack-path risk as the local demo. That test machine could not reach Docker Hub, so it used locally built stand-ins. For `python:3.12-slim` it used Python 3.12 on Ubuntu 24.04, and for `postgres:16-alpine` PostgreSQL 16 with UTF-8 and the same environment variables. For `otel/opentelemetry-collector-contrib:0.111.0` it used the official 0.111.0 binary from GitHub. A normal machine pulls the official images.
 
 ## Point it at a real system
 
-Only `extractor.yaml` changes: `target.service_map`, capture files (mitmproxy `.jsonl` or `.har`), spec URLs or files, manifest folders, gateway route files, trace files. Phases 2-4 need no configuration. `realcheck/extractor-crapi-real.yaml` is a worked example.
+With Docker: see "Review another system" in [HOW-TO-RUN.md](HOW-TO-RUN.md). The company points its traffic and spans at ATG, and ATG gets the company's network name, gateway and config folder through `TARGET_NETWORK`, `TARGET_GATEWAY` and `TARGET_CONFIG`.
+
+Without Docker, only `extractor.yaml` changes: `target.service_map`, capture files (mitmproxy `.jsonl` or `.har`), spec URLs or files, manifest folders, gateway route files, trace files. Phases 2-4 need no configuration. `realcheck/extractor-crapi-real.yaml` is a worked example.
 
 ## Layout
 
@@ -169,6 +184,7 @@ atg/rules.py          Phase 3 rule engine: 27 rules with OWASP / CWE / ATT&CK / 
 atg/analysis.py       Phase 3 vulnerability analyzer, dependency analyzer, threat graph, APCR, risk propagation, fix plan
 atg/graphstore.py     graph store (SQLite / PostgreSQL) + recursive attack path SQL
 atg/dashboard.py      Phase 4 dashboard
+atg/export.py         Phase 4 exports: GraphML, node-link JSON, SARIF 2.1.0, SVG
 atg/pipeline.py       runs Phases 1-4 (python -m atg)
 demo_target/          ShopLite: services, k8s (vulnerable), k8s-hardened, stale spec, traffic generator
 scripts/              run_demo.py (Phases 1-4), run_extractor.py (Phase 1 only)
@@ -176,10 +192,13 @@ target/               the company's Docker: ShopLite compose file and Dockerfile
 docker-compose.yml    the ATG platform's Docker (sidecar proxy, OTel Collector, PostgreSQL, scanner + web)
 docker/               scan.py (one scan, Phases 1-4), serve.py + pages.py (web view), otel-collector.yaml, extractor-target.yaml
 START-Windows.bat, start.sh, HOW-TO-RUN.md   start both Dockers and run the before/after review
+STOP-Windows.bat, stop.sh                    stop both Dockers and delete the review data (pages and exports stay)
+CLEAN-Windows.bat, clean.sh                  delete the pages and exports too
 bench/                Section IV experiment: miners, replicas, workload, oracle, evaluation, report
 bench/testbeds/       ground truth for ShopLite, Train Ticket, crAPI (topology.yaml + source files)
 results/              tables, figures, dashboards, and every run's metrics and raw Phase 1 output
 realcheck/            kit to repeat Phase 1 on the real crAPI in Docker (Thai guide)
-docs/                 PAPER_MAPPING.md (paper ↔ code), EXPERIMENT.md, THREAT_MODEL.md, RAW_DATA_CONTRACT.md, PHASE1_DESIGN.md
+docs/                 PAPER_MAPPING.md (paper ↔ code), EXPERIMENT.md, THREAT_MODEL.md, RAW_DATA_CONTRACT.md, PHASE1_DESIGN.md,
+                      DATA_HANDLING.md, EXPORT_FORMATS.md, LIMITS.md, REVIEW_RESPONSES.md
 tests/                unit tests (Phase 1), regression tests on the demo (Phases 2-4), harness checks
 ```

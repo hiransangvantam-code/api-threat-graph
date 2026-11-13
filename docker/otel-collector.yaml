@@ -16,6 +16,7 @@ processors:
 exporters:
   file:
     path: /data/telemetry/spans.jsonl
+    append: true               # O_APPEND, so the scanner can clear the file while the Collector runs
     flush_interval: 1s
 
 extensions:

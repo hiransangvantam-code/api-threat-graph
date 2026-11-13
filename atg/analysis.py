@@ -360,40 +360,62 @@ def assign_actions(findings: list[dict]) -> list[dict]:
 def mitigation_plan(findings: list[dict], paths: list[dict]) -> dict:
     """Greedy: repeatedly apply the remediation action that removes the most remaining
     attack-path risk. Total risk R = sum over findings of the highest APCR among the
-    paths that still reach it."""
+    paths that still reach it.
+
+    The gain of an action only depends on the findings whose paths it removes, so each
+    candidate is scored on those findings alone, in whole hundredths (APCR has two
+    decimals) so equal gains stay equal and the first action in order wins a tie.
+    Same plan as scoring every action against every remaining path, without the
+    actions x actions x paths cost that made the planner the slowest part of Phase 3
+    on large systems (results/stress)."""
     actions = assign_actions(findings)
-
-    def kills(a, p):
-        if p["finding_id"] in a["finding_ids"]:
-            return True
+    cents = [int(round(p["apcr"] * 100)) for p in paths]
+    of_finding: dict[str, list[int]] = defaultdict(list)
+    for i, p in enumerate(paths):
+        of_finding[p["finding_id"]].append(i)
+    by_entry: dict[tuple[str, str], list[int]] = defaultdict(list)
+    for i, p in enumerate(paths):
+        if len(p["nodes"]) > 1:
+            by_entry[(p["nodes"][0], p["nodes"][1])].append(i)
+    kill_sets = []
+    for a in actions:
+        ks = {i for fid in a["finding_ids"] for i in of_finding.get(fid, [])}
         actor = EDGE_CUT.get(a["kind"])
-        return bool(actor) and p["nodes"][0] == actor and len(p["nodes"]) > 1 and p["nodes"][1] == a["target"]
+        if actor:
+            ks.update(by_entry.get((actor, a["target"]), []))
+        kill_sets.append(ks)
 
-    def total(alive):
-        best = {}
-        for p in alive:
-            best[p["finding_id"]] = max(best.get(p["finding_id"], 0), p["apcr"])
-        return sum(best.values())
+    alive = set(range(len(paths)))
 
-    alive = list(paths)
-    start = total(alive)
+    def best(fid: str, without: set[int] = frozenset()) -> int:
+        return max((cents[i] for i in of_finding[fid] if i in alive and i not in without), default=0)
+
+    cur = {fid: best(fid) for fid in of_finding}
+    start = sum(cur.values())
     steps, done = [], set()
     while alive:
         cand = None
-        for a in actions:
+        for k, a in enumerate(actions):
             if a["id"] in done:
                 continue
-            remaining = [p for p in alive if not kills(a, p)]
-            gain = total(alive) - total(remaining)
-            if gain > 1e-9 and (cand is None or gain > cand[1]):
-                cand = (a, gain, remaining)
+            killed = kill_sets[k] & alive
+            if not killed:
+                continue
+            gain = sum(cur[fid] - best(fid, killed) for fid in {paths[i]["finding_id"] for i in killed})
+            if gain > 0 and (cand is None or gain > cand[1]):
+                cand = (k, gain, killed)
         if not cand:
             break
-        a, gain, alive = cand
+        k, gain, killed = cand
+        a = actions[k]
+        alive -= killed
+        for fid in {paths[i]["finding_id"] for i in killed}:
+            cur[fid] = best(fid)
         done.add(a["id"])
-        left = total(alive)
-        steps.append({**a, "risk_removed": round(gain, 2), "remaining": round(left, 2),
+        left = sum(cur.values())
+        steps.append({**a, "risk_removed": round(gain / 100, 2), "remaining": round(left / 100, 2) if alive else 0,
                       "cumulative_reduction_pct": round(100 * (1 - left / start), 1) if start else 0})
+    start = start / 100 if paths else 0
 
     def fixes_for(pct):
         return next((i + 1 for i, s in enumerate(steps) if s["cumulative_reduction_pct"] >= pct), None)

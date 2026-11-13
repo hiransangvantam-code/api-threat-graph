@@ -68,6 +68,11 @@ WHERE n.type = 'Risk'
 
 
 class GraphStore:
+    # PostgreSQL plans the recursive attack path query from table statistics. Tables created
+    # for a review have none, so it guessed and the query got 30-60x slower on large graphs
+    # (results/stress). ANALYZE after loading the graph takes a few milliseconds.
+    analyze_after_load = True
+
     def __init__(self, url: str | None):
         url = url or "sqlite:///output/atg.db"
         self.url = url
@@ -124,6 +129,10 @@ class GraphStore:
         cur.executemany(self._q("INSERT INTO atg_edges (run_id, src, dst, rel, props) VALUES (?, ?, ?, ?, ?)"),
                         [(run_id, e["src"], e["dst"], e["rel"], json.dumps(e.get("props", {}))) for e in edges])
         self.conn.commit()
+        if self.kind == "postgresql" and self.analyze_after_load:
+            cur.execute("ANALYZE atg_nodes")
+            cur.execute("ANALYZE atg_edges")
+            self.conn.commit()
 
     def attack_paths(self, run_id: str, max_depth: int = 9) -> list[tuple[list[str], list[str]]]:
         sql = ATTACK_PATH_SQL.replace("{notin}", self.notin).replace("{p}", self.p)

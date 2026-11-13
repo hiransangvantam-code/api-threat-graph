@@ -123,6 +123,15 @@ Found by comparing the tool's threat model with the oracle (v1 = before, v1.1 = 
 8. `anonymous_success_internal` counted anonymous requests the gateway had forwarded as service-to-service calls (both capture points see them), which made TS-08 fire on public endpoints. It now subtracts the gateway's share.
 9. LT-01 ("calls from an unidentified internal caller") treated every trace that starts at a backend as not having come through the gateway. That holds only when the gateway emits spans; with an uninstrumented gateway (crAPI's nginx) every public request looked like an unknown internal caller. Endpoints that receive public traffic behind an untraced gateway are no longer flagged.
 
+## Changes after the evaluation (version 1.3)
+
+Tables 1-20 were produced with version 1.2. Version 1.3 changes no result in them, and two speed fixes came out of the stress test (Tables 21-22, `docs/LIMITS.md`):
+
+- The fix planner scores each action only on the findings it touches, instead of against every remaining path. Same plans (`tests/test_plan.py`), about 100 times faster at 61 services.
+- On PostgreSQL the graph store runs `ANALYZE` after loading the graph, so the recursive attack path query is planned with statistics. Same paths (the SQLite/PostgreSQL test still passes), 12 to 52 times faster on the stress-test graphs. Table 19 was measured before this change.
+
+Version 1.3 also keeps the review data in memory and exports the graph (`docs/DATA_HANDLING.md`, `docs/EXPORT_FORMATS.md`). Tables 23-24 compare the tool with OWASP ZAP (`docs/COMPARISON_ZAP.md`).
+
 ## Threats to validity
 
 - **Replicas, not the real systems.** No business logic and generic response bodies: rules that read response content (API3, the data-sensitivity part of TS-01 and API1) cannot fire on Train Ticket or crAPI here. ShopLite (real code) exercises them. The `realcheck/` kit (not run yet) covers Phase 1 on the real crAPI; a Phases 1-3 run on the real system is still needed for those rules.

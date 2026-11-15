@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: PayNow Merchant Service API
+  version: 1.3.0
+servers:
+- url: http://merchant-service:8080
+paths:
+  /merchants/{merchant_id}:
+    get:
+      operationId: get_merchants_merchant_id
+      summary: GET /merchants/{merchant_id}
+      tags:
+      - merchant-service
+      parameters:
+      - name: merchant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  merchant_id:
+                    type: integer
+                  name:
+                    type: string
+                  category:
+                    type: string
+        '401':
+          description: No valid credential
+      security:
+      - bearerAuth: []
+  /merchants/{merchant_id}/settlements:
+    get:
+      operationId: get_merchants_merchant_id_settlements
+      summary: GET /merchants/{merchant_id}/settlements
+      tags:
+      - merchant-service
+      parameters:
+      - name: merchant_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  merchant_id:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        settlement_id:
+                          type: integer
+                        amount:
+                          type: integer
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

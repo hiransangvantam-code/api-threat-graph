@@ -1,0 +1,512 @@
+{
+ "applicable": true,
+ "pairs": [],
+ "raw": {
+  "G109": 1,
+  "G112": 1,
+  "G104": 10
+ },
+ "seconds": 4.35,
+ "findings": 12,
+ "covered": 8,
+ "services": 8,
+ "score": {
+  "labels": 107,
+  "found": 0,
+  "reported": 0,
+  "confirmed": 0,
+  "by_group": {
+   "Configuration": {
+    "labels": 89,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "API behaviour": {
+    "labels": 10,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 8,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 7,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "A7": {
+    "labels": 2,
+    "found": 0
+   },
+   "C1": {
+    "labels": 19,
+    "found": 0
+   },
+   "C10": {
+    "labels": 19,
+    "found": 0
+   },
+   "C4": {
+    "labels": 13,
+    "found": 0
+   },
+   "C6": {
+    "labels": 19,
+    "found": 0
+   },
+   "C9": {
+    "labels": 19,
+    "found": 0
+   },
+   "O1": {
+    "labels": 8,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A5",
+    "svc:geo"
+   ],
+   [
+    "A5",
+    "svc:profile"
+   ],
+   [
+    "A5",
+    "svc:rate"
+   ],
+   [
+    "A5",
+    "svc:recommendation"
+   ],
+   [
+    "A5",
+    "svc:reservation"
+   ],
+   [
+    "A5",
+    "svc:search"
+   ],
+   [
+    "A5",
+    "svc:user"
+   ],
+   [
+    "A6",
+    "ep:frontend:GET:/user"
+   ],
+   [
+    "A7",
+    "ep:frontend:GET:/user"
+   ],
+   [
+    "A7",
+    "ep:frontend:POST:/reservation"
+   ],
+   [
+    "C1",
+    "svc:consul"
+   ],
+   [
+    "C1",
+    "svc:frontend"
+   ],
+   [
+    "C1",
+    "svc:geo"
+   ],
+   [
+    "C1",
+    "svc:jaeger"
+   ],
+   [
+    "C1",
+    "svc:memcached-profile"
+   ],
+   [
+    "C1",
+    "svc:memcached-rate"
+   ],
+   [
+    "C1",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C1",
+    "svc:mongodb-geo"
+   ],
+   [
+    "C1",
+    "svc:mongodb-profile"
+   ],
+   [
+    "C1",
+    "svc:mongodb-rate"
+   ],
+   [
+    "C1",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "C1",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "C1",
+    "svc:mongodb-user"
+   ],
+   [
+    "C1",
+    "svc:profile"
+   ],
+   [
+    "C1",
+    "svc:rate"
+   ],
+   [
+    "C1",
+    "svc:recommendation"
+   ],
+   [
+    "C1",
+    "svc:reservation"
+   ],
+   [
+    "C1",
+    "svc:search"
+   ],
+   [
+    "C1",
+    "svc:user"
+   ],
+   [
+    "C10",
+    "svc:consul"
+   ],
+   [
+    "C10",
+    "svc:frontend"
+   ],
+   [
+    "C10",
+    "svc:geo"
+   ],
+   [
+    "C10",
+    "svc:jaeger"
+   ],
+   [
+    "C10",
+    "svc:memcached-profile"
+   ],
+   [
+    "C10",
+    "svc:memcached-rate"
+   ],
+   [
+    "C10",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C10",
+    "svc:mongodb-geo"
+   ],
+   [
+    "C10",
+    "svc:mongodb-profile"
+   ],
+   [
+    "C10",
+    "svc:mongodb-rate"
+   ],
+   [
+    "C10",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "C10",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "C10",
+    "svc:mongodb-user"
+   ],
+   [
+    "C10",
+    "svc:profile"
+   ],
+   [
+    "C10",
+    "svc:rate"
+   ],
+   [
+    "C10",
+    "svc:recommendation"
+   ],
+   [
+    "C10",
+    "svc:reservation"
+   ],
+   [
+    "C10",
+    "svc:search"
+   ],
+   [
+    "C10",
+    "svc:user"
+   ],
+   [
+    "C4",
+    "svc:consul"
+   ],
+   [
+    "C4",
+    "svc:frontend"
+   ],
+   [
+    "C4",
+    "svc:geo"
+   ],
+   [
+    "C4",
+    "svc:jaeger"
+   ],
+   [
+    "C4",
+    "svc:memcached-profile"
+   ],
+   [
+    "C4",
+    "svc:memcached-rate"
+   ],
+   [
+    "C4",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C4",
+    "svc:profile"
+   ],
+   [
+    "C4",
+    "svc:rate"
+   ],
+   [
+    "C4",
+    "svc:recommendation"
+   ],
+   [
+    "C4",
+    "svc:reservation"
+   ],
+   [
+    "C4",
+    "svc:search"
+   ],
+   [
+    "C4",
+    "svc:user"
+   ],
+   [
+    "C6",
+    "svc:consul"
+   ],
+   [
+    "C6",
+    "svc:frontend"
+   ],
+   [
+    "C6",
+    "svc:geo"
+   ],
+   [
+    "C6",
+    "svc:jaeger"
+   ],
+   [
+    "C6",
+    "svc:memcached-profile"
+   ],
+   [
+    "C6",
+    "svc:memcached-rate"
+   ],
+   [
+    "C6",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C6",
+    "svc:mongodb-geo"
+   ],
+   [
+    "C6",
+    "svc:mongodb-profile"
+   ],
+   [
+    "C6",
+    "svc:mongodb-rate"
+   ],
+   [
+    "C6",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "C6",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "C6",
+    "svc:mongodb-user"
+   ],
+   [
+    "C6",
+    "svc:profile"
+   ],
+   [
+    "C6",
+    "svc:rate"
+   ],
+   [
+    "C6",
+    "svc:recommendation"
+   ],
+   [
+    "C6",
+    "svc:reservation"
+   ],
+   [
+    "C6",
+    "svc:search"
+   ],
+   [
+    "C6",
+    "svc:user"
+   ],
+   [
+    "C9",
+    "svc:consul"
+   ],
+   [
+    "C9",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:geo"
+   ],
+   [
+    "C9",
+    "svc:jaeger"
+   ],
+   [
+    "C9",
+    "svc:memcached-profile"
+   ],
+   [
+    "C9",
+    "svc:memcached-rate"
+   ],
+   [
+    "C9",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C9",
+    "svc:mongodb-geo"
+   ],
+   [
+    "C9",
+    "svc:mongodb-profile"
+   ],
+   [
+    "C9",
+    "svc:mongodb-rate"
+   ],
+   [
+    "C9",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "C9",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "C9",
+    "svc:mongodb-user"
+   ],
+   [
+    "C9",
+    "svc:profile"
+   ],
+   [
+    "C9",
+    "svc:rate"
+   ],
+   [
+    "C9",
+    "svc:recommendation"
+   ],
+   [
+    "C9",
+    "svc:reservation"
+   ],
+   [
+    "C9",
+    "svc:search"
+   ],
+   [
+    "C9",
+    "svc:user"
+   ],
+   [
+    "O1",
+    "svc:frontend"
+   ],
+   [
+    "O1",
+    "svc:geo"
+   ],
+   [
+    "O1",
+    "svc:profile"
+   ],
+   [
+    "O1",
+    "svc:rate"
+   ],
+   [
+    "O1",
+    "svc:recommendation"
+   ],
+   [
+    "O1",
+    "svc:reservation"
+   ],
+   [
+    "O1",
+    "svc:search"
+   ],
+   [
+    "O1",
+    "svc:user"
+   ]
+  ],
+  "unconfirmed": [],
+  "in_reach": {
+   "labels": 0,
+   "found": 0
+  }
+ }
+}

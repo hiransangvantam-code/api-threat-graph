@@ -24,6 +24,7 @@ kept when they are URLs, because those are dependency hints
 """
 from __future__ import annotations
 
+import json
 import re
 import time
 from pathlib import Path
@@ -122,9 +123,12 @@ def _routes_from_configmap(doc: dict, src: str) -> list[dict]:
 def _routes_from_virtualservice(doc: dict, src: str) -> list[dict]:
     out = []
     spec = doc.get("spec") or {}
+    ns = (doc.get("metadata") or {}).get("namespace", "default")
+    gateways = [g if "/" in g else f"{ns}/{g}" for g in spec.get("gateways", []) or [] if g != "mesh"]
     for http in spec.get("http", []):
         prefixes = [((m.get("uri") or {}).get("prefix") or (m.get("uri") or {}).get("exact") or "/")
                     for m in http.get("match", [{}])]
+        rewrite = (http.get("rewrite") or {}).get("uri")
         for dest in http.get("route", []):
             host = ((dest.get("destination") or {}).get("host") or "").split(".")[0]
             for p in prefixes:
@@ -132,8 +136,9 @@ def _routes_from_virtualservice(doc: dict, src: str) -> list[dict]:
                     "kind": "gateway_route", "gateway": "istio",
                     "defined_in": f"{src} (VirtualService {doc['metadata'].get('name')})",
                     "match_prefix": p, "upstream": host, "upstream_service": host,
-                    "strip_prefix": (http.get("rewrite") or {}).get("uri"), "auth": "unspecified",
-                    "rate_limit": None,
+                    # rewrite.uri replaces the matched prefix: /api/shipments/7 -> /shipments/7
+                    "strip_prefix": p if rewrite is not None else None, "replace_with": rewrite,
+                    "auth": "unspecified", "rate_limit": None, "istio_gateways": gateways,
                 })
     return out
 
@@ -147,11 +152,17 @@ def _routes_from_kong(doc: dict, src: str) -> list[dict]:
             rp = plugins | {p.get("name") for p in r.get("plugins", [])}
             auth = "required" if rp & {"jwt", "key-auth", "basic-auth", "oauth2", "openid-connect"} else "none"
             rl = sorted(x for x in rp if x and "rate-limiting" in x)
+            strip = r.get("strip_path", True)
+            base = (svc.get("path") or urlsplit(up).path or "").rstrip("/")
             for p in r.get("paths", ["/"]):
                 out.append({
                     "kind": "gateway_route", "gateway": "kong", "defined_in": f"{src} (Kong service {svc.get('name')})",
                     "match_prefix": p, "upstream": up, "upstream_service": urlsplit(up).hostname,
-                    "strip_prefix": p if r.get("strip_path", True) else None, "auth": auth,
+                    "strip_prefix": p if strip else None,
+                    # Kong appends the request path (minus the route path if strip_path) to the
+                    # path of the service URL: /api/wallets/7 -> http://wallet-service/wallets + /7
+                    "replace_with": (base if strip else base + p) if base else None,
+                    "auth": auth,
                     "rate_limit": {"directive": f"Kong plugin {rl[0]}"} if rl else None,
                 })
     return out
@@ -173,22 +184,45 @@ def _host_service(target: str) -> str | None:
     return host.split(".")[0] or None
 
 
+_REWRITE = re.compile(r"^RewritePath\s*=\s*(?P<rx>[^,]+?)\s*,\s*(?P<to>\S+)\s*$")
+_REWRITE_RX = re.compile(r"^\^?(?P<lit>[^\\()\[\].*+?{}|^$]*)\(\?<(?P<name>\w+)>\.\*\)\$?$")
+
+
+def _scg_rewrite(f: str) -> tuple[str, str] | None:
+    """RewritePath=/api/(?<segment>.*), /${segment} -> ("/api/", "/"): replace that literal
+    start of the path. Other regular expressions are not modelled."""
+    m = _REWRITE.match(f)
+    rx = m and _REWRITE_RX.match(m.group("rx").replace("\\/", "/"))
+    if not rx or not m.group("to").endswith("${" + rx.group("name") + "}"):
+        return None
+    return rx.group("lit"), m.group("to")[: -len("${" + rx.group("name") + "}")]
+
+
 def _routes_from_scg(path: Path, gateway_service: str | None, env: dict) -> list[dict]:
-    """Spring Cloud Gateway application.yml: spring.cloud.gateway.routes[]"""
-    doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    gw = (((doc.get("spring") or {}).get("cloud") or {}).get("gateway") or {})
-    name = gateway_service or ((doc.get("spring") or {}).get("application") or {}).get("name")
+    """Spring Cloud Gateway application.yml: spring.cloud.gateway.routes[]. The file may hold several
+    documents (Spring profiles separated by ---): the routes of all of them are read."""
+    docs = [d for d in yaml.safe_load_all(path.read_text(encoding="utf-8")) if isinstance(d, dict)]
+    routes, default_rl, name = [], False, gateway_service
+    for doc in docs:
+        gw = (((doc.get("spring") or {}).get("cloud") or {}).get("gateway") or {})
+        for flavour in ("webflux", "webmvc"):   # Spring Cloud Gateway 4.3+: spring.cloud.gateway.server.<flavour>.routes
+            gw = {**((gw.get("server") or {}).get(flavour) or {}), **gw} if (gw.get("server") or {}).get(flavour) else gw
+        name = name or ((doc.get("spring") or {}).get("application") or {}).get("name")
+        default_rl |= any("RequestRateLimiter" in str(f) for f in gw.get("default-filters", []) or [])
+        routes += gw.get("routes", []) or []
     out = []
-    default_rl = any("RequestRateLimiter" in str(f) for f in gw.get("default-filters", []) or [])
-    for r in gw.get("routes", []) or []:
+    for r in routes:
         upstream = _subst(str(r.get("uri", "")), env)
         strip = 0
+        rewrite = None
         auth = "none"
         rate_limit = {"directive": "RequestRateLimiter (default-filters)"} if default_rl else None
         for f in r.get("filters", []) or []:
             f = str(f)
             if f.startswith("StripPrefix="):
                 strip = int(f.split("=", 1)[1] or 0)
+            if f.startswith("RewritePath"):
+                rewrite = _scg_rewrite(f)
             if re.search(r"TokenRelay|Jwt|OAuth|Auth", f):
                 auth = "required"
             if "RequestRateLimiter" in f:
@@ -201,12 +235,15 @@ def _routes_from_scg(path: Path, gateway_service: str | None, env: dict) -> list
                 pat = pat.strip()
                 prefix = re.sub(r"/\*\*$", "", pat) or "/"
                 segs = [x for x in prefix.split("/") if x]
+                replace = None
+                if rewrite and (prefix.rstrip("/") + "/").startswith(rewrite[0]):
+                    replace = (rewrite[1] + (prefix.rstrip("/") + "/")[len(rewrite[0]):]).rstrip("/") or "/"
                 out.append({
                     "kind": "gateway_route", "gateway": "spring-cloud-gateway", "gateway_service": name,
                     "defined_in": f"{path} (route {r.get('id')})", "match_prefix": prefix, "pattern": pat,
                     "upstream": upstream, "upstream_service": _host_service(upstream.replace("lb://", "http://")),
-                    "strip_prefix": "/" + "/".join(segs[:strip]) if strip else None, "auth": auth,
-                    "rate_limit": rate_limit,
+                    "strip_prefix": "/" + "/".join(segs[:strip]) if strip else (prefix if replace else None),
+                    "replace_with": replace, "auth": auth, "rate_limit": rate_limit,
                 })
     return out
 
@@ -244,6 +281,127 @@ def _routes_from_nginx(path: Path, gateway_service: str | None, env: dict) -> li
     return out
 
 
+def _istio_path_covers(pattern: str, prefix: str) -> bool:
+    """Does an Istio AuthorizationPolicy path ("/api/x*", "*", "/api/x") cover a route prefix?"""
+    if pattern == "*":
+        return True
+    if pattern.endswith("*"):
+        return prefix.startswith(pattern[:-1])
+    return pattern.rstrip("/") == prefix.rstrip("/")
+
+
+def _istio_protected(policy: dict) -> list[str]:
+    """Paths whose requests the policy only lets through with a verified caller: CUSTOM
+    (ext-authz decides), ALLOW rules that need a request principal, DENY rules for callers
+    without one."""
+    out = []
+    for rule in policy["rules"]:
+        sources = [f.get("source") or {} for f in rule.get("from", []) or []]
+        paths = [p for t in rule.get("to", []) or [] for p in ((t.get("operation") or {}).get("paths") or [])] or ["*"]
+        if policy["action"] == "CUSTOM" or \
+                (policy["action"] == "ALLOW" and any(s.get("requestPrincipals") or s.get("principals") for s in sources)) or \
+                (policy["action"] == "DENY" and any(s.get("notRequestPrincipals") or s.get("notPrincipals") for s in sources)):
+            out += paths
+    return out
+
+
+def _istio_edge(routes, workloads, istio_gateways, authz, envoy_rl) -> None:
+    """VirtualService routes bound to an Istio Gateway: the workload that Gateway selects is
+    the API gateway; AuthorizationPolicies on it decide which routes need a caller identity,
+    and EnvoyFilters with a local rate limit count as rate limiting."""
+    for r in routes:
+        if r.get("gateway") != "istio":
+            continue
+        w = None
+        for ref in r.get("istio_gateways", []):
+            sel = istio_gateways.get(ref)
+            w = next((x for x in workloads if sel and _matches(sel, x["labels"])), None)
+            if w:
+                break
+        if not w:
+            continue
+        r["gateway_service"] = w["name"]
+        for pol in authz:
+            applies = (pol["selector"] and _matches(pol["selector"], w["labels"])) or \
+                      (not pol["selector"] and pol["namespace"] in (w["namespace"], "istio-system"))
+            if applies and any(_istio_path_covers(p, r["match_prefix"]) for p in _istio_protected(pol)):
+                r["auth"] = "required"
+                r["defined_in"] += f"; auth: AuthorizationPolicy {pol['name']} ({pol['action']})"
+                break
+        for f in envoy_rl:
+            if f["selector"] and _matches(f["selector"], w["labels"]) and \
+                    (not f["paths"] or any(r["match_prefix"].startswith(p) for p in f["paths"])):
+                r["rate_limit"] = {"directive": f"EnvoyFilter {f['name']} (local rate limit)"}
+
+
+def _routes_from_zuul(path: Path, gateway_service: str | None, env: dict) -> list[dict]:
+    """Netflix Zuul (Spring Cloud Netflix): zuul.routes.<name>.{path, url | serviceId, stripPrefix}.
+    Zuul has no per-route authentication setting."""
+    docs = [d for d in yaml.safe_load_all(_subst(path.read_text(encoding="utf-8"), env)) if isinstance(d, dict)]
+    z = {}
+    for d in docs:   # Spring profiles separated by ---: the routes of all of them
+        dz = d.get("zuul") or {}
+        z = {**z, **{k: v for k, v in dz.items() if k != "routes"}, "routes": {**(z.get("routes") or {}), **(dz.get("routes") or {})}}
+    out = []
+    for name, r in (z.get("routes") or {}).items():
+        r = {"path": r} if isinstance(r, str) else (r or {})
+        pat = r.get("path", f"/{name}/**")
+        prefix = re.sub(r"/\*\*$", "", pat) or "/"
+        up = r.get("url") or f"http://{r.get('serviceId', name)}"
+        strip = r.get("stripPrefix", z.get("stripPrefix", True))
+        out.append({"kind": "gateway_route", "gateway": "zuul", "gateway_service": gateway_service,
+                    "defined_in": f"{path} (zuul route {name})", "match_prefix": prefix, "pattern": pat, "upstream": up,
+                    "upstream_service": _host_service(up), "strip_prefix": prefix if strip else None,
+                    "auth": "unspecified", "rate_limit": None})
+    return out
+
+
+def _compose(path: Path) -> tuple[list[dict], dict[str, list]]:
+    """Docker Compose: every service is a workload; published ports are recorded for exposure."""
+    doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    workloads, published = [], {}
+    for name, sv in (doc.get("services") or {}).items():
+        sv = sv or {}
+        image = str(sv.get("image") or f"(built from {sv.get('build')})")
+        if "$" in image or image.startswith("(built"):
+            tag = "variable"
+        else:
+            tag = image.rsplit(":", 1)[1] if ":" in image.rsplit("/", 1)[-1] else "latest(implicit)"
+        env = sv.get("environment") or {}
+        items = env.items() if isinstance(env, dict) else [tuple(x.split("=", 1)) if "=" in x else (x, None) for x in env]
+        entries = []
+        for k, v in items:
+            if v is None or str(v).startswith("$"):
+                entries.append({"name": k, "source": "variable", "sensitive_name": bool(SENSITIVE_NAME.search(k))})
+            else:
+                entries.append(_env_entry({"name": k, "value": v}))
+        sc = {}
+        if sv.get("privileged"):
+            sc["privileged"] = True
+        if sv.get("user") is not None:
+            if str(sv["user"]).split(":")[0] in ("0", "root"):
+                sc["runAsUser"] = 0
+            else:
+                sc["runAsNonRoot"] = True
+        res = ((sv.get("deploy") or {}).get("resources") or {})
+        limits = bool(res.get("limits") or sv.get("mem_limit") or sv.get("cpus"))
+        ports = [str(p) for p in sv.get("ports", []) or []]
+        workloads.append({
+            "kind": "workload", "workload_kind": "ComposeService", "name": name, "namespace": "compose",
+            "defined_in": str(path), "labels": {"compose.service": name}, "replicas": (sv.get("deploy") or {}).get("replicas"),
+            "service_account": None, "automount_service_account_token": False,
+            "host_network": sv.get("network_mode") == "host", "pod_security_context": {},
+            "containers": [{"name": name, "image": image, "image_tag": tag,
+                            "ports": [int(p.rsplit(":", 1)[-1].split("/")[0]) for p in ports if p.rsplit(":", 1)[-1].split("/")[0].isdigit()],
+                            "env": entries, "env_from": [], "security_context": sc,
+                            "resources": {"limits": limits, "requests": bool(res.get("reservations"))},
+                            "probes": {"livenessProbe": "healthcheck" in sv, "readinessProbe": False}}],
+            "init_containers": [], "mesh": None})
+        if ports:
+            published[name] = ports
+    return workloads, published
+
+
 def _configmap_env(paths) -> dict:
     env = {}
     for f in iter_files(paths or [], (".yaml", ".yml")):
@@ -259,6 +417,9 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
     warnings: list[str] = []
     workloads, services, ingresses, routes, netpols, secrets, configmaps = [], [], [], [], [], [], []
     mtls_policies: list[dict] = []
+    istio_gateways: dict[str, dict] = {}     # "namespace/name" -> workload selector
+    authz: list[dict] = []                   # Istio AuthorizationPolicy
+    envoy_rl: list[dict] = []                # Istio EnvoyFilter with a rate limit
     unknown_kinds: dict[str, int] = {}
 
     for f in files:
@@ -310,7 +471,7 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                         be = (p.get("backend") or {}).get("service") or {}
                         ingresses.append({
                             "kind": "ingress", "name": name, "namespace": ns, "defined_in": src,
-                            "host": rule.get("host", "*"), "path": p.get("path", "/"),
+                            "host": rule.get("host") or "*", "path": p.get("path") or "/",
                             "tls": rule.get("host") in tls_hosts,
                             "backend_service": be.get("name") or (p.get("backend") or {}).get("serviceName"),
                             "backend_port": (be.get("port") or {}).get("number") or (p.get("backend") or {}).get("servicePort"),
@@ -342,6 +503,20 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                                    "keys": sorted((doc.get("data") or {}).keys()), "is_gateway_config": bool(found)})
             elif kind == "VirtualService":
                 routes += _routes_from_virtualservice(doc, src)
+            elif kind == "Gateway" and str(doc.get("apiVersion", "")).startswith("networking.istio.io"):
+                istio_gateways[f"{ns}/{name}"] = (doc.get("spec") or {}).get("selector") or {}
+            elif kind == "AuthorizationPolicy":
+                spec = doc.get("spec") or {}
+                authz.append({"name": name, "namespace": ns, "defined_in": src,
+                              "selector": (spec.get("selector") or {}).get("matchLabels") or {},
+                              "action": str(spec.get("action") or "ALLOW").upper(), "rules": spec.get("rules") or []})
+            elif kind == "EnvoyFilter":
+                spec = doc.get("spec") or {}
+                text = json.dumps(spec)
+                if "ratelimit" in text.lower():
+                    envoy_rl.append({"name": name, "namespace": ns,
+                                     "selector": (spec.get("workloadSelector") or {}).get("labels") or {},
+                                     "paths": re.findall(r'"key": "path", "value": "([^"]+)"', text)})
             elif kind == "PeerAuthentication":  # Istio: server-side mTLS for the selected workloads
                 spec = doc.get("spec") or {}
                 mtls_policies.append({
@@ -358,6 +533,33 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
             elif kind:
                 unknown_kinds[kind] = unknown_kinds.get(kind, 0) + 1
 
+    # --- Docker Compose files (version 1.5) ---------------------------------
+    compose_published: dict[str, list] = {}
+    for cf in cfg.get("compose_files", []) or []:
+        cpath = Path(cf)
+        if not cpath.exists():
+            warnings.append(f"compose file {cpath} not found")
+            continue
+        w_, p_ = _compose(cpath)
+        workloads += w_
+        compose_published.update(p_)
+
+    # --- edge entry points other than Ingress, and their TLS (version 1.5) ----
+    edge_tls = []
+    for f in files:
+        for doc in load_yaml_docs(f):
+            k = doc.get("kind")
+            meta = doc.get("metadata") or {}
+            if k == "Service" and (doc.get("spec") or {}).get("type") == "LoadBalancer":
+                ports = [p.get("port") for p in (doc["spec"].get("ports") or [])]
+                edge_tls.append({"kind": "edge_tls", "source": "LoadBalancer Service", "name": meta.get("name"),
+                                 "selector": doc["spec"].get("selector") or {}, "tls": 443 in ports, "defined_in": str(f)})
+            elif k == "Gateway" and str(doc.get("apiVersion", "")).startswith("networking.istio.io"):
+                servers = (doc.get("spec") or {}).get("servers") or []
+                plain = any(str((s.get("port") or {}).get("protocol", "")).upper() == "HTTP" and not s.get("tls") for s in servers)
+                edge_tls.append({"kind": "edge_tls", "source": "Istio Gateway", "name": meta.get("name"),
+                                 "selector": (doc.get("spec") or {}).get("selector") or {}, "tls": not plain, "defined_in": str(f)})
+
     # --- gateway configuration files (not Kubernetes objects) -------------
     gw_inputs = []
     for g in cfg.get("gateway_configs", []) or []:
@@ -367,11 +569,15 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
             continue
         env = {**_configmap_env(g.get("env_from")), **(g.get("env") or {})}
         kind = g.get("type", "spring-cloud-gateway")
-        parser = {"spring-cloud-gateway": _routes_from_scg, "nginx": _routes_from_nginx}.get(kind)
+        parser = {"spring-cloud-gateway": _routes_from_scg, "nginx": _routes_from_nginx, "zuul": _routes_from_zuul}.get(kind)
         if not parser:
             warnings.append(f"gateway config type '{kind}' not supported")
             continue
-        found = parser(gpath, g.get("service"), env)
+        try:
+            found = parser(gpath, g.get("service"), env)
+        except Exception as exc:  # a file the parser cannot read must not hide the manifests
+            warnings.append(f"{gpath}: not read ({type(exc).__name__}: {exc})")
+            continue
         routes += found
         gw_inputs.append(str(gpath))
         if not found:
@@ -403,6 +609,8 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                 if host and host.split(".")[0] in svc_by_name:
                     e["references_service"] = host.split(".")[0]
 
+    _istio_edge(routes, workloads, istio_gateways, authz, envoy_rl)
+
     exposure = []
     gateway_workloads = set()
     for ing in ingresses:
@@ -419,6 +627,8 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
             for s in services:
                 if s["type"] in ("NodePort", "LoadBalancer") and gs in s["selects_workloads"]:
                     gateway_workloads.add(gs)
+            if gs in compose_published:          # a compose gateway with a published port
+                gateway_workloads.add(gs)
     for r in routes:
         svc = svc_by_name.get(r["upstream_service"])
         for wname in (svc or {}).get("selects_workloads", []):
@@ -433,6 +643,15 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
                                  "level": "node" if s["type"] == "NodePort" else "internet",
                                  "via": [f"Service {s['name']} type={s['type']} " +
                                          ",".join(str(p.get('nodePort', p.get('port'))) for p in s["ports"])]})
+    for name, ports in compose_published.items():
+        exposure.append({"kind": "exposure", "workload": name, "level": "internet" if name in gateway_workloads else "node",
+                         "via": [f"published port {', '.join(ports)} (docker compose)"]})
+    for e in edge_tls:
+        e["workload"] = next((w["name"] for w in workloads if _matches(e["selector"], w["labels"])), None)
+    for name, ports in compose_published.items():   # a published compose port: TLS only if it is 443 / 8443
+        inner = [p.rsplit(":", 1)[-1].split("/")[0] for p in ports]
+        edge_tls.append({"kind": "edge_tls", "source": "published port (docker compose)", "name": name, "selector": {},
+                         "workload": name, "tls": any(p in ("443", "8443") for p in inner), "defined_in": "compose"})
     for w in workloads:
         if w["host_network"]:
             exposure.append({"kind": "exposure", "workload": w["name"], "level": "node", "via": ["hostNetwork: true"]})
@@ -445,7 +664,7 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
         if r["upstream_service"] not in svc_by_name and r["upstream_service"] not in workload_names:
             warnings.append(f"gateway route {r['match_prefix']} points at '{r['upstream_service']}', which no manifest defines")
 
-    records = workloads + services + ingresses + routes + netpols + secrets + configmaps + mtls_policies + exposure
+    records = workloads + services + ingresses + routes + netpols + secrets + configmaps + mtls_policies + exposure + edge_tls
     plaintext_sensitive = sum(1 for w in workloads for c in w["containers"] for e in c["env"]
                               if e["source"] == "plaintext" and e["sensitive_name"])
     stats = {

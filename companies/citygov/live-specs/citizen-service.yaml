@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: CityGov Citizen Service API
+  version: 3.2.0
+servers:
+- url: http://citizen-service:8080
+paths:
+  /citizens/{citizen_id}:
+    get:
+      operationId: get_citizens_citizen_id
+      summary: GET /citizens/{citizen_id}
+      tags:
+      - citizen-service
+      parameters:
+      - name: citizen_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  citizen_id:
+                    type: integer
+                  user_id:
+                    type: string
+                  national_id:
+                    type: string
+                  address:
+                    type: string
+                  district:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /citizens/{citizen_id}/address:
+    put:
+      operationId: put_citizens_citizen_id_address
+      summary: PUT /citizens/{citizen_id}/address
+      tags:
+      - citizen-service
+      parameters:
+      - name: citizen_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                district:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  citizen_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /v1/citizens/{citizen_id}:
+    get:
+      operationId: get_v1_citizens_citizen_id
+      summary: GET /v1/citizens/{citizen_id}
+      tags:
+      - citizen-service
+      deprecated: true
+      parameters:
+      - name: citizen_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  citizen_id:
+                    type: integer
+                  user_id:
+                    type: string
+                  national_id:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

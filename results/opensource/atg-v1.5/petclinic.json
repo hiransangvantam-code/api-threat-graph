@@ -1,0 +1,992 @@
+{
+ "company": "petclinic",
+ "users": "Spring PetClinic Microservices: 310 requests in 3.8 s, 0 sessions; status codes: 200 x265, 201 x45",
+ "startup_s": 11.6,
+ "scan_s": 7.9,
+ "scan_log": [
+  "[scan] petclinic: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 626 HTTP flows from the sidecar, 5 span batches from the Collector (1087 KB cleared from their memory)",
+  "[ok]   runtime_traffic    28 records      23.7 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     276.2 ms  -> /work/raw/openapi.json",
+  "! api-gateway: no live spec at any probed path",
+  "! customers-service: no live spec at any probed path",
+  "! visits-service: no live spec at any probed path",
+  "! vets-service: no live spec at any probed path",
+  "! genai-service: no live spec at any probed path",
+  "! admin-server: no live spec at any probed path",
+  "! config-server: no live spec at any probed path",
+  "[ok]   infrastructure     37 records     253.9 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          37 records      22.2 ms  -> /work/raw/callchain.json",
+  "[ok]   15 endpoints in 11 services (15 shadow)  -> /work/eujf.json",
+  "[ok]   88 findings (critical 9, high 31, medium 34, low 14), 296 attack paths, path risk 850",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] petclinic: 15 APIs, 88 findings, 296 attack paths, path risk 850",
+  "[scan] threat graph exported to output/site/exports/1-petclinic/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-113752-9da476",
+ "summary": {
+  "findings": 88,
+  "by_severity": {
+   "critical": 9,
+   "high": 31,
+   "medium": 34,
+   "low": 14
+  },
+  "attack_paths": 296,
+  "critical_paths": 72,
+  "total_path_risk": 850.0,
+  "endpoints": 15,
+  "shadow_endpoints": 15,
+  "services": 11,
+  "rules_evaluated": 27,
+  "rules_fired": 14,
+  "label": "petclinic"
+ },
+ "eujf_summary": {
+  "services": 11,
+  "endpoints": 15,
+  "inventory": {
+   "shadow": 15
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 15,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 13,
+  "endpoints_with_sensitive_data": 2,
+  "dependencies": 6,
+  "reconciled_traffic_paths": 1
+ },
+ "gateway": "api-gateway",
+ "endpoints": [
+  {
+   "id": "ep:admin-server:GET:/applications",
+   "service": "admin-server",
+   "method": "GET",
+   "path": "/applications",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:config-server:GET:/{}/{}",
+   "service": "config-server",
+   "method": "GET",
+   "path": "/{application}/{profile}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customers-service:GET:/owners",
+   "service": "customers-service",
+   "method": "GET",
+   "path": "/owners",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners"
+   ]
+  },
+  {
+   "id": "ep:customers-service:POST:/owners",
+   "service": "customers-service",
+   "method": "POST",
+   "path": "/owners",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners"
+   ]
+  },
+  {
+   "id": "ep:customers-service:GET:/owners/{}",
+   "service": "customers-service",
+   "method": "GET",
+   "path": "/owners/{ownerId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners/{ownerId}"
+   ]
+  },
+  {
+   "id": "ep:customers-service:PUT:/owners/{}",
+   "service": "customers-service",
+   "method": "PUT",
+   "path": "/owners/{ownerId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners/{ownerId}"
+   ]
+  },
+  {
+   "id": "ep:customers-service:POST:/owners/{}/pets",
+   "service": "customers-service",
+   "method": "POST",
+   "path": "/owners/{ownerId}/pets",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners/{ownerId}/pets"
+   ]
+  },
+  {
+   "id": "ep:customers-service:GET:/owners/{}/pets/{}",
+   "service": "customers-service",
+   "method": "GET",
+   "path": "/owners/{ownerId}/pets/{petId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners/{ownerId}/pets/{petId}"
+   ]
+  },
+  {
+   "id": "ep:customers-service:PUT:/owners/{}/pets/{}",
+   "service": "customers-service",
+   "method": "PUT",
+   "path": "/owners/{ownerId}/pets/{petId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/owners/{ownerId}/pets/{petId}"
+   ]
+  },
+  {
+   "id": "ep:customers-service:GET:/petTypes",
+   "service": "customers-service",
+   "method": "GET",
+   "path": "/petTypes",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/customer/petTypes"
+   ]
+  },
+  {
+   "id": "ep:genai-service:POST:/chatclient",
+   "service": "genai-service",
+   "method": "POST",
+   "path": "/chatclient",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/genai/chatclient"
+   ]
+  },
+  {
+   "id": "ep:vets-service:GET:/vets",
+   "service": "vets-service",
+   "method": "GET",
+   "path": "/vets",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/vet/vets"
+   ]
+  },
+  {
+   "id": "ep:visits-service:GET:/owners/{}/pets/{}/visits",
+   "service": "visits-service",
+   "method": "GET",
+   "path": "/owners/{ownerId}/pets/{petId}/visits",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/visit/owners/{ownerId}/pets/{petId}/visits"
+   ]
+  },
+  {
+   "id": "ep:visits-service:POST:/owners/{}/pets/{}/visits",
+   "service": "visits-service",
+   "method": "POST",
+   "path": "/owners/{ownerId}/pets/{petId}/visits",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/visit/owners/{ownerId}/pets/{petId}/visits"
+   ]
+  },
+  {
+   "id": "ep:visits-service:GET:/pets/visits",
+   "service": "visits-service",
+   "method": "GET",
+   "path": "/pets/visits",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/visit/pets/visits"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:customers-service:GET:/owners",
+   "detail": "GET /owners (customers-service) returns a list with pii fields",
+   "severity": "critical",
+   "score": 25
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customers-service:GET:/owners",
+   "detail": "GET /owners (customers-service) returned 2xx to 45 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customers-service:GET:/owners/{}",
+   "detail": "GET /owners/{ownerId} (customers-service) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:genai-service:POST:/chatclient",
+   "detail": "POST /chatclient (genai-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customers-service:POST:/owners",
+   "detail": "POST /owners (customers-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customers-service:POST:/owners/{}/pets",
+   "detail": "POST /owners/{ownerId}/pets (customers-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:visits-service:POST:/owners/{}/pets/{}/visits",
+   "detail": "POST /owners/{ownerId}/pets/{petId}/visits (visits-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customers-service:PUT:/owners/{}",
+   "detail": "PUT /owners/{ownerId} (customers-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customers-service:PUT:/owners/{}/pets/{}",
+   "detail": "PUT /owners/{ownerId}/pets/{petId} (customers-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:GET:/owners",
+   "detail": "GET /owners (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:GET:/owners/{}",
+   "detail": "GET /owners/{ownerId} (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:api-gateway",
+   "detail": "route /api/customer/** -> customers-service has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:api-gateway",
+   "detail": "route /api/genai/** -> genai-service has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:api-gateway",
+   "detail": "route /api/vet/** -> vets-service has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:api-gateway",
+   "detail": "route /api/visit/** -> visits-service has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:admin-server",
+   "detail": "admin-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:config-server",
+   "detail": "config-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:customers-service",
+   "detail": "customers-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:discovery-server",
+   "detail": "discovery-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:genai-service",
+   "detail": "genai-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:grafana-server",
+   "detail": "grafana-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:prometheus-server",
+   "detail": "prometheus-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:tracing-server",
+   "detail": "tracing-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:vets-service",
+   "detail": "vets-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:visits-service",
+   "detail": "visits-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:admin-server:GET:/applications",
+   "detail": "GET /applications (admin-server) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:GET:/owners/{}/pets/{}",
+   "detail": "GET /owners/{ownerId}/pets/{petId} (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:visits-service:GET:/owners/{}/pets/{}/visits",
+   "detail": "GET /owners/{ownerId}/pets/{petId}/visits (visits-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:GET:/petTypes",
+   "detail": "GET /petTypes (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:visits-service:GET:/pets/visits",
+   "detail": "GET /pets/visits (visits-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:vets-service:GET:/vets",
+   "detail": "GET /vets (vets-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:config-server:GET:/{}/{}",
+   "detail": "GET /{application}/{profile} (config-server) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:genai-service:POST:/chatclient",
+   "detail": "POST /chatclient (genai-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:POST:/owners",
+   "detail": "POST /owners (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:POST:/owners/{}/pets",
+   "detail": "POST /owners/{ownerId}/pets (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:visits-service:POST:/owners/{}/pets/{}/visits",
+   "detail": "POST /owners/{ownerId}/pets/{petId}/visits (visits-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:PUT:/owners/{}",
+   "detail": "PUT /owners/{ownerId} (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:customers-service:PUT:/owners/{}/pets/{}",
+   "detail": "PUT /owners/{ownerId}/pets/{petId} (customers-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:api-gateway",
+   "detail": "published port (docker compose) api-gateway serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:customers-service:GET:/owners",
+   "detail": "genai-service -> GET /owners (customers-service) with no credential",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:api-gateway",
+   "detail": "api-gateway does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:admin-server:GET:/applications",
+   "detail": "5 trace(s) start at admin-server GET /applications with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:config-server:GET:/{}/{}",
+   "detail": "5 trace(s) start at config-server GET /{application}/{profile} with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API10",
+   "target": "svc:genai-service",
+   "detail": "genai-service calls external openai-api",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:admin-server",
+   "detail": "admin-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:api-gateway",
+   "detail": "api-gateway accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:config-server",
+   "detail": "config-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:customers-service",
+   "detail": "customers-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:discovery-server",
+   "detail": "discovery-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:genai-service",
+   "detail": "genai-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:grafana-server",
+   "detail": "grafana-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:prometheus-server",
+   "detail": "prometheus-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:tracing-server",
+   "detail": "tracing-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:vets-service",
+   "detail": "vets-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:visits-service",
+   "detail": "visits-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:admin-server",
+   "detail": "admin-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:config-server",
+   "detail": "config-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:customers-service",
+   "detail": "customers-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:discovery-server",
+   "detail": "discovery-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:genai-service",
+   "detail": "genai-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:grafana-server",
+   "detail": "grafana-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:prometheus-server",
+   "detail": "prometheus-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:tracing-server",
+   "detail": "tracing-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:vets-service",
+   "detail": "vets-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:visits-service",
+   "detail": "visits-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:admin-server",
+   "detail": "admin-server uses image springcommunity/spring-petclinic-admin-server",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:api-gateway",
+   "detail": "api-gateway uses image springcommunity/spring-petclinic-api-gateway",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:config-server",
+   "detail": "config-server uses image springcommunity/spring-petclinic-config-server",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:customers-service",
+   "detail": "customers-service uses image springcommunity/spring-petclinic-customers-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:discovery-server",
+   "detail": "discovery-server uses image springcommunity/spring-petclinic-discovery-server",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:genai-service",
+   "detail": "genai-service uses image springcommunity/spring-petclinic-genai-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:tracing-server",
+   "detail": "tracing-server uses image openzipkin/zipkin",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:vets-service",
+   "detail": "vets-service uses image springcommunity/spring-petclinic-vets-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:visits-service",
+   "detail": "visits-service uses image springcommunity/spring-petclinic-visits-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:admin-server",
+   "detail": "admin-server: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:config-server",
+   "detail": "config-server: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:customers-service",
+   "detail": "customers-service: no live spec; 0 of 8 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:discovery-server",
+   "detail": "discovery-server: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:genai-service",
+   "detail": "genai-service: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:grafana-server",
+   "detail": "grafana-server: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:prometheus-server",
+   "detail": "prometheus-server: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:tracing-server",
+   "detail": "tracing-server: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:vets-service",
+   "detail": "vets-service: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:visits-service",
+   "detail": "visits-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:discovery-server",
+   "detail": "discovery-server is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:grafana-server",
+   "detail": "grafana-server is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:prometheus-server",
+   "detail": "prometheus-server is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:tracing-server",
+   "detail": "tracing-server is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/customer",
+   "upstream_service": "customers-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/customer",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/genai",
+   "upstream_service": "genai-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/genai",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/vet",
+   "upstream_service": "vets-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/vet",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/visit",
+   "upstream_service": "visits-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/visit",
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "admin-server",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "api-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "config-server",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "customers-service",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "discovery-server",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "genai-service",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "grafana-server",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "prometheus-server",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "tracing-server",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "vets-service",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "visits-service",
+   "role": "service",
+   "exposure": "node"
+  }
+ ]
+}

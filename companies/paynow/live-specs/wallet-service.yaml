@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: PayNow Wallet Service API
+  version: 2.4.1
+servers:
+- url: http://wallet-service:8080
+paths:
+  /wallets/{wallet_id}:
+    get:
+      operationId: get_wallets_wallet_id
+      summary: GET /wallets/{wallet_id}
+      tags:
+      - wallet-service
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  wallet_id:
+                    type: integer
+                  owner_id:
+                    type: string
+                  balance:
+                    type: integer
+                  currency:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /wallets/{wallet_id}/statement:
+    get:
+      operationId: get_wallets_wallet_id_statement
+      summary: GET /wallets/{wallet_id}/statement
+      tags:
+      - wallet-service
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  wallet_id:
+                    type: integer
+                  owner_id:
+                    type: string
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        transaction_id:
+                          type: integer
+                        amount:
+                          type: integer
+                        merchant:
+                          type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /wallets/{wallet_id}/topup:
+    post:
+      operationId: post_wallets_wallet_id_topup
+      summary: POST /wallets/{wallet_id}/topup
+      tags:
+      - wallet-service
+      parameters:
+      - name: wallet_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                source:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  wallet_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

@@ -6,6 +6,7 @@ docker info >/dev/null 2>&1 || { echo "Docker is not running, so there is nothin
 echo "Stopping both Dockers and deleting the review data..."
 docker compose down -v --remove-orphans
 docker compose -f target/docker-compose.yml --profile users down -v --remove-orphans
+for f in companies/*/docker-compose.yml opensource/*/docker-compose.yml; do docker compose -f "$f" --profile users down -v --remove-orphans >/dev/null 2>&1; done
 # versions before 1.3 kept the captured traffic and spans in these volumes on disk
 docker volume rm atg_atg-capture atg_atg-telemetry >/dev/null 2>&1
 echo

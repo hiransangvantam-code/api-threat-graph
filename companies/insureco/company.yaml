@@ -1,0 +1,81 @@
+# InsureCo: motor insurance. Python services behind Spring Cloud Gateway.
+id: insureco
+name: InsureCo
+industry: Insurance (motor claims)
+about: Policyholders view policies and file claims with photos. A reporting service feeds the BI team.
+language: python
+credential: bearer
+domain: api.insureco.example
+spec: {path: /openapi.json, version: 3.1.0, format: json}
+
+gateway:
+  name: api-gateway
+  type: spring-cloud-gateway
+  version: 4.0.1
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/policies, service: policy-service, to: /policies}
+    - {prefix: /api/claims, service: claim-service, to: /claims}
+    - {prefix: /api/reports, service: reporting-service, to: /reports, auth: false}
+
+services:
+  auth-service: {version: 2.2.0}
+
+  policy-service:
+    version: 3.1.0
+    routes:
+      GET /policies:
+        returns: {items: [{policy_id: $n, product: motor, premium_amount: 0}]}
+      GET /policies/{policy_id}:
+        owner: policy_id
+        calls: ["GET underwriting-service /underwriting/score/{policy_id}"]
+        returns: {policy_id: $policy_id, customer_id: $owner, product: motor, premium_amount: 0, insured_address: "***"}
+        weight: 3
+
+  claim-service:
+    version: 4.0.0
+    routes:
+      POST /claims:
+        body: {policy_id: $owned, description: rear bumper, photo_url: "https://photos.insureco.example/upload/claim.jpg"}
+        status: 201
+        returns: {claim_id: $n, status: received}
+      GET /claims/{claim_id}:
+        owner: claim_id
+        returns: {claim_id: $claim_id, customer_id: $owner, status: assessing, amount: 0}
+      GET /claims/{claim_id}/documents:
+        owner: claim_id
+        returns: {claim_id: $claim_id, items: [{document_id: $n, kind: photo}]}
+
+  underwriting-service:
+    version: 1.4.0
+    flaws: [no_netpol]
+    routes:
+      GET /underwriting/score/{policy_id}:
+        owner: policy_id
+        client: none
+        returns: {policy_id: $policy_id, risk_band: B}
+
+  reporting-service:
+    version: 0.7.0
+    routes:
+      GET /reports/claims-export:
+        auth: none
+        client: anonymous
+        ua: bi-connector/2.3
+        weight: 1
+        returns: {items: [{claim_id: $n, customer_id: c1, amount: 0, email: "***"}]}
+      GET /reports/weekly-summary:
+        auth: admin
+        returns: {claims: 0, paid_amount: 0}
+
+planted:
+  - {rule: TS-02, at: api-gateway, match: /api/reports, why: "The reports route has no TokenRelay filter."}
+  - {rule: TS-01, at: "GET /reports/claims-export", why: "The claims export answers callers with no credential."}
+  - {rule: API3, at: "GET /reports/claims-export", why: "Every claim, with customer e-mail, in one anonymous response."}
+  - {rule: API5, at: "GET /reports/claims-export", why: "An export function reachable from the internet without a role."}
+  - {rule: API8-NETPOL, at: underwriting-service, why: "No NetworkPolicy selects it."}
+  - {rule: API7, at: "POST /claims", expect_miss: "The field is called photo_url, a name the SSRF rule does not know.", why: "The claims service downloads the photo from the URL the customer sends."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "RequestRateLimiter is on the login route."}
+  - {rule: API5, at: "GET /reports/weekly-summary", why: "Role check at the service: anonymous callers get 401 and customers 403."}

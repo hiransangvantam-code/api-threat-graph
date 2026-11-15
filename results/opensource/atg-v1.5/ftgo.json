@@ -1,0 +1,1018 @@
+{
+ "company": "ftgo",
+ "users": "FTGO: 185 requests in 1.7 s, 0 sessions; status codes: 200 x185",
+ "startup_s": 10.7,
+ "scan_s": 7.5,
+ "scan_log": [
+  "[scan] ftgo: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 366 HTTP flows from the sidecar, 0 span batches from the Collector (294 KB cleared from their memory)",
+  "[ok]   runtime_traffic    17 records       8.6 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             2 records     280.4 ms  -> /work/raw/openapi.json",
+  "! ftgo-api-gateway: no live spec at any probed path",
+  "! ftgo-consumer-service: no live spec at any probed path",
+  "! ftgo-order-service: no live spec at any probed path",
+  "! ftgo-order-history-service: no live spec at any probed path",
+  "! ftgo-kitchen-service: no live spec at any probed path",
+  "! ftgo-restaurant-service: no live spec at any probed path",
+  "[ok]   infrastructure     33 records      98.1 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain           0 records       0.1 ms  -> /work/raw/callchain.json",
+  "! no spans found; is the OTel exporter writing to trace_paths?",
+  "[ok]   17 endpoints in 11 services (4 documented, 13 shadow)  -> /work/eujf.json",
+  "[ok]   98 findings (critical 5, high 19, medium 24, low 50), 98 attack paths, path risk 338",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] ftgo: 17 APIs, 98 findings, 98 attack paths, path risk 338",
+  "[scan] threat graph exported to output/site/exports/1-ftgo/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-113914-ba5f0a",
+ "summary": {
+  "findings": 98,
+  "by_severity": {
+   "critical": 5,
+   "high": 19,
+   "medium": 24,
+   "low": 50
+  },
+  "attack_paths": 98,
+  "critical_paths": 0,
+  "total_path_risk": 338.0,
+  "endpoints": 17,
+  "shadow_endpoints": 13,
+  "services": 11,
+  "rules_evaluated": 27,
+  "rules_fired": 9,
+  "label": "ftgo"
+ },
+ "eujf_summary": {
+  "services": 11,
+  "endpoints": 17,
+  "inventory": {
+   "shadow": 13,
+   "documented": 4
+  },
+  "confidence": {
+   "HIGH": 4,
+   "MEDIUM": 13,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 8,
+  "endpoints_with_sensitive_data": 0,
+  "dependencies": 17,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:ftgo-api-gateway:POST:/consumers",
+   "service": "ftgo-api-gateway",
+   "method": "POST",
+   "path": "/consumers",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/consumers"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:GET:/consumers/{}",
+   "service": "ftgo-api-gateway",
+   "method": "GET",
+   "path": "/consumers/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/consumers/{id}"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:GET:/orders",
+   "service": "ftgo-api-gateway",
+   "method": "GET",
+   "path": "/orders",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/orders"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:POST:/orders",
+   "service": "ftgo-api-gateway",
+   "method": "POST",
+   "path": "/orders",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/orders"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:POST:/orders/{}/cancel",
+   "service": "ftgo-api-gateway",
+   "method": "POST",
+   "path": "/orders/{id}/cancel",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/orders/{id}/cancel"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:POST:/orders/{}/revise",
+   "service": "ftgo-api-gateway",
+   "method": "POST",
+   "path": "/orders/{id}/revise",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/orders/{id}/revise"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:POST:/restaurants",
+   "service": "ftgo-api-gateway",
+   "method": "POST",
+   "path": "/restaurants",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/restaurants"
+   ]
+  },
+  {
+   "id": "ep:ftgo-api-gateway:GET:/restaurants/{}",
+   "service": "ftgo-api-gateway",
+   "method": "GET",
+   "path": "/restaurants/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/restaurants/{id}"
+   ]
+  },
+  {
+   "id": "ep:ftgo-consumer-service:POST:/consumers",
+   "service": "ftgo-consumer-service",
+   "method": "POST",
+   "path": "/consumers",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-consumer-service:GET:/consumers/{}",
+   "service": "ftgo-consumer-service",
+   "method": "GET",
+   "path": "/consumers/{consumerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-kitchen-service:POST:/tickets/{}/accept",
+   "service": "ftgo-kitchen-service",
+   "method": "POST",
+   "path": "/tickets/{id}/accept",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-order-history-service:GET:/orders",
+   "service": "ftgo-order-history-service",
+   "method": "GET",
+   "path": "/orders",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-order-service:POST:/orders",
+   "service": "ftgo-order-service",
+   "method": "POST",
+   "path": "/orders",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-order-service:POST:/orders/{}/cancel",
+   "service": "ftgo-order-service",
+   "method": "POST",
+   "path": "/orders/{id}/cancel",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-order-service:POST:/orders/{}/revise",
+   "service": "ftgo-order-service",
+   "method": "POST",
+   "path": "/orders/{id}/revise",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-restaurant-service:POST:/restaurants",
+   "service": "ftgo-restaurant-service",
+   "method": "POST",
+   "path": "/restaurants",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ftgo-restaurant-service:GET:/restaurants/{}",
+   "service": "ftgo-restaurant-service",
+   "method": "GET",
+   "path": "/restaurants/{restaurantId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-api-gateway:POST:/consumers",
+   "detail": "POST /consumers (ftgo-api-gateway) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-api-gateway:POST:/orders",
+   "detail": "POST /orders (ftgo-api-gateway) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-api-gateway:POST:/orders/{}/cancel",
+   "detail": "POST /orders/{id}/cancel (ftgo-api-gateway) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-api-gateway:POST:/orders/{}/revise",
+   "detail": "POST /orders/{id}/revise (ftgo-api-gateway) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-api-gateway:POST:/restaurants",
+   "detail": "POST /restaurants (ftgo-api-gateway) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:ftgo-consumer-service",
+   "detail": "SPRING_DATASOURCE_PASSWORD is written in plaintext in the ftgo-consumer-service manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:ftgo-dynamodb-local-init",
+   "detail": "AWS_SECRET_ACCESS_KEY is written in plaintext in the ftgo-dynamodb-local-init manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:ftgo-mysql",
+   "detail": "MYSQL_ROOT_PASSWORD is written in plaintext in the ftgo-mysql manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:ftgo-mysql",
+   "detail": "MYSQL_PASSWORD is written in plaintext in the ftgo-mysql manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:ftgo-order-history-service",
+   "detail": "AWS_SECRET_ACCESS_KEY is written in plaintext in the ftgo-order-history-service manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:GET:/consumers/{}",
+   "detail": "GET /consumers/{id} (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:GET:/orders",
+   "detail": "GET /orders (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:GET:/restaurants/{}",
+   "detail": "GET /restaurants/{id} (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:POST:/consumers",
+   "detail": "POST /consumers (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:POST:/orders",
+   "detail": "POST /orders (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:POST:/orders/{}/cancel",
+   "detail": "POST /orders/{id}/cancel (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:POST:/orders/{}/revise",
+   "detail": "POST /orders/{id}/revise (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-api-gateway:POST:/restaurants",
+   "detail": "POST /restaurants (ftgo-api-gateway) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-consumer-service:POST:/consumers",
+   "detail": "POST /consumers (ftgo-consumer-service) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-order-service:POST:/orders",
+   "detail": "POST /orders (ftgo-order-service) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-order-service:POST:/orders/{}/cancel",
+   "detail": "POST /orders/{id}/cancel (ftgo-order-service) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-order-service:POST:/orders/{}/revise",
+   "detail": "POST /orders/{id}/revise (ftgo-order-service) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-restaurant-service:POST:/restaurants",
+   "detail": "POST /restaurants (ftgo-restaurant-service) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ftgo-kitchen-service:POST:/tickets/{}/accept",
+   "detail": "POST /tickets/{id}/accept (ftgo-kitchen-service) returned 2xx to 5 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-api-gateway",
+   "detail": "ftgo-api-gateway accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-consumer-service",
+   "detail": "ftgo-consumer-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-dynamodb-local",
+   "detail": "ftgo-dynamodb-local accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-dynamodb-local-init",
+   "detail": "ftgo-dynamodb-local-init accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-kafka",
+   "detail": "ftgo-kafka accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-kitchen-service",
+   "detail": "ftgo-kitchen-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-mysql",
+   "detail": "ftgo-mysql accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-order-history-service",
+   "detail": "ftgo-order-history-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-order-service",
+   "detail": "ftgo-order-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-restaurant-service",
+   "detail": "ftgo-restaurant-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ftgo-zookeeper",
+   "detail": "ftgo-zookeeper accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-api-gateway",
+   "detail": "ftgo-api-gateway uses image msapatterns/ftgo-api-gateway:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-consumer-service",
+   "detail": "ftgo-consumer-service uses image msapatterns/ftgo-consumer-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-dynamodb-local-init",
+   "detail": "ftgo-dynamodb-local-init uses image msapatterns/dynamodblocal-init",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-kitchen-service",
+   "detail": "ftgo-kitchen-service uses image msapatterns/ftgo-kitchen-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-mysql",
+   "detail": "ftgo-mysql uses image msapatterns/mysql:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-order-history-service",
+   "detail": "ftgo-order-history-service uses image msapatterns/ftgo-order-history-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-order-service",
+   "detail": "ftgo-order-service uses image msapatterns/ftgo-order-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:ftgo-restaurant-service",
+   "detail": "ftgo-restaurant-service uses image msapatterns/ftgo-restaurant-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-order-history-service:GET:/orders",
+   "detail": "GET /orders (ftgo-order-history-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-order-service:POST:/orders",
+   "detail": "POST /orders (ftgo-order-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-order-service:POST:/orders/{}/cancel",
+   "detail": "POST /orders/{id}/cancel (ftgo-order-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-order-service:POST:/orders/{}/revise",
+   "detail": "POST /orders/{id}/revise (ftgo-order-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ftgo-kitchen-service:POST:/tickets/{}/accept",
+   "detail": "POST /tickets/{id}/accept (ftgo-kitchen-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-api-gateway",
+   "detail": "ftgo-api-gateway: no live spec; 0 of 8 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-consumer-service",
+   "detail": "ftgo-consumer-service: no live spec; 2 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-dynamodb-local",
+   "detail": "ftgo-dynamodb-local: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-dynamodb-local-init",
+   "detail": "ftgo-dynamodb-local-init: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-kafka",
+   "detail": "ftgo-kafka: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-kitchen-service",
+   "detail": "ftgo-kitchen-service: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-mysql",
+   "detail": "ftgo-mysql: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-order-history-service",
+   "detail": "ftgo-order-history-service: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-order-service",
+   "detail": "ftgo-order-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-restaurant-service",
+   "detail": "ftgo-restaurant-service: no live spec; 2 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ftgo-zookeeper",
+   "detail": "ftgo-zookeeper: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-api-gateway",
+   "detail": "ftgo-api-gateway is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-consumer-service",
+   "detail": "ftgo-consumer-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-dynamodb-local",
+   "detail": "ftgo-dynamodb-local is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-dynamodb-local-init",
+   "detail": "ftgo-dynamodb-local-init is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-kafka",
+   "detail": "ftgo-kafka is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-kitchen-service",
+   "detail": "ftgo-kitchen-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-mysql",
+   "detail": "ftgo-mysql is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-order-history-service",
+   "detail": "ftgo-order-history-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-order-service",
+   "detail": "ftgo-order-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-restaurant-service",
+   "detail": "ftgo-restaurant-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ftgo-zookeeper",
+   "detail": "ftgo-zookeeper is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-consumer-service:GET:/consumers/{}",
+   "detail": "GET /consumers/{consumerId} (ftgo-consumer-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:GET:/consumers/{}",
+   "detail": "GET /consumers/{id} (ftgo-api-gateway): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:GET:/orders",
+   "detail": "GET /orders (ftgo-api-gateway): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-order-history-service:GET:/orders",
+   "detail": "GET /orders (ftgo-order-history-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:GET:/restaurants/{}",
+   "detail": "GET /restaurants/{id} (ftgo-api-gateway): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-restaurant-service:GET:/restaurants/{}",
+   "detail": "GET /restaurants/{restaurantId} (ftgo-restaurant-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:POST:/consumers",
+   "detail": "POST /consumers (ftgo-api-gateway): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-consumer-service:POST:/consumers",
+   "detail": "POST /consumers (ftgo-consumer-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:POST:/orders",
+   "detail": "POST /orders (ftgo-api-gateway): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-order-service:POST:/orders",
+   "detail": "POST /orders (ftgo-order-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:POST:/orders/{}/cancel",
+   "detail": "POST /orders/{id}/cancel (ftgo-api-gateway): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-order-service:POST:/orders/{}/cancel",
+   "detail": "POST /orders/{id}/cancel (ftgo-order-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:POST:/orders/{}/revise",
+   "detail": "POST /orders/{id}/revise (ftgo-api-gateway): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-order-service:POST:/orders/{}/revise",
+   "detail": "POST /orders/{id}/revise (ftgo-order-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-api-gateway:POST:/restaurants",
+   "detail": "POST /restaurants (ftgo-api-gateway): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-restaurant-service:POST:/restaurants",
+   "detail": "POST /restaurants (ftgo-restaurant-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ftgo-kitchen-service:POST:/tickets/{}/accept",
+   "detail": "POST /tickets/{id}/accept (ftgo-kitchen-service): 5 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-api-gateway",
+   "detail": "ftgo-api-gateway does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-consumer-service",
+   "detail": "ftgo-consumer-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-dynamodb-local",
+   "detail": "ftgo-dynamodb-local does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-dynamodb-local-init",
+   "detail": "ftgo-dynamodb-local-init does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-kafka",
+   "detail": "ftgo-kafka does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-kitchen-service",
+   "detail": "ftgo-kitchen-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-mysql",
+   "detail": "ftgo-mysql does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-order-history-service",
+   "detail": "ftgo-order-history-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-order-service",
+   "detail": "ftgo-order-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-restaurant-service",
+   "detail": "ftgo-restaurant-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ftgo-zookeeper",
+   "detail": "ftgo-zookeeper does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [],
+ "services": [
+  {
+   "name": "ftgo-api-gateway",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-consumer-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-dynamodb-local",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-dynamodb-local-init",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-kafka",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-kitchen-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-mysql",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-order-history-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-order-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-restaurant-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ftgo-zookeeper",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ]
+}

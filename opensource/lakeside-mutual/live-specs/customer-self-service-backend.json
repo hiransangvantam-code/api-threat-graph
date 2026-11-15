@@ -1,0 +1,544 @@
+{
+ "openapi": "3.0.1",
+ "info": {
+  "title": "customer-self-service-backend API",
+  "version": "v1"
+ },
+ "servers": [
+  {
+   "url": "http://customer-self-service-backend:8080"
+  }
+ ],
+ "paths": {
+  "/auth": {
+   "post": {
+    "operationId": "post_auth",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {}
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/auth/signup": {
+   "post": {
+    "operationId": "post_auth_signup",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "email": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "email": {
+          "type": "string"
+         },
+         "password": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/user": {
+   "get": {
+    "operationId": "get_user",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "email": {
+           "type": "string"
+          },
+          "customerId": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/cities/{postalCode}": {
+   "get": {
+    "operationId": "get_cities_postalCode",
+    "parameters": [
+     {
+      "name": "postalCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "cities": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/insurance-quote-requests": {
+   "get": {
+    "operationId": "get_insurance_quote_requests",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "id": {
+            "type": "integer"
+           },
+           "statusHistory": {
+            "type": "array",
+            "items": {
+             "type": "object",
+             "properties": {
+              "status": {
+               "type": "string"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   },
+   "post": {
+    "operationId": "post_insurance_quote_requests",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "customerInfo": {
+          "type": "object",
+          "properties": {
+           "customerId": {
+            "type": "integer"
+           }
+          }
+         },
+         "insuranceOptions": {
+          "type": "object",
+          "properties": {
+           "insuranceType": {
+            "type": "string"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/insurance-quote-requests/{insuranceQuoteRequestId}": {
+   "get": {
+    "operationId": "get_insurance_quote_requests_insuranceQuoteRequestId",
+    "parameters": [
+     {
+      "name": "insuranceQuoteRequestId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "customerInfo": {
+           "type": "object",
+           "properties": {
+            "customerId": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/insurance-quote-requests/{id}": {
+   "patch": {
+    "operationId": "patch_insurance_quote_requests_id",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "status": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/customers/{customerId}/address": {
+   "put": {
+    "operationId": "put_customers_customerId_address",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "streetAddress": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "streetAddress": {
+          "type": "string"
+         },
+         "postalCode": {
+          "type": "string"
+         },
+         "city": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/customers/{customerId}": {
+   "get": {
+    "operationId": "get_customers_customerId",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          },
+          "firstname": {
+           "type": "string"
+          },
+          "lastname": {
+           "type": "string"
+          },
+          "email": {
+           "type": "string"
+          },
+          "birthday": {
+           "type": "string"
+          },
+          "streetAddress": {
+           "type": "string"
+          },
+          "phoneNumber": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/customers": {
+   "post": {
+    "operationId": "post_customers",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "firstname": {
+          "type": "string"
+         },
+         "lastname": {
+          "type": "string"
+         },
+         "birthday": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  },
+  "/customers/{customerId}/insurance-quote-requests": {
+   "get": {
+    "operationId": "get_customers_customerId_insurance_quote_requests",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "id": {
+            "type": "integer"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "bearerAuth": []
+     }
+    ]
+   }
+  }
+ },
+ "components": {
+  "securitySchemes": {
+   "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+   },
+   "apiKey": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "Authorization"
+   }
+  }
+ }
+}

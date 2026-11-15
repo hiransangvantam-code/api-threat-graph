@@ -1,0 +1,314 @@
+{
+ "openapi": "3.0.1",
+ "info": {
+  "title": "customer-core API",
+  "version": "v1"
+ },
+ "servers": [
+  {
+   "url": "http://customer-core:8110"
+  }
+ ],
+ "paths": {
+  "/customers": {
+   "get": {
+    "operationId": "get_customers",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customers": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "customerId": {
+              "type": "integer"
+             },
+             "firstname": {
+              "type": "string"
+             },
+             "lastname": {
+              "type": "string"
+             },
+             "email": {
+              "type": "string"
+             },
+             "phoneNumber": {
+              "type": "string"
+             },
+             "streetAddress": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ]
+   },
+   "post": {
+    "operationId": "post_customers",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ]
+   }
+  },
+  "/customers/{ids}": {
+   "get": {
+    "operationId": "get_customers_ids",
+    "parameters": [
+     {
+      "name": "ids",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customers": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "customerId": {
+              "type": "integer"
+             },
+             "email": {
+              "type": "string"
+             },
+             "birthday": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ]
+   }
+  },
+  "/customers/{customerId}": {
+   "put": {
+    "operationId": "put_customers_customerId",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ]
+   }
+  },
+  "/customers/{customerId}/address": {
+   "put": {
+    "operationId": "put_customers_customerId_address",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "streetAddress": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ]
+   }
+  },
+  "/cities/{postalCode}": {
+   "get": {
+    "operationId": "get_cities_postalCode",
+    "parameters": [
+     {
+      "name": "postalCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "cities": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ]
+   }
+  },
+  "/getCustomers/{ids}": {
+   "get": {
+    "operationId": "get_getCustomers_ids",
+    "parameters": [
+     {
+      "name": "ids",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "customerId": {
+            "type": "integer"
+           },
+           "email": {
+            "type": "string"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "apiKey": []
+     }
+    ],
+    "deprecated": true
+   }
+  }
+ },
+ "components": {
+  "securitySchemes": {
+   "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+   },
+   "apiKey": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "Authorization"
+   }
+  }
+ }
+}

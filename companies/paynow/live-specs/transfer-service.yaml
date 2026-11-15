@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: PayNow Transfer Service API
+  version: 1.9.0
+servers:
+- url: http://transfer-service:8080
+paths:
+  /transfers:
+    post:
+      operationId: post_transfers
+      summary: POST /transfers
+      tags:
+      - transfer-service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from_wallet:
+                  type: integer
+                to_wallet:
+                  type: integer
+                amount:
+                  type: integer
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transfer_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+      security:
+      - bearerAuth: []
+  /transfers/{transfer_id}:
+    get:
+      operationId: get_transfers_transfer_id
+      summary: GET /transfers/{transfer_id}
+      tags:
+      - transfer-service
+      parameters:
+      - name: transfer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transfer_id:
+                    type: integer
+                  owner_id:
+                    type: string
+                  amount:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

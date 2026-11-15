@@ -1,0 +1,129 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "InsureCo Policy Service API",
+    "version": "3.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://policy-service:8000"
+    }
+  ],
+  "paths": {
+    "/policies": {
+      "get": {
+        "operationId": "get_policies",
+        "summary": "GET /policies",
+        "tags": [
+          "policy-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "policy_id": {
+                            "type": "integer"
+                          },
+                          "product": {
+                            "type": "string"
+                          },
+                          "premium_amount": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/policies/{policy_id}": {
+      "get": {
+        "operationId": "get_policies_policy_id",
+        "summary": "GET /policies/{policy_id}",
+        "tags": [
+          "policy-service"
+        ],
+        "parameters": [
+          {
+            "name": "policy_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "policy_id": {
+                      "type": "integer"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "product": {
+                      "type": "string"
+                    },
+                    "premium_amount": {
+                      "type": "integer"
+                    },
+                    "insured_address": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

@@ -1,0 +1,398 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "C10",
+   "svc:adservice"
+  ],
+  [
+   "C10",
+   "svc:cartservice"
+  ],
+  [
+   "C10",
+   "svc:checkoutservice"
+  ],
+  [
+   "C10",
+   "svc:currencyservice"
+  ],
+  [
+   "C10",
+   "svc:emailservice"
+  ],
+  [
+   "C10",
+   "svc:frontend"
+  ],
+  [
+   "C10",
+   "svc:loadgenerator"
+  ],
+  [
+   "C10",
+   "svc:paymentservice"
+  ],
+  [
+   "C10",
+   "svc:productcatalogservice"
+  ],
+  [
+   "C10",
+   "svc:recommendationservice"
+  ],
+  [
+   "C10",
+   "svc:redis-cart"
+  ],
+  [
+   "C10",
+   "svc:shippingservice"
+  ],
+  [
+   "C6",
+   "svc:adservice"
+  ],
+  [
+   "C6",
+   "svc:cartservice"
+  ],
+  [
+   "C6",
+   "svc:checkoutservice"
+  ],
+  [
+   "C6",
+   "svc:currencyservice"
+  ],
+  [
+   "C6",
+   "svc:emailservice"
+  ],
+  [
+   "C6",
+   "svc:frontend"
+  ],
+  [
+   "C6",
+   "svc:loadgenerator"
+  ],
+  [
+   "C6",
+   "svc:paymentservice"
+  ],
+  [
+   "C6",
+   "svc:productcatalogservice"
+  ],
+  [
+   "C6",
+   "svc:recommendationservice"
+  ],
+  [
+   "C6",
+   "svc:redis-cart"
+  ],
+  [
+   "C6",
+   "svc:shippingservice"
+  ],
+  [
+   "C9",
+   "svc:adservice"
+  ],
+  [
+   "C9",
+   "svc:cartservice"
+  ],
+  [
+   "C9",
+   "svc:checkoutservice"
+  ],
+  [
+   "C9",
+   "svc:currencyservice"
+  ],
+  [
+   "C9",
+   "svc:emailservice"
+  ],
+  [
+   "C9",
+   "svc:frontend"
+  ],
+  [
+   "C9",
+   "svc:loadgenerator"
+  ],
+  [
+   "C9",
+   "svc:paymentservice"
+  ],
+  [
+   "C9",
+   "svc:productcatalogservice"
+  ],
+  [
+   "C9",
+   "svc:recommendationservice"
+  ],
+  [
+   "C9",
+   "svc:redis-cart"
+  ],
+  [
+   "C9",
+   "svc:shippingservice"
+  ]
+ ],
+ "raw": {
+  "C-0210": 12,
+  "C-0061": 12,
+  "C-0260": 12,
+  "C-0034": 12,
+  "C-0055": 12,
+  "C-0077": 12,
+  "C-0030": 12,
+  "C-0236": 12,
+  "C-0237": 12,
+  "C-0211": 12,
+  "C-0190": 12,
+  "C-0056": 1,
+  "C-0018": 1
+ },
+ "seconds": 8.21,
+ "findings": 134,
+ "score": {
+  "labels": 55,
+  "found": 24,
+  "reported": 36,
+  "confirmed": 24,
+  "by_group": {
+   "Configuration": {
+    "labels": 36,
+    "found": 24,
+    "reported": 36,
+    "confirmed": 24
+   },
+   "API behaviour": {
+    "labels": 9,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 10,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 9,
+    "found": 0
+   },
+   "C10": {
+    "labels": 12,
+    "found": 12
+   },
+   "C4": {
+    "labels": 11,
+    "found": 0
+   },
+   "C6": {
+    "labels": 12,
+    "found": 12
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "O1": {
+    "labels": 10,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A5",
+    "svc:adservice"
+   ],
+   [
+    "A5",
+    "svc:cartservice"
+   ],
+   [
+    "A5",
+    "svc:checkoutservice"
+   ],
+   [
+    "A5",
+    "svc:currencyservice"
+   ],
+   [
+    "A5",
+    "svc:emailservice"
+   ],
+   [
+    "A5",
+    "svc:paymentservice"
+   ],
+   [
+    "A5",
+    "svc:productcatalogservice"
+   ],
+   [
+    "A5",
+    "svc:recommendationservice"
+   ],
+   [
+    "A5",
+    "svc:shippingservice"
+   ],
+   [
+    "C4",
+    "svc:adservice"
+   ],
+   [
+    "C4",
+    "svc:cartservice"
+   ],
+   [
+    "C4",
+    "svc:checkoutservice"
+   ],
+   [
+    "C4",
+    "svc:currencyservice"
+   ],
+   [
+    "C4",
+    "svc:emailservice"
+   ],
+   [
+    "C4",
+    "svc:frontend"
+   ],
+   [
+    "C4",
+    "svc:loadgenerator"
+   ],
+   [
+    "C4",
+    "svc:paymentservice"
+   ],
+   [
+    "C4",
+    "svc:productcatalogservice"
+   ],
+   [
+    "C4",
+    "svc:recommendationservice"
+   ],
+   [
+    "C4",
+    "svc:shippingservice"
+   ],
+   [
+    "C8",
+    "svc:frontend"
+   ],
+   [
+    "O1",
+    "svc:adservice"
+   ],
+   [
+    "O1",
+    "svc:cartservice"
+   ],
+   [
+    "O1",
+    "svc:checkoutservice"
+   ],
+   [
+    "O1",
+    "svc:currencyservice"
+   ],
+   [
+    "O1",
+    "svc:emailservice"
+   ],
+   [
+    "O1",
+    "svc:frontend"
+   ],
+   [
+    "O1",
+    "svc:paymentservice"
+   ],
+   [
+    "O1",
+    "svc:productcatalogservice"
+   ],
+   [
+    "O1",
+    "svc:recommendationservice"
+   ],
+   [
+    "O1",
+    "svc:shippingservice"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "C9",
+    "svc:adservice"
+   ],
+   [
+    "C9",
+    "svc:cartservice"
+   ],
+   [
+    "C9",
+    "svc:checkoutservice"
+   ],
+   [
+    "C9",
+    "svc:currencyservice"
+   ],
+   [
+    "C9",
+    "svc:emailservice"
+   ],
+   [
+    "C9",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:loadgenerator"
+   ],
+   [
+    "C9",
+    "svc:paymentservice"
+   ],
+   [
+    "C9",
+    "svc:productcatalogservice"
+   ],
+   [
+    "C9",
+    "svc:recommendationservice"
+   ],
+   [
+    "C9",
+    "svc:redis-cart"
+   ],
+   [
+    "C9",
+    "svc:shippingservice"
+   ]
+  ],
+  "in_reach": {
+   "labels": 36,
+   "found": 24
+  }
+ }
+}

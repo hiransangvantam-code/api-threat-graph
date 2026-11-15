@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Sim Service API",
+    "version": "1.9.0"
+  },
+  "servers": [
+    {
+      "url": "http://sim-service:8080"
+    }
+  ],
+  "paths": {
+    "/sims/{sim_id}/swap": {
+      "post": {
+        "operationId": "post_sims_sim_id_swap",
+        "summary": "POST /sims/{sim_id}/swap",
+        "tags": [
+          "sim-service"
+        ],
+        "parameters": [
+          {
+            "name": "sim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sim_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

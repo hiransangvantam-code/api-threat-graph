@@ -1,0 +1,94 @@
+# LearnHub: online courses. Node.js services behind an in-house gateway configured by a ConfigMap.
+id: learnhub
+name: LearnHub
+industry: Education (online learning)
+about: Students enrol in courses and see their grades; instructors grade. A legacy quiz service from an acquired startup still runs.
+language: node
+credential: bearer
+domain: api.learnhub.example
+spec: {path: /api-docs, version: 3.0.3, format: json}
+
+gateway:
+  name: edge-gateway
+  type: configmap
+  version: 1.8.0
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/courses, service: course-service, to: /courses}
+    - {prefix: /api/enrollments, service: enrollment-service, to: /enrollments}
+    - {prefix: /api/grades, service: grade-service, to: /grades}
+    - {prefix: /api/admin, service: admin-service, to: /admin}
+    - {prefix: /api/quizzes, service: legacy-quiz-service, to: /quizzes}
+
+services:
+  auth-service: {version: 1.1.0}
+
+  course-service:
+    version: 4.0.2
+    flaws: [latest_tag]
+    routes:
+      GET /courses:
+        returns: {items: [{course_id: $n, title: Course, level: beginner}]}
+        weight: 3
+      GET /courses/{course_id}:
+        returns: {course_id: $course_id, title: Course, instructor: staff1, lessons: 12}
+      GET /courses/{course_id}/materials:
+        returns: {course_id: $course_id, items: [{material_id: $n, kind: video}]}
+
+  enrollment-service:
+    version: 2.1.0
+    routes:
+      POST /enrollments:
+        body: {course_id: 101}
+        calls: ["GET course-service /courses/101"]
+        status: 201
+        returns: {enrollment_id: $n, status: active}
+      GET /enrollments/{enrollment_id}:
+        owner: enrollment_id
+        returns: {enrollment_id: $enrollment_id, user_id: $owner, course_id: 101, progress: 40}
+
+  grade-service:
+    version: 1.6.1
+    routes:
+      GET /grades/{student_id}:
+        owner: student_id
+        owner_check: false
+        returns: {user_id: $owner, items: [{course_id: 101, grade: B+}]}
+        weight: 3
+      PUT /grades/{student_id}/courses/{course_id}:
+        auth: admin
+        body: {grade: A}
+        returns: {student_id: $student_id, course_id: $course_id, status: updated}
+
+  admin-service:
+    version: 0.4.0
+    routes:
+      GET /admin/stats:
+        auth: admin
+        returns: {active_users: 0, courses: 0}
+      GET /admin/users/export:
+        weight: 1
+        returns: {items: [{user_id: $n, email: "***", phone: "***"}]}
+
+  legacy-quiz-service:
+    version: 0.9.0
+    spec: none
+    routes:
+      GET /quizzes/{quiz_id}:
+        returns: {quiz_id: $quiz_id, questions: 10}
+      POST /quizzes/{quiz_id}/attempts:
+        body: {answers: [1, 3, 2]}
+        status: 201
+        returns: {attempt_id: $n, score: 7}
+
+planted:
+  - {rule: API1, at: "GET /grades/{student_id}", why: "No owner check: any student can read any student's grades."}
+  - {rule: API5, at: "GET /admin/users/export", expect_miss: "The role check is missing, but anonymous callers still get 401; passive traffic cannot tell a student from staff.", why: "User export only checks that the caller is logged in, not that they are staff."}
+  - {rule: API9-NOSPEC, at: legacy-quiz-service, why: "The acquired quiz service has no API document at all."}
+  - {rule: API9-SHADOW, at: "GET /quizzes/{quiz_id}", why: "Undocumented."}
+  - {rule: API9-SHADOW, at: "POST /quizzes/{quiz_id}/attempts", why: "Undocumented."}
+  - {rule: API8-TAG, at: course-service, why: "Deployed from the :latest image tag."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "The gateway route config rate-limits the login."}
+  - {rule: API5, at: "GET /admin/stats", why: "Staff only: students get 403."}

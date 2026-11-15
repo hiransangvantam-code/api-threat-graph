@@ -1,0 +1,213 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CareLink Patient Service API",
+    "version": "4.2.0"
+  },
+  "servers": [
+    {
+      "url": "http://patient-service:8000"
+    }
+  ],
+  "paths": {
+    "/patients/{patient_id}": {
+      "get": {
+        "operationId": "get_patients_patient_id",
+        "summary": "GET /patients/{patient_id}",
+        "tags": [
+          "patient-service"
+        ],
+        "parameters": [
+          {
+            "name": "patient_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "patient_id": {
+                      "type": "integer"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "dob": {
+                      "type": "string"
+                    },
+                    "blood_type": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/patients/{patient_id}/contact-preferences": {
+      "put": {
+        "operationId": "put_patients_patient_id_contact_preferences",
+        "summary": "PUT /patients/{patient_id}/contact-preferences",
+        "tags": [
+          "patient-service"
+        ],
+        "parameters": [
+          {
+            "name": "patient_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "channel": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "patient_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/patients/search": {
+      "get": {
+        "operationId": "get_patients_search",
+        "summary": "GET /patients/search",
+        "tags": [
+          "patient-service"
+        ],
+        "parameters": [
+          {
+            "name": "ward",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "patient_id": {
+                            "type": "integer"
+                          },
+                          "customer_id": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

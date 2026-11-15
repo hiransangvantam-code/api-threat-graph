@@ -32,6 +32,8 @@ DEFAULT_PROBE_PATHS = [
     "/api-docs",
     "/swagger/v1/swagger.json",
     "/api/openapi.json",
+    "/openapi",          # MicroProfile OpenAPI (Open Liberty, Payara)
+    "/q/openapi",        # Quarkus
 ]
 METHODS = ("get", "put", "post", "delete", "patch", "head", "options", "trace")
 

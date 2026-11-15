@@ -1,0 +1,197 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "InsureCo Claim Service API",
+    "version": "4.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://claim-service:8000"
+    }
+  ],
+  "paths": {
+    "/claims": {
+      "post": {
+        "operationId": "post_claims",
+        "summary": "POST /claims",
+        "tags": [
+          "claim-service"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "policy_id": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "photo_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claim_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/claims/{claim_id}": {
+      "get": {
+        "operationId": "get_claims_claim_id",
+        "summary": "GET /claims/{claim_id}",
+        "tags": [
+          "claim-service"
+        ],
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claim_id": {
+                      "type": "integer"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/claims/{claim_id}/documents": {
+      "get": {
+        "operationId": "get_claims_claim_id_documents",
+        "summary": "GET /claims/{claim_id}/documents",
+        "tags": [
+          "claim-service"
+        ],
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claim_id": {
+                      "type": "integer"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "document_id": {
+                            "type": "integer"
+                          },
+                          "kind": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

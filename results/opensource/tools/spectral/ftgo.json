@@ -1,0 +1,455 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "A1",
+   "ep:ftgo-consumer-service:GET:/consumers/{}"
+  ],
+  [
+   "A1",
+   "ep:ftgo-consumer-service:POST:/consumers"
+  ],
+  [
+   "A1",
+   "ep:ftgo-restaurant-service:GET:/restaurants/{}"
+  ],
+  [
+   "A1",
+   "ep:ftgo-restaurant-service:POST:/restaurants"
+  ],
+  [
+   "C8",
+   "svc:ftgo-consumer-service"
+  ],
+  [
+   "C8",
+   "svc:ftgo-restaurant-service"
+  ]
+ ],
+ "raw": {
+  "owasp:api2:2023-write-restricted": 2,
+  "owasp:api4:2023-rate-limit-responses-429": 8,
+  "owasp:api8:2023-define-error-responses-401": 8,
+  "owasp:api8:2023-define-error-responses-500": 8,
+  "owasp:api8:2023-define-error-validation": 4,
+  "owasp:api2:2023-read-restricted": 2,
+  "owasp:api4:2023-integer-limit-legacy": 6,
+  "owasp:api4:2023-string-limit": 12,
+  "owasp:api4:2023-string-restricted": 12,
+  "owasp:api4:2023-array-limit": 1
+ },
+ "seconds": 1.74,
+ "findings": 63,
+ "score": {
+  "labels": 82,
+  "found": 2,
+  "reported": 6,
+  "confirmed": 2,
+  "by_group": {
+   "Configuration": {
+    "labels": 68,
+    "found": 0,
+    "reported": 2,
+    "confirmed": 0
+   },
+   "API behaviour": {
+    "labels": 6,
+    "found": 2,
+    "reported": 4,
+    "confirmed": 2
+   },
+   "Inventory and visibility": {
+    "labels": 8,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 6,
+    "found": 2
+   },
+   "C1": {
+    "labels": 11,
+    "found": 0
+   },
+   "C10": {
+    "labels": 11,
+    "found": 0
+   },
+   "C3": {
+    "labels": 11,
+    "found": 0
+   },
+   "C4": {
+    "labels": 8,
+    "found": 0
+   },
+   "C6": {
+    "labels": 11,
+    "found": 0
+   },
+   "C7": {
+    "labels": 5,
+    "found": 0
+   },
+   "C9": {
+    "labels": 11,
+    "found": 0
+   },
+   "O1": {
+    "labels": 3,
+    "found": 0
+   },
+   "O2": {
+    "labels": 5,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:ftgo-kitchen-service:POST:/tickets/{}/accept"
+   ],
+   [
+    "A1",
+    "ep:ftgo-order-history-service:GET:/orders"
+   ],
+   [
+    "A1",
+    "ep:ftgo-order-service:POST:/orders/{}/cancel"
+   ],
+   [
+    "A1",
+    "ep:ftgo-order-service:POST:/orders/{}/revise"
+   ],
+   [
+    "C1",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C1",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C1",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C1",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C1",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C1",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C1",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C1",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C1",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C1",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C1",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "C10",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C10",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C10",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C10",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C10",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C10",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "C3",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C3",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C3",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C3",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C3",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C3",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "C4",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C4",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C4",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C4",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C4",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C4",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C4",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C4",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C6",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C6",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C6",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C6",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C6",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C6",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C6",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C6",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C6",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C6",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C6",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "C7",
+    "secret:ftgo-db-secret"
+   ],
+   [
+    "C7",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C7",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C7",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C7",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C9",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C9",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C9",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C9",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C9",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "O1",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "O1",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "O1",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "O2",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "O2",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "O2",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "O2",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "O2",
+    "svc:ftgo-restaurant-service"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:ftgo-consumer-service:POST:/consumers"
+   ],
+   [
+    "A1",
+    "ep:ftgo-restaurant-service:GET:/restaurants/{}"
+   ],
+   [
+    "C8",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C8",
+    "svc:ftgo-restaurant-service"
+   ]
+  ],
+  "in_reach": {
+   "labels": 6,
+   "found": 2
+  }
+ }
+}

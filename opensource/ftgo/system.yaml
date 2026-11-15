@@ -1,0 +1,69 @@
+# FTGO (Microservices Patterns, Chris Richardson): gateway routes are Java code
+# (ftgo-api-gateway/.../OrderConfiguration.java, ConsumerConfiguration.java), service routes from
+# the *Controller.java classes. Most work between services goes over Kafka (sagas), not HTTP.
+id: ftgo
+name: FTGO
+field: Food delivery
+by: Chris Richardson (Microservices Patterns)
+upstream: {repo: https://github.com/microservices-patterns/ftgo-application, commit: 558dfc53b11d30a5f1d995c0c6d58d5106c28189, license: Apache-2.0}
+languages: [Java]
+artifacts:
+  manifests: [ftgo-api-gateway/src/deployment/kubernetes, ftgo-order-service/src/deployment/kubernetes, ftgo-consumer-service/src/deployment/kubernetes, ftgo-kitchen-service/src/deployment/kubernetes, ftgo-restaurant-service/src/deployment/kubernetes, ftgo-order-history-service/src/deployment/kubernetes, deployment/kubernetes/stateful-services]
+  spec_files:
+    - {path: ftgo-consumer-service-api-spec/src/main/resources/ftgo-consumer-service-swagger.json, service: ftgo-consumer-service}
+    - {path: ftgo-restaurant-service-api-spec/src/main/resources/ftgo-restaurant-service-api-spec/web/ftgo-restaurant-service-swagger.json, service: ftgo-restaurant-service}
+gateway:
+  name: ftgo-api-gateway
+  port: 8080
+  type: code
+  routes:
+    - {prefix: /orders, service: ftgo-order-history-service, methods: [GET]}
+    - {prefix: /orders, service: ftgo-order-service, methods: [POST, PUT]}
+    - {prefix: /consumers, service: ftgo-consumer-service}
+    - {prefix: /restaurants, service: ftgo-restaurant-service}
+  own_routes:
+    GET /orders/{orderId}: {calls: ["GET ftgo-order-service /orders/{orderId}", "GET ftgo-kitchen-service /restaurants/1"], returns: {orderId: $orderId, state: APPROVED, orderTotal: 0, deliveryAddress: "***"}, weight: 3}
+traced: false
+services:
+  ftgo-consumer-service:
+    port: 8080
+    language: Java
+    routes:
+      POST /consumers: {body: {name: {firstName: "***", lastName: "***"}}, returns: {consumerId: $n}, weight: 1}
+      GET /consumers/{consumerId}: {returns: {consumerId: $consumerId, name: {firstName: "***", lastName: "***"}}, weight: 2}
+  ftgo-order-service:
+    port: 8080
+    language: Java
+    routes:
+      POST /orders: {body: {consumerId: "$owned", restaurantId: 1, deliveryAddress: {street1: "***", city: Bangkok}, lineItems: [{menuItemId: 1, quantity: 2}]}, returns: {orderId: $n}, weight: 2}
+      GET /orders/{orderId}: {client: none, returns: {orderId: $orderId, state: APPROVED, orderTotal: 0}}
+      POST /orders/{orderId}/cancel: {returns: {orderId: $orderId, state: CANCEL_PENDING}, weight: 1}
+      POST /orders/{orderId}/revise: {body: {revisedOrderLineItems: [{menuItemId: 1, quantity: 3}]}, returns: {orderId: $orderId}, weight: 1}
+      GET /restaurants/{restaurantId}: {client: none, returns: {restaurantId: $restaurantId, name: Ajanta}}
+  ftgo-order-history-service:
+    port: 8080
+    language: Java
+    routes:
+      GET /orders: {query: {consumerId: 1001}, returns: {orders: [{orderId: $n, consumerId: 1001, orderTotal: 0}]}, weight: 2}
+      GET /orders/{orderId}: {client: none, returns: {orderId: $orderId, consumerId: 1001}}
+  ftgo-kitchen-service:
+    port: 8080
+    language: Java
+    routes:
+      POST /tickets/{ticketId}/accept: {client: none, body: {readyBy: "2026-11-15T12:00:00Z"}, returns: {}}
+      GET /restaurants/{restaurantId}: {client: none, returns: {restaurantId: $restaurantId}}
+  ftgo-restaurant-service:
+    port: 8080
+    language: Java
+    routes:
+      POST /restaurants: {body: {name: Ajanta, menu: {menuItems: [{id: 1, name: Curry, price: 12}]}}, returns: {restaurantId: $n}, weight: 1}
+      GET /restaurants/{restaurantId}: {returns: {restaurantId: $restaurantId, name: Ajanta}, weight: 2}
+cron:
+  - {name: kitchen-tablet, every: 3, calls: ["POST ftgo-kitchen-service /tickets/1001/accept"]}
+labels:
+  - {cat: A1, at: "GET /consumers/{consumerId} (ftgo-consumer-service)", why: "Consumer names for any id; there is no authentication anywhere in FTGO.", evidence: ConsumerController.java}
+  - {cat: A1, at: "GET /orders (ftgo-order-history-service)", why: "Any consumer's order history by consumerId, no login.", evidence: OrderHistoryController.java}
+  - {cat: A1, at: "POST /orders/{orderId}/cancel (ftgo-order-service)", why: "Anyone can cancel any order.", evidence: OrderController.java}
+  - {cat: A1, at: "POST /orders/{orderId}/revise (ftgo-order-service)", why: "Anyone can change any order.", evidence: OrderController.java}
+  - {cat: A1, at: "POST /restaurants (ftgo-restaurant-service)", why: "Anyone can create a restaurant with a menu.", evidence: RestaurantController.java}
+  - {cat: A1, at: "POST /tickets/{ticketId}/accept (ftgo-kitchen-service)", why: "Any pod can accept kitchen tickets, no credential.", evidence: KitchenController.java}

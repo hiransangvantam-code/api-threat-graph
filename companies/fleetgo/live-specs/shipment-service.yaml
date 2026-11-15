@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: FleetGo Shipment Service API
+  version: 6.1.0
+servers:
+- url: http://shipment-service:8080
+paths:
+  /shipments:
+    post:
+      operationId: post_shipments
+      summary: POST /shipments
+      tags:
+      - shipment-service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                origin_hub:
+                  type: string
+                destination_hub:
+                  type: string
+                weight_kg:
+                  type: integer
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shipment_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+      security:
+      - bearerAuth: []
+  /shipments/{shipment_id}:
+    get:
+      operationId: get_shipments_shipment_id
+      summary: GET /shipments/{shipment_id}
+      tags:
+      - shipment-service
+      parameters:
+      - name: shipment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shipment_id:
+                    type: integer
+                  customer_id:
+                    type: string
+                  status:
+                    type: string
+                  delivery_address:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /shipments/{shipment_id}/label:
+    get:
+      operationId: get_shipments_shipment_id_label
+      summary: GET /shipments/{shipment_id}/label
+      tags:
+      - shipment-service
+      parameters:
+      - name: shipment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shipment_id:
+                    type: integer
+                  format:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

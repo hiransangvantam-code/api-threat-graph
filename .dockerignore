@@ -9,3 +9,5 @@ venv/
 # raw traffic and traces of the experiment runs (hundreds of MB, not needed to run or view)
 results/*/*/capture/
 results/*/*/telemetry/
+companies/
+opensource/

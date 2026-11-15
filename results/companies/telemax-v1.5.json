@@ -1,0 +1,550 @@
+{
+ "company": "telemax",
+ "users": "TeleMax: 677 requests in 5.5 s, 14 sessions; status codes: 200 x437, 201 x90, 401 x81, 403 x68, 500 x1",
+ "startup_s": 12.5,
+ "scan_s": 7.4,
+ "scan_log": [
+  "[scan] telemax: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 1324 HTTP flows from the sidecar, 7 span batches from the Collector (2195 KB cleared from their memory)",
+  "[ok]   runtime_traffic    34 records      37.7 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi            10 records      60.4 ms  -> /work/raw/openapi.json",
+  "! api-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     55 records     164.7 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          71 records      24.7 ms  -> /work/raw/callchain.json",
+  "[ok]   18 endpoints in 11 services (17 documented, 1 shadow)  -> /work/eujf.json",
+  "[ok]   11 findings (critical 0, high 4, medium 4, low 3), 11 attack paths, path risk 76",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] telemax: 18 APIs, 11 findings, 11 attack paths, path risk 76",
+  "[scan] threat graph exported to output/site/exports/1-telemax/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-102428-fabc54",
+ "summary": {
+  "findings": 11,
+  "by_severity": {
+   "critical": 0,
+   "high": 4,
+   "medium": 4,
+   "low": 3
+  },
+  "attack_paths": 11,
+  "critical_paths": 2,
+  "total_path_risk": 76.0,
+  "endpoints": 18,
+  "shadow_endpoints": 1,
+  "services": 11,
+  "rules_evaluated": 27,
+  "rules_fired": 10,
+  "label": "telemax"
+ },
+ "eujf_summary": {
+  "services": 11,
+  "endpoints": 18,
+  "inventory": {
+   "documented": 17,
+   "shadow": 1
+  },
+  "confidence": {
+   "HIGH": 17,
+   "MEDIUM": 1,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 17,
+  "endpoints_with_sensitive_data": 3,
+  "dependencies": 11,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "api-gateway",
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:billing-service:GET:/bills/{}",
+   "service": "billing-service",
+   "method": "GET",
+   "path": "/bills/{bill_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/bills/{bill_id}"
+   ]
+  },
+  {
+   "id": "ep:billing-service:POST:/bills/{}/pay",
+   "service": "billing-service",
+   "method": "POST",
+   "path": "/bills/{bill_id}/pay",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/bills/{bill_id}/pay"
+   ]
+  },
+  {
+   "id": "ep:device-service:GET:/devices/{}",
+   "service": "device-service",
+   "method": "GET",
+   "path": "/devices/{device_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/devices/{device_id}"
+   ]
+  },
+  {
+   "id": "ep:network-ops-service:GET:/ops/cell-status",
+   "service": "network-ops-service",
+   "method": "GET",
+   "path": "/ops/cell-status",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:number-porting-service:POST:/porting",
+   "service": "number-porting-service",
+   "method": "POST",
+   "path": "/porting",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/porting"
+   ]
+  },
+  {
+   "id": "ep:number-porting-service:GET:/porting/{}",
+   "service": "number-porting-service",
+   "method": "GET",
+   "path": "/porting/{request_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/porting/{request_id}"
+   ]
+  },
+  {
+   "id": "ep:plan-service:GET:/plans",
+   "service": "plan-service",
+   "method": "GET",
+   "path": "/plans",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/plans"
+   ]
+  },
+  {
+   "id": "ep:plan-service:GET:/plans/{}",
+   "service": "plan-service",
+   "method": "GET",
+   "path": "/plans/{plan_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/plans/{plan_id}"
+   ]
+  },
+  {
+   "id": "ep:sim-service:POST:/sims/{}/swap",
+   "service": "sim-service",
+   "method": "POST",
+   "path": "/sims/{sim_id}/swap",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/sims/{sim_id}/swap"
+   ]
+  },
+  {
+   "id": "ep:subscriber-service:GET:/subscribers/{}",
+   "service": "subscriber-service",
+   "method": "GET",
+   "path": "/subscribers/{subscriber_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/subscribers/{subscriber_id}"
+   ]
+  },
+  {
+   "id": "ep:subscriber-service:PATCH:/subscribers/{}",
+   "service": "subscriber-service",
+   "method": "PATCH",
+   "path": "/subscribers/{subscriber_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/subscribers/{subscriber_id}"
+   ]
+  },
+  {
+   "id": "ep:support-service:POST:/tickets",
+   "service": "support-service",
+   "method": "POST",
+   "path": "/tickets",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/tickets"
+   ]
+  },
+  {
+   "id": "ep:support-service:GET:/tickets/search",
+   "service": "support-service",
+   "method": "GET",
+   "path": "/tickets/search",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/tickets/search"
+   ]
+  },
+  {
+   "id": "ep:support-service:GET:/tickets/{}",
+   "service": "support-service",
+   "method": "GET",
+   "path": "/tickets/{ticket_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/tickets/{ticket_id}"
+   ]
+  },
+  {
+   "id": "ep:usage-service:GET:/usage/{}",
+   "service": "usage-service",
+   "method": "GET",
+   "path": "/usage/{subscriber_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/usage/{subscriber_id}"
+   ]
+  },
+  {
+   "id": "ep:usage-service:GET:/usage/{}/cdr",
+   "service": "usage-service",
+   "method": "GET",
+   "path": "/usage/{subscriber_id}/cdr",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/usage/{subscriber_id}/cdr"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API1",
+   "target": "ep:usage-service:GET:/usage/{}/cdr",
+   "detail": "GET /usage/{subscriber_id}/cdr (usage-service): object ID from path, response carries owner field user_id, 0 x 403 in 41 calls",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API5",
+   "target": "ep:network-ops-service:GET:/ops/cell-status",
+   "detail": "GET /ops/cell-status (network-ops-service): 8 anonymous 2xx",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:support-service:GET:/tickets/search",
+   "detail": "GET /tickets/search (support-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:network-ops-service:GET:/ops/cell-status",
+   "detail": "GET /ops/cell-status (network-ops-service) returned 2xx to 8 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:network-ops-service:GET:/ops/cell-status",
+   "detail": "8 trace(s) start at network-ops-service GET /ops/cell-status with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API10",
+   "target": "svc:billing-service",
+   "detail": "billing-service calls external bank-switch",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:device-service",
+   "detail": "device-service uses image registry.telemax.example/telemax/device-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "LT-04",
+   "target": "ep:sim-service:POST:/sims/{}/swap",
+   "detail": "POST /sims/{sim_id}/swap (sim-service): 1 x 5xx, 1 error spans",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:number-porting-service",
+   "detail": "number-porting-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:number-porting-service:GET:/porting/{}",
+   "detail": "GET /porting/{request_id} (number-porting-service): 37 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:number-porting-service:POST:/porting",
+   "detail": "POST /porting (number-porting-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/auth",
+   "replace_with": "/auth"
+  },
+  {
+   "match_prefix": "/api/bills",
+   "upstream_service": "billing-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/bills",
+   "replace_with": "/bills"
+  },
+  {
+   "match_prefix": "/api/devices",
+   "upstream_service": "device-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/devices",
+   "replace_with": "/devices"
+  },
+  {
+   "match_prefix": "/api/plans",
+   "upstream_service": "plan-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/plans",
+   "replace_with": "/plans"
+  },
+  {
+   "match_prefix": "/api/porting",
+   "upstream_service": "number-porting-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/porting",
+   "replace_with": "/porting"
+  },
+  {
+   "match_prefix": "/api/sims",
+   "upstream_service": "sim-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/sims",
+   "replace_with": "/sims"
+  },
+  {
+   "match_prefix": "/api/subscribers",
+   "upstream_service": "subscriber-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/subscribers",
+   "replace_with": "/subscribers"
+  },
+  {
+   "match_prefix": "/api/tickets",
+   "upstream_service": "support-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/tickets",
+   "replace_with": "/tickets"
+  },
+  {
+   "match_prefix": "/api/usage",
+   "upstream_service": "usage-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api/usage",
+   "replace_with": "/usage"
+  }
+ ],
+ "services": [
+  {
+   "name": "api-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "billing-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "device-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "network-ops-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "number-porting-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "plan-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "sim-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "subscriber-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "support-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "usage-service",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ]
+}

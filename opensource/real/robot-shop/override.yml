@@ -1,0 +1,14 @@
+# Robot Shop's own compose files, plus: the network gets the name ATG joins, and the shop's own load
+# generator (Locust) sends its users through the ATG sidecar for two minutes. Instana is not used,
+# so there are no traces: ATG sees the shop through the sidecar and its files only.
+networks:
+  robot-shop:
+    name: robot-shop-net
+services:
+  load:
+    profiles: [users]
+    environment:
+      HOST: http://atg-proxy:8080
+      NUM_CLIENTS: "3"
+      RUN_TIME: 2m
+      SILENT: "0"

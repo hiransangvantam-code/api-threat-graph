@@ -1,0 +1,389 @@
+{
+ "company": "learnhub",
+ "users": "LearnHub: 590 requests in 7.6 s, 14 sessions; status codes: 200 x403, 201 x80, 401 x80, 403 x27",
+ "startup_s": 11.5,
+ "scan_s": 7.7,
+ "scan_log": [
+  "[scan] learnhub: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 1175 HTTP flows from the sidecar, 8 span batches from the Collector (2031 KB cleared from their memory)",
+  "[ok]   runtime_traffic    25 records      42.0 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      87.3 ms  -> /work/raw/openapi.json",
+  "! edge-gateway: no live spec at any probed path",
+  "! legacy-quiz-service: no live spec at any probed path",
+  "[ok]   infrastructure     36 records      85.1 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          50 records      40.8 ms  -> /work/raw/callchain.json",
+  "[ok]   13 endpoints in 7 services (11 documented, 2 shadow)  -> /work/eujf.json",
+  "[ok]   5 findings (critical 0, high 3, medium 1, low 1), 5 attack paths, path risk 50",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] learnhub: 13 APIs, 5 findings, 5 attack paths, path risk 50",
+  "[scan] threat graph exported to output/site/exports/1-learnhub/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-092411-01915b",
+ "summary": {
+  "findings": 5,
+  "by_severity": {
+   "critical": 0,
+   "high": 3,
+   "medium": 1,
+   "low": 1
+  },
+  "attack_paths": 5,
+  "critical_paths": 3,
+  "total_path_risk": 50.0,
+  "endpoints": 13,
+  "shadow_endpoints": 2,
+  "services": 7,
+  "rules_evaluated": 27,
+  "rules_fired": 4,
+  "label": "learnhub"
+ },
+ "eujf_summary": {
+  "services": 7,
+  "endpoints": 13,
+  "inventory": {
+   "documented": 11,
+   "shadow": 2
+  },
+  "confidence": {
+   "HIGH": 11,
+   "MEDIUM": 2,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 13,
+  "endpoints_with_sensitive_data": 1,
+  "dependencies": 7,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "edge-gateway",
+ "endpoints": [
+  {
+   "id": "ep:admin-service:GET:/admin/stats",
+   "service": "admin-service",
+   "method": "GET",
+   "path": "/admin/stats",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/admin/stats"
+   ]
+  },
+  {
+   "id": "ep:admin-service:GET:/admin/users/export",
+   "service": "admin-service",
+   "method": "GET",
+   "path": "/admin/users/export",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/admin/users/export"
+   ]
+  },
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:course-service:GET:/courses",
+   "service": "course-service",
+   "method": "GET",
+   "path": "/courses",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/courses"
+   ]
+  },
+  {
+   "id": "ep:course-service:GET:/courses/{}",
+   "service": "course-service",
+   "method": "GET",
+   "path": "/courses/{course_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/courses/{course_id}"
+   ]
+  },
+  {
+   "id": "ep:course-service:GET:/courses/{}/materials",
+   "service": "course-service",
+   "method": "GET",
+   "path": "/courses/{course_id}/materials",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/courses/{course_id}/materials"
+   ]
+  },
+  {
+   "id": "ep:enrollment-service:POST:/enrollments",
+   "service": "enrollment-service",
+   "method": "POST",
+   "path": "/enrollments",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/enrollments"
+   ]
+  },
+  {
+   "id": "ep:enrollment-service:GET:/enrollments/{}",
+   "service": "enrollment-service",
+   "method": "GET",
+   "path": "/enrollments/{enrollment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/enrollments/{enrollment_id}"
+   ]
+  },
+  {
+   "id": "ep:grade-service:GET:/grades/{}",
+   "service": "grade-service",
+   "method": "GET",
+   "path": "/grades/{student_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/grades/{student_id}"
+   ]
+  },
+  {
+   "id": "ep:grade-service:PUT:/grades/{}/courses/{}",
+   "service": "grade-service",
+   "method": "PUT",
+   "path": "/grades/{student_id}/courses/{course_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/grades/{student_id}/courses/{course_id}"
+   ]
+  },
+  {
+   "id": "ep:legacy-quiz-service:GET:/quizzes/{}",
+   "service": "legacy-quiz-service",
+   "method": "GET",
+   "path": "/quizzes/{quiz_id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/quizzes/{quiz_id}"
+   ]
+  },
+  {
+   "id": "ep:legacy-quiz-service:POST:/quizzes/{}/attempts",
+   "service": "legacy-quiz-service",
+   "method": "POST",
+   "path": "/quizzes/{quiz_id}/attempts",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/quizzes/{quiz_id}/attempts"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API1",
+   "target": "ep:grade-service:GET:/grades/{}",
+   "detail": "GET /grades/{student_id} (grade-service): object ID from path, response carries owner field user_id, 0 x 403 in 69 calls",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:legacy-quiz-service:GET:/quizzes/{}",
+   "detail": "GET /quizzes/{quiz_id} (legacy-quiz-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:legacy-quiz-service:POST:/quizzes/{}/attempts",
+   "detail": "POST /quizzes/{quiz_id}/attempts (legacy-quiz-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:course-service",
+   "detail": "course-service uses image registry.learnhub.example/learnhub/course-service:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:legacy-quiz-service",
+   "detail": "legacy-quiz-service: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/admin",
+   "upstream_service": "admin-service",
+   "auth": "required",
+   "gateway": "configmap",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "configmap",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/courses",
+   "upstream_service": "course-service",
+   "auth": "required",
+   "gateway": "configmap",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/enrollments",
+   "upstream_service": "enrollment-service",
+   "auth": "required",
+   "gateway": "configmap",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/grades",
+   "upstream_service": "grade-service",
+   "auth": "required",
+   "gateway": "configmap",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/quizzes",
+   "upstream_service": "legacy-quiz-service",
+   "auth": "required",
+   "gateway": "configmap",
+   "strip_prefix": "/api",
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "admin-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "course-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "edge-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "enrollment-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "grade-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "legacy-quiz-service",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ]
+}

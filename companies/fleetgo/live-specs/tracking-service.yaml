@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: FleetGo Tracking Service API
+  version: 3.4.1
+servers:
+- url: http://tracking-service:8080
+paths:
+  /tracking/{shipment_id}:
+    get:
+      operationId: get_tracking_shipment_id
+      summary: GET /tracking/{shipment_id}
+      tags:
+      - tracking-service
+      parameters:
+      - name: shipment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shipment_id:
+                    type: integer
+                  customer_id:
+                    type: string
+                  last_scan:
+                    type: string
+                  eta:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

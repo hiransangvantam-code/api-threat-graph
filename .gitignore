@@ -17,3 +17,6 @@ results/*/crapi-*/raw/
 
 # packages
 *.zip
+
+# the open-source systems' own code (opensource/fetch.py downloads it)
+opensource/*/upstream/

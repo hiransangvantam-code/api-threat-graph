@@ -1,0 +1,64 @@
+# DeathStarBench Hotel Reservation: frontend handlers from services/frontend/server.go:96-104,
+# gRPC services from services/*/ (proto). The review, restaurant, museum and cinema handlers are
+# left out: the services behind them are not in kubernetes/.
+id: hotel-reservation
+name: DeathStarBench Hotel Reservation
+field: Hotel booking
+by: Cornell SAIL (DeathStarBench)
+upstream: {repo: https://github.com/delimitrou/DeathStarBench, commit: 6ecb09706140f8730b5385c08f1386c654c3c526, license: Apache-2.0, sparse: hotelReservation}
+languages: [Go]
+artifacts:
+  manifests: [hotelReservation/kubernetes]
+edge: frontend
+traced: true          # Jaeger built in
+services:
+  frontend:
+    port: 5000
+    language: Go
+    routes:
+      GET /hotels: {query: {inDate: "2026-12-01", outDate: "2026-12-03", lat: "37.7", lon: "-122.4"}, calls: ["POST search /search.Search/Nearby", "POST reservation /reservation.Reservation/CheckAvailability", "POST profile /profile.Profile/GetProfiles"], returns: {type: FeatureCollection, features: [{id: $n, properties: {name: Hotel}}]}, weight: 3}
+      GET /recommendations: {query: {require: rate, lat: "37.7", lon: "-122.4"}, calls: ["POST recommendation /recommendation.Recommendation/GetRecommendations", "POST profile /profile.Profile/GetProfiles"], returns: {features: [{id: $n}]}, weight: 2}
+      GET /user: {query: {username: "$user", password: "***"}, calls: ["POST user /user.User/CheckUser"], returns: {message: Login successfully!}, weight: 2}
+      POST /reservation: {query: {inDate: "2026-12-01", outDate: "2026-12-03", hotelId: "7", customerName: "$user", username: "$user", password: "***", number: "1"}, calls: ["POST user /user.User/CheckUser", "POST reservation /reservation.Reservation/MakeReservation"], returns: {message: Reserve successfully!}, weight: 1}
+  search:
+    port: 8082
+    language: Go
+    routes:
+      POST /search.Search/Nearby: {calls: ["POST geo /geo.Geo/Nearby", "POST rate /rate.Rate/GetRates"], returns: {hotelIds: ["7"]}}
+  geo:
+    port: 8083
+    language: Go
+    routes:
+      POST /geo.Geo/Nearby: {returns: {hotelIds: ["7"]}}
+  rate:
+    port: 8084
+    language: Go
+    routes:
+      POST /rate.Rate/GetRates: {returns: {ratePlans: [{hotelId: "7", roomType: {bookableRate: 109}}]}}
+  profile:
+    port: 8081
+    language: Go
+    routes:
+      POST /profile.Profile/GetProfiles: {returns: {hotels: [{id: "7", name: Hotel, phoneNumber: "***", address: "***"}]}}
+  recommendation:
+    port: 8085
+    language: Go
+    routes:
+      POST /recommendation.Recommendation/GetRecommendations: {returns: {hotelIds: ["7"]}}
+  user:
+    port: 8086
+    language: Go
+    routes:
+      POST /user.User/CheckUser: {returns: {correct: true}}
+  reservation:
+    port: 8087
+    language: Go
+    routes:
+      POST /reservation.Reservation/MakeReservation: {returns: {hotelId: ["7"]}}
+      POST /reservation.Reservation/CheckAvailability: {returns: {hotelId: ["7"]}}
+labels:
+  - {cat: A7, at: "GET /user (frontend)", why: "User name and password are query parameters (server.go:349).", evidence: "services/frontend/server.go:349"}
+  - {cat: A7, at: "POST /reservation (frontend)", why: "User name and password in the query string of every reservation (server.go:401,453).", evidence: "services/frontend/server.go:401"}
+  - {cat: A6, at: "GET /user (frontend)", why: "The password check can be called without limit.", evidence: services/frontend/server.go}
+  - {cat: A5, at: user, why: "CheckUser answers any pod: a password-guessing oracle inside the cluster, no mTLS.", evidence: services/user/server.go}
+  - {cat: A5, at: reservation, why: "MakeReservation accepts unauthenticated gRPC calls from any pod.", evidence: services/reservation/server.go}

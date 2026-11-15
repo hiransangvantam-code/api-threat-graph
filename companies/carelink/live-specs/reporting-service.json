@@ -1,0 +1,55 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CareLink Reporting Service API",
+    "version": "0.9.4"
+  },
+  "servers": [
+    {
+      "url": "http://reporting-service:8000"
+    }
+  ],
+  "paths": {
+    "/internal/census": {
+      "get": {
+        "operationId": "get_internal_census",
+        "summary": "GET /internal/census",
+        "tags": [
+          "reporting-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "wards": {
+                      "type": "integer"
+                    },
+                    "admitted_today": {
+                      "type": "integer"
+                    },
+                    "discharged_today": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

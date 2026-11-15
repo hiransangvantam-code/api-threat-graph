@@ -1,0 +1,150 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "StreamBox Profile Service API",
+    "version": "2.9.0"
+  },
+  "servers": [
+    {
+      "url": "http://profile-service:8000"
+    }
+  ],
+  "paths": {
+    "/profiles/{profile_id}": {
+      "get": {
+        "operationId": "get_profiles_profile_id",
+        "summary": "GET /profiles/{profile_id}",
+        "tags": [
+          "profile-service"
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "profile_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "birth_year": {
+                      "type": "string"
+                    },
+                    "plan": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/profiles/{profile_id}/preferences": {
+      "put": {
+        "operationId": "put_profiles_profile_id_preferences",
+        "summary": "PUT /profiles/{profile_id}/preferences",
+        "tags": [
+          "profile-service"
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subtitles": {
+                    "type": "string"
+                  },
+                  "autoplay": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "profile_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sid"
+      }
+    }
+  }
+}

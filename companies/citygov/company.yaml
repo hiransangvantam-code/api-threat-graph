@@ -1,0 +1,85 @@
+# CityGov: city e-services. Go services behind nginx; the public entry has no TLS.
+id: citygov
+name: CityGov
+industry: Government (city e-services)
+about: Residents update their records, apply for permits and pay local taxes. A kiosk app in district offices still uses the v1 citizen API.
+language: go
+credential: bearer
+domain: eservices.citygov.example
+spec: {path: /openapi.yaml, version: 3.0.3, format: yaml}
+
+gateway:
+  name: gov-gateway
+  type: nginx
+  tls: false
+  nginx_env: true
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/citizens, service: citizen-service, to: /citizens}
+    - {prefix: /api/v1/citizens, service: citizen-service, to: /v1/citizens}
+    - {prefix: /api/permits, service: permit-service, to: /permits}
+    - {prefix: /api/taxes, service: tax-service, to: /taxes}
+    - {prefix: /api/admin, service: admin-service, to: /admin}
+
+services:
+  auth-service: {version: 1.0.4}
+
+  citizen-service:
+    version: 3.2.0
+    routes:
+      GET /citizens/{citizen_id}:
+        owner: citizen_id
+        returns: {citizen_id: $citizen_id, user_id: $owner, national_id: "***", address: "***", district: Bang Rak}
+        weight: 3
+      PUT /citizens/{citizen_id}/address:
+        owner: citizen_id
+        body: {district: Pathum Wan}
+        returns: {citizen_id: $citizen_id, status: updated}
+      GET /v1/citizens/{citizen_id}:
+        owner: citizen_id
+        deprecated: true
+        ua: GovKiosk/1.4
+        returns: {citizen_id: $citizen_id, user_id: $owner, national_id: "***"}
+
+  permit-service:
+    version: 1.5.0
+    spec: file
+    routes:
+      POST /permits:
+        body: {permit_type: renovation, district: Bang Rak}
+        status: 201
+        returns: {permit_id: $n, status: submitted}
+      GET /permits/{permit_id}:
+        owner: permit_id
+        returns: {permit_id: $permit_id, user_id: $owner, status: in_review}
+
+  tax-service:
+    version: 2.3.1
+    flaws: [nodeport, root]
+    routes:
+      GET /taxes/{citizen_id}/assessments:
+        owner: citizen_id
+        returns: {user_id: $owner, items: [{assessment_id: $n, amount: 0, year: 2025}]}
+      POST /taxes/{citizen_id}/payments:
+        owner: citizen_id
+        body: {assessment_id: 3, amount: 1200}
+        status: 201
+        returns: {payment_id: $n, status: received}
+
+  admin-service:
+    version: 1.0.0
+    routes:
+      GET /admin/audit-log:
+        auth: admin
+        returns: {items: [{event: login, at: "2026-11-01T08:00:00Z"}]}
+
+planted:
+  - {rule: TS-05, at: gov-gateway, why: "The Ingress has no TLS: sessions and personal data cross the internet in plain HTTP."}
+  - {rule: API8-NODEPORT, at: tax-service, why: "A NodePort service publishes the tax service on every node, around the gateway."}
+  - {rule: API8-ROOT, at: tax-service, why: "No runAsNonRoot."}
+  - {rule: API9-NOSPEC, at: permit-service, why: "Its API document only lives in the repository; the service publishes none."}
+  - {rule: API9-ZOMBIE, at: "GET /v1/citizens/{citizen_id}", why: "Deprecated v1 still used by the district kiosks."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "nginx limit_req is on the login location."}
+  - {rule: API5, at: "GET /admin/audit-log", why: "Staff only: residents get 403."}

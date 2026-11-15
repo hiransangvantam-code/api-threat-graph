@@ -1,0 +1,1525 @@
+{
+ "company": "acme-air",
+ "users": "Acme Air: 379 requests in 3.4 s, 12 sessions; status codes: 200 x321, 401 x36, 403 x22",
+ "startup_s": 11.7,
+ "scan_s": 7.2,
+ "scan_log": [
+  "[scan] acme-air: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 810 HTTP flows from the sidecar, 0 span batches from the Collector (655 KB cleared from their memory)",
+  "[ok]   runtime_traffic    35 records      27.4 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     171.8 ms  -> /work/raw/openapi.json",
+  "! ingress-nginx-controller: no live spec at any probed path",
+  "! acmeair-main-service: no live spec at any probed path",
+  "! acmeair-auth-service: no live spec at any probed path",
+  "! acmeair-booking-service: no live spec at any probed path",
+  "! acmeair-customer-service: no live spec at any probed path",
+  "! acmeair-flight-service: no live spec at any probed path",
+  "[ok]   infrastructure     29 records      25.9 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain           0 records       0.1 ms  -> /work/raw/callchain.json",
+  "! no spans found; is the OTel exporter writing to trace_paths?",
+  "[ok]   35 endpoints in 14 services (35 shadow)  -> /work/eujf.json",
+  "[ok]   143 findings (critical 0, high 11, medium 73, low 59), 57 attack paths, path risk 204.5",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] acme-air: 35 APIs, 143 findings, 57 attack paths, path risk 204.5",
+  "[scan] threat graph exported to output/site/exports/1-acme-air/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-095213-f859ea",
+ "summary": {
+  "findings": 143,
+  "by_severity": {
+   "critical": 0,
+   "high": 11,
+   "medium": 73,
+   "low": 59
+  },
+  "attack_paths": 57,
+  "critical_paths": 1,
+  "total_path_risk": 204.5,
+  "endpoints": 35,
+  "shadow_endpoints": 35,
+  "services": 14,
+  "rules_evaluated": 27,
+  "rules_fired": 13,
+  "label": "acme-air"
+ },
+ "eujf_summary": {
+  "services": 14,
+  "endpoints": 35,
+  "inventory": {
+   "shadow": 35
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 35,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 0,
+  "endpoints_with_sensitive_data": 2,
+  "dependencies": 5,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "acmeair-authservice",
+ "endpoints": [
+  {
+   "id": "ep:acmeair-auth-service:GET:/auth/config/runtime",
+   "service": "acmeair-auth-service",
+   "method": "GET",
+   "path": "/auth/config/runtime",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-auth-service:GET:/auth/getJwk",
+   "service": "acmeair-auth-service",
+   "method": "GET",
+   "path": "/auth/getJwk",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-auth-service:POST:/auth/login",
+   "service": "acmeair-auth-service",
+   "method": "POST",
+   "path": "/auth/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:POST:/booking/bookflights",
+   "service": "acmeair-booking-service",
+   "method": "POST",
+   "path": "/booking/bookflights",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:GET:/booking/byuser/{}",
+   "service": "acmeair-booking-service",
+   "method": "GET",
+   "path": "/booking/byuser/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:POST:/booking/cancelbooking",
+   "service": "acmeair-booking-service",
+   "method": "POST",
+   "path": "/booking/cancelbooking",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:GET:/booking/config/countBookings",
+   "service": "acmeair-booking-service",
+   "method": "GET",
+   "path": "/booking/config/countBookings",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:GET:/booking/config/runtime",
+   "service": "acmeair-booking-service",
+   "method": "GET",
+   "path": "/booking/config/runtime",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:GET:/booking/loader/load",
+   "service": "acmeair-booking-service",
+   "method": "GET",
+   "path": "/booking/loader/load",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-booking-service:GET:/booking/rewards/flightsuccesses",
+   "service": "acmeair-booking-service",
+   "method": "GET",
+   "path": "/booking/rewards/flightsuccesses",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-customer-service:GET:/customer/byid/{}",
+   "service": "acmeair-customer-service",
+   "method": "GET",
+   "path": "/customer/byid/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-customer-service:POST:/customer/byid/{}",
+   "service": "acmeair-customer-service",
+   "method": "POST",
+   "path": "/customer/byid/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-customer-service:GET:/customer/config/countCustomers",
+   "service": "acmeair-customer-service",
+   "method": "GET",
+   "path": "/customer/config/countCustomers",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}",
+   "service": "acmeair-customer-service",
+   "method": "POST",
+   "path": "/customer/internal/updateCustomerTotalMiles/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-customer-service:GET:/customer/loader/load",
+   "service": "acmeair-customer-service",
+   "method": "GET",
+   "path": "/customer/loader/load",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-flight-service:GET:/flight/config/countFlights",
+   "service": "acmeair-flight-service",
+   "method": "GET",
+   "path": "/flight/config/countFlights",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-flight-service:POST:/flight/getrewardmiles",
+   "service": "acmeair-flight-service",
+   "method": "POST",
+   "path": "/flight/getrewardmiles",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-flight-service:GET:/flight/loader/load",
+   "service": "acmeair-flight-service",
+   "method": "GET",
+   "path": "/flight/loader/load",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-flight-service:POST:/flight/queryflights",
+   "service": "acmeair-flight-service",
+   "method": "POST",
+   "path": "/flight/queryflights",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:acmeair-main-service:GET:/acmeair",
+   "service": "acmeair-main-service",
+   "method": "GET",
+   "path": "/acmeair",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/acmeair",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/acmeair",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/auth/config/runtime",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/auth/config/runtime",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/auth/getJwk",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/auth/getJwk",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:POST:/auth/login",
+   "service": "ingress-nginx-controller",
+   "method": "POST",
+   "path": "/auth/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:POST:/booking/bookflights",
+   "service": "ingress-nginx-controller",
+   "method": "POST",
+   "path": "/booking/bookflights",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/booking/byuser/{}",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/booking/byuser/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:POST:/booking/cancelbooking",
+   "service": "ingress-nginx-controller",
+   "method": "POST",
+   "path": "/booking/cancelbooking",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/booking/config/countBookings",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/booking/config/countBookings",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/booking/config/runtime",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/booking/config/runtime",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/booking/rewards/flightsuccesses",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/booking/rewards/flightsuccesses",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/customer/byid/{}",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/customer/byid/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:POST:/customer/byid/{}",
+   "service": "ingress-nginx-controller",
+   "method": "POST",
+   "path": "/customer/byid/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/customer/config/countCustomers",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/customer/config/countCustomers",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:GET:/flight/config/countFlights",
+   "service": "ingress-nginx-controller",
+   "method": "GET",
+   "path": "/flight/config/countFlights",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-nginx-controller:POST:/flight/queryflights",
+   "service": "ingress-nginx-controller",
+   "method": "POST",
+   "path": "/flight/queryflights",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API5",
+   "target": "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}",
+   "detail": "POST /customer/internal/updateCustomerTotalMiles/{id} (acmeair-customer-service): 30 anonymous 2xx",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-authservice",
+   "detail": "PASSWORD is written in plaintext in the acmeair-authservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "PASSWORD is written in plaintext in the acmeair-bookingservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "ACMEAIR_STACKAA_AUTH_URL is written in plaintext in the acmeair-bookingservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-customerservice",
+   "detail": "PASSWORD is written in plaintext in the acmeair-customerservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-customerservice",
+   "detail": "ACMEAIR_STACKAA_AUTH_URL is written in plaintext in the acmeair-customerservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-flightservice",
+   "detail": "PASSWORD is written in plaintext in the acmeair-flightservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:acmeair-mainservice",
+   "detail": "PASSWORD is written in plaintext in the acmeair-mainservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}",
+   "detail": "POST /customer/internal/updateCustomerTotalMiles/{id} (acmeair-customer-service) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:acmeair-flight-service:POST:/flight/queryflights",
+   "detail": "POST /flight/queryflights (acmeair-flight-service) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ingress-nginx-controller:POST:/flight/queryflights",
+   "detail": "POST /flight/queryflights (ingress-nginx-controller) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API4",
+   "target": "svc:acmeair-authservice",
+   "detail": "acmeair-authservice has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "acmeair-bookingservice has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:acmeair-customerservice",
+   "detail": "acmeair-customerservice has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:acmeair-flightservice",
+   "detail": "acmeair-flightservice has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:acmeair-mainservice",
+   "detail": "acmeair-mainservice has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:acmeair-auth-service:GET:/auth/config/runtime",
+   "detail": "GET /auth/config/runtime (acmeair-auth-service) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:ingress-nginx-controller:GET:/auth/config/runtime",
+   "detail": "GET /auth/config/runtime (ingress-nginx-controller) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:acmeair-booking-service:GET:/booking/config/countBookings",
+   "detail": "GET /booking/config/countBookings (acmeair-booking-service) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:ingress-nginx-controller:GET:/booking/config/countBookings",
+   "detail": "GET /booking/config/countBookings (ingress-nginx-controller) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:acmeair-booking-service:GET:/booking/config/runtime",
+   "detail": "GET /booking/config/runtime (acmeair-booking-service) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:ingress-nginx-controller:GET:/booking/config/runtime",
+   "detail": "GET /booking/config/runtime (ingress-nginx-controller) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:acmeair-customer-service:GET:/customer/config/countCustomers",
+   "detail": "GET /customer/config/countCustomers (acmeair-customer-service) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:ingress-nginx-controller:GET:/customer/config/countCustomers",
+   "detail": "GET /customer/config/countCustomers (ingress-nginx-controller) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:acmeair-flight-service:GET:/flight/config/countFlights",
+   "detail": "GET /flight/config/countFlights (acmeair-flight-service) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:ingress-nginx-controller:GET:/flight/config/countFlights",
+   "detail": "GET /flight/config/countFlights (ingress-nginx-controller) is reachable at inside the cluster",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-authservice",
+   "detail": "acmeair-authservice does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "acmeair-bookingservice does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-customerservice",
+   "detail": "acmeair-customerservice does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-flightservice",
+   "detail": "acmeair-flightservice does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-mainservice",
+   "detail": "acmeair-mainservice does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-customer-service:GET:/customer/byid/{}",
+   "detail": "GET /customer/byid/{id} (acmeair-customer-service) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/customer/byid/{}",
+   "detail": "GET /customer/byid/{id} (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:acmeair-auth-service:POST:/auth/login",
+   "detail": "POST /auth/login (acmeair-auth-service): 15 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:ingress-nginx-controller:POST:/auth/login",
+   "detail": "POST /auth/login (ingress-nginx-controller): 15 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-authservice",
+   "detail": "acmeair-authservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-booking-db",
+   "detail": "acmeair-booking-db accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "acmeair-bookingservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-customer-db",
+   "detail": "acmeair-customer-db accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-customerservice",
+   "detail": "acmeair-customerservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-flight-db",
+   "detail": "acmeair-flight-db accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-flightservice",
+   "detail": "acmeair-flightservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:acmeair-mainservice",
+   "detail": "acmeair-mainservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-authservice",
+   "detail": "acmeair-authservice uses image acmeair-authservice-java:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-booking-db",
+   "detail": "acmeair-booking-db uses image docker.io/library/mongo:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "acmeair-bookingservice uses image acmeair-bookingservice-java:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-customer-db",
+   "detail": "acmeair-customer-db uses image docker.io/library/mongo:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-customerservice",
+   "detail": "acmeair-customerservice uses image acmeair-customerservice-java:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-flight-db",
+   "detail": "acmeair-flight-db uses image docker.io/library/mongo:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-flightservice",
+   "detail": "acmeair-flightservice uses image acmeair-flightservice-java:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:acmeair-mainservice",
+   "detail": "acmeair-mainservice uses image acmeair-mainservice-java:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-main-service:GET:/acmeair",
+   "detail": "GET /acmeair (acmeair-main-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/acmeair",
+   "detail": "GET /acmeair (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-auth-service:GET:/auth/config/runtime",
+   "detail": "GET /auth/config/runtime (acmeair-auth-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/auth/config/runtime",
+   "detail": "GET /auth/config/runtime (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-auth-service:GET:/auth/getJwk",
+   "detail": "GET /auth/getJwk (acmeair-auth-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/auth/getJwk",
+   "detail": "GET /auth/getJwk (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:GET:/booking/byuser/{}",
+   "detail": "GET /booking/byuser/{id} (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/booking/byuser/{}",
+   "detail": "GET /booking/byuser/{id} (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:GET:/booking/config/countBookings",
+   "detail": "GET /booking/config/countBookings (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/booking/config/countBookings",
+   "detail": "GET /booking/config/countBookings (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:GET:/booking/config/runtime",
+   "detail": "GET /booking/config/runtime (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/booking/config/runtime",
+   "detail": "GET /booking/config/runtime (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:GET:/booking/loader/load",
+   "detail": "GET /booking/loader/load (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:GET:/booking/rewards/flightsuccesses",
+   "detail": "GET /booking/rewards/flightsuccesses (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/booking/rewards/flightsuccesses",
+   "detail": "GET /booking/rewards/flightsuccesses (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-customer-service:GET:/customer/config/countCustomers",
+   "detail": "GET /customer/config/countCustomers (acmeair-customer-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/customer/config/countCustomers",
+   "detail": "GET /customer/config/countCustomers (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-customer-service:GET:/customer/loader/load",
+   "detail": "GET /customer/loader/load (acmeair-customer-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-flight-service:GET:/flight/config/countFlights",
+   "detail": "GET /flight/config/countFlights (acmeair-flight-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:GET:/flight/config/countFlights",
+   "detail": "GET /flight/config/countFlights (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-flight-service:GET:/flight/loader/load",
+   "detail": "GET /flight/loader/load (acmeair-flight-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-auth-service:POST:/auth/login",
+   "detail": "POST /auth/login (acmeair-auth-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:POST:/auth/login",
+   "detail": "POST /auth/login (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:POST:/booking/bookflights",
+   "detail": "POST /booking/bookflights (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:POST:/booking/bookflights",
+   "detail": "POST /booking/bookflights (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-booking-service:POST:/booking/cancelbooking",
+   "detail": "POST /booking/cancelbooking (acmeair-booking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:POST:/booking/cancelbooking",
+   "detail": "POST /booking/cancelbooking (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-customer-service:POST:/customer/byid/{}",
+   "detail": "POST /customer/byid/{id} (acmeair-customer-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:POST:/customer/byid/{}",
+   "detail": "POST /customer/byid/{id} (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}",
+   "detail": "POST /customer/internal/updateCustomerTotalMiles/{id} (acmeair-customer-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-flight-service:POST:/flight/getrewardmiles",
+   "detail": "POST /flight/getrewardmiles (acmeair-flight-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:acmeair-flight-service:POST:/flight/queryflights",
+   "detail": "POST /flight/queryflights (acmeair-flight-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-nginx-controller:POST:/flight/queryflights",
+   "detail": "POST /flight/queryflights (ingress-nginx-controller) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-auth-service",
+   "detail": "acmeair-auth-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-booking-db",
+   "detail": "acmeair-booking-db: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-booking-service",
+   "detail": "acmeair-booking-service: no live spec; 0 of 7 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "acmeair-bookingservice: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-customer-db",
+   "detail": "acmeair-customer-db: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-customer-service",
+   "detail": "acmeair-customer-service: no live spec; 0 of 5 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-customerservice",
+   "detail": "acmeair-customerservice: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-flight-db",
+   "detail": "acmeair-flight-db: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-flight-service",
+   "detail": "acmeair-flight-service: no live spec; 0 of 4 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-flightservice",
+   "detail": "acmeair-flightservice: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-main-service",
+   "detail": "acmeair-main-service: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:acmeair-mainservice",
+   "detail": "acmeair-mainservice: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ingress-nginx-controller",
+   "detail": "ingress-nginx-controller: no live spec; 0 of 15 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-authservice",
+   "detail": "acmeair-authservice is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-booking-db",
+   "detail": "acmeair-booking-db is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-bookingservice",
+   "detail": "acmeair-bookingservice is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-customer-db",
+   "detail": "acmeair-customer-db is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-customerservice",
+   "detail": "acmeair-customerservice is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-flight-db",
+   "detail": "acmeair-flight-db is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-flightservice",
+   "detail": "acmeair-flightservice is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:acmeair-mainservice",
+   "detail": "acmeair-mainservice is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-main-service:GET:/acmeair",
+   "detail": "GET /acmeair (acmeair-main-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/acmeair",
+   "detail": "GET /acmeair (ingress-nginx-controller): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-auth-service:GET:/auth/config/runtime",
+   "detail": "GET /auth/config/runtime (acmeair-auth-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/auth/config/runtime",
+   "detail": "GET /auth/config/runtime (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-auth-service:GET:/auth/getJwk",
+   "detail": "GET /auth/getJwk (acmeair-auth-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/auth/getJwk",
+   "detail": "GET /auth/getJwk (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:GET:/booking/byuser/{}",
+   "detail": "GET /booking/byuser/{id} (acmeair-booking-service): 44 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/booking/byuser/{}",
+   "detail": "GET /booking/byuser/{id} (ingress-nginx-controller): 44 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:GET:/booking/config/countBookings",
+   "detail": "GET /booking/config/countBookings (acmeair-booking-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/booking/config/countBookings",
+   "detail": "GET /booking/config/countBookings (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:GET:/booking/config/runtime",
+   "detail": "GET /booking/config/runtime (acmeair-booking-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/booking/config/runtime",
+   "detail": "GET /booking/config/runtime (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:GET:/booking/loader/load",
+   "detail": "GET /booking/loader/load (acmeair-booking-service): 3 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:GET:/booking/rewards/flightsuccesses",
+   "detail": "GET /booking/rewards/flightsuccesses (acmeair-booking-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/booking/rewards/flightsuccesses",
+   "detail": "GET /booking/rewards/flightsuccesses (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-customer-service:GET:/customer/byid/{}",
+   "detail": "GET /customer/byid/{id} (acmeair-customer-service): 41 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/customer/byid/{}",
+   "detail": "GET /customer/byid/{id} (ingress-nginx-controller): 41 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-customer-service:GET:/customer/config/countCustomers",
+   "detail": "GET /customer/config/countCustomers (acmeair-customer-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/customer/config/countCustomers",
+   "detail": "GET /customer/config/countCustomers (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-customer-service:GET:/customer/loader/load",
+   "detail": "GET /customer/loader/load (acmeair-customer-service): 3 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-flight-service:GET:/flight/config/countFlights",
+   "detail": "GET /flight/config/countFlights (acmeair-flight-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:GET:/flight/config/countFlights",
+   "detail": "GET /flight/config/countFlights (ingress-nginx-controller): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-flight-service:GET:/flight/loader/load",
+   "detail": "GET /flight/loader/load (acmeair-flight-service): 3 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-auth-service:POST:/auth/login",
+   "detail": "POST /auth/login (acmeair-auth-service): 27 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:POST:/auth/login",
+   "detail": "POST /auth/login (ingress-nginx-controller): 27 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:POST:/booking/bookflights",
+   "detail": "POST /booking/bookflights (acmeair-booking-service): 33 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:POST:/booking/bookflights",
+   "detail": "POST /booking/bookflights (ingress-nginx-controller): 33 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-booking-service:POST:/booking/cancelbooking",
+   "detail": "POST /booking/cancelbooking (acmeair-booking-service): 20 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:POST:/booking/cancelbooking",
+   "detail": "POST /booking/cancelbooking (ingress-nginx-controller): 20 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-customer-service:POST:/customer/byid/{}",
+   "detail": "POST /customer/byid/{id} (acmeair-customer-service): 25 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:POST:/customer/byid/{}",
+   "detail": "POST /customer/byid/{id} (ingress-nginx-controller): 25 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}",
+   "detail": "POST /customer/internal/updateCustomerTotalMiles/{id} (acmeair-customer-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-flight-service:POST:/flight/getrewardmiles",
+   "detail": "POST /flight/getrewardmiles (acmeair-flight-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:acmeair-flight-service:POST:/flight/queryflights",
+   "detail": "POST /flight/queryflights (acmeair-flight-service): 45 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-nginx-controller:POST:/flight/queryflights",
+   "detail": "POST /flight/queryflights (ingress-nginx-controller): 45 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-booking-db",
+   "detail": "acmeair-booking-db does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-customer-db",
+   "detail": "acmeair-customer-db does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:acmeair-flight-db",
+   "detail": "acmeair-flight-db does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [],
+ "services": [
+  {
+   "name": "acmeair-auth-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "acmeair-authservice",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "acmeair-booking-db",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "acmeair-booking-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "acmeair-bookingservice",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "acmeair-customer-db",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "acmeair-customer-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "acmeair-customerservice",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "acmeair-flight-db",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "acmeair-flight-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "acmeair-flightservice",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "acmeair-main-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "acmeair-mainservice",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "ingress-nginx-controller",
+   "role": "service",
+   "exposure": "unknown"
+  }
+ ]
+}

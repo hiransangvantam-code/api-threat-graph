@@ -12,13 +12,14 @@ fi
 if docker info >/dev/null 2>&1; then
   docker compose down -v --remove-orphans >/dev/null 2>&1
   docker compose -f target/docker-compose.yml --profile users down -v --remove-orphans >/dev/null 2>&1
+  for f in companies/*/docker-compose.yml opensource/*/docker-compose.yml; do docker compose -f "$f" --profile users down -v --remove-orphans >/dev/null 2>&1; done
   docker volume rm atg_atg-capture atg_atg-telemetry >/dev/null 2>&1
 else
   echo "(Docker is not running, so its data could not be checked. Run this again once Docker is running.)"
 fi
 if [ -d output ]; then
   # files written by the container can belong to root on Linux; remove them through Docker if needed
-  rm -rf output 2>/dev/null || docker run --rm -v "$PWD/output:/o" api-threat-graph:1.3 sh -c 'rm -rf /o/* /o/.[!.]*' && rm -rf output
+  rm -rf output 2>/dev/null || docker run --rm -v "$PWD/output:/o" api-threat-graph:1.5 sh -c 'rm -rf /o/* /o/.[!.]*' && rm -rf output
 fi
 [ -d output ] && { echo "Could not delete output/. Delete that folder by hand."; exit 1; }
 echo "Done. No data of the review is left in this folder or in Docker."

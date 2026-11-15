@@ -1,0 +1,144 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CareLink Records Service API",
+    "version": "2.7.3"
+  },
+  "servers": [
+    {
+      "url": "http://records-service:8000"
+    }
+  ],
+  "paths": {
+    "/records/{record_id}": {
+      "get": {
+        "operationId": "get_records_record_id",
+        "summary": "GET /records/{record_id}",
+        "tags": [
+          "records-service"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "record_id": {
+                      "type": "integer"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "diagnosis_code": {
+                      "type": "string"
+                    },
+                    "issued": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/records/{record_id}/pdf": {
+      "get": {
+        "operationId": "get_records_record_id_pdf",
+        "summary": "GET /records/{record_id}/pdf",
+        "tags": [
+          "records-service"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "access_token",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "record_id": {
+                      "type": "integer"
+                    },
+                    "format": {
+                      "type": "string"
+                    },
+                    "pages": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "accessToken": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "access_token"
+      }
+    }
+  }
+}

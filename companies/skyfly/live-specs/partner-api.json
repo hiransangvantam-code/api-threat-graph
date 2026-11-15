@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SkyFly Partner Api",
+    "version": "2.2.0"
+  },
+  "servers": [
+    {
+      "url": "http://partner-api:3000"
+    }
+  ],
+  "paths": {
+    "/partner/bookings": {
+      "get": {
+        "operationId": "get_partner_bookings",
+        "summary": "GET /partner/bookings",
+        "tags": [
+          "partner-api"
+        ],
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "booking_id": {
+                            "type": "integer"
+                          },
+                          "customer_id": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "partnerKey": []
+          }
+        ]
+      }
+    },
+    "/partner/v1/fares": {
+      "get": {
+        "operationId": "get_partner_v1_fares",
+        "summary": "GET /partner/v1/fares",
+        "tags": [
+          "partner-api"
+        ],
+        "deprecated": true,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fare_class": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "partnerKey": []
+          }
+        ]
+      }
+    },
+    "/partner/v2/fares": {
+      "get": {
+        "operationId": "get_partner_v2_fares",
+        "summary": "GET /partner/v2/fares",
+        "tags": [
+          "partner-api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fare_class": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "integer"
+                          },
+                          "currency": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "partnerKey": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "partnerKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key"
+      }
+    }
+  }
+}

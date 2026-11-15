@@ -1,0 +1,93 @@
+# StreamBox: video streaming. Python services behind Kong; the web app uses a session cookie.
+id: streambox
+name: StreamBox
+industry: Media (video streaming)
+about: Viewers browse titles, play them and manage their profile; billing is an older service whose API document was never updated.
+language: python
+credential: cookie
+domain: www.streambox.example
+spec: {path: /openapi.json, version: 3.1.0, format: json}
+
+gateway:
+  name: kong
+  type: kong
+  routes:
+    - {prefix: /auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/catalog, service: catalog-service, to: ""}
+    - {prefix: /api/account, service: profile-service, to: ""}
+    - {prefix: /billing, service: billing-service, to: /billing}
+
+services:
+  auth-service: {version: 3.0.0}
+
+  catalog-service:
+    version: 7.2.0
+    routes:
+      GET /titles:
+        returns: {items: [{title_id: $n, name: Title, genre: drama}]}
+        weight: 3
+      GET /titles/{title_id}:
+        returns: {title_id: $title_id, name: Title, seasons: 2}
+      POST /titles/{title_id}/playback:
+        body: {device: tv}
+        calls: ["POST drm-service /licenses", "GET recommendation-service /recommendations/{title_id}"]
+        returns: {title_id: $title_id, manifest: /hls/main.m3u8}
+        weight: 3
+
+  profile-service:
+    version: 2.9.0
+    routes:
+      GET /profiles/{profile_id}:
+        owner: profile_id
+        returns: {profile_id: $profile_id, user_id: $owner, email: "***", birth_year: "***", plan: premium}
+      PUT /profiles/{profile_id}/preferences:
+        owner: profile_id
+        body: {subtitles: th, autoplay: false}
+        returns: {profile_id: $profile_id, status: saved}
+
+  billing-service:
+    version: 2.0.0
+    spec: stale
+    routes:
+      GET /billing/invoices:
+        returns: {items: [{invoice_id: $n, amount: 0, currency: THB}]}
+      GET /billing/invoices/{invoice_id}:
+        owner: invoice_id
+        since: 2
+        returns: {invoice_id: $invoice_id, user_id: $owner, amount: 0}
+      POST /billing/payment-methods:
+        since: 2
+        body: {card_token: "***", card_last4: "***"}
+        status: 201
+        weight: 1
+        returns: {payment_method_id: $n, status: verified}
+
+  recommendation-service:
+    version: 1.3.0
+    flaws: [no_netpol]
+    routes:
+      GET /recommendations/{title_id}:
+        client: none
+        errors_every: 15
+        returns: {items: [{title_id: $n, score: 0.8}]}
+
+  drm-service:
+    version: 1.1.0
+    routes:
+      POST /licenses:
+        client: none
+        status: 201
+        returns: {license_id: $n, expires_in: 3600}
+
+planted:
+  - {rule: API9-NOSPEC, at: billing-service, why: "Billing publishes no API document; the file in the repository is version 1."}
+  - {rule: API9-SHADOW, at: "GET /billing/invoices/{invoice_id}", why: "Added in version 2, missing from the old document."}
+  - {rule: API9-SHADOW, at: "POST /billing/payment-methods", why: "Added in version 2, missing from the old document."}
+  - {rule: LT-04, at: "GET /recommendations/{title_id}", why: "One request in 15 fails with a server error."}
+  - {rule: LT-04, at: "POST /titles/{title_id}/playback", why: "Playback answers 502 whenever recommendations fail."}
+  - {rule: API8-NETPOL, at: recommendation-service, why: "No NetworkPolicy selects it."}
+
+not_flaws:
+  - {rule: TS-01, at: "GET /profiles/{profile_id}", why: "Every request carries the session cookie sid."}
+  - {rule: TS-01, at: "PUT /profiles/{profile_id}/preferences", why: "Every request carries the session cookie sid."}
+  - {rule: TS-07, at: "POST /auth/session", why: "Kong's rate-limiting plugin is on the login route."}

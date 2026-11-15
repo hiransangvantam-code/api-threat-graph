@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: CityGov Permit Service API
+  version: 1.5.0
+servers:
+- url: http://permit-service:8080
+paths:
+  /permits:
+    post:
+      operationId: post_permits
+      summary: POST /permits
+      tags:
+      - permit-service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                permit_type:
+                  type: string
+                district:
+                  type: string
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permit_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+      security:
+      - bearerAuth: []
+  /permits/{permit_id}:
+    get:
+      operationId: get_permits_permit_id
+      summary: GET /permits/{permit_id}
+      tags:
+      - permit-service
+      parameters:
+      - name: permit_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permit_id:
+                    type: integer
+                  user_id:
+                    type: string
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

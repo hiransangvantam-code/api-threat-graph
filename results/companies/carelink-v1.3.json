@@ -1,0 +1,385 @@
+{
+ "company": "carelink",
+ "users": "CareLink: 528 requests in 5.0 s, 14 sessions; status codes: 200 x353, 201 x40, 401 x70, 403 x65",
+ "startup_s": 10.6,
+ "scan_s": 7.0,
+ "scan_log": [
+  "[scan] carelink: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 1051 HTTP flows from the sidecar, 6 span batches from the Collector (1220 KB cleared from their memory)",
+  "[ok]   runtime_traffic    22 records      20.9 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      37.3 ms  -> /work/raw/openapi.json",
+  "! web-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     32 records      43.6 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          31 records       8.8 ms  -> /work/raw/callchain.json",
+  "[ok]   12 endpoints in 6 services (12 documented)  -> /work/eujf.json",
+  "[ok]   9 findings (critical 0, high 5, medium 3, low 1), 10 attack paths, path risk 88",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] carelink: 12 APIs, 9 findings, 10 attack paths, path risk 88",
+  "[scan] threat graph exported to output/site/exports/1-carelink/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261113-055322-5815f2",
+ "summary": {
+  "findings": 9,
+  "by_severity": {
+   "critical": 0,
+   "high": 5,
+   "medium": 3,
+   "low": 1
+  },
+  "attack_paths": 10,
+  "critical_paths": 3,
+  "total_path_risk": 88.0,
+  "endpoints": 12,
+  "shadow_endpoints": 0,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 8,
+  "label": "carelink"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 12,
+  "inventory": {
+   "documented": 12
+  },
+  "confidence": {
+   "HIGH": 12,
+   "MEDIUM": 0,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 11,
+  "endpoints_with_sensitive_data": 2,
+  "dependencies": 5,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "web-gateway",
+ "endpoints": [
+  {
+   "id": "ep:appointment-service:GET:/appointments",
+   "service": "appointment-service",
+   "method": "GET",
+   "path": "/appointments",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/appointments"
+   ]
+  },
+  {
+   "id": "ep:appointment-service:POST:/appointments",
+   "service": "appointment-service",
+   "method": "POST",
+   "path": "/appointments",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/appointments"
+   ]
+  },
+  {
+   "id": "ep:appointment-service:DELETE:/appointments/{}",
+   "service": "appointment-service",
+   "method": "DELETE",
+   "path": "/appointments/{appointment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/appointments/{appointment_id}"
+   ]
+  },
+  {
+   "id": "ep:appointment-service:GET:/appointments/{}",
+   "service": "appointment-service",
+   "method": "GET",
+   "path": "/appointments/{appointment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/appointments/{appointment_id}"
+   ]
+  },
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:patient-service:GET:/patients/search",
+   "service": "patient-service",
+   "method": "GET",
+   "path": "/patients/search",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/patients/search"
+   ]
+  },
+  {
+   "id": "ep:patient-service:GET:/patients/{}",
+   "service": "patient-service",
+   "method": "GET",
+   "path": "/patients/{patient_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/patients/{patient_id}"
+   ]
+  },
+  {
+   "id": "ep:patient-service:PUT:/patients/{}/contact-preferences",
+   "service": "patient-service",
+   "method": "PUT",
+   "path": "/patients/{patient_id}/contact-preferences",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/patients/{patient_id}/contact-preferences"
+   ]
+  },
+  {
+   "id": "ep:records-service:GET:/records/{}",
+   "service": "records-service",
+   "method": "GET",
+   "path": "/records/{record_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/records/{record_id}"
+   ]
+  },
+  {
+   "id": "ep:records-service:GET:/records/{}/pdf",
+   "service": "records-service",
+   "method": "GET",
+   "path": "/records/{record_id}/pdf",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/records/{record_id}/pdf"
+   ]
+  },
+  {
+   "id": "ep:reporting-service:GET:/internal/census",
+   "service": "reporting-service",
+   "method": "GET",
+   "path": "/internal/census",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API1",
+   "target": "ep:appointment-service:GET:/appointments/{}",
+   "detail": "GET /appointments/{appointment_id} (appointment-service): object ID from path, response carries owner field customer_id, 0 x 403 in 49 calls",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-03",
+   "target": "ep:records-service:GET:/records/{}/pdf",
+   "detail": "spec requires auth for GET /records/{record_id}/pdf (records-service), but 40 requests without a token succeeded",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-06",
+   "target": "ep:records-service:GET:/records/{}/pdf",
+   "detail": "GET /records/{record_id}/pdf (records-service) takes access_token in the query string",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API5",
+   "target": "ep:reporting-service:GET:/internal/census",
+   "detail": "GET /internal/census (reporting-service): 10 anonymous 2xx",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:reporting-service:GET:/internal/census",
+   "detail": "GET /internal/census (reporting-service) returned 2xx to 10 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:patient-service",
+   "detail": "patient-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:auth-service:GET:/auth/introspect",
+   "detail": "14 trace(s) start at auth-service GET /auth/introspect with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:reporting-service:GET:/internal/census",
+   "detail": "10 trace(s) start at reporting-service GET /internal/census with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:web-gateway",
+   "detail": "web-gateway is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/_auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/_auth",
+   "replace_with": "/auth/introspect"
+  },
+  {
+   "match_prefix": "/api/appointments",
+   "upstream_service": "appointment-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/appointments",
+   "replace_with": "/appointments"
+  },
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/auth",
+   "replace_with": "/auth"
+  },
+  {
+   "match_prefix": "/api/patients",
+   "upstream_service": "patient-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/patients",
+   "replace_with": "/patients"
+  },
+  {
+   "match_prefix": "/api/records",
+   "upstream_service": "records-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/records",
+   "replace_with": "/records"
+  }
+ ],
+ "services": [
+  {
+   "name": "appointment-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "patient-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "records-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "reporting-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "web-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  }
+ ]
+}

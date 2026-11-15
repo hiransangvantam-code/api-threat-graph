@@ -1,0 +1,769 @@
+{
+ "company": "piggymetrics",
+ "users": "PiggyMetrics: 296 requests in 3.5 s, 12 sessions; status codes: 200 x241, 401 x43, 403 x12",
+ "startup_s": 11.1,
+ "scan_s": 7.4,
+ "scan_log": [
+  "[scan] piggymetrics: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 661 HTTP flows from the sidecar, 0 span batches from the Collector (529 KB cleared from their memory)",
+  "[ok]   runtime_traffic    22 records      49.1 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     188.6 ms  -> /work/raw/openapi.json",
+  "! gateway: no live spec at any probed path",
+  "! auth-service: no live spec at any probed path",
+  "! account-service: no live spec at any probed path",
+  "! statistics-service: no live spec at any probed path",
+  "! notification-service: no live spec at any probed path",
+  "! monitoring: no live spec at any probed path",
+  "[ok]   infrastructure      0 records       0.2 ms  -> /work/raw/infrastructure.json",
+  "! gateway config type 'zuul' not supported",
+  "[ok]   callchain           0 records       0.2 ms  -> /work/raw/callchain.json",
+  "! no spans found; is the OTel exporter writing to trace_paths?",
+  "[ok]   22 endpoints in 6 services (22 shadow)  -> /work/eujf.json",
+  "[ok]   61 findings (critical 0, high 9, medium 24, low 28), 0 attack paths, path risk 0",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] piggymetrics: 22 APIs, 61 findings, 0 attack paths, path risk 0",
+  "[scan] threat graph exported to output/site/exports/1-piggymetrics/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-095307-ff71ac",
+ "summary": {
+  "findings": 61,
+  "by_severity": {
+   "critical": 0,
+   "high": 9,
+   "medium": 24,
+   "low": 28
+  },
+  "attack_paths": 0,
+  "critical_paths": 0,
+  "total_path_risk": 0,
+  "endpoints": 22,
+  "shadow_endpoints": 22,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 6,
+  "label": "piggymetrics"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 22,
+  "inventory": {
+   "shadow": 22
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 22,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 0,
+  "endpoints_with_sensitive_data": 10,
+  "dependencies": 0,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:account-service:POST:/accounts/",
+   "service": "account-service",
+   "method": "POST",
+   "path": "/accounts/",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:account-service:GET:/accounts/current",
+   "service": "account-service",
+   "method": "GET",
+   "path": "/accounts/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:account-service:PUT:/accounts/current",
+   "service": "account-service",
+   "method": "PUT",
+   "path": "/accounts/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:account-service:GET:/accounts/{}",
+   "service": "account-service",
+   "method": "GET",
+   "path": "/accounts/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:auth-service:POST:/uaa/oauth/token",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/uaa/oauth/token",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:auth-service:POST:/uaa/users",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/uaa/users",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:auth-service:GET:/uaa/users/current",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/uaa/users/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:POST:/accounts/",
+   "service": "gateway",
+   "method": "POST",
+   "path": "/accounts/",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:GET:/accounts/current",
+   "service": "gateway",
+   "method": "GET",
+   "path": "/accounts/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:PUT:/accounts/current",
+   "service": "gateway",
+   "method": "PUT",
+   "path": "/accounts/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:GET:/accounts/{}",
+   "service": "gateway",
+   "method": "GET",
+   "path": "/accounts/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:GET:/notifications/recipients/current",
+   "service": "gateway",
+   "method": "GET",
+   "path": "/notifications/recipients/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:PUT:/notifications/recipients/current",
+   "service": "gateway",
+   "method": "PUT",
+   "path": "/notifications/recipients/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:GET:/statistics/current",
+   "service": "gateway",
+   "method": "GET",
+   "path": "/statistics/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:GET:/statistics/{}",
+   "service": "gateway",
+   "method": "GET",
+   "path": "/statistics/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:gateway:POST:/uaa/oauth/token",
+   "service": "gateway",
+   "method": "POST",
+   "path": "/uaa/oauth/token",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:monitoring:GET:/hystrix",
+   "service": "monitoring",
+   "method": "GET",
+   "path": "/hystrix",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:notification-service:GET:/notifications/recipients/current",
+   "service": "notification-service",
+   "method": "GET",
+   "path": "/notifications/recipients/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:notification-service:PUT:/notifications/recipients/current",
+   "service": "notification-service",
+   "method": "PUT",
+   "path": "/notifications/recipients/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:statistics-service:GET:/statistics/current",
+   "service": "statistics-service",
+   "method": "GET",
+   "path": "/statistics/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:statistics-service:GET:/statistics/{}",
+   "service": "statistics-service",
+   "method": "GET",
+   "path": "/statistics/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:statistics-service:PUT:/statistics/{}",
+   "service": "statistics-service",
+   "method": "PUT",
+   "path": "/statistics/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:account-service:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (account-service) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API3",
+   "target": "ep:gateway:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (gateway) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API3",
+   "target": "ep:gateway:GET:/statistics/current",
+   "detail": "GET /statistics/current (gateway) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API3",
+   "target": "ep:statistics-service:GET:/statistics/current",
+   "detail": "GET /statistics/current (statistics-service) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API3",
+   "target": "ep:gateway:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (gateway) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API3",
+   "target": "ep:statistics-service:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (statistics-service) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:account-service:POST:/accounts/",
+   "detail": "POST /accounts/ (account-service) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:gateway:POST:/accounts/",
+   "detail": "POST /accounts/ (gateway) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:auth-service:POST:/uaa/users",
+   "detail": "POST /uaa/users (auth-service) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:GET:/accounts/current",
+   "detail": "GET /accounts/current (account-service) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:GET:/accounts/current",
+   "detail": "GET /accounts/current (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (account-service) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:GET:/notifications/recipients/current",
+   "detail": "GET /notifications/recipients/current (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:notification-service:GET:/notifications/recipients/current",
+   "detail": "GET /notifications/recipients/current (notification-service) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:GET:/statistics/current",
+   "detail": "GET /statistics/current (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:statistics-service:GET:/statistics/current",
+   "detail": "GET /statistics/current (statistics-service) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:statistics-service:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (statistics-service) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:auth-service:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (auth-service): 15 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:gateway:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (gateway): 15 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:monitoring:GET:/hystrix",
+   "detail": "GET /hystrix (monitoring) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:auth-service:GET:/uaa/users/current",
+   "detail": "GET /uaa/users/current (auth-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:POST:/accounts/",
+   "detail": "POST /accounts/ (account-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:POST:/accounts/",
+   "detail": "POST /accounts/ (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:auth-service:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (auth-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:auth-service:POST:/uaa/users",
+   "detail": "POST /uaa/users (auth-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:PUT:/accounts/current",
+   "detail": "PUT /accounts/current (account-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:PUT:/accounts/current",
+   "detail": "PUT /accounts/current (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:gateway:PUT:/notifications/recipients/current",
+   "detail": "PUT /notifications/recipients/current (gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:notification-service:PUT:/notifications/recipients/current",
+   "detail": "PUT /notifications/recipients/current (notification-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:statistics-service:PUT:/statistics/{}",
+   "detail": "PUT /statistics/{id} (statistics-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:account-service",
+   "detail": "account-service: no live spec; 0 of 4 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:auth-service",
+   "detail": "auth-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:gateway",
+   "detail": "gateway: no live spec; 0 of 9 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:monitoring",
+   "detail": "monitoring: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:notification-service",
+   "detail": "notification-service: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:statistics-service",
+   "detail": "statistics-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:GET:/accounts/current",
+   "detail": "GET /accounts/current (account-service): 48 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:GET:/accounts/current",
+   "detail": "GET /accounts/current (gateway): 48 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (account-service): 58 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (gateway): 43 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:monitoring:GET:/hystrix",
+   "detail": "GET /hystrix (monitoring): 4 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:GET:/notifications/recipients/current",
+   "detail": "GET /notifications/recipients/current (gateway): 35 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:notification-service:GET:/notifications/recipients/current",
+   "detail": "GET /notifications/recipients/current (notification-service): 35 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:GET:/statistics/current",
+   "detail": "GET /statistics/current (gateway): 32 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:statistics-service:GET:/statistics/current",
+   "detail": "GET /statistics/current (statistics-service): 32 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (gateway): 41 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:statistics-service:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (statistics-service): 41 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:auth-service:GET:/uaa/users/current",
+   "detail": "GET /uaa/users/current (auth-service): 12 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:POST:/accounts/",
+   "detail": "POST /accounts/ (account-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:POST:/accounts/",
+   "detail": "POST /accounts/ (gateway): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:auth-service:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (auth-service): 27 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (gateway): 27 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:auth-service:POST:/uaa/users",
+   "detail": "POST /uaa/users (auth-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:PUT:/accounts/current",
+   "detail": "PUT /accounts/current (account-service): 36 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:PUT:/accounts/current",
+   "detail": "PUT /accounts/current (gateway): 36 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:gateway:PUT:/notifications/recipients/current",
+   "detail": "PUT /notifications/recipients/current (gateway): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:notification-service:PUT:/notifications/recipients/current",
+   "detail": "PUT /notifications/recipients/current (notification-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:statistics-service:PUT:/statistics/{}",
+   "detail": "PUT /statistics/{id} (statistics-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [],
+ "services": [
+  {
+   "name": "account-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "gateway",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "monitoring",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "notification-service",
+   "role": "service",
+   "exposure": "unknown"
+  },
+  {
+   "name": "statistics-service",
+   "role": "service",
+   "exposure": "unknown"
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+# Lakeside Mutual (Microservice API Patterns): routes from the *InformationHolder / *Coordinator
+# controllers; security from the WebSecurityConfiguration classes. customer-core checks an API key
+# (header Authorization: Bearer <key>); customer-self-service-backend checks a JWT;
+# customer-management-backend and policy-management-backend have no security configuration.
+# The browser front ends call the backends directly, so the backends are LoadBalancers.
+id: lakeside-mutual
+name: Lakeside Mutual
+field: Insurance
+by: Microservice API Patterns (OST)
+upstream: {repo: https://github.com/Microservice-API-Patterns/LakesideMutual, commit: 357ca2db7e6b814fce663183f2be954b051e6be4, license: Apache-2.0}
+languages: [Java, TypeScript]
+artifacts:
+  manifests: [kubernetes]
+public_by_design: [customer-self-service-backend, customer-management-backend, policy-management-backend, customer-self-service-frontend, customer-management-frontend, policy-management-frontend]
+edge: [customer-self-service-backend, customer-management-backend, policy-management-backend]
+auth:
+  service: customer-self-service-backend
+  login: POST /auth
+  user_field: email
+  login_extra: {password: "***"}
+  token: signed
+traced: false
+spec: {path: /v3/api-docs, services: [customer-core, customer-self-service-backend, customer-management-backend, policy-management-backend]}
+services:
+  customer-core:
+    port: 8110
+    language: Java
+    routes:
+      GET /customers: {auth: key, client: none, returns: {customers: [{customerId: $n, firstname: "***", lastname: "***", email: "***", phoneNumber: "***", streetAddress: "***"}]}}
+      GET /customers/{ids}: {auth: key, client: none, returns: {customers: [{customerId: $ids, email: "***", birthday: "***"}]}}
+      PUT /customers/{customerId}: {auth: key, client: none, returns: {customerId: $customerId}}
+      PUT /customers/{customerId}/address: {auth: key, client: none, returns: {streetAddress: "***"}}
+      POST /customers: {auth: key, client: none, returns: {customerId: $n}}
+      GET /cities/{postalCode}: {auth: key, client: none, returns: {cities: [Bangkok]}}
+      GET /getCustomers/{ids}: {auth: key, client: none, deprecated: true, returns: [{customerId: $ids, email: "***"}]}
+  customer-self-service-backend:
+    port: 8080
+    language: Java
+    verify: self
+    routes:
+      POST /auth/signup: {body: {email: "***", password: "***"}, returns: {email: "***"}, weight: 1}
+      GET /user: {auth: user, returns: {email: "***", customerId: $user}, weight: 2}
+      GET /cities/{postalCode}: {calls: [{to: "GET customer-core /cities/{postalCode}", service_key: true}], returns: {cities: [Bangkok]}, weight: 1}
+      GET /insurance-quote-requests: {auth: user, returns: [{id: $n, statusHistory: [{status: REQUEST_SUBMITTED}]}]}
+      GET /insurance-quote-requests/{insuranceQuoteRequestId}: {auth: user, owner: insuranceQuoteRequestId, returns: {id: $insuranceQuoteRequestId, customerInfo: {customerId: $owner}}}
+      POST /insurance-quote-requests: {auth: user, body: {customerInfo: {customerId: "$owned"}, insuranceOptions: {insuranceType: Car}}, returns: {id: $n}, weight: 1}
+      PATCH /insurance-quote-requests/{id}: {auth: user, owner: id, body: {status: QUOTE_ACCEPTED}, returns: {id: $id}, weight: 1}
+      PUT /customers/{customerId}/address: {auth: user, owner: customerId, body: {streetAddress: "***", postalCode: "***", city: Bangkok}, calls: [{to: "PUT customer-core /customers/{customerId}/address", service_key: true}], returns: {streetAddress: "***"}, weight: 1}
+      GET /customers/{customerId}: {auth: user, owner: customerId, owner_check: false, calls: [{to: "GET customer-core /customers/{customerId}", service_key: true}], returns: {customerId: $customerId, firstname: "***", lastname: "***", email: "***", birthday: "***", streetAddress: "***", phoneNumber: "***"}, weight: 2}
+      POST /customers: {auth: user, body: {firstname: "***", lastname: "***", birthday: "***"}, calls: [{to: "POST customer-core /customers", service_key: true}], returns: {customerId: $n}, weight: 1}
+      GET /customers/{customerId}/insurance-quote-requests: {auth: user, owner: customerId, returns: [{id: $n}]}
+  customer-management-backend:
+    port: 8100
+    language: Java
+    routes:
+      GET /customers: {calls: [{to: "GET customer-core /customers", service_key: true}], returns: {customers: [{customerId: $n, firstname: "***", lastname: "***", email: "***", phoneNumber: "***"}]}, weight: 2}
+      GET /customers/{customerId}: {calls: [{to: "GET customer-core /customers/{customerId}", service_key: true}], returns: {customerId: $customerId, email: "***", phoneNumber: "***", streetAddress: "***"}}
+      PUT /customers/{customerId}: {body: {firstname: "***", lastname: "***", phoneNumber: "***"}, calls: [{to: "PUT customer-core /customers/{customerId}", service_key: true}], returns: {customerId: $customerId}, weight: 1}
+      GET /notifications: {returns: [{customerId: $n, username: "***", count: 1}]}
+      GET /interaction-logs/{customerId}: {returns: {customerId: $customerId, interactions: [{content: "***"}]}}
+      PATCH /interaction-logs/{customerId}: {body: {lastAcknowledgedInteractionId: 3}, returns: {customerId: $customerId}, weight: 1}
+  policy-management-backend:
+    port: 8090
+    language: Java
+    routes:
+      GET /customers: {calls: [{to: "GET customer-core /customers", service_key: true}], returns: {customers: [{customerId: $n, email: "***"}]}}
+      GET /customers/{customerIdDto}: {calls: [{to: "GET customer-core /customers/{customerIdDto}", service_key: true}], returns: {customerId: $customerIdDto, email: "***"}}
+      GET /customers/{customerIdDto}/policies: {returns: [{policyId: $n, policyType: Car, insurancePremium: {amount: 0}}]}
+      GET /insurance-quote-requests: {returns: [{id: $n, customerInfo: {customerId: c1}}]}
+      GET /insurance-quote-requests/{id}: {returns: {id: $id, customerInfo: {customerId: c1}}}
+      PATCH /insurance-quote-requests/{id}: {body: {status: QUOTE_RECEIVED, insuranceQuote: {insurancePremium: {amount: 100}}}, returns: {id: $id}, weight: 1}
+      POST /riskfactor/compute: {body: {birthday: "***", postalCode: "***"}, returns: {riskFactor: 20}, weight: 1}
+      POST /policies: {body: {customerId: "$owned", policyType: Car, insurancePremium: {amount: 100}}, status: 201, returns: {policyId: $n}, weight: 1}
+      PUT /policies/{policyId}: {body: {policyType: Car, insurancePremium: {amount: 120}}, returns: {policyId: $policyId}, weight: 1}
+      DELETE /policies/{policyId}: {returns: {policyId: $policyId}, weight: 1}
+      GET /policies: {returns: [{policyId: $n, customerId: c1, insurancePremium: {amount: 0}}], weight: 2}
+      GET /policies/{policyId}: {returns: {policyId: $policyId, customerId: c1, insurancePremium: {amount: 0}}}
+  spring-boot-admin:
+    port: 9000
+    language: Java
+    routes:
+      GET /applications: {client: none, returns: [{name: customer-core, status: UP}]}
+cron:
+  - {name: ops-console, every: 4, calls: ["GET spring-boot-admin /applications"]}
+labels:
+  - {cat: A2, at: "GET /customers/{customerId} (customer-self-service-backend)", why: "Any logged-in customer can read any customer's record: the handler never compares customerId with the logged-in user.", evidence: "CustomerInformationHolder.java:70-85"}
+  - {cat: A1, at: "GET /customers (customer-management-backend)", why: "Every customer's personal data with no login; the service is a LoadBalancer on the internet.", evidence: "no WebSecurityConfiguration in customer-management-backend; kubernetes/"}
+  - {cat: A9, at: "GET /customers (customer-management-backend)", why: "Bulk personal data, anonymous.", evidence: CustomerInformationHolder.java}
+  - {cat: A1, at: "PUT /customers/{customerId} (customer-management-backend)", why: "Anyone can change any customer's details.", evidence: CustomerInformationHolder.java}
+  - {cat: A1, at: "GET /interaction-logs/{customerId} (customer-management-backend)", why: "Customer chat logs, anonymous.", evidence: InteractionLogInformationHolder.java}
+  - {cat: A1, at: "GET /policies (policy-management-backend)", why: "All policies with premiums, anonymous, on a LoadBalancer.", evidence: "no WebSecurityConfiguration in policy-management-backend"}
+  - {cat: A1, at: "POST /policies (policy-management-backend)", why: "Anyone can create a policy.", evidence: PolicyInformationHolder.java}
+  - {cat: A1, at: "DELETE /policies/{policyId} (policy-management-backend)", why: "Anyone can delete a policy.", evidence: PolicyInformationHolder.java}
+  - {cat: A1, at: "GET /customers (policy-management-backend)", why: "Customer list, anonymous.", evidence: CustomerInformationHolder.java}
+  - {cat: A3, at: spring-boot-admin, why: "Spring Boot Admin is a LoadBalancer without a login.", evidence: kubernetes/}
+  - {cat: A6, at: "POST /auth (customer-self-service-backend)", why: "No rate limit or lockout on login.", evidence: AuthenticationController.java}
+  - {cat: C7, at: customer-core, why: "The valid API keys are written in application.properties (apikey.validkeys).", evidence: customer-core/src/main/resources/application.properties}
+  - {cat: C8, at: customer-self-service-backend, why: "All LoadBalancers serve plain HTTP.", evidence: kubernetes/}

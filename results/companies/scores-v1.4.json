@@ -1,0 +1,943 @@
+[
+ {
+  "company": "paynow",
+  "name": "PayNow",
+  "endpoints": {
+   "real": 11,
+   "listed": 11,
+   "correct": 11,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 6,
+   "found": 6,
+   "visible": 6,
+   "visible_found": 6,
+   "items": [
+    {
+     "rule": "API1",
+     "target": "ep:wallet-service:GET:/wallets/{}/statement",
+     "at": "GET /wallets/{wallet_id}/statement",
+     "why": "No owner check: any customer can read any wallet's statement.",
+     "found": true
+    },
+    {
+     "rule": "TS-08",
+     "target": "ep:ledger-service:POST:/ledger/entries",
+     "at": "POST /ledger/entries",
+     "why": "Wallet and transfer services post ledger entries with no credential, and the ledger accepts them from any pod.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:ledger-service:POST:/ledger/entries",
+     "at": "POST /ledger/entries",
+     "why": "The same ledger write succeeds without any credential.",
+     "found": true
+    },
+    {
+     "rule": "API8-TAG",
+     "target": "svc:wallet-service",
+     "at": "wallet-service",
+     "why": "Deployed from the :latest image tag.",
+     "found": true
+    },
+    {
+     "rule": "API10",
+     "target": "svc:transfer-service",
+     "at": "transfer-service",
+     "match": "fx-rates",
+     "why": "Transfers use exchange rates from an outside API.",
+     "found": true
+    },
+    {
+     "rule": "LT-04",
+     "target": "ep:transfer-service:POST:/transfers",
+     "at": "POST /transfers",
+     "why": "One transfer in 25 fails with a server error.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "Kong's rate-limiting plugin is on the login route.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API1",
+     "target": "ep:transfer-service:GET:/transfers/{}",
+     "at": "GET /transfers/{transfer_id}",
+     "why": "Owner check present: other customers get 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 7,
+   "matching_planted": 6,
+   "other": [
+    {
+     "rule": "API1",
+     "target": "ep:ledger-service:GET:/ledger/accounts/{}/balance",
+     "detail": "GET /ledger/accounts/{account_id}/balance (ledger-service): object ID from path, response carries owner field account_id, 0 x 403 in 60 calls"
+    }
+   ],
+   "other_by_rule": {
+    "API1": 1
+   }
+  }
+ },
+ {
+  "company": "carelink",
+  "name": "CareLink",
+  "endpoints": {
+   "real": 12,
+   "listed": 12,
+   "correct": 12,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 8,
+   "found": 8,
+   "visible": 8,
+   "visible_found": 8,
+   "items": [
+    {
+     "rule": "API1",
+     "target": "ep:appointment-service:GET:/appointments/{}",
+     "at": "GET /appointments/{appointment_id}",
+     "why": "No owner check: any patient can open any appointment, notes included.",
+     "found": true
+    },
+    {
+     "rule": "TS-06",
+     "target": "ep:records-service:GET:/records/{}/pdf",
+     "at": "GET /records/{record_id}/pdf",
+     "why": "The download link carries the session token in the query string.",
+     "found": true
+    },
+    {
+     "rule": "API8-ROOT",
+     "target": "svc:patient-service",
+     "at": "patient-service",
+     "why": "No runAsNonRoot: the container may run as root.",
+     "found": true
+    },
+    {
+     "rule": "LT-02",
+     "target": "svc:web-gateway",
+     "at": "web-gateway",
+     "why": "nginx runs without a tracing module, so the gateway sends no spans.",
+     "found": true
+    },
+    {
+     "rule": "LT-01",
+     "target": "ep:auth-service:GET:/auth/introspect",
+     "at": "GET /auth/introspect",
+     "why": "Consequence of the untraced gateway: nginx's session checks reach the auth service with no trace.",
+     "found": true
+    },
+    {
+     "rule": "API5",
+     "target": "ep:reporting-service:GET:/internal/census",
+     "at": "GET /internal/census",
+     "why": "Internal reporting endpoint answers any pod without a credential.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:reporting-service:GET:/internal/census",
+     "at": "GET /internal/census",
+     "why": "The same endpoint returns 2xx to anonymous callers.",
+     "found": true
+    },
+    {
+     "rule": "LT-01",
+     "target": "ep:reporting-service:GET:/internal/census",
+     "at": "GET /internal/census",
+     "why": "Called by an export script that sends no trace.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "nginx limit_req is on the login location.",
+     "false_alarm": false
+    },
+    {
+     "rule": "TS-03",
+     "target": "ep:records-service:GET:/records/{}/pdf",
+     "at": "GET /records/{record_id}/pdf",
+     "why": "The request does carry a credential, in the query string; TS-06 is the real problem.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 8,
+   "matching_planted": 8,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "skyfly",
+  "name": "SkyFly",
+  "endpoints": {
+   "real": 12,
+   "listed": 12,
+   "correct": 12,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 7,
+   "found": 7,
+   "visible": 7,
+   "visible_found": 7,
+   "items": [
+    {
+     "rule": "TS-02",
+     "target": "svc:api-gateway",
+     "at": "api-gateway",
+     "match": "/api/checkin",
+     "why": "The check-in route has no TokenRelay filter: the gateway lets anyone through.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:checkin-service:GET:/checkin/{}",
+     "at": "GET /checkin/{booking_id}",
+     "why": "Check-in details, passport number included, for anyone who guesses a booking number.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:checkin-service:POST:/checkin/{}/boarding-pass",
+     "at": "POST /checkin/{booking_id}/boarding-pass",
+     "why": "Anyone can issue a boarding pass for any booking number.",
+     "found": true
+    },
+    {
+     "rule": "API7",
+     "target": "ep:booking-service:POST:/bookings/{}/webhooks",
+     "at": "POST /bookings/{booking_id}/webhooks",
+     "why": "Takes a webhook_url the server will call later.",
+     "found": true
+    },
+    {
+     "rule": "API10",
+     "target": "svc:booking-service",
+     "at": "booking-service",
+     "match": "gds-provider",
+     "why": "Seat availability comes from an outside GDS.",
+     "found": true
+    },
+    {
+     "rule": "API9-ZOMBIE",
+     "target": "ep:partner-api:GET:/partner/v1/fares",
+     "at": "GET /partner/v1/fares",
+     "why": "Deprecated v1 still used by agencies.",
+     "found": true
+    },
+    {
+     "rule": "API4",
+     "target": "svc:checkin-service",
+     "at": "checkin-service",
+     "why": "No CPU or memory limits on a service the internet reaches.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 3,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "RequestRateLimiter is on the login route.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API3",
+     "target": "ep:partner-api:GET:/partner/bookings",
+     "at": "GET /partner/bookings",
+     "why": "Bulk data, but only to keyed partners, its intended audience.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API1",
+     "target": "ep:booking-service:GET:/bookings/{}",
+     "at": "GET /bookings/{booking_id}",
+     "why": "Owner check present: other customers get 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 7,
+   "matching_planted": 7,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "fleetgo",
+  "name": "FleetGo",
+  "endpoints": {
+   "real": 11,
+   "listed": 11,
+   "correct": 11,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 5,
+   "found": 5,
+   "visible": 5,
+   "visible_found": 5,
+   "items": [
+    {
+     "rule": "API8-DEBUG",
+     "target": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+     "at": "GET /tracking/debug/pprof/goroutine",
+     "why": "Go's pprof profiler is reachable through the public tracking route.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:tracking-service:GET:/tracking/{}/history",
+     "at": "GET /tracking/{shipment_id}/history",
+     "why": "Scan history endpoint the spec does not list.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+     "at": "GET /tracking/debug/pprof/goroutine",
+     "why": "The profiler is not in the spec either.",
+     "found": true
+    },
+    {
+     "rule": "API8-PRIV",
+     "target": "svc:driver-service",
+     "at": "driver-service",
+     "why": "Runs privileged.",
+     "found": true
+    },
+    {
+     "rule": "API8-NODEPORT",
+     "target": "svc:driver-service",
+     "at": "driver-service",
+     "why": "A NodePort left from a dispatch console makes it reachable on every node.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 3,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-08",
+     "target": "ep:pricing-service:GET:/quotes",
+     "at": "GET /quotes",
+     "why": "STRICT mTLS: only mesh workloads with an identity can call the pricing service.",
+     "false_alarm": false
+    },
+    {
+     "rule": "TS-02",
+     "target": "svc:ingress-gateway",
+     "at": "ingress-gateway",
+     "why": "Every route except login is behind the CUSTOM (ext-authz) AuthorizationPolicy.",
+     "false_alarm": false
+    },
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "An EnvoyFilter local rate limit protects the login path.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 5,
+   "matching_planted": 5,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "learnhub",
+  "name": "LearnHub",
+  "endpoints": {
+   "real": 13,
+   "listed": 13,
+   "correct": 13,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 6,
+   "found": 5,
+   "visible": 5,
+   "visible_found": 5,
+   "items": [
+    {
+     "rule": "API1",
+     "target": "ep:grade-service:GET:/grades/{}",
+     "at": "GET /grades/{student_id}",
+     "why": "No owner check: any student can read any student's grades.",
+     "found": true
+    },
+    {
+     "rule": "API5",
+     "target": "ep:admin-service:GET:/admin/users/export",
+     "at": "GET /admin/users/export",
+     "why": "User export only checks that the caller is logged in, not that they are staff.",
+     "expect_miss": "The role check is missing, but anonymous callers still get 401; passive traffic cannot tell a student from staff.",
+     "found": false
+    },
+    {
+     "rule": "API9-NOSPEC",
+     "target": "svc:legacy-quiz-service",
+     "at": "legacy-quiz-service",
+     "why": "The acquired quiz service has no API document at all.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:legacy-quiz-service:GET:/quizzes/{}",
+     "at": "GET /quizzes/{quiz_id}",
+     "why": "Undocumented.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:legacy-quiz-service:POST:/quizzes/{}/attempts",
+     "at": "POST /quizzes/{quiz_id}/attempts",
+     "why": "Undocumented.",
+     "found": true
+    },
+    {
+     "rule": "API8-TAG",
+     "target": "svc:course-service",
+     "at": "course-service",
+     "why": "Deployed from the :latest image tag.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "The gateway route config rate-limits the login.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API5",
+     "target": "ep:admin-service:GET:/admin/stats",
+     "at": "GET /admin/stats",
+     "why": "Staff only: students get 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 5,
+   "matching_planted": 5,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "streambox",
+  "name": "StreamBox",
+  "endpoints": {
+   "real": 12,
+   "listed": 12,
+   "correct": 12,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 6,
+   "found": 6,
+   "visible": 6,
+   "visible_found": 6,
+   "items": [
+    {
+     "rule": "API9-NOSPEC",
+     "target": "svc:billing-service",
+     "at": "billing-service",
+     "why": "Billing publishes no API document; the file in the repository is version 1.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:billing-service:GET:/billing/invoices/{}",
+     "at": "GET /billing/invoices/{invoice_id}",
+     "why": "Added in version 2, missing from the old document.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:billing-service:POST:/billing/payment-methods",
+     "at": "POST /billing/payment-methods",
+     "why": "Added in version 2, missing from the old document.",
+     "found": true
+    },
+    {
+     "rule": "LT-04",
+     "target": "ep:recommendation-service:GET:/recommendations/{}",
+     "at": "GET /recommendations/{title_id}",
+     "why": "One request in 15 fails with a server error.",
+     "found": true
+    },
+    {
+     "rule": "LT-04",
+     "target": "ep:catalog-service:POST:/titles/{}/playback",
+     "at": "POST /titles/{title_id}/playback",
+     "why": "Playback answers 502 whenever recommendations fail.",
+     "found": true
+    },
+    {
+     "rule": "API8-NETPOL",
+     "target": "svc:recommendation-service",
+     "at": "recommendation-service",
+     "why": "No NetworkPolicy selects it.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 3,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-01",
+     "target": "ep:profile-service:GET:/profiles/{}",
+     "at": "GET /profiles/{profile_id}",
+     "why": "Every request carries the session cookie sid.",
+     "false_alarm": false
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:profile-service:PUT:/profiles/{}/preferences",
+     "at": "PUT /profiles/{profile_id}/preferences",
+     "why": "Every request carries the session cookie sid.",
+     "false_alarm": false
+    },
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "Kong's rate-limiting plugin is on the login route.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 6,
+   "matching_planted": 6,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "citygov",
+  "name": "CityGov",
+  "endpoints": {
+   "real": 10,
+   "listed": 10,
+   "correct": 10,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 5,
+   "found": 5,
+   "visible": 5,
+   "visible_found": 5,
+   "items": [
+    {
+     "rule": "TS-05",
+     "target": "svc:gov-gateway",
+     "at": "gov-gateway",
+     "why": "The Ingress has no TLS: sessions and personal data cross the internet in plain HTTP.",
+     "found": true
+    },
+    {
+     "rule": "API8-NODEPORT",
+     "target": "svc:tax-service",
+     "at": "tax-service",
+     "why": "A NodePort service publishes the tax service on every node, around the gateway.",
+     "found": true
+    },
+    {
+     "rule": "API8-ROOT",
+     "target": "svc:tax-service",
+     "at": "tax-service",
+     "why": "No runAsNonRoot.",
+     "found": true
+    },
+    {
+     "rule": "API9-NOSPEC",
+     "target": "svc:permit-service",
+     "at": "permit-service",
+     "why": "Its API document only lives in the repository; the service publishes none.",
+     "found": true
+    },
+    {
+     "rule": "API9-ZOMBIE",
+     "target": "ep:citizen-service:GET:/v1/citizens/{}",
+     "at": "GET /v1/citizens/{citizen_id}",
+     "why": "Deprecated v1 still used by the district kiosks.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "nginx limit_req is on the login location.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API5",
+     "target": "ep:admin-service:GET:/admin/audit-log",
+     "at": "GET /admin/audit-log",
+     "why": "Staff only: residents get 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 5,
+   "matching_planted": 5,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "fooddash",
+  "name": "FoodDash",
+  "endpoints": {
+   "real": 11,
+   "listed": 11,
+   "correct": 11,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 5,
+   "found": 5,
+   "visible": 5,
+   "visible_found": 5,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "No rate limit or lockout anywhere in front of the login.",
+     "found": true
+    },
+    {
+     "rule": "TS-08",
+     "target": "ep:dispatch-service:POST:/dispatch",
+     "at": "POST /dispatch",
+     "why": "The order service calls dispatch with no credential, and there is no mTLS.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:dispatch-service:POST:/dispatch",
+     "at": "POST /dispatch",
+     "why": "Dispatch accepts new jobs from any caller without a credential.",
+     "found": true
+    },
+    {
+     "rule": "API1",
+     "target": "ep:order-service:GET:/orders/{}/receipt",
+     "at": "GET /orders/{order_id}/receipt",
+     "why": "No owner check on receipts.",
+     "found": true
+    },
+    {
+     "rule": "API4",
+     "target": "svc:order-service",
+     "at": "order-service",
+     "why": "No CPU or memory limits on a service the internet reaches.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-02",
+     "target": "svc:mesh-gateway",
+     "at": "mesh-gateway",
+     "why": "Every route except login is behind the CUSTOM (ext-authz) AuthorizationPolicy.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API1",
+     "target": "ep:payment-service:GET:/payments/{}",
+     "at": "GET /payments/{payment_id}",
+     "why": "Owner check present: other customers get 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 5,
+   "matching_planted": 5,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "insureco",
+  "name": "InsureCo",
+  "endpoints": {
+   "real": 10,
+   "listed": 10,
+   "correct": 10,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 6,
+   "found": 4,
+   "visible": 5,
+   "visible_found": 4,
+   "items": [
+    {
+     "rule": "TS-02",
+     "target": "svc:api-gateway",
+     "at": "api-gateway",
+     "match": "/api/reports",
+     "why": "The reports route has no TokenRelay filter.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:reporting-service:GET:/reports/claims-export",
+     "at": "GET /reports/claims-export",
+     "why": "The claims export answers callers with no credential.",
+     "found": true
+    },
+    {
+     "rule": "API3",
+     "target": "ep:reporting-service:GET:/reports/claims-export",
+     "at": "GET /reports/claims-export",
+     "why": "Every claim, with customer e-mail, in one anonymous response.",
+     "found": true
+    },
+    {
+     "rule": "API5",
+     "target": "ep:reporting-service:GET:/reports/claims-export",
+     "at": "GET /reports/claims-export",
+     "why": "An export function reachable from the internet without a role.",
+     "found": false
+    },
+    {
+     "rule": "API8-NETPOL",
+     "target": "svc:underwriting-service",
+     "at": "underwriting-service",
+     "why": "No NetworkPolicy selects it.",
+     "found": true
+    },
+    {
+     "rule": "API7",
+     "target": "ep:claim-service:POST:/claims",
+     "at": "POST /claims",
+     "why": "The claims service downloads the photo from the URL the customer sends.",
+     "expect_miss": "The field is called photo_url, a name the SSRF rule does not know.",
+     "found": false
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "RequestRateLimiter is on the login route.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API5",
+     "target": "ep:reporting-service:GET:/reports/weekly-summary",
+     "at": "GET /reports/weekly-summary",
+     "why": "Role check at the service: anonymous callers get 401 and customers 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 4,
+   "matching_planted": 4,
+   "other": [],
+   "other_by_rule": {}
+  }
+ },
+ {
+  "company": "telemax",
+  "name": "TeleMax",
+  "endpoints": {
+   "real": 18,
+   "listed": 18,
+   "correct": 18,
+   "missed": [],
+   "extra": []
+  },
+  "planted": {
+   "total": 11,
+   "found": 11,
+   "visible": 11,
+   "visible_found": 11,
+   "items": [
+    {
+     "rule": "API1",
+     "target": "ep:usage-service:GET:/usage/{}/cdr",
+     "at": "GET /usage/{subscriber_id}/cdr",
+     "why": "No owner check: call records of any subscriber.",
+     "found": true
+    },
+    {
+     "rule": "API10",
+     "target": "svc:billing-service",
+     "at": "billing-service",
+     "match": "bank-switch",
+     "why": "Bill payments go to an outside bank switch.",
+     "found": true
+    },
+    {
+     "rule": "LT-04",
+     "target": "ep:sim-service:POST:/sims/{}/swap",
+     "at": "POST /sims/{sim_id}/swap",
+     "why": "One SIM swap in 20 fails with a server error.",
+     "found": true
+    },
+    {
+     "rule": "API5",
+     "target": "ep:network-ops-service:GET:/ops/cell-status",
+     "at": "GET /ops/cell-status",
+     "why": "Network operations endpoint answers any pod without a credential.",
+     "found": true
+    },
+    {
+     "rule": "TS-01",
+     "target": "ep:network-ops-service:GET:/ops/cell-status",
+     "at": "GET /ops/cell-status",
+     "why": "The same endpoint returns 2xx to anonymous callers.",
+     "found": true
+    },
+    {
+     "rule": "LT-01",
+     "target": "ep:network-ops-service:GET:/ops/cell-status",
+     "at": "GET /ops/cell-status",
+     "why": "Polled by a dashboard outside the cluster that sends no trace.",
+     "found": true
+    },
+    {
+     "rule": "LT-02",
+     "target": "svc:number-porting-service",
+     "at": "number-porting-service",
+     "why": "The number porting service was never instrumented.",
+     "found": true
+    },
+    {
+     "rule": "LT-03",
+     "target": "ep:number-porting-service:POST:/porting",
+     "at": "POST /porting",
+     "why": "Traffic but no spans (untraced service).",
+     "found": true
+    },
+    {
+     "rule": "LT-03",
+     "target": "ep:number-porting-service:GET:/porting/{}",
+     "at": "GET /porting/{request_id}",
+     "why": "Traffic but no spans (untraced service).",
+     "found": true
+    },
+    {
+     "rule": "API8-TAG",
+     "target": "svc:device-service",
+     "at": "device-service",
+     "why": "Deployed from the :latest image tag.",
+     "found": true
+    },
+    {
+     "rule": "API9-SHADOW",
+     "target": "ep:support-service:GET:/tickets/search",
+     "at": "GET /tickets/search",
+     "why": "Staff search endpoint the spec does not list.",
+     "found": true
+    }
+   ]
+  },
+  "controls": {
+   "total": 2,
+   "false_alarms": 0,
+   "items": [
+    {
+     "rule": "TS-07",
+     "target": "ep:auth-service:POST:/auth/session",
+     "at": "POST /auth/session",
+     "why": "RequestRateLimiter is on the login route.",
+     "false_alarm": false
+    },
+    {
+     "rule": "API1",
+     "target": "ep:billing-service:GET:/bills/{}",
+     "at": "GET /bills/{bill_id}",
+     "why": "Owner check present: other subscribers get 403.",
+     "false_alarm": false
+    }
+   ]
+  },
+  "findings": {
+   "total": 11,
+   "matching_planted": 11,
+   "other": [],
+   "other_by_rule": {}
+  }
+ }
+]

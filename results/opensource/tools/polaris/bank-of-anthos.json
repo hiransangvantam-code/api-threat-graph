@@ -1,0 +1,277 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "C1",
+   "svc:accounts-db"
+  ],
+  [
+   "C1",
+   "svc:ledger-db"
+  ],
+  [
+   "C10",
+   "svc:accounts-db"
+  ],
+  [
+   "C10",
+   "svc:balancereader"
+  ],
+  [
+   "C10",
+   "svc:contacts"
+  ],
+  [
+   "C10",
+   "svc:frontend"
+  ],
+  [
+   "C10",
+   "svc:ledger-db"
+  ],
+  [
+   "C10",
+   "svc:ledgerwriter"
+  ],
+  [
+   "C10",
+   "svc:loadgenerator"
+  ],
+  [
+   "C10",
+   "svc:transactionhistory"
+  ],
+  [
+   "C10",
+   "svc:userservice"
+  ],
+  [
+   "C6",
+   "svc:accounts-db"
+  ],
+  [
+   "C6",
+   "svc:balancereader"
+  ],
+  [
+   "C6",
+   "svc:contacts"
+  ],
+  [
+   "C6",
+   "svc:frontend"
+  ],
+  [
+   "C6",
+   "svc:ledger-db"
+  ],
+  [
+   "C6",
+   "svc:ledgerwriter"
+  ],
+  [
+   "C6",
+   "svc:loadgenerator"
+  ],
+  [
+   "C6",
+   "svc:transactionhistory"
+  ],
+  [
+   "C6",
+   "svc:userservice"
+  ],
+  [
+   "C9",
+   "svc:accounts-db"
+  ],
+  [
+   "C9",
+   "svc:ledger-db"
+  ]
+ ],
+ "raw": {
+  "sensitiveConfigmapContent": 3,
+  "metadataAndInstanceMismatched": 9,
+  "automountServiceAccountToken": 9,
+  "missingNetworkPolicy": 9,
+  "priorityClassNotSet": 9,
+  "topologySpreadConstraint": 9,
+  "insecureCapabilities": 2,
+  "linuxHardening": 2,
+  "livenessProbeMissing": 6,
+  "notReadOnlyRootFilesystem": 2,
+  "privilegeEscalationAllowed": 2,
+  "pullPolicyNotAlways": 9,
+  "readinessProbeMissing": 3,
+  "runAsRootAllowed": 2,
+  "deploymentMissingReplicas": 7,
+  "missingPodDisruptionBudget": 7,
+  "sensitiveContainerEnvVar": 1
+ },
+ "seconds": 0.18,
+ "findings": 91,
+ "score": {
+  "labels": 44,
+  "found": 22,
+  "reported": 22,
+  "confirmed": 22,
+  "by_group": {
+   "Configuration": {
+    "labels": 35,
+    "found": 22,
+    "reported": 22,
+    "confirmed": 22
+   },
+   "API behaviour": {
+    "labels": 3,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 6,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 1,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "A7": {
+    "labels": 1,
+    "found": 0
+   },
+   "C1": {
+    "labels": 2,
+    "found": 2
+   },
+   "C10": {
+    "labels": 9,
+    "found": 9
+   },
+   "C6": {
+    "labels": 9,
+    "found": 9
+   },
+   "C7": {
+    "labels": 5,
+    "found": 0
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 9,
+    "found": 2
+   },
+   "O1": {
+    "labels": 6,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A5",
+    "svc:userservice"
+   ],
+   [
+    "A6",
+    "ep:frontend:POST:/login"
+   ],
+   [
+    "A7",
+    "ep:userservice:GET:/login"
+   ],
+   [
+    "C7",
+    "configmap:accounts-db-config"
+   ],
+   [
+    "C7",
+    "configmap:demo-data-config"
+   ],
+   [
+    "C7",
+    "configmap:ledger-db-config"
+   ],
+   [
+    "C7",
+    "secret:jwt-key"
+   ],
+   [
+    "C7",
+    "svc:userservice"
+   ],
+   [
+    "C8",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:balancereader"
+   ],
+   [
+    "C9",
+    "svc:contacts"
+   ],
+   [
+    "C9",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:ledgerwriter"
+   ],
+   [
+    "C9",
+    "svc:loadgenerator"
+   ],
+   [
+    "C9",
+    "svc:transactionhistory"
+   ],
+   [
+    "C9",
+    "svc:userservice"
+   ],
+   [
+    "O1",
+    "svc:balancereader"
+   ],
+   [
+    "O1",
+    "svc:contacts"
+   ],
+   [
+    "O1",
+    "svc:frontend"
+   ],
+   [
+    "O1",
+    "svc:ledgerwriter"
+   ],
+   [
+    "O1",
+    "svc:transactionhistory"
+   ],
+   [
+    "O1",
+    "svc:userservice"
+   ]
+  ],
+  "unconfirmed": [],
+  "in_reach": {
+   "labels": 29,
+   "found": 22
+  }
+ }
+}

@@ -1,0 +1,159 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LearnHub Grade Service API",
+    "version": "1.6.1"
+  },
+  "servers": [
+    {
+      "url": "http://grade-service:3000"
+    }
+  ],
+  "paths": {
+    "/grades/{student_id}": {
+      "get": {
+        "operationId": "get_grades_student_id",
+        "summary": "GET /grades/{student_id}",
+        "tags": [
+          "grade-service"
+        ],
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "course_id": {
+                            "type": "integer"
+                          },
+                          "grade": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/grades/{student_id}/courses/{course_id}": {
+      "put": {
+        "operationId": "put_grades_student_id_courses_course_id",
+        "summary": "PUT /grades/{student_id}/courses/{course_id}",
+        "tags": [
+          "grade-service"
+        ],
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grade": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "student_id": {
+                      "type": "integer"
+                    },
+                    "course_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

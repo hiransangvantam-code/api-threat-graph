@@ -40,8 +40,26 @@ LIVE = WORK / "live"
 STATE = WORK / "scan-state.json"
 CAPTURE = Path(os.environ.get("ATG_CAPTURE_DIR", "/data/capture"))      # written by the mitmproxy sidecar
 TELEMETRY = Path(os.environ.get("ATG_TELEMETRY_DIR", "/data/telemetry"))  # written by the OTel Collector
-TARGET_CFG = ROOT / "docker" / "extractor-target.yaml"
+TARGET_DIR = Path(os.environ.get("ATG_TARGET_DIR", "/target"))                # the company's config, read-only
 E = html.escape
+
+
+def target_cfg_path() -> Path:
+    """The company's own ATG configuration (companies/<id>/atg-target.yaml, mounted at
+    /target) if it has one; otherwise the ShopLite configuration that ships with ATG."""
+    own = TARGET_DIR / "atg-target.yaml"
+    return own if own.exists() else ROOT / "docker" / "extractor-target.yaml"
+
+
+def target_info() -> tuple[str, str, list[str]]:
+    """(system name, Docker network, services) of the system under review, for the pages."""
+    try:
+        cfg = yaml.safe_load(target_cfg_path().read_text(encoding="utf-8"))
+        name = cfg["target"]["name"]
+        services = [t["service"] for t in cfg["sources"]["openapi"]["live_targets"]]
+    except (OSError, KeyError, TypeError, yaml.YAMLError):
+        name, services = "the target system", []
+    return name, os.environ.get("ATG_TARGET_NETWORK", "customer-net"), services
 
 
 # ---------------------------------------------------------------- scan state (shared by serve.py and scan.py)
@@ -95,7 +113,7 @@ def _tcp_ok(host: str, port: int) -> bool:
 
 
 def health_checks(st: dict) -> dict:
-    cfg = yaml.safe_load(TARGET_CFG.read_text(encoding="utf-8"))
+    cfg = yaml.safe_load(target_cfg_path().read_text(encoding="utf-8"))
     target = [(f"{t['service']} ({t['base_url'].split('//', 1)[-1]})", _http_ok(t["base_url"] + "/health"))
               for t in cfg["sources"]["openapi"]["live_targets"]]
     proxy = os.environ.get("ATG_PROXY_HOST", "atg-proxy")
@@ -214,6 +232,17 @@ ARCH_SVG = """<svg viewBox="0 0 960 272" role="img" aria-label="Two Docker deplo
 <path d="M680 182 V196" marker-end="url(#ah)"/>
 <path d="M760 124 H786" marker-end="url(#ah)"/><path d="M760 168 H786" marker-end="url(#ah)"/>
 </g></svg>"""
+def arch_svg() -> str:
+    """The two-Docker picture, labelled with the system under review."""
+    name, net, services = target_info()
+    svg = ARCH_SVG.replace("ShopLite on network customer-net", E(f"{name} on network {net}"))
+    svg = svg.replace("joins customer-net;", E(f"joins {net};"))
+    shown = services[:4] if len(services) <= 4 else services[:3] + [f"+{len(services) - 3} more services"]
+    for old, new in zip(["api-gateway", "user-service", "order-service", "payment-service"], shown):
+        svg = svg.replace(f">{old}</text>", f">{E(new[:20])}</text>", 1)
+    return svg
+
+
 ARCH_NOTE = ("Customer traffic goes through the mitmproxy sidecar, and so do the services' calls to each other. "
              "The services send their spans to the OTel Collector over OTLP. The probe reads each service's OpenAPI "
              "document, and the company's manifests are mounted read-only.")
@@ -235,11 +264,11 @@ def status_page(checks: dict, note: str = "", scanning: str | None = None, faile
                 "captured so far. This page refreshes by itself.</p>")
     else:
         head = ("<h1>Waiting for the target system's traffic</h1><p class='muted'>The ATG platform is attached to the "
-                "company's network. As soon as customers use the shop and a scan runs, the threat graph appears here. "
+                "company's network. As soon as its users send requests and a scan runs, the threat graph appears here. "
                 "The start script does both for you; this page refreshes by itself.</p>")
     body = f"""
 <header class="head"><div class="eyebrow">API Threat Graph · two Docker deployments</div>{head}</header>
-<section class="arch">{ARCH_SVG}<p class="muted" style="margin:6px 8px 2px;font-size:13px">{ARCH_NOTE}</p></section>
+<section class="arch">{arch_svg()}<p class="muted" style="margin:6px 8px 2px;font-size:13px">{ARCH_NOTE}</p></section>
 <section class="checks">
   <div class="card"><b>Company Docker (target)</b><ul>{tgt}</ul></div>
   <div class="card"><b>ATG Docker (ours)</b><ul>{atg}</ul>
@@ -389,12 +418,22 @@ def build_results(store_url: str | None, started: float) -> None:
         ex = f"exports/{s}/"
         others = [(f"Threat graph: {o['label']}", f"threat-graph-{o['slug']}.html") for o in scans if o is not sc]
         build_dashboard(a, sc["eujf"], history, SITE / f"threat-graph-{s}.html", sc["timings"], view="graph",
-                        nav=[("Home", "index.html"), ("Full dashboard", f"dashboard-{s}.html")] + others
+                        nav=[("Home", "index.html"), ("Full dashboard", f"dashboard-{s}.html"),
+                             ("What to fix", f"hardening-{s}.html")] + others
                         + [("Download GraphML", ex + EXPORT_FILES["graphml"]), ("JSON", ex + EXPORT_FILES["json"]),
                            ("SARIF", ex + EXPORT_FILES["sarif"]), ("SVG", ex + EXPORT_FILES["svg"])])
+        from atg.hardening import CSS as HARD_CSS, build_hardening
+        hbody, _ = build_hardening(a, sc["eujf"], {**(a.get("timing") or {})})
+        write(SITE / f"hardening-{s}.html", page(f"Risk and hardening report: {sc['label']}",
+                                                 '<nav class="navlinks"><a href="index.html">Home</a>'
+                                                 f'<a href="threat-graph-{s}.html">Threat graph</a>'
+                                                 f'<a href="dashboard-{s}.html">Dashboard</a>'
+                                                 f'<a href="{ex}hardening.md" download>Markdown</a></nav>'
+                                                 + hbody, dash_css=True).replace("</style>", HARD_CSS + "</style>", 1))
         build_dashboard(a, sc["eujf"], history, SITE / f"dashboard-{s}.html", sc["timings"],
                         phase1_report=f"live/phase1-report-{s}.html",
-                        nav=[("Home", "index.html"), ("Threat graph only", f"threat-graph-{s}.html"),
+                        nav=[("Home", "index.html"), ("What to fix (hardening report)", f"hardening-{s}.html"),
+                             ("Threat graph only", f"threat-graph-{s}.html"),
                              ("Export the graph", "index.html#exports"),
                              ("Phase 1 report (while running)", f"live/phase1-report-{s}.html"),
                              ("EUJF JSON (while running)", f"live/scans/{s}/eujf.json")])
@@ -427,7 +466,8 @@ def build_results(store_url: str | None, started: float) -> None:
         f"<td class='num'>{sc['meta'].get('flows', '–')}</td><td class='num'>{sc['meta'].get('span_batches', '–')}</td>"
         f"<td class='num'>{sc['eujf']['summary']['endpoints']}</td><td class='num'>{sc['analysis']['summary']['findings']}</td>"
         f"<td class='num'>{sc['analysis']['summary']['attack_paths']}</td><td class='num'>{sc['analysis']['summary']['total_path_risk']:g}</td>"
-        f"<td><a href='threat-graph-{sc['slug']}.html'>threat graph</a> · <a href='dashboard-{sc['slug']}.html'>dashboard</a></td></tr>"
+        f"<td><a href='threat-graph-{sc['slug']}.html'>threat graph</a> · <a href='dashboard-{sc['slug']}.html'>dashboard</a>"
+        f" · <a href='hardening-{sc['slug']}.html'>what to fix</a></td></tr>"
         for sc in scans)
     s1 = first["slug"]
     phases = f"""
@@ -494,7 +534,7 @@ the graph in another tool, SARIF to put the findings into a tracker, JSON for sc
     body = f"""
 <header class="head"><div class="eyebrow">Automatic API Security Design Review · two Docker deployments</div>
 <h1>API Threat Graph</h1>
-<p class="muted">The ATG platform (our Docker) joined the network of ShopLite, the company's system under review (its own Docker).
+<p class="muted">The ATG platform (our Docker) joined the network of {E(target_info()[0])}, the company's system under review (its own Docker).
 Customer traffic went through ATG's mitmproxy sidecar, the services sent their spans to ATG's OpenTelemetry Collector, and ATG read
 the services' OpenAPI documents and the company's deployment manifests. Nothing left the company network, and only the
 threat graph and these pages are kept after the review.</p>
@@ -513,6 +553,10 @@ threat graph and these pages are kept after the review.</p>
   {compare}
 </section>
 
+<section><a class="card" href="hardening-{last['slug']}.html" style="border:2px solid var(--accent)"><b>What to fix, in order: risk and hardening report</b>
+<span>{E(last['label'])}: each fix with the reason, the change for this system's own gateway and Kubernetes setup, how to check it,
+and how much attack-path risk it removes. Also as Markdown in the exports.</span></a></section>
+
 <section><h2>The four phases on the first scan</h2>{phases}</section>
 
 <section id="scans"><h2>Scans</h2>
@@ -521,7 +565,7 @@ threat graph and these pages are kept after the review.</p>
 <tbody>{scan_rows}</tbody></table></div></section>
 {exports}
 {data}
-<section><h2>How the two Dockers are connected</h2><div class="arch">{ARCH_SVG}
+<section><h2>How the two Dockers are connected</h2><div class="arch">{arch_svg()}
 <p class="muted" style="margin:6px 8px 2px;font-size:13px">{ARCH_NOTE}</p></div></section>
 
 <section id="experiment"><h2>Experiment results (Section IV)</h2>

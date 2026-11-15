@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: FleetGo Pricing Service API
+  version: 1.0.7
+servers:
+- url: http://pricing-service:8080
+paths:
+  /quotes:
+    get:
+      operationId: get_quotes
+      summary: GET /quotes
+      tags:
+      - pricing-service
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  price:
+                    type: integer
+                  currency:
+                    type: string
+      security: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

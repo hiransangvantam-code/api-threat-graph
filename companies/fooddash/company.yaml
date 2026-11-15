@@ -1,0 +1,88 @@
+# FoodDash: food delivery. Node.js services in an Istio mesh (no mTLS), Swagger 2.0 documents.
+id: fooddash
+name: FoodDash
+industry: Food delivery
+about: Customers order from restaurants and pay; a dispatch service assigns riders. The cluster's nginx Ingress forwards to Istio's gateway.
+language: node
+credential: bearer
+domain: api.fooddash.example
+spec: {path: /swagger.json, version: "2.0", format: json}
+
+gateway:
+  name: mesh-gateway
+  type: istio
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false}
+    - {prefix: /api/restaurants, service: restaurant-service, to: /restaurants}
+    - {prefix: /api/orders, service: order-service, to: /orders}
+    - {prefix: /api/payments, service: payment-service, to: /payments}
+    - {prefix: /api/riders, service: rider-service, to: /riders}
+
+services:
+  auth-service: {version: 1.3.0}
+
+  restaurant-service:
+    version: 2.8.0
+    routes:
+      GET /restaurants:
+        query: {near: "13.75,100.50"}
+        returns: {items: [{restaurant_id: $n, name: Kitchen, rating: 4.5}]}
+        weight: 3
+      GET /restaurants/{restaurant_id}/menu:
+        returns: {restaurant_id: $restaurant_id, items: [{dish_id: $n, price: 120}]}
+
+  order-service:
+    version: 5.4.0
+    flaws: [no_limits]
+    routes:
+      POST /orders:
+        body: {restaurant_id: 110, dishes: [3, 5]}
+        calls: ["POST payment-service /payments/charges", {to: POST dispatch-service /dispatch, forward_auth: false}]
+        status: 201
+        returns: {order_id: $n, status: placed}
+        weight: 3
+      GET /orders/{order_id}:
+        owner: order_id
+        returns: {order_id: $order_id, customer_id: $owner, status: cooking, delivery_address: "***"}
+      GET /orders/{order_id}/receipt:
+        owner: order_id
+        owner_check: false
+        returns: {order_id: $order_id, customer_id: $owner, amount: 0, payment_id: $n}
+
+  payment-service:
+    version: 3.0.1
+    routes:
+      POST /payments/charges:
+        client: none
+        status: 201
+        returns: {payment_id: $n, status: captured}
+      GET /payments/{payment_id}:
+        owner: payment_id
+        returns: {payment_id: $payment_id, customer_id: $owner, amount: 0}
+
+  dispatch-service:
+    version: 1.7.0
+    routes:
+      POST /dispatch:
+        auth: none
+        client: none
+        status: 201
+        returns: {dispatch_id: $n, rider_id: 7}
+
+  rider-service:
+    version: 1.2.0
+    routes:
+      GET /riders/nearby:
+        query: {lat: "13.75", lng: "100.50"}
+        returns: {items: [{rider_id: $n, eta_min: 6}]}
+
+planted:
+  - {rule: TS-07, at: "POST /auth/session", why: "No rate limit or lockout anywhere in front of the login."}
+  - {rule: TS-08, at: "POST /dispatch", why: "The order service calls dispatch with no credential, and there is no mTLS."}
+  - {rule: TS-01, at: "POST /dispatch", why: "Dispatch accepts new jobs from any caller without a credential."}
+  - {rule: API1, at: "GET /orders/{order_id}/receipt", why: "No owner check on receipts."}
+  - {rule: API4, at: order-service, why: "No CPU or memory limits on a service the internet reaches."}
+
+not_flaws:
+  - {rule: TS-02, at: mesh-gateway, why: "Every route except login is behind the CUSTOM (ext-authz) AuthorizationPolicy."}
+  - {rule: API1, at: "GET /payments/{payment_id}", why: "Owner check present: other customers get 403."}

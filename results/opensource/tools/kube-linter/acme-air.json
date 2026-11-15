@@ -1,0 +1,421 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "C1",
+   "svc:acmeair-auth-service"
+  ],
+  [
+   "C1",
+   "svc:acmeair-booking-db"
+  ],
+  [
+   "C1",
+   "svc:acmeair-booking-service"
+  ],
+  [
+   "C1",
+   "svc:acmeair-customer-db"
+  ],
+  [
+   "C1",
+   "svc:acmeair-customer-service"
+  ],
+  [
+   "C1",
+   "svc:acmeair-flight-db"
+  ],
+  [
+   "C1",
+   "svc:acmeair-flight-service"
+  ],
+  [
+   "C1",
+   "svc:acmeair-main-service"
+  ],
+  [
+   "C3",
+   "svc:acmeair-auth-service"
+  ],
+  [
+   "C3",
+   "svc:acmeair-booking-db"
+  ],
+  [
+   "C3",
+   "svc:acmeair-booking-service"
+  ],
+  [
+   "C3",
+   "svc:acmeair-customer-db"
+  ],
+  [
+   "C3",
+   "svc:acmeair-customer-service"
+  ],
+  [
+   "C3",
+   "svc:acmeair-flight-db"
+  ],
+  [
+   "C3",
+   "svc:acmeair-flight-service"
+  ],
+  [
+   "C3",
+   "svc:acmeair-main-service"
+  ],
+  [
+   "C4",
+   "svc:acmeair-auth-service"
+  ],
+  [
+   "C4",
+   "svc:acmeair-booking-db"
+  ],
+  [
+   "C4",
+   "svc:acmeair-booking-service"
+  ],
+  [
+   "C4",
+   "svc:acmeair-customer-db"
+  ],
+  [
+   "C4",
+   "svc:acmeair-customer-service"
+  ],
+  [
+   "C4",
+   "svc:acmeair-flight-db"
+  ],
+  [
+   "C4",
+   "svc:acmeair-flight-service"
+  ],
+  [
+   "C4",
+   "svc:acmeair-main-service"
+  ],
+  [
+   "C9",
+   "svc:acmeair-auth-service"
+  ],
+  [
+   "C9",
+   "svc:acmeair-booking-db"
+  ],
+  [
+   "C9",
+   "svc:acmeair-booking-service"
+  ],
+  [
+   "C9",
+   "svc:acmeair-customer-db"
+  ],
+  [
+   "C9",
+   "svc:acmeair-customer-service"
+  ],
+  [
+   "C9",
+   "svc:acmeair-flight-db"
+  ],
+  [
+   "C9",
+   "svc:acmeair-flight-service"
+  ],
+  [
+   "C9",
+   "svc:acmeair-main-service"
+  ]
+ ],
+ "raw": {
+  "latest-tag": 8,
+  "no-read-only-root-fs": 8,
+  "run-as-non-root": 8,
+  "unset-cpu-requirements": 8,
+  "unset-memory-requirements": 8
+ },
+ "seconds": 0.04,
+ "findings": 40,
+ "score": {
+  "labels": 79,
+  "found": 32,
+  "reported": 32,
+  "confirmed": 32,
+  "by_group": {
+   "Configuration": {
+    "labels": 58,
+    "found": 32,
+    "reported": 32,
+    "confirmed": 32
+   },
+   "API behaviour": {
+    "labels": 11,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 10,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A3": {
+    "labels": 5,
+    "found": 0
+   },
+   "A4": {
+    "labels": 2,
+    "found": 0
+   },
+   "A5": {
+    "labels": 3,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "C1": {
+    "labels": 8,
+    "found": 8
+   },
+   "C10": {
+    "labels": 8,
+    "found": 0
+   },
+   "C3": {
+    "labels": 8,
+    "found": 8
+   },
+   "C4": {
+    "labels": 8,
+    "found": 8
+   },
+   "C6": {
+    "labels": 8,
+    "found": 0
+   },
+   "C7": {
+    "labels": 5,
+    "found": 0
+   },
+   "C8": {
+    "labels": 5,
+    "found": 0
+   },
+   "C9": {
+    "labels": 8,
+    "found": 8
+   },
+   "O1": {
+    "labels": 5,
+    "found": 0
+   },
+   "O2": {
+    "labels": 5,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A3",
+    "ep:acmeair-booking-service:GET:/booking/loader/load"
+   ],
+   [
+    "A3",
+    "ep:acmeair-customer-service:GET:/customer/loader/load"
+   ],
+   [
+    "A3",
+    "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}"
+   ],
+   [
+    "A3",
+    "ep:acmeair-customer-service:POST:/customer/internal/validateid"
+   ],
+   [
+    "A3",
+    "ep:acmeair-flight-service:GET:/flight/loader/load"
+   ],
+   [
+    "A4",
+    "ep:acmeair-auth-service:GET:/auth/config/runtime"
+   ],
+   [
+    "A4",
+    "ep:acmeair-booking-service:GET:/booking/config/runtime"
+   ],
+   [
+    "A5",
+    "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}"
+   ],
+   [
+    "A5",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "A5",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "A6",
+    "ep:acmeair-auth-service:POST:/auth/login"
+   ],
+   [
+    "C10",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "C10",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "C10",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-flight-db"
+   ],
+   [
+    "C10",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "C6",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C6",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "C6",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C6",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "C6",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C6",
+    "svc:acmeair-flight-db"
+   ],
+   [
+    "C6",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C6",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "C7",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C7",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C7",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C7",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C7",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "O1",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "O1",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "O1",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "O1",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "O1",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "O2",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "O2",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "O2",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "O2",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "O2",
+    "svc:acmeair-main-service"
+   ]
+  ],
+  "unconfirmed": [],
+  "in_reach": {
+   "labels": 45,
+   "found": 32
+  }
+ }
+}

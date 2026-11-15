@@ -1,0 +1,255 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "C1",
+   "svc:details"
+  ],
+  [
+   "C1",
+   "svc:productpage"
+  ],
+  [
+   "C1",
+   "svc:ratings"
+  ],
+  [
+   "C1",
+   "svc:reviews"
+  ],
+  [
+   "C10",
+   "svc:details"
+  ],
+  [
+   "C10",
+   "svc:productpage"
+  ],
+  [
+   "C10",
+   "svc:ratings"
+  ],
+  [
+   "C10",
+   "svc:reviews"
+  ],
+  [
+   "C3",
+   "svc:details"
+  ],
+  [
+   "C3",
+   "svc:productpage"
+  ],
+  [
+   "C3",
+   "svc:ratings"
+  ],
+  [
+   "C3",
+   "svc:reviews"
+  ],
+  [
+   "C6",
+   "svc:details"
+  ],
+  [
+   "C6",
+   "svc:productpage"
+  ],
+  [
+   "C6",
+   "svc:ratings"
+  ],
+  [
+   "C6",
+   "svc:reviews"
+  ],
+  [
+   "C9",
+   "svc:details"
+  ],
+  [
+   "C9",
+   "svc:productpage"
+  ],
+  [
+   "C9",
+   "svc:ratings"
+  ],
+  [
+   "C9",
+   "svc:reviews"
+  ]
+ ],
+ "raw": {
+  "C-0017": 6,
+  "C-0009": 6,
+  "C-0210": 6,
+  "C-0211": 6,
+  "C-0270": 6,
+  "C-0018": 6,
+  "C-0236": 6,
+  "C-0034": 6,
+  "C-0056": 6,
+  "C-0190": 6,
+  "C-0013": 6,
+  "C-0055": 6,
+  "C-0268": 6,
+  "C-0016": 6,
+  "C-0050": 6,
+  "C-0061": 6,
+  "C-0030": 6,
+  "C-0004": 6,
+  "C-0271": 6,
+  "C-0077": 6,
+  "C-0269": 6,
+  "C-0260": 6,
+  "C-0237": 6
+ },
+ "seconds": 6.23,
+ "findings": 138,
+ "score": {
+  "labels": 38,
+  "found": 20,
+  "reported": 20,
+  "confirmed": 20,
+  "by_group": {
+   "Configuration": {
+    "labels": 21,
+    "found": 20,
+    "reported": 20,
+    "confirmed": 20
+   },
+   "API behaviour": {
+    "labels": 5,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 12,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 1,
+    "found": 0
+   },
+   "A5": {
+    "labels": 4,
+    "found": 0
+   },
+   "C1": {
+    "labels": 4,
+    "found": 4
+   },
+   "C10": {
+    "labels": 4,
+    "found": 4
+   },
+   "C3": {
+    "labels": 4,
+    "found": 4
+   },
+   "C6": {
+    "labels": 4,
+    "found": 4
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 4,
+    "found": 4
+   },
+   "O1": {
+    "labels": 12,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:productpage:POST:/login"
+   ],
+   [
+    "A5",
+    "ep:ratings:POST:/ratings/{}"
+   ],
+   [
+    "A5",
+    "svc:details"
+   ],
+   [
+    "A5",
+    "svc:ratings"
+   ],
+   [
+    "A5",
+    "svc:reviews"
+   ],
+   [
+    "C8",
+    "svc:productpage"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/api/v1/products"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/api/v1/products/{}"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/api/v1/products/{}/ratings"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/api/v1/products/{}/reviews"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/index.html"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/logout"
+   ],
+   [
+    "O1",
+    "ep:productpage:GET:/productpage"
+   ],
+   [
+    "O1",
+    "ep:productpage:POST:/login"
+   ],
+   [
+    "O1",
+    "svc:details"
+   ],
+   [
+    "O1",
+    "svc:ratings"
+   ],
+   [
+    "O1",
+    "svc:reviews"
+   ]
+  ],
+  "unconfirmed": [],
+  "in_reach": {
+   "labels": 21,
+   "found": 20
+  }
+ }
+}

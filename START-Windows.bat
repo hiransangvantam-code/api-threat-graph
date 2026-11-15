@@ -2,15 +2,19 @@
 setlocal
 cd /d "%~dp0"
 title API Threat Graph
+rem   START-Windows.bat            ShopLite, scanned before and after its fixes
+rem   START-Windows.bat paynow     one of the ten test companies in companies\ (see companies\README.md)
+rem   START-Windows.bat bookinfo   one of the ten open-source systems in opensource\, with stand-in services
+where docker >nul 2>nul
+if errorlevel 1 goto nodocker
+docker info >nul 2>nul
+if errorlevel 1 goto notrunning
+if not "%~1"=="" goto company
 echo.
 echo   API Threat Graph - two Dockers
 echo     company Docker : ShopLite, the system under review  (target\docker-compose.yml)
 echo     ATG Docker     : our platform, attached to its network (docker-compose.yml)
 echo   ------------------------------------------------------------------------
-where docker >nul 2>nul
-if errorlevel 1 goto nodocker
-docker info >nul 2>nul
-if errorlevel 1 goto notrunning
 
 echo.
 echo   Every start is a fresh review: the pages of the previous review in output\site are replaced.
@@ -70,6 +74,79 @@ echo   Done. http://localhost:8080 shows the threat graph, both scans and the tr
 echo   The threat graph files (GraphML, JSON, SARIF, SVG) are in output\site\exports.
 echo   STOP-Windows.bat  stops both Dockers and deletes the review data (pages and exports stay).
 echo   CLEAN-Windows.bat deletes the pages and exports too, once you have handed them over.
+echo.
+pause
+exit /b 0
+
+rem ------------------------------------------------------------------ a test company
+:company
+set "CO=%~1"
+set "F=companies"
+if not exist "companies\%CO%\atg.env" if exist "opensource\%CO%\atg.env" set "F=opensource"
+if not exist "%F%\%CO%\atg.env" (
+  echo.
+  echo   There is no system called "%CO%". The ten test companies are:
+  for /d %%c in (companies\*) do if exist "%%c\atg.env" echo     %%~nxc
+  echo   and the ten open-source systems ^(stand-ins; real images: REAL-Windows.bat^):
+  for /d %%c in (opensource\*) do if exist "%%c\atg.env" echo     %%~nxc
+  echo   Example: START-Windows.bat paynow     or     START-Windows.bat bookinfo
+  pause
+  exit /b 1
+)
+for /f "usebackq eol=# tokens=1,* delims==" %%a in ("%F%\%CO%\atg.env") do set "%%a=%%b"
+set TARGET_NAME=%TARGET_NAME:"=%
+if "%F%"=="opensource" if not exist "opensource\%CO%\upstream" (
+  echo.
+  echo == 0/4 Download %TARGET_NAME% at the pinned commit ^(ATG reads its real deployment files^)
+  docker run --rm -v "%cd%:/app" -w /app python:3.12-alpine sh -c "apk add --no-cache git >/dev/null && pip install -q pyyaml && python opensource/fetch.py %CO%"
+  if errorlevel 1 goto failed
+)
+echo.
+echo   API Threat Graph - two Dockers
+echo     company Docker : %TARGET_NAME%, the system under review  (%F%\%CO%\docker-compose.yml)
+echo     ATG Docker     : our platform, attached to its network %TARGET_NETWORK% (docker-compose.yml)
+echo   ------------------------------------------------------------------------
+echo.
+echo   A fresh review: the ATG Docker of any earlier review is stopped first and its data deleted.
+docker compose down -v --remove-orphans >nul 2>nul
+
+echo.
+echo == 1/4 Company Docker: start %TARGET_NAME% (first time: a few minutes to build)
+docker compose -f %F%/%CO%/docker-compose.yml up -d --build --wait
+if errorlevel 1 goto failed
+
+echo.
+echo == 2/4 ATG Docker: start our platform on the network %TARGET_NETWORK%
+docker compose up -d --build
+if errorlevel 1 goto failed
+echo   Waiting for http://localhost:8080 ...
+set /a n=0
+:cwait
+set /a n+=1
+if %n% gtr 90 goto timeout
+powershell -NoProfile -Command "try { Invoke-WebRequest -UseBasicParsing -TimeoutSec 2 http://localhost:8080/ | Out-Null; exit 0 } catch { exit 1 }" >nul 2>nul
+if errorlevel 1 (
+  timeout /t 2 /nobreak >nul
+  goto cwait
+)
+start "" http://localhost:8080/
+echo   Opened http://localhost:8080
+
+echo.
+echo == 3/4 %TARGET_NAME%'s users send requests; they go through the ATG sidecar
+docker compose -f %F%/%CO%/docker-compose.yml run --rm users
+if errorlevel 1 goto failed
+
+echo.
+echo == 4/4 Scan: Phases 1-4 on %TARGET_NAME%
+docker compose exec -T atg python docker/scan.py --label %CO% --manifests k8s
+if errorlevel 1 goto failed
+
+echo.
+echo   Done. http://localhost:8080 shows %TARGET_NAME%'s threat graph.
+if "%F%"=="companies" echo   What was planted in %TARGET_NAME% on purpose: companies\%CO%\README.md
+if "%F%"=="opensource" echo   Its labelled weaknesses: opensource\%CO%\system.yaml ^(the services running are stand-ins^)
+echo   STOP-Windows.bat stops both Dockers and deletes the review data.
 echo.
 pause
 exit /b 0

@@ -1,0 +1,73 @@
+# Bank of Anthos (Google): routes from src/frontend/frontend.py, src/accounts/*/*.py and
+# src/ledger/*/*Controller.java. Every backend checks the JWT itself and compares the account
+# in the token with the account in the path. The JWT is modelled by signed sessions.
+id: bank-of-anthos
+name: Bank of Anthos
+field: Banking
+by: Google Cloud Platform
+upstream: {repo: https://github.com/GoogleCloudPlatform/bank-of-anthos, commit: db35fea9fd090150e2398106aadb475576f80d94, license: Apache-2.0}
+languages: [Python, Java]
+artifacts:
+  manifests: [kubernetes-manifests, extras/jwt/jwt-secret.yaml]
+edge: frontend
+credential: cookie
+auth:
+  service: userservice
+  login: GET /login
+  user_field: username
+  login_extra: {password: "***"}
+  token: signed
+  token_in_body: true
+  cookie: token
+  entry: POST /login (frontend)
+traced: true          # OpenTelemetry tracing built in (ENABLE_TRACING)
+services:
+  frontend:
+    port: 8080
+    language: Python
+    verify: self
+    routes:
+      GET /home: {auth: user, calls: ["GET balancereader /balances/{account}", "GET transactionhistory /transactions/{account}", "GET contacts /contacts/{account}"], returns: {balance: 0, transactions: [{transaction_id: $n, amount: 0}]}, weight: 3}
+      POST /payment: {auth: user, body: {account_num: "$owned", contact_account_num: 1001, amount: 10}, calls: ["POST ledgerwriter /transactions"], returns: {status: sent}}
+      POST /deposit: {auth: user, body: {account: "$owned", amount: 50}, calls: ["POST ledgerwriter /transactions"], returns: {status: deposited}}
+      POST /login: {login_proxy: true, client: none}
+      GET /login: {returns: {page: login}, weight: 1}
+      POST /signup: {body: {username: new-user, firstname: "***", lastname: "***", birthday: "***", timezone: "+7", address: "***", state: BKK, zip: "***", ssn: "***"}, calls: ["POST userservice /users"], returns: {status: created}, weight: 1}
+      GET /signup: {returns: {page: signup}, weight: 1}
+      POST /logout: {auth: user, returns: {status: logged_out}, weight: 1}
+      GET /consent: {returns: {page: consent}, weight: 1}
+      POST /consent: {returns: {status: ok}, weight: 1, client: none}
+  userservice:
+    port: 8080
+    language: Python
+    routes:
+      POST /users: {returns: {status: created}}
+  contacts:
+    port: 8080
+    language: Python
+    verify: self
+    routes:
+      GET /contacts/{username}: {auth: user, owner: username, returns: {contacts: [{label: Friend, account_num: "***", routing_num: "***"}]}}
+      POST /contacts/{username}: {auth: user, owner: username, client: none, returns: {status: added}}
+  balancereader:
+    port: 8080
+    language: Java
+    verify: self
+    routes:
+      GET /balances/{accountId}: {auth: user, owner: accountId, returns: {balance: 0}}
+  transactionhistory:
+    port: 8080
+    language: Java
+    verify: self
+    routes:
+      GET /transactions/{accountId}: {auth: user, owner: accountId, returns: {transactions: [{transaction_id: $n, from_account_num: "***", amount: 0}]}}
+  ledgerwriter:
+    port: 8080
+    language: Java
+    verify: self
+    routes:
+      POST /transactions: {auth: user, status: 201, returns: {status: ok}}
+labels:
+  - {cat: A7, at: "GET /login (userservice)", why: "The front end sends the user name and password in the query string of the login call (userservice.py:175-176).", evidence: src/accounts/userservice/userservice.py}
+  - {cat: A6, at: "POST /login (frontend)", why: "No rate limit or lockout on the login form.", evidence: src/frontend/frontend.py}
+  - {cat: C8, at: frontend, why: "The frontend is a LoadBalancer on plain HTTP port 80.", evidence: kubernetes-manifests/frontend.yaml}

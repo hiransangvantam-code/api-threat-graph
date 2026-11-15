@@ -1,0 +1,95 @@
+# PayNow: a mobile wallet. Go services behind Kong (DB-less declarative config).
+# companies/build.py turns this file into everything else in this folder.
+id: paynow
+name: PayNow
+industry: Fintech (mobile wallet)
+about: Customers top up wallets, pay merchants and send money. Every money movement is written by an internal ledger.
+language: go
+credential: bearer
+domain: api.paynow.example
+spec: {path: /openapi.yaml, version: 3.0.3, format: yaml}
+
+gateway:
+  name: kong
+  type: kong
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/wallets, service: wallet-service, to: /wallets}
+    - {prefix: /api/transfers, service: transfer-service, to: /transfers}
+    - {prefix: /api/merchants, service: merchant-service, to: /merchants}
+
+services:
+  auth-service: {version: 1.6.0}
+
+  wallet-service:
+    version: 2.4.1
+    flaws: [latest_tag]
+    routes:
+      GET /wallets/{wallet_id}:
+        owner: wallet_id
+        calls: ["GET ledger-service /ledger/accounts/{wallet_id}/balance"]
+        returns: {wallet_id: $wallet_id, owner_id: $owner, balance: 0, currency: THB}
+        weight: 3
+      GET /wallets/{wallet_id}/statement:
+        owner: wallet_id
+        owner_check: false
+        returns: {wallet_id: $wallet_id, owner_id: $owner, items: [{transaction_id: $n, amount: 0, merchant: Cafe}]}
+      POST /wallets/{wallet_id}/topup:
+        owner: wallet_id
+        body: {amount: 500, source: bank}
+        calls: [{to: POST ledger-service /ledger/entries, forward_auth: false, body: {entry: topup, amount: 500}}]
+        returns: {wallet_id: $wallet_id, status: accepted}
+
+  transfer-service:
+    version: 1.9.0
+    routes:
+      POST /transfers:
+        body: {from_wallet: $owned, to_wallet: 1007, amount: 50}
+        calls: [{to: POST ledger-service /ledger/entries, forward_auth: false, body: {entry: transfer, amount: 50}}]
+        external: [GET fx-rates /rates]
+        errors_every: 25
+        status: 201
+        returns: {transfer_id: $n, status: pending}
+      GET /transfers/{transfer_id}:
+        owner: transfer_id
+        returns: {transfer_id: $transfer_id, owner_id: $owner, amount: 0, status: completed}
+
+  ledger-service:
+    version: 3.0.2
+    routes:
+      POST /ledger/entries:
+        auth: none
+        client: none
+        body: {entry: topup, amount: 500}
+        status: 201
+        returns: {entry_id: $n, status: posted}
+      GET /ledger/accounts/{account_id}/balance:
+        owner: account_id
+        client: none
+        returns: {account_id: $account_id, balance: 0}
+
+  merchant-service:
+    version: 1.3.0
+    routes:
+      GET /merchants/{merchant_id}:
+        returns: {merchant_id: $merchant_id, name: Cafe, category: food}
+      GET /merchants/{merchant_id}/settlements:
+        auth: admin
+        returns: {merchant_id: $merchant_id, items: [{settlement_id: $n, amount: 0}]}
+
+external:
+  fx-rates:
+    routes:
+      GET /rates: {returns: {base: THB, quote: USD, rate: 0.03}}
+
+planted:
+  - {rule: API1, at: "GET /wallets/{wallet_id}/statement", why: "No owner check: any customer can read any wallet's statement."}
+  - {rule: TS-08, at: "POST /ledger/entries", why: "Wallet and transfer services post ledger entries with no credential, and the ledger accepts them from any pod."}
+  - {rule: TS-01, at: "POST /ledger/entries", why: "The same ledger write succeeds without any credential."}
+  - {rule: API8-TAG, at: wallet-service, why: "Deployed from the :latest image tag."}
+  - {rule: API10, at: transfer-service, match: fx-rates, why: "Transfers use exchange rates from an outside API."}
+  - {rule: LT-04, at: "POST /transfers", why: "One transfer in 25 fails with a server error."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "Kong's rate-limiting plugin is on the login route."}
+  - {rule: API1, at: "GET /transfers/{transfer_id}", why: "Owner check present: other customers get 403."}

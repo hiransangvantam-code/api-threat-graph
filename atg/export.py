@@ -277,6 +277,10 @@ def export_all(analysis: dict, eujf: dict | None, out_dir) -> dict[str, Path]:
     paths["sarif"].write_text(json.dumps(to_sarif(analysis, eujf), indent=1, ensure_ascii=False, default=list),
                               encoding="utf-8")
     paths["svg"].write_text(to_svg(analysis), encoding="utf-8")
+    if eujf is not None:   # the risk and hardening report, for people (atg/hardening.py)
+        from atg.hardening import build_hardening
+        paths["hardening"] = out / "hardening.md"
+        paths["hardening"].write_text(build_hardening(analysis, eujf, analysis.get("timing"))[1], encoding="utf-8")
     return paths
 
 

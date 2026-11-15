@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: PayNow Ledger Service API
+  version: 3.0.2
+servers:
+- url: http://ledger-service:8080
+paths:
+  /ledger/entries:
+    post:
+      operationId: post_ledger_entries
+      summary: POST /ledger/entries
+      tags:
+      - ledger-service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entry:
+                  type: string
+                amount:
+                  type: integer
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entry_id:
+                    type: integer
+                  status:
+                    type: string
+      security: []
+  /ledger/accounts/{account_id}/balance:
+    get:
+      operationId: get_ledger_accounts_account_id_balance
+      summary: GET /ledger/accounts/{account_id}/balance
+      tags:
+      - ledger-service
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_id:
+                    type: integer
+                  balance:
+                    type: integer
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

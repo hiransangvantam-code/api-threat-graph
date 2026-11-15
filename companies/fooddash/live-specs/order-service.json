@@ -1,0 +1,181 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FoodDash Order Service API",
+    "version": "5.4.0"
+  },
+  "host": "order-service:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/orders": {
+      "post": {
+        "operationId": "post_orders",
+        "summary": "POST /orders",
+        "tags": [
+          "order-service"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "restaurant_id": {
+                  "type": "integer"
+                },
+                "dishes": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/orders/{order_id}": {
+      "get": {
+        "operationId": "get_orders_order_id",
+        "summary": "GET /orders/{order_id}",
+        "tags": [
+          "order-service"
+        ],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "integer"
+                },
+                "customer_id": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "delivery_address": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/orders/{order_id}/receipt": {
+      "get": {
+        "operationId": "get_orders_order_id_receipt",
+        "summary": "GET /orders/{order_id}/receipt",
+        "tags": [
+          "order-service"
+        ],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "integer"
+                },
+                "customer_id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "integer"
+                },
+                "payment_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}

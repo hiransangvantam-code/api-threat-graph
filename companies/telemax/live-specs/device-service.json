@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Device Service API",
+    "version": "2.2.0"
+  },
+  "servers": [
+    {
+      "url": "http://device-service:8080"
+    }
+  ],
+  "paths": {
+    "/devices/{device_id}": {
+      "get": {
+        "operationId": "get_devices_device_id",
+        "summary": "GET /devices/{device_id}",
+        "tags": [
+          "device-service"
+        ],
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "imei": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

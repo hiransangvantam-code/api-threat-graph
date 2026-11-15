@@ -1,0 +1,310 @@
+{
+ "company": "insureco",
+ "users": "InsureCo: 381 requests in 4.7 s, 14 sessions; status codes: 200 x254, 201 x40, 401 x53, 403 x34",
+ "startup_s": 10.5,
+ "scan_s": 7.2,
+ "scan_log": [
+  "[scan] insureco: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 812 HTTP flows from the sidecar, 6 span batches from the Collector (1406 KB cleared from their memory)",
+  "[ok]   runtime_traffic    18 records      24.7 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      51.6 ms  -> /work/raw/openapi.json",
+  "! api-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     29 records      77.1 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          34 records      29.5 ms  -> /work/raw/callchain.json",
+  "[ok]   10 endpoints in 6 services (10 documented)  -> /work/eujf.json",
+  "[ok]   4 findings (critical 2, high 1, medium 1, low 0), 5 attack paths, path risk 66.7",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] insureco: 10 APIs, 4 findings, 5 attack paths, path risk 66.7",
+  "[scan] threat graph exported to output/site/exports/1-insureco/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-092603-3d55de",
+ "summary": {
+  "findings": 4,
+  "by_severity": {
+   "critical": 2,
+   "high": 1,
+   "medium": 1,
+   "low": 0
+  },
+  "attack_paths": 5,
+  "critical_paths": 3,
+  "total_path_risk": 66.7,
+  "endpoints": 10,
+  "shadow_endpoints": 0,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 4,
+  "label": "insureco"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 10,
+  "inventory": {
+   "documented": 10
+  },
+  "confidence": {
+   "HIGH": 10,
+   "MEDIUM": 0,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 9,
+  "endpoints_with_sensitive_data": 5,
+  "dependencies": 5,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "api-gateway",
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:claim-service:POST:/claims",
+   "service": "claim-service",
+   "method": "POST",
+   "path": "/claims",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/claims"
+   ]
+  },
+  {
+   "id": "ep:claim-service:GET:/claims/{}",
+   "service": "claim-service",
+   "method": "GET",
+   "path": "/claims/{claim_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/claims/{claim_id}"
+   ]
+  },
+  {
+   "id": "ep:claim-service:GET:/claims/{}/documents",
+   "service": "claim-service",
+   "method": "GET",
+   "path": "/claims/{claim_id}/documents",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/claims/{claim_id}/documents"
+   ]
+  },
+  {
+   "id": "ep:policy-service:GET:/policies",
+   "service": "policy-service",
+   "method": "GET",
+   "path": "/policies",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/policies"
+   ]
+  },
+  {
+   "id": "ep:policy-service:GET:/policies/{}",
+   "service": "policy-service",
+   "method": "GET",
+   "path": "/policies/{policy_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/policies/{policy_id}"
+   ]
+  },
+  {
+   "id": "ep:reporting-service:GET:/reports/claims-export",
+   "service": "reporting-service",
+   "method": "GET",
+   "path": "/reports/claims-export",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/reports/claims-export"
+   ]
+  },
+  {
+   "id": "ep:reporting-service:GET:/reports/weekly-summary",
+   "service": "reporting-service",
+   "method": "GET",
+   "path": "/reports/weekly-summary",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/reports/weekly-summary"
+   ]
+  },
+  {
+   "id": "ep:underwriting-service:GET:/underwriting/score/{}",
+   "service": "underwriting-service",
+   "method": "GET",
+   "path": "/underwriting/score/{policy_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:reporting-service:GET:/reports/claims-export",
+   "detail": "GET /reports/claims-export (reporting-service) returns a list with financial, pii fields",
+   "severity": "critical",
+   "score": 25
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:reporting-service:GET:/reports/claims-export",
+   "detail": "GET /reports/claims-export (reporting-service) returned 2xx to 20 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:api-gateway",
+   "detail": "route /api/reports/** -> reporting-service has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:underwriting-service",
+   "detail": "underwriting-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/claims",
+   "upstream_service": "claim-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/policies",
+   "upstream_service": "policy-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/reports",
+   "upstream_service": "reporting-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "api-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "claim-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "policy-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "reporting-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "underwriting-service",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ]
+}

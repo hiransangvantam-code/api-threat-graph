@@ -1,0 +1,4 @@
+{
+ "applicable": false,
+ "why": "reads Kubernetes manifests only (this system ships Docker Compose)"
+}

@@ -1,0 +1,91 @@
+# Acme Air (IBM, blueperf): five repositories, one per service. Routes from each *Rest*.java
+# (JAX-RS), context roots /auth /booking /customer /flight /acmeair from the Ingress paths.
+id: acme-air
+name: Acme Air
+field: Airline
+by: IBM (blueperf)
+upstream:
+  repos:
+    - {repo: https://github.com/blueperf/acmeair-mainservice-java, commit: 2f4cf141b504d0f8bda99a73f2a41694b80de48e, dir: mainservice}
+    - {repo: https://github.com/blueperf/acmeair-authservice-java, commit: a6d736b5150fe7b0db44ceaa9b9ff8011de97f9d, dir: authservice}
+    - {repo: https://github.com/blueperf/acmeair-bookingservice-java, commit: 434163e5c73472e5d58de75ee5dd8f7840711953, dir: bookingservice}
+    - {repo: https://github.com/blueperf/acmeair-customerservice-java, commit: f5a94530e6109743b72fb77546b14847bc4e227d, dir: customerservice}
+    - {repo: https://github.com/blueperf/acmeair-flightservice-java, commit: 42f7d75d499b7812bbecbdb1d1f044e92ce34174, dir: flightservice}
+  license: Apache-2.0
+languages: [Java]
+artifacts:
+  manifests: [mainservice/manifests, authservice/manifests, bookingservice/manifests, customerservice/manifests, flightservice/manifests]
+gateway:
+  name: ingress-nginx-controller
+  port: 80
+  type: ingress
+  routes:
+    - {prefix: /auth, service: acmeair-auth-service}
+    - {prefix: /booking, service: acmeair-booking-service}
+    - {prefix: /customer, service: acmeair-customer-service}
+    - {prefix: /flight, service: acmeair-flight-service}
+    - {prefix: /acmeair, service: acmeair-main-service}
+auth:
+  service: acmeair-auth-service
+  login: POST /auth/login
+  user_field: login
+  login_extra: {password: "***"}
+  token: signed
+traced: false
+services:
+  acmeair-main-service:
+    port: 9080
+    language: Java
+    routes:
+      GET /acmeair: {returns: {page: index}, weight: 2}
+  acmeair-auth-service:
+    port: 9080
+    language: Java
+    routes:
+      GET /auth/getJwk: {returns: {keys: [{kty: RSA, kid: acmeair}]}, weight: 1}
+      GET /auth/config/runtime: {returns: {runtime: OpenLiberty}, weight: 1}
+  acmeair-booking-service:
+    port: 9080
+    language: Java
+    verify: self
+    routes:
+      POST /booking/bookflights: {auth: user, body: {userid: "$user", toFlightId: 120, retFlightId: 121, oneWayFlight: false}, calls: ["POST acmeair-flight-service /flight/getrewardmiles", {to: "POST acmeair-customer-service /customer/internal/updateCustomerTotalMiles/{user}", forward_auth: false}], returns: {bookingId: $n, status: booked}, weight: 2}
+      GET /booking/byuser/{user}: {auth: user, owner: user, returns: [{bookingId: $n, customerId: $owner, flightId: 120}]}
+      POST /booking/cancelbooking: {auth: user, body: {userid: "$user", number: 7}, returns: {status: cancelled}, weight: 1}
+      GET /booking/loader/load: {client: none, returns: {loaded: 1000}}
+      GET /booking/config/countBookings: {returns: {count: 0}, weight: 1}
+      GET /booking/config/runtime: {returns: {runtime: OpenLiberty}, weight: 1}
+      GET /booking/rewards/flightsuccesses: {returns: {count: 0}, weight: 1}
+  acmeair-customer-service:
+    port: 9080
+    language: Java
+    verify: self
+    routes:
+      GET /customer/byid/{custid}: {auth: user, owner: custid, returns: {_id: $owner, status: GOLD, total_miles: 1000, phoneNumber: "***", address: "***"}, weight: 2}
+      POST /customer/byid/{custid}: {auth: user, owner: custid, body: {status: GOLD, phoneNumber: "***"}, returns: {status: updated}, weight: 1}
+      POST /customer/internal/validateid: {client: none, returns: {validCustomer: true}}
+      POST /customer/internal/updateCustomerTotalMiles/{custid}: {client: none, returns: {total_miles: 1000}}
+      GET /customer/loader/load: {client: none, returns: {loaded: 10000}}
+      GET /customer/loader/query: {client: none, returns: {count: 10000}}
+      GET /customer/config/countCustomers: {returns: {count: 10000}, weight: 1}
+  acmeair-flight-service:
+    port: 9080
+    language: Java
+    routes:
+      POST /flight/queryflights: {body: {fromAirport: BKK, toAirport: CNX, fromDate: "2026-12-01", oneWay: true}, returns: {tripFlights: [{flightsOptions: [{flightId: $n}]}]}, weight: 3}
+      POST /flight/getrewardmiles: {client: none, returns: {miles: 500}}
+      GET /flight/loader/load: {client: none, returns: {loaded: 300}}
+      GET /flight/config/countFlights: {returns: {count: 300}, weight: 1}
+cron:
+  - {name: acmeair-loader, every: 5, calls: ["GET acmeair-booking-service /booking/loader/load", "GET acmeair-customer-service /customer/loader/load", "GET acmeair-flight-service /flight/loader/load"]}
+labels:
+  - {cat: A3, at: "GET /booking/loader/load", why: "Reloads the booking database for anyone, through the public Ingress path /booking.", evidence: bookingservice BookingLoaderRest.java}
+  - {cat: A3, at: "GET /customer/loader/load", why: "Reloads all customers, public and unauthenticated.", evidence: customerservice CustomerLoaderRest.java}
+  - {cat: A3, at: "GET /flight/loader/load", why: "Reloads flights, public and unauthenticated.", evidence: flightservice FlightLoaderRest.java}
+  - {cat: A3, at: "POST /customer/internal/updateCustomerTotalMiles/{custid}", why: "An internal endpoint without @RolesAllowed, reachable through the Ingress path /customer: anyone can set any customer's miles.", evidence: "CustomerServiceRestInternal.java:85-90"}
+  - {cat: A3, at: "POST /customer/internal/validateid", why: "Internal password check reachable from the internet (an oracle for guessing passwords).", evidence: "CustomerServiceRestInternal.java:61-62"}
+  - {cat: A5, at: "POST /customer/internal/updateCustomerTotalMiles/{custid}", why: "Booking calls it without a credential.", evidence: bookingservice CustomerClient.java}
+  - {cat: A4, at: "GET /booking/config/runtime", why: "Runtime and data-service details for anyone.", evidence: BookingConfiguration.java}
+  - {cat: A4, at: "GET /auth/config/runtime", why: "Runtime details for anyone.", evidence: SessionConfiguration.java}
+  - {cat: A6, at: "POST /auth/login", why: "No rate limit or lockout on login.", evidence: "AuthServiceRest.java:64-65"}
+  - {cat: C8, at: acmeair-main-service, why: "None of the five Ingresses has TLS.", evidence: "*/manifests/*-ingress.yaml"}

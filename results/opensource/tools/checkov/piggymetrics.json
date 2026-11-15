@@ -1,0 +1,4 @@
+{
+ "applicable": false,
+ "why": "Checkov has no Docker Compose checks"
+}

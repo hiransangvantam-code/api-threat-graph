@@ -1,0 +1,50 @@
+# Istio Bookinfo: productpage routes from src/productpage/productpage.py:208-310, details from
+# src/details/details.rb, reviews from LibertyRestEndpoint.java, ratings from ratings.js:61-89.
+id: bookinfo
+name: Istio Bookinfo
+field: Book reviews
+by: Istio project
+upstream: {repo: https://github.com/istio/istio, commit: 027bfe16c39f472b57bb6c54761c602126ff4411, license: Apache-2.0, sparse: samples/bookinfo}
+languages: [Python, Ruby, Java, Node.js]
+artifacts:
+  manifests: [samples/bookinfo/platform/kube/bookinfo.yaml, samples/bookinfo/networking/bookinfo-gateway.yaml]
+  spec_files:
+    - {path: samples/bookinfo/swagger.yaml, service: productpage}
+edge: productpage
+traced: true          # Istio's sidecars report the spans; the services pass the B3 headers on
+services:
+  productpage:
+    port: 9080
+    language: Python
+    routes:
+      GET /: {returns: {page: index}, weight: 1}
+      GET /index.html: {returns: {page: index}, weight: 1}
+      POST /login: {body: {username: "$user", passwd: "***"}, returns: {user: $user}, weight: 1}
+      GET /logout: {returns: {}, weight: 1}
+      GET /productpage: {calls: ["GET details /details/0", "GET reviews /reviews/0"], returns: {product: {id: 0, title: The Comedy of Errors}, reviews: [{reviewer: Reviewer1, text: good}]}, weight: 4}
+      GET /api/v1/products: {returns: [{id: 0, title: The Comedy of Errors}], weight: 2}
+      GET /api/v1/products/{product_id}: {calls: ["GET details /details/{product_id}"], returns: {id: $product_id, author: William Shakespeare, isbn_10: "1234567890"}}
+      GET /api/v1/products/{product_id}/reviews: {calls: ["GET reviews /reviews/{product_id}"], returns: {id: $product_id, reviews: [{reviewer: Reviewer1, text: good}]}}
+      GET /api/v1/products/{product_id}/ratings: {calls: ["GET ratings /ratings/{product_id}"], returns: {id: $product_id, ratings: {Reviewer1: 5}}}
+  details:
+    port: 9080
+    language: Ruby
+    routes:
+      GET /details/{id}: {returns: {id: $id, author: William Shakespeare, year: 1595, type: paperback, pages: 200, publisher: PublisherA, language: English}}
+  reviews:
+    port: 9080
+    language: Java
+    routes:
+      GET /reviews/{productId}: {calls: ["GET ratings /ratings/{productId}"], returns: {id: $productId, reviews: [{reviewer: Reviewer1, text: good, rating: {stars: 5}}]}}
+  ratings:
+    port: 9080
+    language: Node.js
+    routes:
+      GET /ratings/{productId}: {returns: {id: $productId, ratings: {Reviewer1: 5, Reviewer2: 4}}}
+      POST /ratings/{productId}: {client: none, body: {Reviewer1: 1}, returns: {id: $productId}}
+cron:
+  - {name: ratings-import, every: 4, calls: [{to: "POST ratings /ratings/0", body: {Reviewer1: 5}}]}
+labels:
+  - {cat: A1, at: "POST /login (productpage)", why: "Any user name is accepted; the password is never checked (productpage.py:225).", evidence: "src/productpage/productpage.py:225-231"}
+  - {cat: A5, at: "POST /ratings/{productId} (ratings)", why: "Any pod can change book ratings: no credential, and mTLS only if the Istio policy is added.", evidence: "src/ratings/ratings.js:61"}
+  - {cat: C8, at: productpage, why: "bookinfo-gateway serves plain HTTP on port 80.", evidence: samples/bookinfo/networking/bookinfo-gateway.yaml}

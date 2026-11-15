@@ -1,0 +1,375 @@
+{
+ "company": "skyfly",
+ "users": "SkyFly: 535 requests in 5.0 s, 14 sessions; status codes: 200 x314, 201 x100, 401 x68, 403 x53",
+ "startup_s": 13.9,
+ "scan_s": 7.1,
+ "scan_log": [
+  "[scan] skyfly: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 1037 HTTP flows from the sidecar, 5 span batches from the Collector (1793 KB cleared from their memory)",
+  "[ok]   runtime_traffic    23 records      23.3 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      68.0 ms  -> /work/raw/openapi.json",
+  "! api-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     31 records      46.4 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          41 records      21.2 ms  -> /work/raw/callchain.json",
+  "[ok]   12 endpoints in 6 services (11 documented, 1 zombie)  -> /work/eujf.json",
+  "[ok]   7 findings (critical 2, high 2, medium 3, low 0), 7 attack paths, path risk 96",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] skyfly: 12 APIs, 7 findings, 7 attack paths, path risk 96",
+  "[scan] threat graph exported to output/site/exports/1-skyfly/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-092314-87d2d8",
+ "summary": {
+  "findings": 7,
+  "by_severity": {
+   "critical": 2,
+   "high": 2,
+   "medium": 3,
+   "low": 0
+  },
+  "attack_paths": 7,
+  "critical_paths": 4,
+  "total_path_risk": 96.0,
+  "endpoints": 12,
+  "shadow_endpoints": 0,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 6,
+  "label": "skyfly"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 12,
+  "inventory": {
+   "documented": 11,
+   "zombie": 1
+  },
+  "confidence": {
+   "HIGH": 12,
+   "MEDIUM": 0,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 12,
+  "endpoints_with_sensitive_data": 5,
+  "dependencies": 6,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "api-gateway",
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:booking-service:POST:/bookings",
+   "service": "booking-service",
+   "method": "POST",
+   "path": "/bookings",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/bookings"
+   ]
+  },
+  {
+   "id": "ep:booking-service:GET:/bookings/{}",
+   "service": "booking-service",
+   "method": "GET",
+   "path": "/bookings/{booking_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/bookings/{booking_id}"
+   ]
+  },
+  {
+   "id": "ep:booking-service:POST:/bookings/{}/webhooks",
+   "service": "booking-service",
+   "method": "POST",
+   "path": "/bookings/{booking_id}/webhooks",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/bookings/{booking_id}/webhooks"
+   ]
+  },
+  {
+   "id": "ep:checkin-service:GET:/checkin/{}",
+   "service": "checkin-service",
+   "method": "GET",
+   "path": "/checkin/{booking_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/checkin/{booking_id}"
+   ]
+  },
+  {
+   "id": "ep:checkin-service:POST:/checkin/{}/boarding-pass",
+   "service": "checkin-service",
+   "method": "POST",
+   "path": "/checkin/{booking_id}/boarding-pass",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/checkin/{booking_id}/boarding-pass"
+   ]
+  },
+  {
+   "id": "ep:flight-service:GET:/flights",
+   "service": "flight-service",
+   "method": "GET",
+   "path": "/flights",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/flights"
+   ]
+  },
+  {
+   "id": "ep:flight-service:GET:/flights/{}",
+   "service": "flight-service",
+   "method": "GET",
+   "path": "/flights/{flight_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/flights/{flight_id}"
+   ]
+  },
+  {
+   "id": "ep:partner-api:GET:/partner/bookings",
+   "service": "partner-api",
+   "method": "GET",
+   "path": "/partner/bookings",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/partner/bookings"
+   ]
+  },
+  {
+   "id": "ep:partner-api:GET:/partner/v1/fares",
+   "service": "partner-api",
+   "method": "GET",
+   "path": "/partner/v1/fares",
+   "inventory": "zombie",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/partner/v1/fares"
+   ]
+  },
+  {
+   "id": "ep:partner-api:GET:/partner/v2/fares",
+   "service": "partner-api",
+   "method": "GET",
+   "path": "/partner/v2/fares",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/partner/v2/fares"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "TS-01",
+   "target": "ep:checkin-service:GET:/checkin/{}",
+   "detail": "GET /checkin/{booking_id} (checkin-service) returned 2xx to 40 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:checkin-service:POST:/checkin/{}/boarding-pass",
+   "detail": "POST /checkin/{booking_id}/boarding-pass (checkin-service) returned 2xx to 40 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API7",
+   "target": "ep:booking-service:POST:/bookings/{}/webhooks",
+   "detail": "POST /bookings/{booking_id}/webhooks (booking-service) accepts webhook_url",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:api-gateway",
+   "detail": "route /api/checkin/** -> checkin-service has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API4",
+   "target": "svc:checkin-service",
+   "detail": "checkin-service has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API9-ZOMBIE",
+   "target": "ep:partner-api:GET:/partner/v1/fares",
+   "detail": "GET /partner/v1/fares (partner-api) is deprecated but got 50 calls",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API10",
+   "target": "svc:booking-service",
+   "detail": "booking-service calls external gds-provider",
+   "severity": "medium",
+   "score": 6
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/bookings",
+   "upstream_service": "booking-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/checkin",
+   "upstream_service": "checkin-service",
+   "auth": "none",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/flights",
+   "upstream_service": "flight-service",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": "/api",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/partner",
+   "upstream_service": "partner-api",
+   "auth": "required",
+   "gateway": "spring-cloud-gateway",
+   "strip_prefix": null,
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "api-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "booking-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "checkin-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "flight-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "partner-api",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ]
+}

@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: CityGov Tax Service API
+  version: 2.3.1
+servers:
+- url: http://tax-service:8080
+paths:
+  /taxes/{citizen_id}/assessments:
+    get:
+      operationId: get_taxes_citizen_id_assessments
+      summary: GET /taxes/{citizen_id}/assessments
+      tags:
+      - tax-service
+      parameters:
+      - name: citizen_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assessment_id:
+                          type: integer
+                        amount:
+                          type: integer
+                        year:
+                          type: integer
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /taxes/{citizen_id}/payments:
+    post:
+      operationId: post_taxes_citizen_id_payments
+      summary: POST /taxes/{citizen_id}/payments
+      tags:
+      - tax-service
+      parameters:
+      - name: citizen_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assessment_id:
+                  type: integer
+                amount:
+                  type: integer
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payment_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

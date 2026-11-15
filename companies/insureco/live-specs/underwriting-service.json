@@ -1,0 +1,72 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "InsureCo Underwriting Service API",
+    "version": "1.4.0"
+  },
+  "servers": [
+    {
+      "url": "http://underwriting-service:8000"
+    }
+  ],
+  "paths": {
+    "/underwriting/score/{policy_id}": {
+      "get": {
+        "operationId": "get_underwriting_score_policy_id",
+        "summary": "GET /underwriting/score/{policy_id}",
+        "tags": [
+          "underwriting-service"
+        ],
+        "parameters": [
+          {
+            "name": "policy_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "policy_id": {
+                      "type": "integer"
+                    },
+                    "risk_band": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

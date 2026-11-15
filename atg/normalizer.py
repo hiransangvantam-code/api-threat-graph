@@ -179,6 +179,27 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
     exposure = defaultdict(list)
     for e in _recs(inf, "exposure"):
         exposure[e["workload"]].append(e)
+    # Traffic, traces and specs name a service by its DNS name (the Kubernetes Service, e.g.
+    # "productpage"); the manifests name the Deployment ("productpage-v1", or several versions).
+    # When a Service that the runtime sources use selects workloads with other names, they are
+    # one service: merge them under the Service name.
+    runtime_names = ({s["service"] for s in _recs(cc, "service")} | {e["service"] for e in _recs(rt, "endpoint")}
+                     | {s["service"] for s in _recs(oa, "spec")})
+    alias: dict[str, str] = {}
+    for ks in k8s_services:
+        ws = [workloads[w] for w in ks.get("selects_workloads", []) if w in workloads]
+        if ks["name"] in runtime_names and ks["name"] not in workloads and ws:
+            merged = {**ws[0], "name": ks["name"], "containers": [c for w in ws for c in w["containers"]],
+                      "defined_in": ", ".join(sorted({w["defined_in"] for w in ws})),
+                      "host_network": any(w["host_network"] for w in ws),
+                      "network_policies": sorted(set.intersection(*[set(w["network_policies"]) for w in ws])),
+                      "mtls": {"enforced": all(w["mtls"]["enforced"] for w in ws), "via": ws[0]["mtls"]["via"]},
+                      "workloads": [w["name"] for w in ws]}
+            for w in ws:
+                alias[w["name"]] = ks["name"]
+                del workloads[w["name"]]
+                exposure[ks["name"]] += exposure.pop(w["name"], [])
+            workloads[ks["name"]] = merged
     routes = sorted(_recs(inf, "gateway_route"), key=lambda r: len(r["match_prefix"] or ""), reverse=True)
     ingresses = _recs(inf, "ingress")
 
@@ -190,9 +211,16 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
     if named:
         gateway = max(sorted(set(named)), key=named.count)
     else:
-        ing = Counter(e["workload"] for e in _recs(inf, "exposure")
+        ing = Counter(alias.get(e["workload"], e["workload"]) for e in _recs(inf, "exposure")
                       if e["level"] == "internet" and e["via"] and e["via"][0].startswith("Ingress"))
         gateway = max(sorted(ing), key=ing.get) if ing else None
+    gateway = alias.get(gateway, gateway) if gateway else None
+    # no gateway workload: the service the inline sidecar fronts (north-south capture) is the edge
+    edge = None
+    if not gateway:
+        ns = Counter(e["service"] for e in _recs(rt, "endpoint") if "north-south" in e.get("capture_points", [])
+                     and ":" not in e["service"])
+        edge = max(sorted(ns), key=ns.get) if ns else None
 
     # ---- 2. service list ----------------------------------------------------
     names = set(workloads) | {s["service"] for s in _recs(cc, "service")}
@@ -324,14 +352,14 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             tr = e["sources"].setdefault("trace", {"spans": 0, "errors": 0, "callers": []})
             tr["spans"] += op["count"]
             tr["errors"] += op["errors"]
-    for edge in _recs(cc, "edge"):
-        for op in edge["operations"]:
+    for ce in _recs(cc, "edge"):   # a call-graph edge (not the edge service)
+        for op in ce["operations"]:
             method, _, path = op["operation"].partition(" ")
-            key = (edge["to"], match_key(method, path))
+            key = (ce["to"], match_key(method, path))
             if key in endpoints and "trace" in endpoints[key]["sources"]:
                 callers = endpoints[key]["sources"]["trace"]["callers"]
-                if edge["from"] not in callers:
-                    callers.append(edge["from"])
+                if ce["from"] not in callers:
+                    callers.append(ce["from"])
     for ent in _recs(cc, "entrypoint"):
         method, _, path = ent["operation"].partition(" ")
         key = (ent["service"], match_key(method, path))
@@ -342,7 +370,7 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
     for e in endpoints.values():
         e["gateway_route"] = None
         e["public_paths"] = []
-        if e["service"] == gateway:
+        if e["service"] in (gateway, edge):
             e["public_paths"] = [e["path"]]
             continue
         for r in routes:
@@ -484,6 +512,9 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             "image": containers[0]["image"] if containers else None,
             "exposure": {"level": level, "via": [" -> ".join(x["via"]) for x in exposure.get(name, []) if x["level"] != "internal"]},
             "node_port": any(x["level"] == "node" for x in exposure.get(name, [])),
+            # published by a NodePort or LoadBalancer Service, or a published compose port
+            "published": any(any(v.startswith("Service ") and ("NodePort" in v or "LoadBalancer" in v) or
+                                 v.startswith("published port") for v in x["via"]) for x in exposure.get(name, [])),
             "spec": {"live": "live" in svc_spec[name], "file": "file" in svc_spec[name]},
             "network_policy": {"present": bool(pols), "allowed_from": allowed_from},
             "mtls": (w or {}).get("mtls") or {"enforced": False, "via": []},
@@ -517,7 +548,7 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         only also means "the call did not come through the gateway" when the gateway
         itself emits spans. With an untraced gateway, an endpoint that receives public
         traffic most likely had the gateway as its caller."""
-        if x["service"] == gateway:
+        if x["service"] in (gateway, edge):   # traces start at the edge when nothing traced sits in front
             return False
         if traced_gateway:
             return True
@@ -541,6 +572,7 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         "generated_at": now_iso(),
         "raw_inputs": {k: {"sha256": v.get("sha256"), "records": v.get("records")} for k, v in manifest.get("sources", {}).items()},
         "gateway": gateway,
+        "edge": edge,
         "services": services,
         "endpoints": eps,
         "gateway_routes": [{k: r.get(k) for k in ("match_prefix", "upstream_service", "strip_prefix", "replace_with", "auth",
@@ -549,6 +581,8 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
         "dependencies": sorted(deps, key=lambda d: (d["from"], d["to"])),
         "ingress": [{**{k: i[k] for k in ("host", "path", "tls", "backend_service")}, "rate_limit": i.get("rate_limit")}
                     for i in ingresses],
+        # other public entry points and whether they use TLS (LoadBalancer Services, Istio Gateways)
+        "edge_tls": [{**x, "workload": alias.get(x.get("workload"), x.get("workload"))} for x in _recs(inf, "edge_tls")],
         "secrets": [{"name": s["name"], "keys": s["keys"]} for s in secrets.values()],
         "trace_services": [{"service": s["service"], "spans": s["span_count"]} for s in _recs(cc, "service")],
         "entrypoints": [{"service": x["service"], "operation": x["operation"], "traces": x["traces"],

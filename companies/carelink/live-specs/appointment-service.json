@@ -1,0 +1,233 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CareLink Appointment Service API",
+    "version": "1.12.0"
+  },
+  "servers": [
+    {
+      "url": "http://appointment-service:8000"
+    }
+  ],
+  "paths": {
+    "/appointments": {
+      "get": {
+        "operationId": "get_appointments",
+        "summary": "GET /appointments",
+        "tags": [
+          "appointment-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "appointment_id": {
+                            "type": "integer"
+                          },
+                          "customer_id": {
+                            "type": "string"
+                          },
+                          "slot": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "post_appointments",
+        "summary": "POST /appointments",
+        "tags": [
+          "appointment-service"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patient_id": {
+                    "type": "integer"
+                  },
+                  "slot_id": {
+                    "type": "integer"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "appointment_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/appointments/{appointment_id}": {
+      "get": {
+        "operationId": "get_appointments_appointment_id",
+        "summary": "GET /appointments/{appointment_id}",
+        "tags": [
+          "appointment-service"
+        ],
+        "parameters": [
+          {
+            "name": "appointment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "appointment_id": {
+                      "type": "integer"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "doctor": {
+                      "type": "string"
+                    },
+                    "slot": {
+                      "type": "string"
+                    },
+                    "notes": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "delete_appointments_appointment_id",
+        "summary": "DELETE /appointments/{appointment_id}",
+        "tags": [
+          "appointment-service"
+        ],
+        "parameters": [
+          {
+            "name": "appointment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "appointment_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

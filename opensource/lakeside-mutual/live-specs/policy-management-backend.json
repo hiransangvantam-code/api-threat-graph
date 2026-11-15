@@ -1,0 +1,522 @@
+{
+ "openapi": "3.0.1",
+ "info": {
+  "title": "policy-management-backend API",
+  "version": "v1"
+ },
+ "servers": [
+  {
+   "url": "http://policy-management-backend:8090"
+  }
+ ],
+ "paths": {
+  "/customers": {
+   "get": {
+    "operationId": "get_customers",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customers": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "customerId": {
+              "type": "integer"
+             },
+             "email": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/customers/{customerIdDto}": {
+   "get": {
+    "operationId": "get_customers_customerIdDto",
+    "parameters": [
+     {
+      "name": "customerIdDto",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          },
+          "email": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/customers/{customerIdDto}/policies": {
+   "get": {
+    "operationId": "get_customers_customerIdDto_policies",
+    "parameters": [
+     {
+      "name": "customerIdDto",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "policyId": {
+            "type": "integer"
+           },
+           "policyType": {
+            "type": "string"
+           },
+           "insurancePremium": {
+            "type": "object",
+            "properties": {
+             "amount": {
+              "type": "integer"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/insurance-quote-requests": {
+   "get": {
+    "operationId": "get_insurance_quote_requests",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "id": {
+            "type": "integer"
+           },
+           "customerInfo": {
+            "type": "object",
+            "properties": {
+             "customerId": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/insurance-quote-requests/{id}": {
+   "get": {
+    "operationId": "get_insurance_quote_requests_id",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "customerInfo": {
+           "type": "object",
+           "properties": {
+            "customerId": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "operationId": "patch_insurance_quote_requests_id",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "id": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "status": {
+          "type": "string"
+         },
+         "insuranceQuote": {
+          "type": "object",
+          "properties": {
+           "insurancePremium": {
+            "type": "object",
+            "properties": {
+             "amount": {
+              "type": "integer"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/riskfactor/compute": {
+   "post": {
+    "operationId": "post_riskfactor_compute",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "riskFactor": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "birthday": {
+          "type": "string"
+         },
+         "postalCode": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/policies": {
+   "post": {
+    "operationId": "post_policies",
+    "parameters": [],
+    "responses": {
+     "201": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "policyId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "customerId": {
+          "type": "integer"
+         },
+         "policyType": {
+          "type": "string"
+         },
+         "insurancePremium": {
+          "type": "object",
+          "properties": {
+           "amount": {
+            "type": "integer"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "operationId": "get_policies",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "policyId": {
+            "type": "integer"
+           },
+           "customerId": {
+            "type": "string"
+           },
+           "insurancePremium": {
+            "type": "object",
+            "properties": {
+             "amount": {
+              "type": "integer"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/policies/{policyId}": {
+   "put": {
+    "operationId": "put_policies_policyId",
+    "parameters": [
+     {
+      "name": "policyId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "policyId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "policyType": {
+          "type": "string"
+         },
+         "insurancePremium": {
+          "type": "object",
+          "properties": {
+           "amount": {
+            "type": "integer"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "delete_policies_policyId",
+    "parameters": [
+     {
+      "name": "policyId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "policyId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "operationId": "get_policies_policyId",
+    "parameters": [
+     {
+      "name": "policyId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "policyId": {
+           "type": "integer"
+          },
+          "customerId": {
+           "type": "string"
+          },
+          "insurancePremium": {
+           "type": "object",
+           "properties": {
+            "amount": {
+             "type": "integer"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "securitySchemes": {
+   "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+   },
+   "apiKey": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "Authorization"
+   }
+  }
+ }
+}

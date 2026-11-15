@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SkyFly Checkin Service API",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://checkin-service:3000"
+    }
+  ],
+  "paths": {
+    "/checkin/{booking_id}": {
+      "get": {
+        "operationId": "get_checkin_booking_id",
+        "summary": "GET /checkin/{booking_id}",
+        "tags": [
+          "checkin-service"
+        ],
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "booking_id": {
+                      "type": "integer"
+                    },
+                    "passenger": {
+                      "type": "string"
+                    },
+                    "passport_number": {
+                      "type": "string"
+                    },
+                    "seat": {
+                      "type": "string"
+                    },
+                    "gate": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/checkin/{booking_id}/boarding-pass": {
+      "post": {
+        "operationId": "post_checkin_booking_id_boarding_pass",
+        "summary": "POST /checkin/{booking_id}/boarding-pass",
+        "tags": [
+          "checkin-service"
+        ],
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "seat": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "booking_id": {
+                      "type": "integer"
+                    },
+                    "boarding_group": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

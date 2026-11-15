@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Usage Service API",
+    "version": "3.6.0"
+  },
+  "servers": [
+    {
+      "url": "http://usage-service:8080"
+    }
+  ],
+  "paths": {
+    "/usage/{subscriber_id}": {
+      "get": {
+        "operationId": "get_usage_subscriber_id",
+        "summary": "GET /usage/{subscriber_id}",
+        "tags": [
+          "usage-service"
+        ],
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "data_mb": {
+                      "type": "integer"
+                    },
+                    "minutes": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/usage/{subscriber_id}/cdr": {
+      "get": {
+        "operationId": "get_usage_subscriber_id_cdr",
+        "summary": "GET /usage/{subscriber_id}/cdr",
+        "tags": [
+          "usage-service"
+        ],
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "call_id": {
+                            "type": "integer"
+                          },
+                          "duration_s": {
+                            "type": "integer"
+                          },
+                          "called_number": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

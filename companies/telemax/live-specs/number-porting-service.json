@@ -1,0 +1,127 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Number Porting Service API",
+    "version": "1.0.3"
+  },
+  "servers": [
+    {
+      "url": "http://number-porting-service:8080"
+    }
+  ],
+  "paths": {
+    "/porting": {
+      "post": {
+        "operationId": "post_porting",
+        "summary": "POST /porting",
+        "tags": [
+          "number-porting-service"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "donor_operator": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/porting/{request_id}": {
+      "get": {
+        "operationId": "get_porting_request_id",
+        "summary": "GET /porting/{request_id}",
+        "tags": [
+          "number-porting-service"
+        ],
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

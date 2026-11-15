@@ -1,0 +1,131 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FoodDash Restaurant Service API",
+    "version": "2.8.0"
+  },
+  "host": "restaurant-service:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/restaurants": {
+      "get": {
+        "operationId": "get_restaurants",
+        "summary": "GET /restaurants",
+        "tags": [
+          "restaurant-service"
+        ],
+        "parameters": [
+          {
+            "name": "near",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "restaurant_id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "rating": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/restaurants/{restaurant_id}/menu": {
+      "get": {
+        "operationId": "get_restaurants_restaurant_id_menu",
+        "summary": "GET /restaurants/{restaurant_id}/menu",
+        "tags": [
+          "restaurant-service"
+        ],
+        "parameters": [
+          {
+            "name": "restaurant_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "restaurant_id": {
+                  "type": "integer"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "dish_id": {
+                        "type": "integer"
+                      },
+                      "price": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}

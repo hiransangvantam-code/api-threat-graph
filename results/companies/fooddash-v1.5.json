@@ -1,0 +1,352 @@
+{
+ "company": "fooddash",
+ "users": "FoodDash: 424 requests in 6.2 s, 12 sessions; status codes: 200 x282, 201 x60, 401 x61, 403 x21",
+ "startup_s": 10.8,
+ "scan_s": 7.5,
+ "scan_log": [
+  "[scan] fooddash: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 940 HTTP flows from the sidecar, 7 span batches from the Collector (1644 KB cleared from their memory)",
+  "[ok]   runtime_traffic    19 records      21.3 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             6 records      59.2 ms  -> /work/raw/openapi.json",
+  "! mesh-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     35 records     134.1 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          38 records      25.2 ms  -> /work/raw/callchain.json",
+  "[ok]   11 endpoints in 7 services (11 documented)  -> /work/eujf.json",
+  "[ok]   6 findings (critical 0, high 4, medium 1, low 1), 6 attack paths, path risk 68.2",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] fooddash: 11 APIs, 6 findings, 6 attack paths, path risk 68.2",
+  "[scan] threat graph exported to output/site/exports/1-fooddash/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-102329-0afd82",
+ "summary": {
+  "findings": 6,
+  "by_severity": {
+   "critical": 0,
+   "high": 4,
+   "medium": 1,
+   "low": 1
+  },
+  "attack_paths": 6,
+  "critical_paths": 3,
+  "total_path_risk": 68.2,
+  "endpoints": 11,
+  "shadow_endpoints": 0,
+  "services": 7,
+  "rules_evaluated": 27,
+  "rules_fired": 6,
+  "label": "fooddash"
+ },
+ "eujf_summary": {
+  "services": 7,
+  "endpoints": 11,
+  "inventory": {
+   "documented": 11
+  },
+  "confidence": {
+   "HIGH": 11,
+   "MEDIUM": 0,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 10,
+  "endpoints_with_sensitive_data": 4,
+  "dependencies": 7,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "mesh-gateway",
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:dispatch-service:POST:/dispatch",
+   "service": "dispatch-service",
+   "method": "POST",
+   "path": "/dispatch",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:order-service:POST:/orders",
+   "service": "order-service",
+   "method": "POST",
+   "path": "/orders",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/orders"
+   ]
+  },
+  {
+   "id": "ep:order-service:GET:/orders/{}",
+   "service": "order-service",
+   "method": "GET",
+   "path": "/orders/{order_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/orders/{order_id}"
+   ]
+  },
+  {
+   "id": "ep:order-service:GET:/orders/{}/receipt",
+   "service": "order-service",
+   "method": "GET",
+   "path": "/orders/{order_id}/receipt",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/orders/{order_id}/receipt"
+   ]
+  },
+  {
+   "id": "ep:payment-service:POST:/payments/charges",
+   "service": "payment-service",
+   "method": "POST",
+   "path": "/payments/charges",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/payments/charges"
+   ]
+  },
+  {
+   "id": "ep:payment-service:GET:/payments/{}",
+   "service": "payment-service",
+   "method": "GET",
+   "path": "/payments/{payment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/payments/{payment_id}"
+   ]
+  },
+  {
+   "id": "ep:restaurant-service:GET:/restaurants",
+   "service": "restaurant-service",
+   "method": "GET",
+   "path": "/restaurants",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/restaurants"
+   ]
+  },
+  {
+   "id": "ep:restaurant-service:GET:/restaurants/{}/menu",
+   "service": "restaurant-service",
+   "method": "GET",
+   "path": "/restaurants/{restaurant_id}/menu",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/restaurants/{restaurant_id}/menu"
+   ]
+  },
+  {
+   "id": "ep:rider-service:GET:/riders/nearby",
+   "service": "rider-service",
+   "method": "GET",
+   "path": "/riders/nearby",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/riders/nearby"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API1",
+   "target": "ep:order-service:GET:/orders/{}/receipt",
+   "detail": "GET /orders/{order_id}/receipt (order-service): object ID from path, response carries owner field customer_id, 0 x 403 in 50 calls",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:auth-service:POST:/auth/session",
+   "detail": "POST /auth/session (auth-service): 20 failed logins, no 429 seen",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:dispatch-service:POST:/dispatch",
+   "detail": "POST /dispatch (dispatch-service) returned 2xx to 60 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:mesh-gateway",
+   "detail": "Istio Gateway fooddash-gateway serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API4",
+   "target": "svc:order-service",
+   "detail": "order-service has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:dispatch-service:POST:/dispatch",
+   "detail": "order-service -> POST /dispatch (dispatch-service) with no credential",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": "/api/auth",
+   "replace_with": "/auth"
+  },
+  {
+   "match_prefix": "/api/orders",
+   "upstream_service": "order-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/orders",
+   "replace_with": "/orders"
+  },
+  {
+   "match_prefix": "/api/payments",
+   "upstream_service": "payment-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/payments",
+   "replace_with": "/payments"
+  },
+  {
+   "match_prefix": "/api/restaurants",
+   "upstream_service": "restaurant-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/restaurants",
+   "replace_with": "/restaurants"
+  },
+  {
+   "match_prefix": "/api/riders",
+   "upstream_service": "rider-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/riders",
+   "replace_with": "/riders"
+  }
+ ],
+ "services": [
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "dispatch-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mesh-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "order-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "payment-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "restaurant-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "rider-service",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ]
+}

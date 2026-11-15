@@ -1,0 +1,52 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Network Ops Service API",
+    "version": "0.12.0"
+  },
+  "servers": [
+    {
+      "url": "http://network-ops-service:8080"
+    }
+  ],
+  "paths": {
+    "/ops/cell-status": {
+      "get": {
+        "operationId": "get_ops_cell_status",
+        "summary": "GET /ops/cell-status",
+        "tags": [
+          "network-ops-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cells_up": {
+                      "type": "integer"
+                    },
+                    "cells_down": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

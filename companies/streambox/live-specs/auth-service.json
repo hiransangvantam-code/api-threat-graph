@@ -1,0 +1,112 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "StreamBox Auth Service API",
+    "version": "3.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://auth-service:8000"
+    }
+  ],
+  "paths": {
+    "/auth/session": {
+      "post": {
+        "operationId": "post_auth_session",
+        "summary": "POST /auth/session",
+        "tags": [
+          "auth-service"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/introspect": {
+      "get": {
+        "operationId": "get_auth_introspect",
+        "summary": "GET /auth/introspect",
+        "tags": [
+          "auth-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sid"
+      }
+    }
+  }
+}

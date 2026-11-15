@@ -52,6 +52,8 @@ Each scan writes its graph to `output/site/exports/<scan>/` as GraphML (for Geph
                    (SQLite or PostgreSQL) · attack path analysis (SQL)
 4 OUTPUT           dashboard: API overview · risk summary · top            -> output/dashboard.html
                    vulnerabilities · trend & insight · fix plan
+                   what to fix, in order: risk after each fix, the fix   -> hardening-<scan>.html, hardening.md
+                   in the system's own stack, how to verify, baseline
 ```
 
 ## สรุปภาษาไทย
@@ -124,6 +126,11 @@ python -m pytest -q
 | `docs/LIMITS.md` | what a passive review cannot detect, by OWASP category, and how large a system it handles |
 | `docs/COMPARISON_ZAP.md` | the ZAP comparison: setup, results, what it does and does not show |
 | `docs/REVIEW_RESPONSES.md` | the seven review points and what changed for each |
+| `companies/README.md`, `results/companies/` | ten generated companies in ten industries (Go, Python, Node.js; Kong, nginx, Spring Cloud Gateway, Istio): 120/120 endpoints, 62/63 passive-visible planted weaknesses, 0/23 false alarms |
+| `opensource/README.md`, `docs/BENCHMARK_OSS.md` | ten open-source systems (Google, IBM, Spring, Cornell, Istio, ...), ATG v1.4 and v1.5 |
+| `results/opensource/comparison.md` | ATG vs Checkov, Kubescape, kube-linter, Polaris, Spectral, Bandit, gosec, njsscan on the ten: accuracy by category, where each tool stops, speed (`bench/compare_tools.py`) |
+| `docs/TOOLS_COMPARISON.md` | commercial and research tools (IBM, NVIDIA, Salt, Akamai, Harness, Wiz, Palo Alto, Microsoft, 42Crunch, threat-modelling tools), from their documentation |
+| `docs/HARDENING_REPORT.md` | the "What to fix, in order" page every scan writes |
 
 Each run folder keeps its metrics and threat-model output. To keep the repository small, it leaves out the raw captured traffic, traces and ground-truth access logs of the 84 experiment runs (about 420 MB), plus the Phase 1 output of the Train Ticket and crAPI runs. `python bench/report.py` still rebuilds every table and figure from what is here, byte for byte. Rerunning the experiment regenerates the rest.
 
@@ -169,6 +176,28 @@ By hand: start the target (`docker compose -f target/docker-compose.yml up -d --
 
 Tested end to end with `sh start.sh` from a clean copy: 407 HTTP flows through the sidecar and 32 span batches through the Collector in the first scan, giving the same findings and attack-path risk as the local demo. That test machine could not reach Docker Hub, so it used locally built stand-ins. For `python:3.12-slim` it used Python 3.12 on Ubuntu 24.04, and for `postgres:16-alpine` PostgreSQL 16 with UTF-8 and the same environment variables. For `otel/opentelemetry-collector-contrib:0.111.0` it used the official 0.111.0 binary from GitHub. A normal machine pulls the official images.
 
+## Ten open-source systems, and other tools
+
+The professor's review asked for real open-source systems in different fields, a comparison with other
+tools, and recommendations instead of percentages. `opensource/` holds ten systems at pinned commits:
+Online Boutique, Bank of Anthos, Stan's Robot Shop, Acme Air, Spring PetClinic, PiggyMetrics, Lakeside
+Mutual, FTGO, Hotel Reservation and Bookinfo. ATG and eight free tools ran on all ten against the same
+716 labelled weaknesses (`docs/BENCHMARK_OSS.md`):
+
+| | ATG v1.5 | best Kubernetes scanner (Polaris) | ATG + Checkov |
+|---|---:|---:|---:|
+| Systems it can run on | 10/10 | 7/10 (no Docker Compose) | 10/10 |
+| Labels found | 466/716 (65%) | 331/716 (46%) | 613/716 (86%) |
+| API behaviour, inventory | 52/82, 88/88 | 0, 0 | 52/82, 88/88 |
+| Deployment configuration | 326/546 (60%) | 331/546 (61%) | |
+| Precision | 75% | 95% | |
+
+The code scanners (Bandit, gosec, njsscan) each read one language, 26 of the 65 services together.
+`sh start.sh bookinfo` (or `START-Windows.bat bookinfo`) reviews one of them with stand-in services, and
+`sh real.sh robot-shop` (or `REAL-Windows.bat robot-shop`) runs seven of them on their real images
+(`opensource/real/README.md`). Version 1.5 fixed gaps that v1.4 showed on these systems, so read its
+numbers with the caveat in `docs/BENCHMARK_OSS.md`; v1.4 found 337/716 (47%).
+
 ## Point it at a real system
 
 With Docker: see "Review another system" in [HOW-TO-RUN.md](HOW-TO-RUN.md). The company points its traffic and spans at ATG, and ATG gets the company's network name, gateway and config folder through `TARGET_NETWORK`, `TARGET_GATEWAY` and `TARGET_CONFIG`.
@@ -185,19 +214,23 @@ atg/analysis.py       Phase 3 vulnerability analyzer, dependency analyzer, threa
 atg/graphstore.py     graph store (SQLite / PostgreSQL) + recursive attack path SQL
 atg/dashboard.py      Phase 4 dashboard
 atg/export.py         Phase 4 exports: GraphML, node-link JSON, SARIF 2.1.0, SVG
+atg/hardening.py      Phase 4 risk and hardening report ("What to fix, in order")
 atg/pipeline.py       runs Phases 1-4 (python -m atg)
 demo_target/          ShopLite: services, k8s (vulnerable), k8s-hardened, stale spec, traffic generator
 scripts/              run_demo.py (Phases 1-4), run_extractor.py (Phase 1 only)
 target/               the company's Docker: ShopLite compose file and Dockerfile
 docker-compose.yml    the ATG platform's Docker (sidecar proxy, OTel Collector, PostgreSQL, scanner + web)
 docker/               scan.py (one scan, Phases 1-4), serve.py + pages.py (web view), otel-collector.yaml, extractor-target.yaml
-START-Windows.bat, start.sh, HOW-TO-RUN.md   start both Dockers and run the before/after review
+START-Windows.bat, start.sh, HOW-TO-RUN.md   start both Dockers and run the before/after review (or: start.sh <company or open-source system>)
+REAL-Windows.bat, real.sh                    an open-source system on its real images, reviewed (opensource/real/)
 STOP-Windows.bat, stop.sh                    stop both Dockers and delete the review data (pages and exports stay)
 CLEAN-Windows.bat, clean.sh                  delete the pages and exports too
 bench/                Section IV experiment: miners, replicas, workload, oracle, evaluation, report
 bench/testbeds/       ground truth for ShopLite, Train Ticket, crAPI (topology.yaml + source files)
 results/              tables, figures, dashboards, and every run's metrics and raw Phase 1 output
 realcheck/            kit to repeat Phase 1 on the real crAPI in Docker (Thai guide)
+companies/            ten generated companies (company.yaml -> services, manifests, ground truth) and their shared runtime
+opensource/           ten open-source systems: system.yaml (operations, calls, labels), fetch.py, build.py, config_labels.py, real/
 docs/                 PAPER_MAPPING.md (paper ↔ code), EXPERIMENT.md, THREAT_MODEL.md, RAW_DATA_CONTRACT.md, PHASE1_DESIGN.md,
                       DATA_HANDLING.md, EXPORT_FORMATS.md, LIMITS.md, REVIEW_RESPONSES.md
 tests/                unit tests (Phase 1), regression tests on the demo (Phases 2-4), harness checks

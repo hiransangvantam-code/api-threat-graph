@@ -1,0 +1,266 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "C1",
+   "svc:accounts-db"
+  ],
+  [
+   "C1",
+   "svc:ledger-db"
+  ],
+  [
+   "C9",
+   "svc:accounts-db"
+  ],
+  [
+   "C9",
+   "svc:ledger-db"
+  ]
+ ],
+ "raw": {
+  "deprecated-service-account-field": 2,
+  "no-read-only-root-fs": 2,
+  "run-as-non-root": 2,
+  "liveness-port": 3,
+  "readiness-port": 5,
+  "startup-port": 3
+ },
+ "seconds": 0.04,
+ "findings": 17,
+ "score": {
+  "labels": 44,
+  "found": 4,
+  "reported": 4,
+  "confirmed": 4,
+  "by_group": {
+   "Configuration": {
+    "labels": 35,
+    "found": 4,
+    "reported": 4,
+    "confirmed": 4
+   },
+   "API behaviour": {
+    "labels": 3,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 6,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 1,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "A7": {
+    "labels": 1,
+    "found": 0
+   },
+   "C1": {
+    "labels": 2,
+    "found": 2
+   },
+   "C10": {
+    "labels": 9,
+    "found": 0
+   },
+   "C6": {
+    "labels": 9,
+    "found": 0
+   },
+   "C7": {
+    "labels": 5,
+    "found": 0
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 9,
+    "found": 2
+   },
+   "O1": {
+    "labels": 6,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A5",
+    "svc:userservice"
+   ],
+   [
+    "A6",
+    "ep:frontend:POST:/login"
+   ],
+   [
+    "A7",
+    "ep:userservice:GET:/login"
+   ],
+   [
+    "C10",
+    "svc:accounts-db"
+   ],
+   [
+    "C10",
+    "svc:balancereader"
+   ],
+   [
+    "C10",
+    "svc:contacts"
+   ],
+   [
+    "C10",
+    "svc:frontend"
+   ],
+   [
+    "C10",
+    "svc:ledger-db"
+   ],
+   [
+    "C10",
+    "svc:ledgerwriter"
+   ],
+   [
+    "C10",
+    "svc:loadgenerator"
+   ],
+   [
+    "C10",
+    "svc:transactionhistory"
+   ],
+   [
+    "C10",
+    "svc:userservice"
+   ],
+   [
+    "C6",
+    "svc:accounts-db"
+   ],
+   [
+    "C6",
+    "svc:balancereader"
+   ],
+   [
+    "C6",
+    "svc:contacts"
+   ],
+   [
+    "C6",
+    "svc:frontend"
+   ],
+   [
+    "C6",
+    "svc:ledger-db"
+   ],
+   [
+    "C6",
+    "svc:ledgerwriter"
+   ],
+   [
+    "C6",
+    "svc:loadgenerator"
+   ],
+   [
+    "C6",
+    "svc:transactionhistory"
+   ],
+   [
+    "C6",
+    "svc:userservice"
+   ],
+   [
+    "C7",
+    "configmap:accounts-db-config"
+   ],
+   [
+    "C7",
+    "configmap:demo-data-config"
+   ],
+   [
+    "C7",
+    "configmap:ledger-db-config"
+   ],
+   [
+    "C7",
+    "secret:jwt-key"
+   ],
+   [
+    "C7",
+    "svc:userservice"
+   ],
+   [
+    "C8",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:balancereader"
+   ],
+   [
+    "C9",
+    "svc:contacts"
+   ],
+   [
+    "C9",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:ledgerwriter"
+   ],
+   [
+    "C9",
+    "svc:loadgenerator"
+   ],
+   [
+    "C9",
+    "svc:transactionhistory"
+   ],
+   [
+    "C9",
+    "svc:userservice"
+   ],
+   [
+    "O1",
+    "svc:balancereader"
+   ],
+   [
+    "O1",
+    "svc:contacts"
+   ],
+   [
+    "O1",
+    "svc:frontend"
+   ],
+   [
+    "O1",
+    "svc:ledgerwriter"
+   ],
+   [
+    "O1",
+    "svc:transactionhistory"
+   ],
+   [
+    "O1",
+    "svc:userservice"
+   ]
+  ],
+  "unconfirmed": [],
+  "in_reach": {
+   "labels": 25,
+   "found": 4
+  }
+ }
+}

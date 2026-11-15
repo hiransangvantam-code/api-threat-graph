@@ -45,3 +45,76 @@ ZAP reached the 8 documented endpoints, sent 3,393 requests through the gateway 
 ## V. Limitations: add
 
 A passive review only sees endpoints that are documented or exercised during the observation window (Table 10), and it cannot confirm that a suspected authorization flaw is exploitable, because that requires sending a crafted request. It does not cover payload-level flaws such as injection, response-header and CORS configuration, business-flow abuse (OWASP API6), or the strength of secrets, whose values the extractor never copies by design. Of the 18 vulnerabilities OWASP lists for crAPI, 12 are within reach of a passive tool (Table 15). The full list of limits, by OWASP API Security Top 10 category, is in `docs/LIMITS.md`.
+
+---
+
+# Additions from the professor's review (version 1.5)
+
+Numbers come from `results/opensource/comparison.md`, `results/opensource/atg-v1.4/tables.md`,
+`results/opensource/atg-v1.5/tables.md` and `results/companies/tables-v1.5.md`. Table numbers continue
+after Table 26.
+
+## III-E. Phase 4: add a paragraph "Risk and hardening report"
+
+**Risk and hardening report.** The dashboard quantifies risk; the hardening report turns it into work.
+It lists the remediation planner's fixes in the order that removes the most attack-path risk, with the
+remaining risk after each one and the number of fixes needed to remove 70% and 90% of it. Every finding
+is shown with its likelihood and impact factors, a fix written for the technology the system actually
+uses, and a concrete check that the fix works. Gateway fixes are written for the gateway found in Phase 1
+(Kong, nginx, Spring Cloud Gateway, Istio or Zuul). NetworkPolicies admit exactly the callers seen in the
+traces. Code fixes name the finding's own operation, in the service's web framework when the evidence
+reveals it (for example a `/v3/api-docs` endpoint implies Spring). A per-service baseline marks each
+hardening control as present, missing or not observable. On the demonstration system the report shows
+that 13 of the planner's fixes remove 70% of the attack-path risk and 20 remove 90%.
+
+## IV. New subsection "Open-source systems"
+
+To test the approach on systems its authors did not write, we selected ten open-source microservice
+applications published by companies and research groups, spanning nine domains: Online Boutique
+and Bank of Anthos (Google), Stan's Robot Shop and Acme Air (IBM), Spring PetClinic, PiggyMetrics,
+Lakeside Mutual, FTGO, DeathStarBench Hotel Reservation and Istio Bookinfo. Together they have 65
+services in eight languages and 201 API operations. Three are deployed with Docker Compose rather than
+Kubernetes, and they use five gateway styles; five have no gateway. Each was pinned to one commit. We
+labelled 716 weaknesses: 91 by reading the code, and the rest derived by fixed rules from the deployment
+files, the call graph and the API documents. The platform read each system's own deployment files and
+API documents. Because the evaluation environment could not pull container images, the running services
+were stand-ins that reproduce each system's operations, call graph and authentication checks.
+
+Table 27 (from `results/opensource/atg-v1.4/tables.md` and `atg-v1.5/tables.md`): the platform found 189
+of the 201 operations. Version 1.4 found 337 of the 716 labels (47%) at 66% precision. Its misses
+revealed general gaps: Kubernetes Service and workload names were not unified, Compose files, Zuul
+configurations and multi-profile Spring files were not read, and there was no notion of an edge service
+when no gateway exists. Version 1.5 closes these gaps and finds 466 labels (65%) at 75% precision. These
+fixes were made after inspecting the same ten systems, so the version 1.4 figures are the unbiased
+estimate. Version 1.5 gives the same results as version 1.4 on the demonstration system and on the ten
+generated companies.
+
+## IV. New subsection "Comparison with other tools"
+
+We ran eight freely available tools on the same ten systems and scored them against the same labels
+(Table 28, from `results/opensource/comparison.md`). Four Kubernetes scanners (Checkov, Kubescape,
+kube-linter, Polaris) read the manifests. Spectral with the OWASP API ruleset reads the API documents.
+Bandit, gosec and njsscan read Python, Go and Node.js source. The best Kubernetes scanner, Polaris, found
+61% of the configuration labels against the platform's 60%. It was more precise (95% against 75%) and
+faster (0.2 s against about 8 s per scan, most of which is the platform waiting for its buffers to settle).
+No scanner reported any of the 82 API behaviour labels or the 88 inventory and visibility labels. The
+platform found 52 and 88 of them. Every tool hit a coverage limit the platform does not have. The
+Kubernetes scanners could not read the three Compose systems. Spectral needs an API document, which seven
+systems lack. Each code scanner reads one language: together they covered 26 of the 65 services. Kubescape
+skipped the workloads of a system that uses removed Kubernetes API versions. The platform and a
+Kubernetes scanner complement each other: the platform with Checkov found 86% of all labels.
+
+Commercial API security platforms (IBM API Connect with Akamai API Security, Salt, Harness Traceable,
+Wiz, Prisma Cloud, Microsoft Defender for APIs, 42Crunch) and NVIDIA Morpheus could not be run. Table 29
+(`docs/TOOLS_COMPARISON.md`) compares them from their documentation. They observe production traffic
+through their own gateways, agents or traffic mirroring, or review an OpenAPI contract. None of them
+combines runtime evidence with the deployment and gateway configuration in a single attack graph before
+production.
+
+## V. Threats to validity: add
+
+The open-source evaluation used stand-in services rather than the published images. The hand-written
+labels were produced by the authors of the rules, and the rule-derived configuration labels resemble the
+checks of the Kubernetes scanners, which favours those scanners. The mapping of other tools' check
+identifiers to our categories was done by hand. A kit to repeat the evaluation on the published images is
+included (`opensource/real/`).

@@ -1,0 +1,8 @@
+# Hotel Reservation's own compose file, plus: the network gets the name ATG joins; Jaeger is replaced
+# by the ATG Collector, which answers as jaeger (see atg.override.yml) on the agent port 6831/udp, so
+# the services' own spans reach ATG.
+networks:
+  default:
+    name: hotel-reservation-net
+services:
+  jaeger: {profiles: ["off"]}

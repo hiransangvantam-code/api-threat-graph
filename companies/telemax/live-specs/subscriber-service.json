@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Subscriber Service API",
+    "version": "8.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://subscriber-service:8080"
+    }
+  ],
+  "paths": {
+    "/subscribers/{subscriber_id}": {
+      "get": {
+        "operationId": "get_subscribers_subscriber_id",
+        "summary": "GET /subscribers/{subscriber_id}",
+        "tags": [
+          "subscriber-service"
+        ],
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "subscriber_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "plan_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "patch_subscribers_subscriber_id",
+        "summary": "PATCH /subscribers/{subscriber_id}",
+        "tags": [
+          "subscriber-service"
+        ],
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plan_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "subscriber_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

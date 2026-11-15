@@ -1,0 +1,6 @@
+# The ATG Collector takes the name of Hotel Reservation's Jaeger, so the services' spans come to ATG.
+services:
+  atg-collector:
+    networks:
+      customer-net:
+        aliases: [jaeger]

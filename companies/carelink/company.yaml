@@ -1,0 +1,96 @@
+# CareLink: a hospital patient portal. Python services behind nginx.
+id: carelink
+name: CareLink
+industry: Hospital (patient portal)
+about: Patients book appointments, read their records and download reports. nginx checks every session with the auth service (auth_request).
+language: python
+credential: bearer
+domain: portal.carelink.example
+spec: {path: /openapi.json, version: 3.1.0, format: json}
+
+gateway:
+  name: web-gateway
+  type: nginx
+  traced: false
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/patients, service: patient-service, to: /patients}
+    - {prefix: /api/appointments, service: appointment-service, to: /appointments}
+    - {prefix: /api/records, service: records-service, to: /records}
+
+services:
+  auth-service: {version: 2.0.1}
+
+  patient-service:
+    version: 4.2.0
+    flaws: [root]
+    routes:
+      GET /patients/{patient_id}:
+        owner: patient_id
+        returns: {patient_id: $patient_id, customer_id: $owner, phone: "***", email: "***", dob: "***", blood_type: "***"}
+        weight: 3
+      PUT /patients/{patient_id}/contact-preferences:
+        owner: patient_id
+        body: {channel: sms, language: th}
+        returns: {patient_id: $patient_id, status: updated}
+      GET /patients/search:
+        auth: admin
+        query: {ward: 4B}
+        returns: {items: [{patient_id: $n, customer_id: c1, phone: "***"}]}
+
+  appointment-service:
+    version: 1.12.0
+    routes:
+      GET /appointments:
+        returns: {items: [{appointment_id: $n, customer_id: $user, slot: "09:30"}]}
+      POST /appointments:
+        body: {patient_id: $owned, slot_id: 12, reason: checkup}
+        status: 201
+        returns: {appointment_id: $n, status: booked}
+      GET /appointments/{appointment_id}:
+        owner: appointment_id
+        owner_check: false
+        returns: {appointment_id: $appointment_id, customer_id: $owner, doctor: Internal medicine, slot: "09:30", notes: "***"}
+      DELETE /appointments/{appointment_id}:
+        owner: appointment_id
+        weight: 1
+        returns: {appointment_id: $appointment_id, status: cancelled}
+
+  records-service:
+    version: 2.7.3
+    routes:
+      GET /records/{record_id}:
+        owner: record_id
+        calls: ["GET patient-service /patients/{record_id}"]
+        returns: {record_id: $record_id, customer_id: $owner, diagnosis_code: "***", issued: "2026-10-01"}
+      GET /records/{record_id}/pdf:
+        owner: record_id
+        query: {access_token: $token}
+        credential_in_query: true
+        spec_security: query_token
+        returns: {record_id: $record_id, format: pdf, pages: 2}
+
+  reporting-service:
+    version: 0.9.4
+    routes:
+      GET /internal/census:
+        auth: none
+        client: none
+        returns: {wards: 12, admitted_today: 0, discharged_today: 0}
+
+cron:
+  - {name: census-export, every: 2, calls: ["GET reporting-service /internal/census"]}
+
+planted:
+  - {rule: API1, at: "GET /appointments/{appointment_id}", why: "No owner check: any patient can open any appointment, notes included."}
+  - {rule: TS-06, at: "GET /records/{record_id}/pdf", why: "The download link carries the session token in the query string."}
+  - {rule: API8-ROOT, at: patient-service, why: "No runAsNonRoot: the container may run as root."}
+  - {rule: LT-02, at: web-gateway, why: "nginx runs without a tracing module, so the gateway sends no spans."}
+  - {rule: LT-01, at: "GET /auth/introspect", why: "Consequence of the untraced gateway: nginx's session checks reach the auth service with no trace."}
+  - {rule: API5, at: "GET /internal/census", why: "Internal reporting endpoint answers any pod without a credential."}
+  - {rule: TS-01, at: "GET /internal/census", why: "The same endpoint returns 2xx to anonymous callers."}
+  - {rule: LT-01, at: "GET /internal/census", why: "Called by an export script that sends no trace."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "nginx limit_req is on the login location."}
+  - {rule: TS-03, at: "GET /records/{record_id}/pdf", why: "The request does carry a credential, in the query string; TS-06 is the real problem."}

@@ -1,0 +1,346 @@
+{
+ "company": "citygov",
+ "users": "CityGov: 486 requests in 3.0 s, 14 sessions; status codes: 200 x274, 201 x80, 401 x62, 403 x70",
+ "startup_s": 9.8,
+ "scan_s": 7.1,
+ "scan_log": [
+  "[scan] citygov: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 945 HTTP flows from the sidecar, 4 span batches from the Collector (1578 KB cleared from their memory)",
+  "[ok]   runtime_traffic    19 records      28.9 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      76.6 ms  -> /work/raw/openapi.json",
+  "! gov-gateway: no live spec at any probed path",
+  "! permit-service: no live spec at any probed path",
+  "[ok]   infrastructure     36 records      94.5 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          43 records      21.3 ms  -> /work/raw/callchain.json",
+  "[ok]   10 endpoints in 6 services (9 documented, 1 zombie)  -> /work/eujf.json",
+  "[ok]   5 findings (critical 0, high 2, medium 2, low 1), 7 attack paths, path risk 46",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] citygov: 10 APIs, 5 findings, 7 attack paths, path risk 46",
+  "[scan] threat graph exported to output/site/exports/1-citygov/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-102259-3b1ecb",
+ "summary": {
+  "findings": 5,
+  "by_severity": {
+   "critical": 0,
+   "high": 2,
+   "medium": 2,
+   "low": 1
+  },
+  "attack_paths": 7,
+  "critical_paths": 3,
+  "total_path_risk": 46.0,
+  "endpoints": 10,
+  "shadow_endpoints": 0,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 5,
+  "label": "citygov"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 10,
+  "inventory": {
+   "documented": 9,
+   "zombie": 1
+  },
+  "confidence": {
+   "HIGH": 10,
+   "MEDIUM": 0,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 10,
+  "endpoints_with_sensitive_data": 5,
+  "dependencies": 5,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "gov-gateway",
+ "endpoints": [
+  {
+   "id": "ep:admin-service:GET:/admin/audit-log",
+   "service": "admin-service",
+   "method": "GET",
+   "path": "/admin/audit-log",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/admin/audit-log"
+   ]
+  },
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:citizen-service:GET:/citizens/{}",
+   "service": "citizen-service",
+   "method": "GET",
+   "path": "/citizens/{citizen_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/citizens/{citizen_id}"
+   ]
+  },
+  {
+   "id": "ep:citizen-service:PUT:/citizens/{}/address",
+   "service": "citizen-service",
+   "method": "PUT",
+   "path": "/citizens/{citizen_id}/address",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/citizens/{citizen_id}/address"
+   ]
+  },
+  {
+   "id": "ep:citizen-service:GET:/v1/citizens/{}",
+   "service": "citizen-service",
+   "method": "GET",
+   "path": "/v1/citizens/{citizen_id}",
+   "inventory": "zombie",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/v1/citizens/{citizen_id}"
+   ]
+  },
+  {
+   "id": "ep:permit-service:POST:/permits",
+   "service": "permit-service",
+   "method": "POST",
+   "path": "/permits",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/permits"
+   ]
+  },
+  {
+   "id": "ep:permit-service:GET:/permits/{}",
+   "service": "permit-service",
+   "method": "GET",
+   "path": "/permits/{permit_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/permits/{permit_id}"
+   ]
+  },
+  {
+   "id": "ep:tax-service:GET:/taxes/{}/assessments",
+   "service": "tax-service",
+   "method": "GET",
+   "path": "/taxes/{citizen_id}/assessments",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/taxes/{citizen_id}/assessments"
+   ]
+  },
+  {
+   "id": "ep:tax-service:POST:/taxes/{}/payments",
+   "service": "tax-service",
+   "method": "POST",
+   "path": "/taxes/{citizen_id}/payments",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/taxes/{citizen_id}/payments"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:tax-service",
+   "detail": "tax-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:gov-gateway",
+   "detail": "ingress eservices.citygov.example/ serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:tax-service",
+   "detail": "tax-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API9-ZOMBIE",
+   "target": "ep:citizen-service:GET:/v1/citizens/{}",
+   "detail": "GET /v1/citizens/{citizen_id} (citizen-service) is deprecated but got 49 calls",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:permit-service",
+   "detail": "permit-service: no live spec; 2 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/_auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/_auth",
+   "replace_with": "/auth/introspect"
+  },
+  {
+   "match_prefix": "/api/admin",
+   "upstream_service": "admin-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/admin",
+   "replace_with": "/admin"
+  },
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/auth",
+   "replace_with": "/auth"
+  },
+  {
+   "match_prefix": "/api/citizens",
+   "upstream_service": "citizen-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/citizens",
+   "replace_with": "/citizens"
+  },
+  {
+   "match_prefix": "/api/permits",
+   "upstream_service": "permit-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/permits",
+   "replace_with": "/permits"
+  },
+  {
+   "match_prefix": "/api/taxes",
+   "upstream_service": "tax-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/taxes",
+   "replace_with": "/taxes"
+  },
+  {
+   "match_prefix": "/api/v1/citizens",
+   "upstream_service": "citizen-service",
+   "auth": "required",
+   "gateway": "nginx",
+   "strip_prefix": "/api/v1/citizens",
+   "replace_with": "/v1/citizens"
+  }
+ ],
+ "services": [
+  {
+   "name": "admin-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "citizen-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "gov-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "permit-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "tax-service",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ]
+}

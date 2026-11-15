@@ -1,0 +1,3640 @@
+[
+ {
+  "labels": 55,
+  "found": 42,
+  "reported": 107,
+  "confirmed": 72,
+  "by_group": {
+   "Configuration": {
+    "labels": 36,
+    "found": 23,
+    "reported": 23,
+    "confirmed": 23
+   },
+   "API behaviour": {
+    "labels": 9,
+    "found": 9,
+    "reported": 34,
+    "confirmed": 14
+   },
+   "Inventory and visibility": {
+    "labels": 10,
+    "found": 10,
+    "reported": 50,
+    "confirmed": 35
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 9,
+    "found": 9
+   },
+   "C10": {
+    "labels": 12,
+    "found": 0
+   },
+   "C4": {
+    "labels": 11,
+    "found": 11
+   },
+   "C6": {
+    "labels": 12,
+    "found": 12
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "O1": {
+    "labels": 10,
+    "found": 10
+   }
+  },
+  "missed": [
+   [
+    "C10",
+    "svc:adservice"
+   ],
+   [
+    "C10",
+    "svc:cartservice"
+   ],
+   [
+    "C10",
+    "svc:checkoutservice"
+   ],
+   [
+    "C10",
+    "svc:currencyservice"
+   ],
+   [
+    "C10",
+    "svc:emailservice"
+   ],
+   [
+    "C10",
+    "svc:frontend"
+   ],
+   [
+    "C10",
+    "svc:loadgenerator"
+   ],
+   [
+    "C10",
+    "svc:paymentservice"
+   ],
+   [
+    "C10",
+    "svc:productcatalogservice"
+   ],
+   [
+    "C10",
+    "svc:recommendationservice"
+   ],
+   [
+    "C10",
+    "svc:redis-cart"
+   ],
+   [
+    "C10",
+    "svc:shippingservice"
+   ],
+   [
+    "C8",
+    "svc:frontend"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:adservice:POST:/hipstershop.AdService/GetAds"
+   ],
+   [
+    "A1",
+    "ep:cartservice:POST:/hipstershop.CartService/AddItem"
+   ],
+   [
+    "A1",
+    "ep:cartservice:POST:/hipstershop.CartService/EmptyCart"
+   ],
+   [
+    "A1",
+    "ep:cartservice:POST:/hipstershop.CartService/GetCart"
+   ],
+   [
+    "A1",
+    "ep:checkoutservice:POST:/hipstershop.CheckoutService/PlaceOrder"
+   ],
+   [
+    "A1",
+    "ep:currencyservice:POST:/hipstershop.CurrencyService/Convert"
+   ],
+   [
+    "A1",
+    "ep:currencyservice:POST:/hipstershop.CurrencyService/GetSupportedCurrencies"
+   ],
+   [
+    "A1",
+    "ep:emailservice:POST:/hipstershop.EmailService/SendOrderConfirmation"
+   ],
+   [
+    "A1",
+    "ep:frontend:POST:/bot"
+   ],
+   [
+    "A1",
+    "ep:frontend:POST:/cart"
+   ],
+   [
+    "A1",
+    "ep:frontend:POST:/cart/checkout"
+   ],
+   [
+    "A1",
+    "ep:frontend:POST:/cart/empty"
+   ],
+   [
+    "A1",
+    "ep:frontend:POST:/setCurrency"
+   ],
+   [
+    "A1",
+    "ep:paymentservice:POST:/hipstershop.PaymentService/Charge"
+   ],
+   [
+    "A1",
+    "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/GetProduct"
+   ],
+   [
+    "A1",
+    "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/ListProducts"
+   ],
+   [
+    "A1",
+    "ep:recommendationservice:POST:/hipstershop.RecommendationService/ListRecommendations"
+   ],
+   [
+    "A1",
+    "ep:shippingservice:POST:/hipstershop.ShippingService/GetQuote"
+   ],
+   [
+    "A1",
+    "ep:shippingservice:POST:/hipstershop.ShippingService/ShipOrder"
+   ],
+   [
+    "A1",
+    "svc:None"
+   ],
+   [
+    "O1",
+    "svc:loadgenerator"
+   ],
+   [
+    "O1",
+    "svc:redis-cart"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/assistant"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/cart"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/logout"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/product-meta/{}"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/product/{}"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/bot"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/cart"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/cart/checkout"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/cart/empty"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/setCurrency"
+   ],
+   [
+    "O2",
+    "svc:loadgenerator"
+   ],
+   [
+    "O2",
+    "svc:redis-cart"
+   ]
+  ],
+  "endpoints": {
+   "real": 26,
+   "listed": 25,
+   "correct": 25,
+   "missed": [
+    "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/SearchProducts"
+   ],
+   "extra": []
+  },
+  "scan_s": 7.6,
+  "system": "online-boutique"
+ },
+ {
+  "labels": 44,
+  "found": 21,
+  "reported": 53,
+  "confirmed": 36,
+  "by_group": {
+   "Configuration": {
+    "labels": 35,
+    "found": 12,
+    "reported": 12,
+    "confirmed": 12
+   },
+   "API behaviour": {
+    "labels": 3,
+    "found": 3,
+    "reported": 5,
+    "confirmed": 3
+   },
+   "Inventory and visibility": {
+    "labels": 6,
+    "found": 6,
+    "reported": 36,
+    "confirmed": 21
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 1,
+    "found": 1
+   },
+   "A6": {
+    "labels": 1,
+    "found": 1
+   },
+   "A7": {
+    "labels": 1,
+    "found": 1
+   },
+   "C1": {
+    "labels": 2,
+    "found": 2
+   },
+   "C10": {
+    "labels": 9,
+    "found": 0
+   },
+   "C6": {
+    "labels": 9,
+    "found": 9
+   },
+   "C7": {
+    "labels": 5,
+    "found": 1
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 9,
+    "found": 0
+   },
+   "O1": {
+    "labels": 6,
+    "found": 6
+   }
+  },
+  "missed": [
+   [
+    "C10",
+    "svc:accounts-db"
+   ],
+   [
+    "C10",
+    "svc:balancereader"
+   ],
+   [
+    "C10",
+    "svc:contacts"
+   ],
+   [
+    "C10",
+    "svc:frontend"
+   ],
+   [
+    "C10",
+    "svc:ledger-db"
+   ],
+   [
+    "C10",
+    "svc:ledgerwriter"
+   ],
+   [
+    "C10",
+    "svc:loadgenerator"
+   ],
+   [
+    "C10",
+    "svc:transactionhistory"
+   ],
+   [
+    "C10",
+    "svc:userservice"
+   ],
+   [
+    "C7",
+    "configmap:accounts-db-config"
+   ],
+   [
+    "C7",
+    "configmap:demo-data-config"
+   ],
+   [
+    "C7",
+    "configmap:ledger-db-config"
+   ],
+   [
+    "C7",
+    "secret:jwt-key"
+   ],
+   [
+    "C8",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:accounts-db"
+   ],
+   [
+    "C9",
+    "svc:balancereader"
+   ],
+   [
+    "C9",
+    "svc:contacts"
+   ],
+   [
+    "C9",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:ledger-db"
+   ],
+   [
+    "C9",
+    "svc:ledgerwriter"
+   ],
+   [
+    "C9",
+    "svc:loadgenerator"
+   ],
+   [
+    "C9",
+    "svc:transactionhistory"
+   ],
+   [
+    "C9",
+    "svc:userservice"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A9",
+    "ep:frontend:GET:/home"
+   ],
+   [
+    "A9",
+    "ep:transactionhistory:GET:/transactions/{}"
+   ],
+   [
+    "O1",
+    "svc:accounts-db"
+   ],
+   [
+    "O1",
+    "svc:ledger-db"
+   ],
+   [
+    "O1",
+    "svc:loadgenerator"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/consent"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/home"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/login"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/signup"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/deposit"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/login"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/logout"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/payment"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/signup"
+   ],
+   [
+    "O2",
+    "svc:accounts-db"
+   ],
+   [
+    "O2",
+    "svc:ledger-db"
+   ],
+   [
+    "O2",
+    "svc:loadgenerator"
+   ]
+  ],
+  "endpoints": {
+   "real": 17,
+   "listed": 15,
+   "correct": 15,
+   "missed": [
+    "ep:contacts:POST:/contacts/{}",
+    "ep:frontend:POST:/consent"
+   ],
+   "extra": []
+  },
+  "scan_s": 7.2,
+  "system": "bank-of-anthos"
+ },
+ {
+  "labels": 76,
+  "found": 16,
+  "reported": 73,
+  "confirmed": 68,
+  "by_group": {
+   "Configuration": {
+    "labels": 49,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "API behaviour": {
+    "labels": 15,
+    "found": 4,
+    "reported": 9,
+    "confirmed": 4
+   },
+   "Inventory and visibility": {
+    "labels": 12,
+    "found": 12,
+    "reported": 64,
+    "confirmed": 64
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 6,
+    "found": 3
+   },
+   "A10": {
+    "labels": 1,
+    "found": 0
+   },
+   "A4": {
+    "labels": 3,
+    "found": 0
+   },
+   "A5": {
+    "labels": 3,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "A9": {
+    "labels": 1,
+    "found": 1
+   },
+   "C1": {
+    "labels": 12,
+    "found": 0
+   },
+   "C3": {
+    "labels": 12,
+    "found": 0
+   },
+   "C6": {
+    "labels": 12,
+    "found": 0
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 12,
+    "found": 0
+   },
+   "O1": {
+    "labels": 6,
+    "found": 6
+   },
+   "O2": {
+    "labels": 6,
+    "found": 6
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:cart:GET:/add/{}/{}/{}"
+   ],
+   [
+    "A1",
+    "ep:cart:GET:/cart/{}"
+   ],
+   [
+    "A1",
+    "ep:user:GET:/history/{}"
+   ],
+   [
+    "A10",
+    "svc:payment"
+   ],
+   [
+    "A4",
+    "ep:shipping:GET:/free"
+   ],
+   [
+    "A4",
+    "ep:shipping:GET:/memory"
+   ],
+   [
+    "A4",
+    "svc:web"
+   ],
+   [
+    "A5",
+    "svc:cart"
+   ],
+   [
+    "A5",
+    "svc:catalogue"
+   ],
+   [
+    "A5",
+    "svc:user"
+   ],
+   [
+    "A6",
+    "ep:user:POST:/login"
+   ],
+   [
+    "C1",
+    "svc:cart"
+   ],
+   [
+    "C1",
+    "svc:catalogue"
+   ],
+   [
+    "C1",
+    "svc:dispatch"
+   ],
+   [
+    "C1",
+    "svc:mongodb"
+   ],
+   [
+    "C1",
+    "svc:mysql"
+   ],
+   [
+    "C1",
+    "svc:payment"
+   ],
+   [
+    "C1",
+    "svc:rabbitmq"
+   ],
+   [
+    "C1",
+    "svc:ratings"
+   ],
+   [
+    "C1",
+    "svc:redis"
+   ],
+   [
+    "C1",
+    "svc:shipping"
+   ],
+   [
+    "C1",
+    "svc:user"
+   ],
+   [
+    "C1",
+    "svc:web"
+   ],
+   [
+    "C3",
+    "svc:cart"
+   ],
+   [
+    "C3",
+    "svc:catalogue"
+   ],
+   [
+    "C3",
+    "svc:dispatch"
+   ],
+   [
+    "C3",
+    "svc:mongodb"
+   ],
+   [
+    "C3",
+    "svc:mysql"
+   ],
+   [
+    "C3",
+    "svc:payment"
+   ],
+   [
+    "C3",
+    "svc:rabbitmq"
+   ],
+   [
+    "C3",
+    "svc:ratings"
+   ],
+   [
+    "C3",
+    "svc:redis"
+   ],
+   [
+    "C3",
+    "svc:shipping"
+   ],
+   [
+    "C3",
+    "svc:user"
+   ],
+   [
+    "C3",
+    "svc:web"
+   ],
+   [
+    "C6",
+    "svc:cart"
+   ],
+   [
+    "C6",
+    "svc:catalogue"
+   ],
+   [
+    "C6",
+    "svc:dispatch"
+   ],
+   [
+    "C6",
+    "svc:mongodb"
+   ],
+   [
+    "C6",
+    "svc:mysql"
+   ],
+   [
+    "C6",
+    "svc:payment"
+   ],
+   [
+    "C6",
+    "svc:rabbitmq"
+   ],
+   [
+    "C6",
+    "svc:ratings"
+   ],
+   [
+    "C6",
+    "svc:redis"
+   ],
+   [
+    "C6",
+    "svc:shipping"
+   ],
+   [
+    "C6",
+    "svc:user"
+   ],
+   [
+    "C6",
+    "svc:web"
+   ],
+   [
+    "C8",
+    "svc:web"
+   ],
+   [
+    "C9",
+    "svc:cart"
+   ],
+   [
+    "C9",
+    "svc:catalogue"
+   ],
+   [
+    "C9",
+    "svc:dispatch"
+   ],
+   [
+    "C9",
+    "svc:mongodb"
+   ],
+   [
+    "C9",
+    "svc:mysql"
+   ],
+   [
+    "C9",
+    "svc:payment"
+   ],
+   [
+    "C9",
+    "svc:rabbitmq"
+   ],
+   [
+    "C9",
+    "svc:ratings"
+   ],
+   [
+    "C9",
+    "svc:redis"
+   ],
+   [
+    "C9",
+    "svc:shipping"
+   ],
+   [
+    "C9",
+    "svc:user"
+   ],
+   [
+    "C9",
+    "svc:web"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:cart:POST:/shipping/{}"
+   ],
+   [
+    "A1",
+    "ep:ratings:PUT:/api/rate/{}/{}"
+   ],
+   [
+    "A1",
+    "ep:shipping:POST:/confirm/{}"
+   ],
+   [
+    "A1",
+    "ep:user:POST:/order/{}"
+   ],
+   [
+    "A1",
+    "svc:web"
+   ]
+  ],
+  "endpoints": {
+   "real": 30,
+   "listed": 29,
+   "correct": 29,
+   "missed": [
+    "ep:web:GET:/nginx_status"
+   ],
+   "extra": []
+  },
+  "scan_s": 7.6,
+  "system": "robot-shop"
+ },
+ {
+  "labels": 79,
+  "found": 48,
+  "reported": 137,
+  "confirmed": 88,
+  "by_group": {
+   "Configuration": {
+    "labels": 58,
+    "found": 34,
+    "reported": 34,
+    "confirmed": 34
+   },
+   "API behaviour": {
+    "labels": 11,
+    "found": 4,
+    "reported": 16,
+    "confirmed": 4
+   },
+   "Inventory and visibility": {
+    "labels": 10,
+    "found": 10,
+    "reported": 87,
+    "confirmed": 50
+   }
+  },
+  "by_cat": {
+   "A3": {
+    "labels": 5,
+    "found": 1
+   },
+   "A4": {
+    "labels": 2,
+    "found": 2
+   },
+   "A5": {
+    "labels": 3,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 1
+   },
+   "C1": {
+    "labels": 8,
+    "found": 8
+   },
+   "C10": {
+    "labels": 8,
+    "found": 0
+   },
+   "C3": {
+    "labels": 8,
+    "found": 5
+   },
+   "C4": {
+    "labels": 8,
+    "found": 8
+   },
+   "C6": {
+    "labels": 8,
+    "found": 8
+   },
+   "C7": {
+    "labels": 5,
+    "found": 5
+   },
+   "C8": {
+    "labels": 5,
+    "found": 0
+   },
+   "C9": {
+    "labels": 8,
+    "found": 0
+   },
+   "O1": {
+    "labels": 5,
+    "found": 5
+   },
+   "O2": {
+    "labels": 5,
+    "found": 5
+   }
+  },
+  "missed": [
+   [
+    "A3",
+    "ep:acmeair-booking-service:GET:/booking/loader/load"
+   ],
+   [
+    "A3",
+    "ep:acmeair-customer-service:GET:/customer/loader/load"
+   ],
+   [
+    "A3",
+    "ep:acmeair-customer-service:POST:/customer/internal/validateid"
+   ],
+   [
+    "A3",
+    "ep:acmeair-flight-service:GET:/flight/loader/load"
+   ],
+   [
+    "A5",
+    "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}"
+   ],
+   [
+    "A5",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "A5",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "C10",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "C10",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-flight-db"
+   ],
+   [
+    "C10",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C10",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "C3",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "C3",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "C3",
+    "svc:acmeair-flight-db"
+   ],
+   [
+    "C8",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C8",
+    "svc:acmeair-main-service"
+   ],
+   [
+    "C9",
+    "svc:acmeair-auth-service"
+   ],
+   [
+    "C9",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "C9",
+    "svc:acmeair-booking-service"
+   ],
+   [
+    "C9",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "C9",
+    "svc:acmeair-customer-service"
+   ],
+   [
+    "C9",
+    "svc:acmeair-flight-db"
+   ],
+   [
+    "C9",
+    "svc:acmeair-flight-service"
+   ],
+   [
+    "C9",
+    "svc:acmeair-main-service"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:acmeair-customer-service:POST:/customer/internal/updateCustomerTotalMiles/{}"
+   ],
+   [
+    "A1",
+    "ep:acmeair-flight-service:POST:/flight/queryflights"
+   ],
+   [
+    "A1",
+    "ep:ingress-nginx-controller:POST:/flight/queryflights"
+   ],
+   [
+    "A4",
+    "ep:acmeair-booking-service:GET:/booking/config/countBookings"
+   ],
+   [
+    "A4",
+    "ep:acmeair-customer-service:GET:/customer/config/countCustomers"
+   ],
+   [
+    "A4",
+    "ep:acmeair-flight-service:GET:/flight/config/countFlights"
+   ],
+   [
+    "A4",
+    "ep:ingress-nginx-controller:GET:/auth/config/runtime"
+   ],
+   [
+    "A4",
+    "ep:ingress-nginx-controller:GET:/booking/config/countBookings"
+   ],
+   [
+    "A4",
+    "ep:ingress-nginx-controller:GET:/booking/config/runtime"
+   ],
+   [
+    "A4",
+    "ep:ingress-nginx-controller:GET:/customer/config/countCustomers"
+   ],
+   [
+    "A4",
+    "ep:ingress-nginx-controller:GET:/flight/config/countFlights"
+   ],
+   [
+    "A6",
+    "ep:ingress-nginx-controller:POST:/auth/login"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/acmeair"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/auth/config/runtime"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/auth/getJwk"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/booking/byuser/{}"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/booking/config/countBookings"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/booking/config/runtime"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/booking/rewards/flightsuccesses"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/customer/byid/{}"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/customer/config/countCustomers"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:GET:/flight/config/countFlights"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:POST:/auth/login"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:POST:/booking/bookflights"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:POST:/booking/cancelbooking"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:POST:/customer/byid/{}"
+   ],
+   [
+    "O1",
+    "ep:ingress-nginx-controller:POST:/flight/queryflights"
+   ],
+   [
+    "O1",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "O1",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "O1",
+    "svc:acmeair-flight-db"
+   ],
+   [
+    "O1",
+    "svc:ingress-nginx-controller"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/acmeair"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/auth/config/runtime"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/auth/getJwk"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/booking/byuser/{}"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/booking/config/countBookings"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/booking/config/runtime"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/booking/rewards/flightsuccesses"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/customer/byid/{}"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/customer/config/countCustomers"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:GET:/flight/config/countFlights"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:POST:/auth/login"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:POST:/booking/bookflights"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:POST:/booking/cancelbooking"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:POST:/customer/byid/{}"
+   ],
+   [
+    "O2",
+    "ep:ingress-nginx-controller:POST:/flight/queryflights"
+   ],
+   [
+    "O2",
+    "svc:acmeair-booking-db"
+   ],
+   [
+    "O2",
+    "svc:acmeair-customer-db"
+   ],
+   [
+    "O2",
+    "svc:acmeair-flight-db"
+   ]
+  ],
+  "endpoints": {
+   "real": 22,
+   "listed": 35,
+   "correct": 20,
+   "missed": [
+    "ep:acmeair-customer-service:GET:/customer/loader/query",
+    "ep:acmeair-customer-service:POST:/customer/internal/validateid"
+   ],
+   "extra": [
+    "ep:ingress-nginx-controller:GET:/acmeair",
+    "ep:ingress-nginx-controller:GET:/auth/config/runtime",
+    "ep:ingress-nginx-controller:GET:/auth/getJwk",
+    "ep:ingress-nginx-controller:GET:/booking/byuser/{}",
+    "ep:ingress-nginx-controller:GET:/booking/config/countBookings",
+    "ep:ingress-nginx-controller:GET:/booking/config/runtime",
+    "ep:ingress-nginx-controller:GET:/booking/rewards/flightsuccesses",
+    "ep:ingress-nginx-controller:GET:/customer/byid/{}",
+    "ep:ingress-nginx-controller:GET:/customer/config/countCustomers",
+    "ep:ingress-nginx-controller:GET:/flight/config/countFlights",
+    "ep:ingress-nginx-controller:POST:/auth/login",
+    "ep:ingress-nginx-controller:POST:/booking/bookflights",
+    "ep:ingress-nginx-controller:POST:/booking/cancelbooking",
+    "ep:ingress-nginx-controller:POST:/customer/byid/{}",
+    "ep:ingress-nginx-controller:POST:/flight/queryflights"
+   ]
+  },
+  "scan_s": 7.2,
+  "system": "acme-air"
+ },
+ {
+  "labels": 67,
+  "found": 12,
+  "reported": 83,
+  "confirmed": 34,
+  "by_group": {
+   "Configuration": {
+    "labels": 53,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "API behaviour": {
+    "labels": 8,
+    "found": 6,
+    "reported": 32,
+    "confirmed": 13
+   },
+   "Inventory and visibility": {
+    "labels": 6,
+    "found": 6,
+    "reported": 51,
+    "confirmed": 21
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 3,
+    "found": 3
+   },
+   "A10": {
+    "labels": 1,
+    "found": 1
+   },
+   "A3": {
+    "labels": 1,
+    "found": 0
+   },
+   "A4": {
+    "labels": 1,
+    "found": 0
+   },
+   "A5": {
+    "labels": 1,
+    "found": 1
+   },
+   "A9": {
+    "labels": 1,
+    "found": 1
+   },
+   "C1": {
+    "labels": 11,
+    "found": 0
+   },
+   "C4": {
+    "labels": 9,
+    "found": 0
+   },
+   "C5": {
+    "labels": 10,
+    "found": 0
+   },
+   "C6": {
+    "labels": 11,
+    "found": 0
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 11,
+    "found": 0
+   },
+   "O1": {
+    "labels": 6,
+    "found": 6
+   }
+  },
+  "missed": [
+   [
+    "A3",
+    "svc:admin-server"
+   ],
+   [
+    "A4",
+    "svc:config-server"
+   ],
+   [
+    "C1",
+    "svc:admin-server"
+   ],
+   [
+    "C1",
+    "svc:api-gateway"
+   ],
+   [
+    "C1",
+    "svc:config-server"
+   ],
+   [
+    "C1",
+    "svc:customers-service"
+   ],
+   [
+    "C1",
+    "svc:discovery-server"
+   ],
+   [
+    "C1",
+    "svc:genai-service"
+   ],
+   [
+    "C1",
+    "svc:grafana-server"
+   ],
+   [
+    "C1",
+    "svc:prometheus-server"
+   ],
+   [
+    "C1",
+    "svc:tracing-server"
+   ],
+   [
+    "C1",
+    "svc:vets-service"
+   ],
+   [
+    "C1",
+    "svc:visits-service"
+   ],
+   [
+    "C4",
+    "svc:admin-server"
+   ],
+   [
+    "C4",
+    "svc:api-gateway"
+   ],
+   [
+    "C4",
+    "svc:config-server"
+   ],
+   [
+    "C4",
+    "svc:customers-service"
+   ],
+   [
+    "C4",
+    "svc:discovery-server"
+   ],
+   [
+    "C4",
+    "svc:genai-service"
+   ],
+   [
+    "C4",
+    "svc:tracing-server"
+   ],
+   [
+    "C4",
+    "svc:vets-service"
+   ],
+   [
+    "C4",
+    "svc:visits-service"
+   ],
+   [
+    "C5",
+    "svc:admin-server"
+   ],
+   [
+    "C5",
+    "svc:config-server"
+   ],
+   [
+    "C5",
+    "svc:customers-service"
+   ],
+   [
+    "C5",
+    "svc:discovery-server"
+   ],
+   [
+    "C5",
+    "svc:genai-service"
+   ],
+   [
+    "C5",
+    "svc:grafana-server"
+   ],
+   [
+    "C5",
+    "svc:prometheus-server"
+   ],
+   [
+    "C5",
+    "svc:tracing-server"
+   ],
+   [
+    "C5",
+    "svc:vets-service"
+   ],
+   [
+    "C5",
+    "svc:visits-service"
+   ],
+   [
+    "C6",
+    "svc:admin-server"
+   ],
+   [
+    "C6",
+    "svc:api-gateway"
+   ],
+   [
+    "C6",
+    "svc:config-server"
+   ],
+   [
+    "C6",
+    "svc:customers-service"
+   ],
+   [
+    "C6",
+    "svc:discovery-server"
+   ],
+   [
+    "C6",
+    "svc:genai-service"
+   ],
+   [
+    "C6",
+    "svc:grafana-server"
+   ],
+   [
+    "C6",
+    "svc:prometheus-server"
+   ],
+   [
+    "C6",
+    "svc:tracing-server"
+   ],
+   [
+    "C6",
+    "svc:vets-service"
+   ],
+   [
+    "C6",
+    "svc:visits-service"
+   ],
+   [
+    "C8",
+    "svc:api-gateway"
+   ],
+   [
+    "C9",
+    "svc:admin-server"
+   ],
+   [
+    "C9",
+    "svc:api-gateway"
+   ],
+   [
+    "C9",
+    "svc:config-server"
+   ],
+   [
+    "C9",
+    "svc:customers-service"
+   ],
+   [
+    "C9",
+    "svc:discovery-server"
+   ],
+   [
+    "C9",
+    "svc:genai-service"
+   ],
+   [
+    "C9",
+    "svc:grafana-server"
+   ],
+   [
+    "C9",
+    "svc:prometheus-server"
+   ],
+   [
+    "C9",
+    "svc:tracing-server"
+   ],
+   [
+    "C9",
+    "svc:vets-service"
+   ],
+   [
+    "C9",
+    "svc:visits-service"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:api-gateway:GET:/api/customer/owners"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:GET:/api/customer/owners/{}"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:POST:/api/customer/owners"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:POST:/api/customer/owners/{}/pets"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:POST:/api/genai/chatclient"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:POST:/api/visit/owners/{}/pets/{}/visits"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:PUT:/api/customer/owners/{}"
+   ],
+   [
+    "A1",
+    "ep:api-gateway:PUT:/api/customer/owners/{}/pets/{}"
+   ],
+   [
+    "A1",
+    "ep:customers-service:POST:/owners"
+   ],
+   [
+    "A1",
+    "ep:customers-service:POST:/owners/{}/pets"
+   ],
+   [
+    "A1",
+    "ep:customers-service:PUT:/owners/{}/pets/{}"
+   ],
+   [
+    "A1",
+    "ep:genai-service:POST:/chatclient"
+   ],
+   [
+    "A1",
+    "ep:visits-service:POST:/owners/{}/pets/{}/visits"
+   ],
+   [
+    "A5",
+    "ep:genai-service:POST:/chatclient"
+   ],
+   [
+    "A5",
+    "ep:vets-service:GET:/vets"
+   ],
+   [
+    "A5",
+    "ep:visits-service:GET:/owners/{}/pets/{}/visits"
+   ],
+   [
+    "A5",
+    "ep:visits-service:GET:/pets/visits"
+   ],
+   [
+    "A5",
+    "ep:visits-service:POST:/owners/{}/pets/{}/visits"
+   ],
+   [
+    "A9",
+    "ep:api-gateway:GET:/api/customer/owners"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/customer/owners"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/customer/owners/{}"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/customer/owners/{}/pets/{}"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/customer/petTypes"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/vet/vets"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/visit/owners/{}/pets/{}/visits"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:GET:/api/visit/pets/visits"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:POST:/api/customer/owners"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:POST:/api/customer/owners/{}/pets"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:POST:/api/genai/chatclient"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:POST:/api/visit/owners/{}/pets/{}/visits"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:PUT:/api/customer/owners/{}"
+   ],
+   [
+    "O1",
+    "ep:api-gateway:PUT:/api/customer/owners/{}/pets/{}"
+   ],
+   [
+    "O1",
+    "svc:api-gateway"
+   ],
+   [
+    "O2",
+    "ep:admin-server:GET:/applications"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/customer/owners"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/customer/owners/{}"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/customer/owners/{}/pets/{}"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/customer/petTypes"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/vet/vets"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/visit/owners/{}/pets/{}/visits"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:GET:/api/visit/pets/visits"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:POST:/api/customer/owners"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:POST:/api/customer/owners/{}/pets"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:POST:/api/genai/chatclient"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:POST:/api/visit/owners/{}/pets/{}/visits"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:PUT:/api/customer/owners/{}"
+   ],
+   [
+    "O2",
+    "ep:api-gateway:PUT:/api/customer/owners/{}/pets/{}"
+   ],
+   [
+    "O2",
+    "ep:config-server:GET:/{}/{}"
+   ],
+   [
+    "O2",
+    "svc:api-gateway"
+   ]
+  ],
+  "endpoints": {
+   "real": 16,
+   "listed": 28,
+   "correct": 15,
+   "missed": [
+    "ep:api-gateway:GET:/api/gateway/owners/{}"
+   ],
+   "extra": [
+    "ep:api-gateway:GET:/api/customer/owners",
+    "ep:api-gateway:GET:/api/customer/owners/{}",
+    "ep:api-gateway:GET:/api/customer/owners/{}/pets/{}",
+    "ep:api-gateway:GET:/api/customer/petTypes",
+    "ep:api-gateway:GET:/api/vet/vets",
+    "ep:api-gateway:GET:/api/visit/owners/{}/pets/{}/visits",
+    "ep:api-gateway:GET:/api/visit/pets/visits",
+    "ep:api-gateway:POST:/api/customer/owners",
+    "ep:api-gateway:POST:/api/customer/owners/{}/pets",
+    "ep:api-gateway:POST:/api/genai/chatclient",
+    "ep:api-gateway:POST:/api/visit/owners/{}/pets/{}/visits",
+    "ep:api-gateway:PUT:/api/customer/owners/{}",
+    "ep:api-gateway:PUT:/api/customer/owners/{}/pets/{}"
+   ]
+  },
+  "scan_s": 7.2,
+  "system": "petclinic"
+ },
+ {
+  "labels": 88,
+  "found": 11,
+  "reported": 61,
+  "confirmed": 32,
+  "by_group": {
+   "Configuration": {
+    "labels": 74,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "API behaviour": {
+    "labels": 4,
+    "found": 1,
+    "reported": 11,
+    "confirmed": 1
+   },
+   "Inventory and visibility": {
+    "labels": 10,
+    "found": 10,
+    "reported": 50,
+    "confirmed": 31
+   }
+  },
+  "by_cat": {
+   "A10": {
+    "labels": 1,
+    "found": 0
+   },
+   "A4": {
+    "labels": 1,
+    "found": 0
+   },
+   "A5": {
+    "labels": 1,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 1
+   },
+   "C1": {
+    "labels": 14,
+    "found": 0
+   },
+   "C3": {
+    "labels": 14,
+    "found": 0
+   },
+   "C4": {
+    "labels": 13,
+    "found": 0
+   },
+   "C5": {
+    "labels": 4,
+    "found": 0
+   },
+   "C6": {
+    "labels": 14,
+    "found": 0
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 14,
+    "found": 0
+   },
+   "O1": {
+    "labels": 5,
+    "found": 5
+   },
+   "O2": {
+    "labels": 5,
+    "found": 5
+   }
+  },
+  "missed": [
+   [
+    "A10",
+    "svc:statistics-service"
+   ],
+   [
+    "A4",
+    "svc:monitoring"
+   ],
+   [
+    "A5",
+    "svc:auth-service"
+   ],
+   [
+    "C1",
+    "svc:account-mongodb"
+   ],
+   [
+    "C1",
+    "svc:account-service"
+   ],
+   [
+    "C1",
+    "svc:auth-mongodb"
+   ],
+   [
+    "C1",
+    "svc:auth-service"
+   ],
+   [
+    "C1",
+    "svc:config"
+   ],
+   [
+    "C1",
+    "svc:gateway"
+   ],
+   [
+    "C1",
+    "svc:monitoring"
+   ],
+   [
+    "C1",
+    "svc:notification-mongodb"
+   ],
+   [
+    "C1",
+    "svc:notification-service"
+   ],
+   [
+    "C1",
+    "svc:rabbitmq"
+   ],
+   [
+    "C1",
+    "svc:registry"
+   ],
+   [
+    "C1",
+    "svc:statistics-mongodb"
+   ],
+   [
+    "C1",
+    "svc:statistics-service"
+   ],
+   [
+    "C1",
+    "svc:turbine-stream-service"
+   ],
+   [
+    "C3",
+    "svc:account-mongodb"
+   ],
+   [
+    "C3",
+    "svc:account-service"
+   ],
+   [
+    "C3",
+    "svc:auth-mongodb"
+   ],
+   [
+    "C3",
+    "svc:auth-service"
+   ],
+   [
+    "C3",
+    "svc:config"
+   ],
+   [
+    "C3",
+    "svc:gateway"
+   ],
+   [
+    "C3",
+    "svc:monitoring"
+   ],
+   [
+    "C3",
+    "svc:notification-mongodb"
+   ],
+   [
+    "C3",
+    "svc:notification-service"
+   ],
+   [
+    "C3",
+    "svc:rabbitmq"
+   ],
+   [
+    "C3",
+    "svc:registry"
+   ],
+   [
+    "C3",
+    "svc:statistics-mongodb"
+   ],
+   [
+    "C3",
+    "svc:statistics-service"
+   ],
+   [
+    "C3",
+    "svc:turbine-stream-service"
+   ],
+   [
+    "C4",
+    "svc:account-mongodb"
+   ],
+   [
+    "C4",
+    "svc:account-service"
+   ],
+   [
+    "C4",
+    "svc:auth-mongodb"
+   ],
+   [
+    "C4",
+    "svc:auth-service"
+   ],
+   [
+    "C4",
+    "svc:config"
+   ],
+   [
+    "C4",
+    "svc:gateway"
+   ],
+   [
+    "C4",
+    "svc:monitoring"
+   ],
+   [
+    "C4",
+    "svc:notification-mongodb"
+   ],
+   [
+    "C4",
+    "svc:notification-service"
+   ],
+   [
+    "C4",
+    "svc:registry"
+   ],
+   [
+    "C4",
+    "svc:statistics-mongodb"
+   ],
+   [
+    "C4",
+    "svc:statistics-service"
+   ],
+   [
+    "C4",
+    "svc:turbine-stream-service"
+   ],
+   [
+    "C5",
+    "svc:monitoring"
+   ],
+   [
+    "C5",
+    "svc:rabbitmq"
+   ],
+   [
+    "C5",
+    "svc:registry"
+   ],
+   [
+    "C5",
+    "svc:turbine-stream-service"
+   ],
+   [
+    "C6",
+    "svc:account-mongodb"
+   ],
+   [
+    "C6",
+    "svc:account-service"
+   ],
+   [
+    "C6",
+    "svc:auth-mongodb"
+   ],
+   [
+    "C6",
+    "svc:auth-service"
+   ],
+   [
+    "C6",
+    "svc:config"
+   ],
+   [
+    "C6",
+    "svc:gateway"
+   ],
+   [
+    "C6",
+    "svc:monitoring"
+   ],
+   [
+    "C6",
+    "svc:notification-mongodb"
+   ],
+   [
+    "C6",
+    "svc:notification-service"
+   ],
+   [
+    "C6",
+    "svc:rabbitmq"
+   ],
+   [
+    "C6",
+    "svc:registry"
+   ],
+   [
+    "C6",
+    "svc:statistics-mongodb"
+   ],
+   [
+    "C6",
+    "svc:statistics-service"
+   ],
+   [
+    "C6",
+    "svc:turbine-stream-service"
+   ],
+   [
+    "C8",
+    "svc:gateway"
+   ],
+   [
+    "C9",
+    "svc:account-mongodb"
+   ],
+   [
+    "C9",
+    "svc:account-service"
+   ],
+   [
+    "C9",
+    "svc:auth-mongodb"
+   ],
+   [
+    "C9",
+    "svc:auth-service"
+   ],
+   [
+    "C9",
+    "svc:config"
+   ],
+   [
+    "C9",
+    "svc:gateway"
+   ],
+   [
+    "C9",
+    "svc:monitoring"
+   ],
+   [
+    "C9",
+    "svc:notification-mongodb"
+   ],
+   [
+    "C9",
+    "svc:notification-service"
+   ],
+   [
+    "C9",
+    "svc:rabbitmq"
+   ],
+   [
+    "C9",
+    "svc:registry"
+   ],
+   [
+    "C9",
+    "svc:statistics-mongodb"
+   ],
+   [
+    "C9",
+    "svc:statistics-service"
+   ],
+   [
+    "C9",
+    "svc:turbine-stream-service"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:account-service:POST:/accounts/"
+   ],
+   [
+    "A1",
+    "ep:auth-service:POST:/uaa/users"
+   ],
+   [
+    "A1",
+    "ep:gateway:POST:/accounts/"
+   ],
+   [
+    "A6",
+    "ep:gateway:POST:/uaa/oauth/token"
+   ],
+   [
+    "A9",
+    "ep:account-service:GET:/accounts/{}"
+   ],
+   [
+    "A9",
+    "ep:gateway:GET:/accounts/{}"
+   ],
+   [
+    "A9",
+    "ep:gateway:GET:/statistics/current"
+   ],
+   [
+    "A9",
+    "ep:gateway:GET:/statistics/{}"
+   ],
+   [
+    "A9",
+    "ep:statistics-service:GET:/statistics/current"
+   ],
+   [
+    "A9",
+    "ep:statistics-service:GET:/statistics/{}"
+   ],
+   [
+    "O1",
+    "ep:gateway:GET:/accounts/current"
+   ],
+   [
+    "O1",
+    "ep:gateway:GET:/accounts/{}"
+   ],
+   [
+    "O1",
+    "ep:gateway:GET:/notifications/recipients/current"
+   ],
+   [
+    "O1",
+    "ep:gateway:GET:/statistics/current"
+   ],
+   [
+    "O1",
+    "ep:gateway:GET:/statistics/{}"
+   ],
+   [
+    "O1",
+    "ep:gateway:POST:/accounts/"
+   ],
+   [
+    "O1",
+    "ep:gateway:POST:/uaa/oauth/token"
+   ],
+   [
+    "O1",
+    "ep:gateway:PUT:/accounts/current"
+   ],
+   [
+    "O1",
+    "ep:gateway:PUT:/notifications/recipients/current"
+   ],
+   [
+    "O1",
+    "svc:gateway"
+   ],
+   [
+    "O2",
+    "ep:gateway:GET:/accounts/current"
+   ],
+   [
+    "O2",
+    "ep:gateway:GET:/accounts/{}"
+   ],
+   [
+    "O2",
+    "ep:gateway:GET:/notifications/recipients/current"
+   ],
+   [
+    "O2",
+    "ep:gateway:GET:/statistics/current"
+   ],
+   [
+    "O2",
+    "ep:gateway:GET:/statistics/{}"
+   ],
+   [
+    "O2",
+    "ep:gateway:POST:/accounts/"
+   ],
+   [
+    "O2",
+    "ep:gateway:POST:/uaa/oauth/token"
+   ],
+   [
+    "O2",
+    "ep:gateway:PUT:/accounts/current"
+   ],
+   [
+    "O2",
+    "ep:gateway:PUT:/notifications/recipients/current"
+   ]
+  ],
+  "endpoints": {
+   "real": 13,
+   "listed": 22,
+   "correct": 13,
+   "missed": [],
+   "extra": [
+    "ep:gateway:GET:/accounts/current",
+    "ep:gateway:GET:/accounts/{}",
+    "ep:gateway:GET:/notifications/recipients/current",
+    "ep:gateway:GET:/statistics/current",
+    "ep:gateway:GET:/statistics/{}",
+    "ep:gateway:POST:/accounts/",
+    "ep:gateway:POST:/uaa/oauth/token",
+    "ep:gateway:PUT:/accounts/current",
+    "ep:gateway:PUT:/notifications/recipients/current"
+   ]
+  },
+  "scan_s": 7.4,
+  "system": "piggymetrics"
+ },
+ {
+  "labels": 80,
+  "found": 50,
+  "reported": 110,
+  "confirmed": 88,
+  "by_group": {
+   "Configuration": {
+    "labels": 63,
+    "found": 35,
+    "reported": 35,
+    "confirmed": 35
+   },
+   "API behaviour": {
+    "labels": 11,
+    "found": 9,
+    "reported": 23,
+    "confirmed": 9
+   },
+   "Inventory and visibility": {
+    "labels": 6,
+    "found": 6,
+    "reported": 52,
+    "confirmed": 44
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 7,
+    "found": 6
+   },
+   "A2": {
+    "labels": 1,
+    "found": 1
+   },
+   "A3": {
+    "labels": 1,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 1
+   },
+   "A9": {
+    "labels": 1,
+    "found": 1
+   },
+   "C1": {
+    "labels": 9,
+    "found": 9
+   },
+   "C10": {
+    "labels": 9,
+    "found": 0
+   },
+   "C3": {
+    "labels": 9,
+    "found": 8
+   },
+   "C4": {
+    "labels": 9,
+    "found": 9
+   },
+   "C5": {
+    "labels": 2,
+    "found": 0
+   },
+   "C6": {
+    "labels": 9,
+    "found": 9
+   },
+   "C7": {
+    "labels": 1,
+    "found": 0
+   },
+   "C8": {
+    "labels": 6,
+    "found": 0
+   },
+   "C9": {
+    "labels": 9,
+    "found": 0
+   },
+   "O1": {
+    "labels": 1,
+    "found": 1
+   },
+   "O2": {
+    "labels": 5,
+    "found": 5
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:customer-management-backend:GET:/interaction-logs/{}"
+   ],
+   [
+    "A3",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C10",
+    "svc:customer-core"
+   ],
+   [
+    "C10",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C10",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C10",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C10",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C10",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C10",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C10",
+    "svc:risk-management-server"
+   ],
+   [
+    "C10",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C3",
+    "svc:customer-core"
+   ],
+   [
+    "C5",
+    "svc:risk-management-server"
+   ],
+   [
+    "C5",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C7",
+    "svc:customer-core"
+   ],
+   [
+    "C8",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C8",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C8",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C8",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C8",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C8",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C9",
+    "svc:customer-core"
+   ],
+   [
+    "C9",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C9",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C9",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C9",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C9",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C9",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C9",
+    "svc:risk-management-server"
+   ],
+   [
+    "C9",
+    "svc:spring-boot-admin"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:customer-management-backend:GET:/customers/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-management-backend:PATCH:/interaction-logs/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/customers/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/customers/{}/policies"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/policies/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:POST:/riskfactor/compute"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:PUT:/policies/{}"
+   ],
+   [
+    "A2",
+    "ep:customer-core:GET:/customers/{}"
+   ],
+   [
+    "A2",
+    "ep:customer-core:PUT:/customers/{}"
+   ],
+   [
+    "A2",
+    "ep:customer-core:PUT:/customers/{}/address"
+   ],
+   [
+    "A9",
+    "ep:policy-management-backend:GET:/customers"
+   ],
+   [
+    "A9",
+    "ep:policy-management-backend:GET:/customers/{}/policies"
+   ],
+   [
+    "A9",
+    "ep:policy-management-backend:GET:/policies"
+   ],
+   [
+    "O1",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "O1",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "O1",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "O1",
+    "svc:risk-management-server"
+   ],
+   [
+    "O2",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "O2",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "O2",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "O2",
+    "svc:risk-management-server"
+   ]
+  ],
+  "endpoints": {
+   "real": 38,
+   "listed": 38,
+   "correct": 38,
+   "missed": [],
+   "extra": []
+  },
+  "scan_s": 7.3,
+  "system": "lakeside-mutual"
+ },
+ {
+  "labels": 82,
+  "found": 46,
+  "reported": 97,
+  "confirmed": 60,
+  "by_group": {
+   "Configuration": {
+    "labels": 68,
+    "found": 34,
+    "reported": 34,
+    "confirmed": 34
+   },
+   "API behaviour": {
+    "labels": 6,
+    "found": 4,
+    "reported": 11,
+    "confirmed": 4
+   },
+   "Inventory and visibility": {
+    "labels": 8,
+    "found": 8,
+    "reported": 52,
+    "confirmed": 22
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 6,
+    "found": 4
+   },
+   "C1": {
+    "labels": 11,
+    "found": 11
+   },
+   "C10": {
+    "labels": 11,
+    "found": 0
+   },
+   "C3": {
+    "labels": 11,
+    "found": 0
+   },
+   "C4": {
+    "labels": 8,
+    "found": 8
+   },
+   "C6": {
+    "labels": 11,
+    "found": 11
+   },
+   "C7": {
+    "labels": 5,
+    "found": 4
+   },
+   "C9": {
+    "labels": 11,
+    "found": 0
+   },
+   "O1": {
+    "labels": 3,
+    "found": 3
+   },
+   "O2": {
+    "labels": 5,
+    "found": 5
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:ftgo-consumer-service:GET:/consumers/{}"
+   ],
+   [
+    "A1",
+    "ep:ftgo-order-history-service:GET:/orders"
+   ],
+   [
+    "C10",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C10",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C10",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C10",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C10",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C10",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C10",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "C3",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C3",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C3",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C3",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C3",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C3",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C3",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "C7",
+    "secret:ftgo-db-secret"
+   ],
+   [
+    "C9",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "C9",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "C9",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "C9",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "C9",
+    "svc:ftgo-kitchen-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "C9",
+    "svc:ftgo-order-history-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-order-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "C9",
+    "svc:ftgo-zookeeper"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:ftgo-api-gateway:POST:/consumers"
+   ],
+   [
+    "A1",
+    "ep:ftgo-api-gateway:POST:/orders"
+   ],
+   [
+    "A1",
+    "ep:ftgo-api-gateway:POST:/orders/{}/cancel"
+   ],
+   [
+    "A1",
+    "ep:ftgo-api-gateway:POST:/orders/{}/revise"
+   ],
+   [
+    "A1",
+    "ep:ftgo-api-gateway:POST:/restaurants"
+   ],
+   [
+    "A1",
+    "ep:ftgo-consumer-service:POST:/consumers"
+   ],
+   [
+    "A1",
+    "ep:ftgo-order-service:POST:/orders"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:GET:/consumers/{}"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:GET:/orders"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:GET:/restaurants/{}"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:POST:/consumers"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:POST:/orders"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:POST:/orders/{}/cancel"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:POST:/orders/{}/revise"
+   ],
+   [
+    "O1",
+    "ep:ftgo-api-gateway:POST:/restaurants"
+   ],
+   [
+    "O1",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "O1",
+    "svc:ftgo-consumer-service"
+   ],
+   [
+    "O1",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "O1",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "O1",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "O1",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "O1",
+    "svc:ftgo-restaurant-service"
+   ],
+   [
+    "O1",
+    "svc:ftgo-zookeeper"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:GET:/consumers/{}"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:GET:/orders"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:GET:/restaurants/{}"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:POST:/consumers"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:POST:/orders"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:POST:/orders/{}/cancel"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:POST:/orders/{}/revise"
+   ],
+   [
+    "O2",
+    "ep:ftgo-api-gateway:POST:/restaurants"
+   ],
+   [
+    "O2",
+    "svc:ftgo-api-gateway"
+   ],
+   [
+    "O2",
+    "svc:ftgo-dynamodb-local"
+   ],
+   [
+    "O2",
+    "svc:ftgo-dynamodb-local-init"
+   ],
+   [
+    "O2",
+    "svc:ftgo-kafka"
+   ],
+   [
+    "O2",
+    "svc:ftgo-mysql"
+   ],
+   [
+    "O2",
+    "svc:ftgo-zookeeper"
+   ]
+  ],
+  "endpoints": {
+   "real": 14,
+   "listed": 17,
+   "correct": 9,
+   "missed": [
+    "ep:ftgo-api-gateway:GET:/orders/{}",
+    "ep:ftgo-kitchen-service:GET:/restaurants/{}",
+    "ep:ftgo-order-history-service:GET:/orders/{}",
+    "ep:ftgo-order-service:GET:/orders/{}",
+    "ep:ftgo-order-service:GET:/restaurants/{}"
+   ],
+   "extra": [
+    "ep:ftgo-api-gateway:GET:/consumers/{}",
+    "ep:ftgo-api-gateway:GET:/orders",
+    "ep:ftgo-api-gateway:GET:/restaurants/{}",
+    "ep:ftgo-api-gateway:POST:/consumers",
+    "ep:ftgo-api-gateway:POST:/orders",
+    "ep:ftgo-api-gateway:POST:/orders/{}/cancel",
+    "ep:ftgo-api-gateway:POST:/orders/{}/revise",
+    "ep:ftgo-api-gateway:POST:/restaurants"
+   ]
+  },
+  "scan_s": 7.2,
+  "system": "ftgo"
+ },
+ {
+  "labels": 107,
+  "found": 68,
+  "reported": 117,
+  "confirmed": 81,
+  "by_group": {
+   "Configuration": {
+    "labels": 89,
+    "found": 51,
+    "reported": 51,
+    "confirmed": 51
+   },
+   "API behaviour": {
+    "labels": 10,
+    "found": 9,
+    "reported": 20,
+    "confirmed": 10
+   },
+   "Inventory and visibility": {
+    "labels": 8,
+    "found": 8,
+    "reported": 46,
+    "confirmed": 20
+   }
+  },
+  "by_cat": {
+   "A5": {
+    "labels": 7,
+    "found": 7
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "A7": {
+    "labels": 2,
+    "found": 2
+   },
+   "C1": {
+    "labels": 19,
+    "found": 19
+   },
+   "C10": {
+    "labels": 19,
+    "found": 0
+   },
+   "C4": {
+    "labels": 13,
+    "found": 13
+   },
+   "C6": {
+    "labels": 19,
+    "found": 19
+   },
+   "C9": {
+    "labels": 19,
+    "found": 0
+   },
+   "O1": {
+    "labels": 8,
+    "found": 8
+   }
+  },
+  "missed": [
+   [
+    "A6",
+    "ep:frontend:GET:/user"
+   ],
+   [
+    "C10",
+    "svc:consul"
+   ],
+   [
+    "C10",
+    "svc:frontend"
+   ],
+   [
+    "C10",
+    "svc:geo"
+   ],
+   [
+    "C10",
+    "svc:jaeger"
+   ],
+   [
+    "C10",
+    "svc:memcached-profile"
+   ],
+   [
+    "C10",
+    "svc:memcached-rate"
+   ],
+   [
+    "C10",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C10",
+    "svc:mongodb-geo"
+   ],
+   [
+    "C10",
+    "svc:mongodb-profile"
+   ],
+   [
+    "C10",
+    "svc:mongodb-rate"
+   ],
+   [
+    "C10",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "C10",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "C10",
+    "svc:mongodb-user"
+   ],
+   [
+    "C10",
+    "svc:profile"
+   ],
+   [
+    "C10",
+    "svc:rate"
+   ],
+   [
+    "C10",
+    "svc:recommendation"
+   ],
+   [
+    "C10",
+    "svc:reservation"
+   ],
+   [
+    "C10",
+    "svc:search"
+   ],
+   [
+    "C10",
+    "svc:user"
+   ],
+   [
+    "C9",
+    "svc:consul"
+   ],
+   [
+    "C9",
+    "svc:frontend"
+   ],
+   [
+    "C9",
+    "svc:geo"
+   ],
+   [
+    "C9",
+    "svc:jaeger"
+   ],
+   [
+    "C9",
+    "svc:memcached-profile"
+   ],
+   [
+    "C9",
+    "svc:memcached-rate"
+   ],
+   [
+    "C9",
+    "svc:memcached-reserve"
+   ],
+   [
+    "C9",
+    "svc:mongodb-geo"
+   ],
+   [
+    "C9",
+    "svc:mongodb-profile"
+   ],
+   [
+    "C9",
+    "svc:mongodb-rate"
+   ],
+   [
+    "C9",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "C9",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "C9",
+    "svc:mongodb-user"
+   ],
+   [
+    "C9",
+    "svc:profile"
+   ],
+   [
+    "C9",
+    "svc:rate"
+   ],
+   [
+    "C9",
+    "svc:recommendation"
+   ],
+   [
+    "C9",
+    "svc:reservation"
+   ],
+   [
+    "C9",
+    "svc:search"
+   ],
+   [
+    "C9",
+    "svc:user"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:frontend:POST:/reservation"
+   ],
+   [
+    "A1",
+    "ep:geo:POST:/geo.Geo/Nearby"
+   ],
+   [
+    "A1",
+    "ep:profile:POST:/profile.Profile/GetProfiles"
+   ],
+   [
+    "A1",
+    "ep:rate:POST:/rate.Rate/GetRates"
+   ],
+   [
+    "A1",
+    "ep:recommendation:POST:/recommendation.Recommendation/GetRecommendations"
+   ],
+   [
+    "A1",
+    "ep:reservation:POST:/reservation.Reservation/CheckAvailability"
+   ],
+   [
+    "A1",
+    "ep:reservation:POST:/reservation.Reservation/MakeReservation"
+   ],
+   [
+    "A1",
+    "ep:search:POST:/search.Search/Nearby"
+   ],
+   [
+    "A1",
+    "ep:user:POST:/user.User/CheckUser"
+   ],
+   [
+    "A9",
+    "ep:profile:POST:/profile.Profile/GetProfiles"
+   ],
+   [
+    "O1",
+    "svc:consul"
+   ],
+   [
+    "O1",
+    "svc:jaeger"
+   ],
+   [
+    "O1",
+    "svc:memcached-profile"
+   ],
+   [
+    "O1",
+    "svc:memcached-rate"
+   ],
+   [
+    "O1",
+    "svc:memcached-reserve"
+   ],
+   [
+    "O1",
+    "svc:mongodb-geo"
+   ],
+   [
+    "O1",
+    "svc:mongodb-profile"
+   ],
+   [
+    "O1",
+    "svc:mongodb-rate"
+   ],
+   [
+    "O1",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "O1",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "O1",
+    "svc:mongodb-user"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/hotels"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/recommendations"
+   ],
+   [
+    "O2",
+    "ep:frontend:GET:/user"
+   ],
+   [
+    "O2",
+    "ep:frontend:POST:/reservation"
+   ],
+   [
+    "O2",
+    "svc:consul"
+   ],
+   [
+    "O2",
+    "svc:jaeger"
+   ],
+   [
+    "O2",
+    "svc:memcached-profile"
+   ],
+   [
+    "O2",
+    "svc:memcached-rate"
+   ],
+   [
+    "O2",
+    "svc:memcached-reserve"
+   ],
+   [
+    "O2",
+    "svc:mongodb-geo"
+   ],
+   [
+    "O2",
+    "svc:mongodb-profile"
+   ],
+   [
+    "O2",
+    "svc:mongodb-rate"
+   ],
+   [
+    "O2",
+    "svc:mongodb-recommendation"
+   ],
+   [
+    "O2",
+    "svc:mongodb-reservation"
+   ],
+   [
+    "O2",
+    "svc:mongodb-user"
+   ]
+  ],
+  "endpoints": {
+   "real": 12,
+   "listed": 12,
+   "correct": 12,
+   "missed": [],
+   "extra": []
+  },
+  "scan_s": 7.4,
+  "system": "hotel-reservation"
+ },
+ {
+  "labels": 38,
+  "found": 23,
+  "reported": 45,
+  "confirmed": 27,
+  "by_group": {
+   "Configuration": {
+    "labels": 21,
+    "found": 8,
+    "reported": 8,
+    "confirmed": 8
+   },
+   "API behaviour": {
+    "labels": 5,
+    "found": 3,
+    "reported": 6,
+    "confirmed": 3
+   },
+   "Inventory and visibility": {
+    "labels": 12,
+    "found": 12,
+    "reported": 31,
+    "confirmed": 16
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 1,
+    "found": 0
+   },
+   "A5": {
+    "labels": 4,
+    "found": 3
+   },
+   "C1": {
+    "labels": 4,
+    "found": 4
+   },
+   "C10": {
+    "labels": 4,
+    "found": 0
+   },
+   "C3": {
+    "labels": 4,
+    "found": 0
+   },
+   "C6": {
+    "labels": 4,
+    "found": 4
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 4,
+    "found": 0
+   },
+   "O1": {
+    "labels": 12,
+    "found": 12
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:productpage:POST:/login"
+   ],
+   [
+    "A5",
+    "ep:ratings:POST:/ratings/{}"
+   ],
+   [
+    "C10",
+    "svc:details"
+   ],
+   [
+    "C10",
+    "svc:productpage"
+   ],
+   [
+    "C10",
+    "svc:ratings"
+   ],
+   [
+    "C10",
+    "svc:reviews"
+   ],
+   [
+    "C3",
+    "svc:details"
+   ],
+   [
+    "C3",
+    "svc:productpage"
+   ],
+   [
+    "C3",
+    "svc:ratings"
+   ],
+   [
+    "C3",
+    "svc:reviews"
+   ],
+   [
+    "C8",
+    "svc:productpage"
+   ],
+   [
+    "C9",
+    "svc:details"
+   ],
+   [
+    "C9",
+    "svc:productpage"
+   ],
+   [
+    "C9",
+    "svc:ratings"
+   ],
+   [
+    "C9",
+    "svc:reviews"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:productpage:GET:/api/v1/products/{}"
+   ],
+   [
+    "A1",
+    "ep:ratings:POST:/ratings/{}"
+   ],
+   [
+    "A1",
+    "svc:None"
+   ],
+   [
+    "O1",
+    "svc:productpage"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/api/v1/products"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/api/v1/products/{}"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/api/v1/products/{}/ratings"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/api/v1/products/{}/reviews"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/index.html"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/logout"
+   ],
+   [
+    "O2",
+    "ep:productpage:GET:/productpage"
+   ],
+   [
+    "O2",
+    "ep:productpage:POST:/login"
+   ],
+   [
+    "O2",
+    "ep:ratings:POST:/ratings/{}"
+   ],
+   [
+    "O2",
+    "svc:details"
+   ],
+   [
+    "O2",
+    "svc:productpage"
+   ],
+   [
+    "O2",
+    "svc:ratings"
+   ],
+   [
+    "O2",
+    "svc:reviews"
+   ]
+  ],
+  "endpoints": {
+   "real": 13,
+   "listed": 17,
+   "correct": 13,
+   "missed": [],
+   "extra": [
+    "ep:productpage:GET:/products",
+    "ep:productpage:GET:/products/{}",
+    "ep:productpage:GET:/products/{}/ratings",
+    "ep:productpage:GET:/products/{}/reviews"
+   ]
+  },
+  "scan_s": 7.1,
+  "system": "bookinfo"
+ }
+]

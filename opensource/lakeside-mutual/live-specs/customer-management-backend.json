@@ -1,0 +1,281 @@
+{
+ "openapi": "3.0.1",
+ "info": {
+  "title": "customer-management-backend API",
+  "version": "v1"
+ },
+ "servers": [
+  {
+   "url": "http://customer-management-backend:8100"
+  }
+ ],
+ "paths": {
+  "/customers": {
+   "get": {
+    "operationId": "get_customers",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customers": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "customerId": {
+              "type": "integer"
+             },
+             "firstname": {
+              "type": "string"
+             },
+             "lastname": {
+              "type": "string"
+             },
+             "email": {
+              "type": "string"
+             },
+             "phoneNumber": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/customers/{customerId}": {
+   "get": {
+    "operationId": "get_customers_customerId",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          },
+          "email": {
+           "type": "string"
+          },
+          "phoneNumber": {
+           "type": "string"
+          },
+          "streetAddress": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "operationId": "put_customers_customerId",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "firstname": {
+          "type": "string"
+         },
+         "lastname": {
+          "type": "string"
+         },
+         "phoneNumber": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/notifications": {
+   "get": {
+    "operationId": "get_notifications",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "customerId": {
+            "type": "integer"
+           },
+           "username": {
+            "type": "string"
+           },
+           "count": {
+            "type": "integer"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/interaction-logs/{customerId}": {
+   "get": {
+    "operationId": "get_interaction_logs_customerId",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          },
+          "interactions": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "content": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "operationId": "patch_interaction_logs_customerId",
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "customerId": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "lastAcknowledgedInteractionId": {
+          "type": "integer"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "securitySchemes": {
+   "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+   },
+   "apiKey": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "Authorization"
+   }
+  }
+ }
+}

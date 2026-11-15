@@ -1,0 +1,413 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "C7",
+   "svc:payment"
+  ]
+ ],
+ "raw": {
+  "B113": 4,
+  "B104": 1
+ },
+ "seconds": 0.22,
+ "findings": 5,
+ "covered": 1,
+ "services": 8,
+ "score": {
+  "labels": 76,
+  "found": 0,
+  "reported": 1,
+  "confirmed": 0,
+  "by_group": {
+   "Configuration": {
+    "labels": 49,
+    "found": 0,
+    "reported": 1,
+    "confirmed": 0
+   },
+   "API behaviour": {
+    "labels": 15,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   },
+   "Inventory and visibility": {
+    "labels": 12,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 6,
+    "found": 0
+   },
+   "A10": {
+    "labels": 1,
+    "found": 0
+   },
+   "A4": {
+    "labels": 3,
+    "found": 0
+   },
+   "A5": {
+    "labels": 3,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 0
+   },
+   "A9": {
+    "labels": 1,
+    "found": 0
+   },
+   "C1": {
+    "labels": 12,
+    "found": 0
+   },
+   "C3": {
+    "labels": 12,
+    "found": 0
+   },
+   "C6": {
+    "labels": 12,
+    "found": 0
+   },
+   "C8": {
+    "labels": 1,
+    "found": 0
+   },
+   "C9": {
+    "labels": 12,
+    "found": 0
+   },
+   "O1": {
+    "labels": 6,
+    "found": 0
+   },
+   "O2": {
+    "labels": 6,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A1",
+    "ep:cart:DELETE:/cart/{}"
+   ],
+   [
+    "A1",
+    "ep:cart:GET:/add/{}/{}/{}"
+   ],
+   [
+    "A1",
+    "ep:cart:GET:/cart/{}"
+   ],
+   [
+    "A1",
+    "ep:payment:POST:/pay/{}"
+   ],
+   [
+    "A1",
+    "ep:user:GET:/history/{}"
+   ],
+   [
+    "A1",
+    "ep:user:GET:/users"
+   ],
+   [
+    "A10",
+    "svc:payment"
+   ],
+   [
+    "A4",
+    "ep:shipping:GET:/free"
+   ],
+   [
+    "A4",
+    "ep:shipping:GET:/memory"
+   ],
+   [
+    "A4",
+    "svc:web"
+   ],
+   [
+    "A5",
+    "svc:cart"
+   ],
+   [
+    "A5",
+    "svc:catalogue"
+   ],
+   [
+    "A5",
+    "svc:user"
+   ],
+   [
+    "A6",
+    "ep:user:POST:/login"
+   ],
+   [
+    "A9",
+    "ep:user:GET:/users"
+   ],
+   [
+    "C1",
+    "svc:cart"
+   ],
+   [
+    "C1",
+    "svc:catalogue"
+   ],
+   [
+    "C1",
+    "svc:dispatch"
+   ],
+   [
+    "C1",
+    "svc:mongodb"
+   ],
+   [
+    "C1",
+    "svc:mysql"
+   ],
+   [
+    "C1",
+    "svc:payment"
+   ],
+   [
+    "C1",
+    "svc:rabbitmq"
+   ],
+   [
+    "C1",
+    "svc:ratings"
+   ],
+   [
+    "C1",
+    "svc:redis"
+   ],
+   [
+    "C1",
+    "svc:shipping"
+   ],
+   [
+    "C1",
+    "svc:user"
+   ],
+   [
+    "C1",
+    "svc:web"
+   ],
+   [
+    "C3",
+    "svc:cart"
+   ],
+   [
+    "C3",
+    "svc:catalogue"
+   ],
+   [
+    "C3",
+    "svc:dispatch"
+   ],
+   [
+    "C3",
+    "svc:mongodb"
+   ],
+   [
+    "C3",
+    "svc:mysql"
+   ],
+   [
+    "C3",
+    "svc:payment"
+   ],
+   [
+    "C3",
+    "svc:rabbitmq"
+   ],
+   [
+    "C3",
+    "svc:ratings"
+   ],
+   [
+    "C3",
+    "svc:redis"
+   ],
+   [
+    "C3",
+    "svc:shipping"
+   ],
+   [
+    "C3",
+    "svc:user"
+   ],
+   [
+    "C3",
+    "svc:web"
+   ],
+   [
+    "C6",
+    "svc:cart"
+   ],
+   [
+    "C6",
+    "svc:catalogue"
+   ],
+   [
+    "C6",
+    "svc:dispatch"
+   ],
+   [
+    "C6",
+    "svc:mongodb"
+   ],
+   [
+    "C6",
+    "svc:mysql"
+   ],
+   [
+    "C6",
+    "svc:payment"
+   ],
+   [
+    "C6",
+    "svc:rabbitmq"
+   ],
+   [
+    "C6",
+    "svc:ratings"
+   ],
+   [
+    "C6",
+    "svc:redis"
+   ],
+   [
+    "C6",
+    "svc:shipping"
+   ],
+   [
+    "C6",
+    "svc:user"
+   ],
+   [
+    "C6",
+    "svc:web"
+   ],
+   [
+    "C8",
+    "svc:web"
+   ],
+   [
+    "C9",
+    "svc:cart"
+   ],
+   [
+    "C9",
+    "svc:catalogue"
+   ],
+   [
+    "C9",
+    "svc:dispatch"
+   ],
+   [
+    "C9",
+    "svc:mongodb"
+   ],
+   [
+    "C9",
+    "svc:mysql"
+   ],
+   [
+    "C9",
+    "svc:payment"
+   ],
+   [
+    "C9",
+    "svc:rabbitmq"
+   ],
+   [
+    "C9",
+    "svc:ratings"
+   ],
+   [
+    "C9",
+    "svc:redis"
+   ],
+   [
+    "C9",
+    "svc:shipping"
+   ],
+   [
+    "C9",
+    "svc:user"
+   ],
+   [
+    "C9",
+    "svc:web"
+   ],
+   [
+    "O1",
+    "svc:cart"
+   ],
+   [
+    "O1",
+    "svc:catalogue"
+   ],
+   [
+    "O1",
+    "svc:payment"
+   ],
+   [
+    "O1",
+    "svc:ratings"
+   ],
+   [
+    "O1",
+    "svc:shipping"
+   ],
+   [
+    "O1",
+    "svc:user"
+   ],
+   [
+    "O2",
+    "svc:cart"
+   ],
+   [
+    "O2",
+    "svc:catalogue"
+   ],
+   [
+    "O2",
+    "svc:payment"
+   ],
+   [
+    "O2",
+    "svc:ratings"
+   ],
+   [
+    "O2",
+    "svc:shipping"
+   ],
+   [
+    "O2",
+    "svc:user"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "C7",
+    "svc:payment"
+   ]
+  ],
+  "in_reach": {
+   "labels": 0,
+   "found": 0
+  }
+ }
+}

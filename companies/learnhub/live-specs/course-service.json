@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LearnHub Course Service API",
+    "version": "4.0.2"
+  },
+  "servers": [
+    {
+      "url": "http://course-service:3000"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "get": {
+        "operationId": "get_courses",
+        "summary": "GET /courses",
+        "tags": [
+          "course-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "course_id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "level": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/courses/{course_id}": {
+      "get": {
+        "operationId": "get_courses_course_id",
+        "summary": "GET /courses/{course_id}",
+        "tags": [
+          "course-service"
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "course_id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "instructor": {
+                      "type": "string"
+                    },
+                    "lessons": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/courses/{course_id}/materials": {
+      "get": {
+        "operationId": "get_courses_course_id_materials",
+        "summary": "GET /courses/{course_id}/materials",
+        "tags": [
+          "course-service"
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "course_id": {
+                      "type": "integer"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "material_id": {
+                            "type": "integer"
+                          },
+                          "kind": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

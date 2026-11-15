@@ -1,0 +1,108 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FoodDash Payment Service API",
+    "version": "3.0.1"
+  },
+  "host": "payment-service:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/payments/charges": {
+      "post": {
+        "operationId": "post_payments_charges",
+        "summary": "POST /payments/charges",
+        "tags": [
+          "payment-service"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payment_id": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/payments/{payment_id}": {
+      "get": {
+        "operationId": "get_payments_payment_id",
+        "summary": "GET /payments/{payment_id}",
+        "tags": [
+          "payment-service"
+        ],
+        "parameters": [
+          {
+            "name": "payment_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payment_id": {
+                  "type": "integer"
+                },
+                "customer_id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}

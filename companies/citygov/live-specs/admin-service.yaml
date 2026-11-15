@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: CityGov Admin Service API
+  version: 1.0.0
+servers:
+- url: http://admin-service:8080
+paths:
+  /admin/audit-log:
+    get:
+      operationId: get_admin_audit_log
+      summary: GET /admin/audit-log
+      tags:
+      - admin-service
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        event:
+                          type: string
+                        at:
+                          type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

@@ -1,0 +1,1227 @@
+{
+ "company": "online-boutique",
+ "users": "Online Boutique: 255 requests in 5.6 s, 0 sessions; status codes: 200 x255",
+ "startup_s": 11.8,
+ "scan_s": 7.6,
+ "scan_log": [
+  "[scan] online-boutique: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 826 HTTP flows from the sidecar, 6 span batches from the Collector (1591 KB cleared from their memory)",
+  "[ok]   runtime_traffic    25 records      62.5 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     309.8 ms  -> /work/raw/openapi.json",
+  "! frontend: no live spec at any probed path",
+  "! cartservice: no live spec at any probed path",
+  "! productcatalogservice: no live spec at any probed path",
+  "! currencyservice: no live spec at any probed path",
+  "! recommendationservice: no live spec at any probed path",
+  "! shippingservice: no live spec at any probed path",
+  "! paymentservice: no live spec at any probed path",
+  "! emailservice: no live spec at any probed path",
+  "! checkoutservice: no live spec at any probed path",
+  "! adservice: no live spec at any probed path",
+  "[ok]   infrastructure     38 records      51.7 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          46 records      20.5 ms  -> /work/raw/callchain.json",
+  "[ok]   25 endpoints in 12 services (25 shadow)  -> /work/eujf.json",
+  "[ok]   108 findings (critical 5, high 27, medium 48, low 28), 400 attack paths, path risk 417.5",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] online-boutique: 25 APIs, 108 findings, 400 attack paths, path risk 417.5",
+  "[scan] threat graph exported to output/site/exports/1-online-boutique/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-094726-6128bf",
+ "summary": {
+  "findings": 108,
+  "by_severity": {
+   "critical": 5,
+   "high": 27,
+   "medium": 48,
+   "low": 28
+  },
+  "attack_paths": 400,
+  "critical_paths": 0,
+  "total_path_risk": 417.5,
+  "endpoints": 25,
+  "shadow_endpoints": 25,
+  "services": 12,
+  "rules_evaluated": 27,
+  "rules_fired": 9,
+  "label": "online-boutique"
+ },
+ "eujf_summary": {
+  "services": 12,
+  "endpoints": 25,
+  "inventory": {
+   "shadow": 25
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 25,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 11,
+  "endpoints_with_sensitive_data": 1,
+  "dependencies": 16,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:adservice:POST:/hipstershop.AdService/GetAds",
+   "service": "adservice",
+   "method": "POST",
+   "path": "/hipstershop.AdService/GetAds",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:cartservice:POST:/hipstershop.CartService/AddItem",
+   "service": "cartservice",
+   "method": "POST",
+   "path": "/hipstershop.CartService/AddItem",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:cartservice:POST:/hipstershop.CartService/EmptyCart",
+   "service": "cartservice",
+   "method": "POST",
+   "path": "/hipstershop.CartService/EmptyCart",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:cartservice:POST:/hipstershop.CartService/GetCart",
+   "service": "cartservice",
+   "method": "POST",
+   "path": "/hipstershop.CartService/GetCart",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:checkoutservice:POST:/hipstershop.CheckoutService/PlaceOrder",
+   "service": "checkoutservice",
+   "method": "POST",
+   "path": "/hipstershop.CheckoutService/PlaceOrder",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:currencyservice:POST:/hipstershop.CurrencyService/Convert",
+   "service": "currencyservice",
+   "method": "POST",
+   "path": "/hipstershop.CurrencyService/Convert",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:currencyservice:POST:/hipstershop.CurrencyService/GetSupportedCurrencies",
+   "service": "currencyservice",
+   "method": "POST",
+   "path": "/hipstershop.CurrencyService/GetSupportedCurrencies",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:emailservice:POST:/hipstershop.EmailService/SendOrderConfirmation",
+   "service": "emailservice",
+   "method": "POST",
+   "path": "/hipstershop.EmailService/SendOrderConfirmation",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:frontend:GET:/",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/assistant",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/assistant",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/assistant"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/bot",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/bot",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/bot"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/cart",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/cart",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/cart"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/cart",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/cart",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/cart"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/cart/checkout",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/cart/checkout",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/cart/checkout"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/cart/empty",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/cart/empty",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/cart/empty"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/logout",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/logout",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/logout"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/product-meta/{}",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/product-meta/{ids}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/product-meta/{ids}"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/product/{}",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/product/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/product/{id}"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/setCurrency",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/setCurrency",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/setCurrency"
+   ]
+  },
+  {
+   "id": "ep:paymentservice:POST:/hipstershop.PaymentService/Charge",
+   "service": "paymentservice",
+   "method": "POST",
+   "path": "/hipstershop.PaymentService/Charge",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/GetProduct",
+   "service": "productcatalogservice",
+   "method": "POST",
+   "path": "/hipstershop.ProductCatalogService/GetProduct",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/ListProducts",
+   "service": "productcatalogservice",
+   "method": "POST",
+   "path": "/hipstershop.ProductCatalogService/ListProducts",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:recommendationservice:POST:/hipstershop.RecommendationService/ListRecommendations",
+   "service": "recommendationservice",
+   "method": "POST",
+   "path": "/hipstershop.RecommendationService/ListRecommendations",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:shippingservice:POST:/hipstershop.ShippingService/GetQuote",
+   "service": "shippingservice",
+   "method": "POST",
+   "path": "/hipstershop.ShippingService/GetQuote",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:shippingservice:POST:/hipstershop.ShippingService/ShipOrder",
+   "service": "shippingservice",
+   "method": "POST",
+   "path": "/hipstershop.ShippingService/ShipOrder",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "TS-01",
+   "target": "ep:frontend:POST:/bot",
+   "detail": "POST /bot (frontend) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:frontend:POST:/cart",
+   "detail": "POST /cart (frontend) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:frontend:POST:/cart/checkout",
+   "detail": "POST /cart/checkout (frontend) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:frontend:POST:/cart/empty",
+   "detail": "POST /cart/empty (frontend) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:frontend:POST:/setCurrency",
+   "detail": "POST /setCurrency (frontend) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:None",
+   "detail": "route //** -> frontend has auth: unspecified",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:None",
+   "detail": "route //** -> frontend has auth: unspecified",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/",
+   "detail": "GET / (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/assistant",
+   "detail": "GET /assistant (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/cart",
+   "detail": "GET /cart (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/logout",
+   "detail": "GET /logout (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/product-meta/{}",
+   "detail": "GET /product-meta/{ids} (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/product/{}",
+   "detail": "GET /product/{id} (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/bot",
+   "detail": "POST /bot (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/cart",
+   "detail": "POST /cart (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/cart/checkout",
+   "detail": "POST /cart/checkout (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/cart/empty",
+   "detail": "POST /cart/empty (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/setCurrency",
+   "detail": "POST /setCurrency (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:adservice:POST:/hipstershop.AdService/GetAds",
+   "detail": "POST /hipstershop.AdService/GetAds (adservice) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/AddItem",
+   "detail": "POST /hipstershop.CartService/AddItem (cartservice) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/EmptyCart",
+   "detail": "POST /hipstershop.CartService/EmptyCart (cartservice) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/GetCart",
+   "detail": "POST /hipstershop.CartService/GetCart (cartservice) returned 2xx to 90 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:checkoutservice:POST:/hipstershop.CheckoutService/PlaceOrder",
+   "detail": "POST /hipstershop.CheckoutService/PlaceOrder (checkoutservice) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:currencyservice:POST:/hipstershop.CurrencyService/Convert",
+   "detail": "POST /hipstershop.CurrencyService/Convert (currencyservice) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:currencyservice:POST:/hipstershop.CurrencyService/GetSupportedCurrencies",
+   "detail": "POST /hipstershop.CurrencyService/GetSupportedCurrencies (currencyservice) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:emailservice:POST:/hipstershop.EmailService/SendOrderConfirmation",
+   "detail": "POST /hipstershop.EmailService/SendOrderConfirmation (emailservice) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:paymentservice:POST:/hipstershop.PaymentService/Charge",
+   "detail": "POST /hipstershop.PaymentService/Charge (paymentservice) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/GetProduct",
+   "detail": "POST /hipstershop.ProductCatalogService/GetProduct (productcatalogservice) returned 2xx to 75 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/ListProducts",
+   "detail": "POST /hipstershop.ProductCatalogService/ListProducts (productcatalogservice) returned 2xx to 90 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:recommendationservice:POST:/hipstershop.RecommendationService/ListRecommendations",
+   "detail": "POST /hipstershop.RecommendationService/ListRecommendations (recommendationservice) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:shippingservice:POST:/hipstershop.ShippingService/GetQuote",
+   "detail": "POST /hipstershop.ShippingService/GetQuote (shippingservice) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:shippingservice:POST:/hipstershop.ShippingService/ShipOrder",
+   "detail": "POST /hipstershop.ShippingService/ShipOrder (shippingservice) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:GET:/",
+   "detail": "45 trace(s) start at frontend GET / with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:GET:/assistant",
+   "detail": "15 trace(s) start at frontend GET /assistant with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:GET:/cart",
+   "detail": "30 trace(s) start at frontend GET /cart with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:GET:/logout",
+   "detail": "15 trace(s) start at frontend GET /logout with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:GET:/product-meta/{}",
+   "detail": "15 trace(s) start at frontend GET /product-meta/{ids} with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:GET:/product/{}",
+   "detail": "45 trace(s) start at frontend GET /product/{id} with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:POST:/bot",
+   "detail": "15 trace(s) start at frontend POST /bot with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:POST:/cart",
+   "detail": "30 trace(s) start at frontend POST /cart with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:POST:/cart/checkout",
+   "detail": "15 trace(s) start at frontend POST /cart/checkout with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:POST:/cart/empty",
+   "detail": "15 trace(s) start at frontend POST /cart/empty with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:frontend:POST:/setCurrency",
+   "detail": "15 trace(s) start at frontend POST /setCurrency with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:paymentservice:POST:/hipstershop.PaymentService/Charge",
+   "detail": "POST /hipstershop.PaymentService/Charge (paymentservice) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:adservice",
+   "detail": "adservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:cartservice",
+   "detail": "cartservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:checkoutservice",
+   "detail": "checkoutservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:currencyservice",
+   "detail": "currencyservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:emailservice",
+   "detail": "emailservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:frontend",
+   "detail": "frontend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:paymentservice",
+   "detail": "paymentservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:productcatalogservice",
+   "detail": "productcatalogservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:recommendationservice",
+   "detail": "recommendationservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:redis-cart",
+   "detail": "redis-cart accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:shippingservice",
+   "detail": "shippingservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:adservice",
+   "detail": "adservice uses image adservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:cartservice",
+   "detail": "cartservice uses image cartservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:checkoutservice",
+   "detail": "checkoutservice uses image checkoutservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:currencyservice",
+   "detail": "currencyservice uses image currencyservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:emailservice",
+   "detail": "emailservice uses image emailservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:frontend",
+   "detail": "frontend uses image frontend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator uses image loadgenerator",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:paymentservice",
+   "detail": "paymentservice uses image paymentservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:productcatalogservice",
+   "detail": "productcatalogservice uses image productcatalogservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:recommendationservice",
+   "detail": "recommendationservice uses image recommendationservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:shippingservice",
+   "detail": "shippingservice uses image shippingservice",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:adservice:POST:/hipstershop.AdService/GetAds",
+   "detail": "POST /hipstershop.AdService/GetAds (adservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/AddItem",
+   "detail": "POST /hipstershop.CartService/AddItem (cartservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/EmptyCart",
+   "detail": "POST /hipstershop.CartService/EmptyCart (cartservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/GetCart",
+   "detail": "POST /hipstershop.CartService/GetCart (cartservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:checkoutservice:POST:/hipstershop.CheckoutService/PlaceOrder",
+   "detail": "POST /hipstershop.CheckoutService/PlaceOrder (checkoutservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:currencyservice:POST:/hipstershop.CurrencyService/Convert",
+   "detail": "POST /hipstershop.CurrencyService/Convert (currencyservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:currencyservice:POST:/hipstershop.CurrencyService/GetSupportedCurrencies",
+   "detail": "POST /hipstershop.CurrencyService/GetSupportedCurrencies (currencyservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:emailservice:POST:/hipstershop.EmailService/SendOrderConfirmation",
+   "detail": "POST /hipstershop.EmailService/SendOrderConfirmation (emailservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/GetProduct",
+   "detail": "POST /hipstershop.ProductCatalogService/GetProduct (productcatalogservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/ListProducts",
+   "detail": "POST /hipstershop.ProductCatalogService/ListProducts (productcatalogservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:recommendationservice:POST:/hipstershop.RecommendationService/ListRecommendations",
+   "detail": "POST /hipstershop.RecommendationService/ListRecommendations (recommendationservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shippingservice:POST:/hipstershop.ShippingService/GetQuote",
+   "detail": "POST /hipstershop.ShippingService/GetQuote (shippingservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shippingservice:POST:/hipstershop.ShippingService/ShipOrder",
+   "detail": "POST /hipstershop.ShippingService/ShipOrder (shippingservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:adservice",
+   "detail": "adservice: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:cartservice",
+   "detail": "cartservice: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:checkoutservice",
+   "detail": "checkoutservice: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:currencyservice",
+   "detail": "currencyservice: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:emailservice",
+   "detail": "emailservice: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:frontend",
+   "detail": "frontend: no live spec; 0 of 11 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:paymentservice",
+   "detail": "paymentservice: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:productcatalogservice",
+   "detail": "productcatalogservice: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:recommendationservice",
+   "detail": "recommendationservice: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:redis-cart",
+   "detail": "redis-cart: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:shippingservice",
+   "detail": "shippingservice: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:redis-cart",
+   "detail": "redis-cart is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:adservice:POST:/hipstershop.AdService/GetAds",
+   "detail": "frontend -> POST /hipstershop.AdService/GetAds (adservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/AddItem",
+   "detail": "frontend -> POST /hipstershop.CartService/AddItem (cartservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/EmptyCart",
+   "detail": "checkoutservice, frontend -> POST /hipstershop.CartService/EmptyCart (cartservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:cartservice:POST:/hipstershop.CartService/GetCart",
+   "detail": "checkoutservice, frontend -> POST /hipstershop.CartService/GetCart (cartservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:checkoutservice:POST:/hipstershop.CheckoutService/PlaceOrder",
+   "detail": "frontend -> POST /hipstershop.CheckoutService/PlaceOrder (checkoutservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:currencyservice:POST:/hipstershop.CurrencyService/Convert",
+   "detail": "checkoutservice -> POST /hipstershop.CurrencyService/Convert (currencyservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:currencyservice:POST:/hipstershop.CurrencyService/GetSupportedCurrencies",
+   "detail": "frontend -> POST /hipstershop.CurrencyService/GetSupportedCurrencies (currencyservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:emailservice:POST:/hipstershop.EmailService/SendOrderConfirmation",
+   "detail": "checkoutservice -> POST /hipstershop.EmailService/SendOrderConfirmation (emailservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:paymentservice:POST:/hipstershop.PaymentService/Charge",
+   "detail": "checkoutservice -> POST /hipstershop.PaymentService/Charge (paymentservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/GetProduct",
+   "detail": "checkoutservice, frontend -> POST /hipstershop.ProductCatalogService/GetProduct (productcatalogservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:productcatalogservice:POST:/hipstershop.ProductCatalogService/ListProducts",
+   "detail": "frontend, recommendationservice -> POST /hipstershop.ProductCatalogService/ListProducts (productcatalogservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:recommendationservice:POST:/hipstershop.RecommendationService/ListRecommendations",
+   "detail": "frontend -> POST /hipstershop.RecommendationService/ListRecommendations (recommendationservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:shippingservice:POST:/hipstershop.ShippingService/GetQuote",
+   "detail": "checkoutservice, frontend -> POST /hipstershop.ShippingService/GetQuote (shippingservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:shippingservice:POST:/hipstershop.ShippingService/ShipOrder",
+   "detail": "checkoutservice -> POST /hipstershop.ShippingService/ShipOrder (shippingservice) with no credential",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/",
+   "upstream_service": "frontend",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/",
+   "upstream_service": "frontend",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "adservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "cartservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "checkoutservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "currencyservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "emailservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "frontend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "loadgenerator",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "paymentservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "productcatalogservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "recommendationservice",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "redis-cart",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "shippingservice",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+# PetClinic's own compose file, plus: the network gets the name ATG joins; Zipkin is replaced by the
+# ATG Collector, which answers as tracing-server (see atg.override.yml), so the services' own Zipkin
+# spans reach ATG; the GenAI service (needs an OpenAI key), Grafana and Prometheus stay off.
+networks:
+  default:
+    name: petclinic-net
+services:
+  tracing-server: {profiles: ["off"]}
+  genai-service: {profiles: ["off"]}
+  grafana-server: {profiles: ["off"]}
+  prometheus-server: {profiles: ["off"]}

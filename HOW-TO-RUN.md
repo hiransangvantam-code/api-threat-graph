@@ -49,6 +49,7 @@ Every start is a fresh review. The pages and exports of the previous review are 
 | Home (`index.html`) | Threat graph preview, before/after table, the four phases, all scans, export links, what was kept and deleted, the two-Docker diagram, the Section IV results | yes |
 | `threat-graph.html` | The threat graph, full screen. Click a node or an attack path. Download buttons for the four export formats at the top. | yes |
 | `dashboard-1-vulnerable.html` | The full Phase 4 dashboard: API overview (by source and by confidence HIGH/MEDIUM/ZOMBIE), risk summary, top vulnerabilities, attack paths, fix plan | yes |
+| `hardening-1-vulnerable.html` | What to fix, in order: the risk after each fix, every finding with why it matters, the fix for this system's own gateway / Kubernetes / framework, how to check the fix, a hardening baseline per service, accuracy and speed (`docs/HARDENING_REPORT.md`). Also as `exports/1-vulnerable/hardening.md` | yes |
 | `exports/1-vulnerable/` | The threat graph as GraphML, JSON, SARIF and SVG (`docs/EXPORT_FORMATS.md`) | yes |
 | `live/phase1-report-1-vulnerable.html` | What each Phase 1 source found | no, only while running |
 | `live/scans/1-vulnerable/eujf.json` | The Phase 2 output as EUJF records (Algorithm 1 in the paper) | no, only while running |
@@ -108,6 +109,38 @@ docker compose exec atg-postgres psql -U atg -c "SELECT rel, COUNT(*) FROM atg_e
 ```
 
 The first shows the Phase 2 EUJF records. The second shows the threat graph's edges, named as in eq. (3) of the paper (ROUTES_TO, CALLS, QUERIES, HAS_FINDING, ...).
+
+## The test systems: ten generated companies and ten open-source systems
+
+Besides ShopLite, START can review the twenty test systems. Each one runs in its own company Docker, and
+ATG joins its network:
+
+```powershell
+START-Windows.bat paynow          # one of the ten generated companies (companies\README.md)
+START-Windows.bat bookinfo        # one of the ten open-source systems, with stand-in services (opensource\README.md)
+```
+
+```bash
+sh start.sh paynow
+sh start.sh bookinfo
+```
+
+The open-source names are `online-boutique`, `bank-of-anthos`, `robot-shop`, `acme-air`, `petclinic`,
+`piggymetrics`, `lakeside-mutual`, `ftgo`, `hotel-reservation` and `bookinfo`. The first start of one
+downloads its code at the pinned commit, because ATG reads its real deployment files.
+
+To review seven of them on their **real images** instead (needs internet; the first run downloads a few GB):
+
+```powershell
+REAL-Windows.bat robot-shop       # or: petclinic lakeside-mutual hotel-reservation piggymetrics bookinfo online-boutique
+```
+
+```bash
+sh real.sh robot-shop
+```
+
+ATG is then on http://localhost:18080, and the result goes to `results\opensource\atg-real\`. Details:
+`opensource\real\README.md`.
 
 ## Review another system (not ShopLite)
 

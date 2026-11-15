@@ -1,0 +1,87 @@
+# Online Boutique (Google): routes from src/frontend/main.go:150-163, gRPC methods from protos/demo.proto,
+# calls from src/frontend/rpc.go and src/checkoutservice/main.go. gRPC calls are modelled as
+# POST /<package>.<Service>/<Method>, the path a gRPC request has on the wire.
+id: online-boutique
+name: Online Boutique
+field: Retail (e-commerce)
+by: Google Cloud Platform
+upstream: {repo: https://github.com/GoogleCloudPlatform/microservices-demo, commit: c7cb6d5bfd6ea3aed768634ebbcb98cb7a523712, license: Apache-2.0}
+languages: [Go, C#, Node.js, Python, Java]
+artifacts:
+  manifests: [kubernetes-manifests, istio-manifests]
+edge: frontend
+traced: true          # OpenTelemetry built in (ENABLE_TRACING, COLLECTOR_SERVICE_ADDR)
+services:
+  frontend:
+    port: 8080
+    language: Go
+    routes:
+      GET /: {calls: ["POST currencyservice /hipstershop.CurrencyService/GetSupportedCurrencies", "POST productcatalogservice /hipstershop.ProductCatalogService/ListProducts", "POST cartservice /hipstershop.CartService/GetCart", "POST adservice /hipstershop.AdService/GetAds"], returns: {products: [{id: OLJCESPC7Z, name: Sunglasses}]}, weight: 3}
+      GET /product/{id}: {calls: ["POST productcatalogservice /hipstershop.ProductCatalogService/GetProduct", "POST recommendationservice /hipstershop.RecommendationService/ListRecommendations"], returns: {id: $id, name: Product, price_usd: 19}, weight: 3}
+      GET /cart: {calls: ["POST cartservice /hipstershop.CartService/GetCart", "POST shippingservice /hipstershop.ShippingService/GetQuote"], returns: {items: [{product_id: OLJCESPC7Z, quantity: 1}]}}
+      POST /cart: {body: {product_id: OLJCESPC7Z, quantity: 1}, calls: ["POST cartservice /hipstershop.CartService/AddItem"], returns: {status: added}, weight: 2}
+      POST /cart/empty: {calls: ["POST cartservice /hipstershop.CartService/EmptyCart"], returns: {status: emptied}, weight: 1}
+      POST /setCurrency: {body: {currency_code: EUR}, returns: {currency: EUR}, weight: 1}
+      GET /logout: {returns: {status: logged_out}, weight: 1}
+      POST /cart/checkout: {body: {email: "***", street_address: "***", zip_code: "***", city: Bangkok, state: BKK, country: TH, credit_card_number: "***", credit_card_expiration_month: 1, credit_card_expiration_year: 2030, credit_card_cvv: "***"}, calls: ["POST checkoutservice /hipstershop.CheckoutService/PlaceOrder"], returns: {order_id: $n, shipping_tracking_id: "***", total_paid: 0}, weight: 1}
+      GET /product-meta/{ids}: {calls: ["POST productcatalogservice /hipstershop.ProductCatalogService/GetProduct"], returns: {id: $ids, name: Product}, weight: 1}
+      GET /assistant: {returns: {page: assistant}, weight: 1}
+      POST /bot: {body: {message: "find a lamp"}, returns: {message: ok}, weight: 1}
+  cartservice:
+    port: 7070
+    language: C#
+    routes:
+      POST /hipstershop.CartService/AddItem: {returns: {}}
+      POST /hipstershop.CartService/GetCart: {returns: {user_id: "***", items: [{product_id: OLJCESPC7Z, quantity: 1}]}}
+      POST /hipstershop.CartService/EmptyCart: {returns: {}}
+  productcatalogservice:
+    port: 3550
+    language: Go
+    routes:
+      POST /hipstershop.ProductCatalogService/ListProducts: {returns: {products: [{id: OLJCESPC7Z, name: Sunglasses}]}}
+      POST /hipstershop.ProductCatalogService/GetProduct: {returns: {id: OLJCESPC7Z, name: Sunglasses}}
+      POST /hipstershop.ProductCatalogService/SearchProducts: {returns: {results: [{id: OLJCESPC7Z}]}}
+  currencyservice:
+    port: 7000
+    language: Node.js
+    routes:
+      POST /hipstershop.CurrencyService/GetSupportedCurrencies: {returns: {currency_codes: [EUR]}}
+      POST /hipstershop.CurrencyService/Convert: {returns: {currency_code: EUR, units: 10}}
+  recommendationservice:
+    port: 8080
+    language: Python
+    routes:
+      POST /hipstershop.RecommendationService/ListRecommendations: {calls: ["POST productcatalogservice /hipstershop.ProductCatalogService/ListProducts"], returns: {product_ids: [OLJCESPC7Z]}}
+  shippingservice:
+    port: 50051
+    language: Go
+    routes:
+      POST /hipstershop.ShippingService/GetQuote: {returns: {cost_usd: {currency_code: USD, units: 8}}}
+      POST /hipstershop.ShippingService/ShipOrder: {returns: {tracking_id: "***"}}
+  paymentservice:
+    port: 50051
+    language: Node.js
+    routes:
+      POST /hipstershop.PaymentService/Charge: {returns: {transaction_id: "***"}}
+  emailservice:
+    port: 8080
+    language: Python
+    routes:
+      POST /hipstershop.EmailService/SendOrderConfirmation: {returns: {}}
+  checkoutservice:
+    port: 5050
+    language: Go
+    routes:
+      POST /hipstershop.CheckoutService/PlaceOrder: {calls: ["POST cartservice /hipstershop.CartService/GetCart", "POST productcatalogservice /hipstershop.ProductCatalogService/GetProduct", "POST currencyservice /hipstershop.CurrencyService/Convert", "POST shippingservice /hipstershop.ShippingService/GetQuote", "POST paymentservice /hipstershop.PaymentService/Charge", "POST shippingservice /hipstershop.ShippingService/ShipOrder", "POST cartservice /hipstershop.CartService/EmptyCart", "POST emailservice /hipstershop.EmailService/SendOrderConfirmation"], returns: {order: {order_id: $n, shipping_cost: 0}}}
+  adservice:
+    port: 9555
+    language: Java
+    routes:
+      POST /hipstershop.AdService/GetAds: {returns: {ads: [{redirect_url: /product/OLJCESPC7Z, text: Sale}]}}
+labels:
+  - {cat: A5, at: paymentservice, why: "PaymentService.Charge takes a full card number from any caller in the cluster: no mTLS, no token (src/paymentservice/server.js).", evidence: "kubernetes-manifests/paymentservice.yaml; istio mTLS is an optional component"}
+  - {cat: A5, at: checkoutservice, why: "PlaceOrder accepts unauthenticated gRPC calls from any pod.", evidence: src/checkoutservice/main.go}
+  - {cat: A5, at: cartservice, why: "AddItem/EmptyCart take any user_id from any pod: one pod can change every cart.", evidence: protos/demo.proto:23-26}
+  - {cat: A5, at: shippingservice, why: "ShipOrder accepts unauthenticated calls with a delivery address.", evidence: protos/demo.proto:107-109}
+  - {cat: A5, at: emailservice, why: "SendOrderConfirmation sends mail for any caller.", evidence: protos/demo.proto:199-200}
+  - {cat: C8, at: frontend, why: "frontend-external is a LoadBalancer on plain HTTP port 80; checkout sends card data through it.", evidence: kubernetes-manifests/frontend.yaml}

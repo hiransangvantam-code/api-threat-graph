@@ -6,7 +6,7 @@ the previous scan.
 
   Phase 1  runtime traffic   the new lines the mitmproxy sidecar wrote   (/data/capture, in memory)
            traces            the new span batches the OTel Collector wrote (/data/telemetry, in memory)
-           OpenAPI           probed live from the target's services over customer-net
+           OpenAPI           probed live from the target's services over the company network
            infrastructure    the company's manifests, mounted read-only   (/target/<manifests>)
   Phase 2  EUJF records      PostgreSQL table atg_eujf (in memory)
   Phase 3  threat graph      PostgreSQL tables atg_nodes, atg_edges, atg_findings, atg_paths (in memory)
@@ -32,8 +32,9 @@ import traceback
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pages import (CAPTURE, LIVE, OUT, ROOT, SITE, TARGET_CFG, TELEMETRY, WORK, build_results,  # noqa: E402
-                   capture_files, health_checks, load_state, save_state, slug, status_page)
+from pages import (CAPTURE, LIVE, OUT, ROOT, SITE, TELEMETRY, WORK, build_results,  # noqa: E402
+                   capture_files, health_checks, load_state, save_state, slug, status_page,
+                   target_cfg_path)
 
 os.chdir(ROOT)
 TARGET = Path(os.environ.get("ATG_TARGET_DIR", "/target"))
@@ -114,13 +115,19 @@ def main() -> int:
             print("[scan] warning: no traffic captured. Did the customers (users) run go through atg-proxy?", flush=True)
 
         import yaml
-        cfg = yaml.safe_load(TARGET_CFG.read_text(encoding="utf-8"))
+        cfg = yaml.safe_load(target_cfg_path().read_text(encoding="utf-8"))
         src = cfg["sources"]
         src["runtime_traffic"]["capture_files"] = [str(scan_dir / "capture")]
         src["callchain"]["trace_paths"] = [str(scan_dir / "telemetry")]
-        src["infrastructure"]["manifest_paths"] = [str(TARGET / a.manifests)]
+        # the company's own list of manifest folders (opensource/*), else the --manifests folder
+        mp = src["infrastructure"].get("manifest_paths") or []
+        src["infrastructure"]["manifest_paths"] = [str(TARGET / p) for p in mp] if mp else [str(TARGET / a.manifests)]
+        src["infrastructure"]["compose_files"] = [str(TARGET / p) for p in src["infrastructure"].get("compose_files", [])]
         for f in src["openapi"].get("spec_files", []):
             f["path"] = str(TARGET / f["path"])
+        for g in src["infrastructure"].get("gateway_configs", []) or []:   # nginx / Spring Cloud Gateway files
+            g["path"] = str(TARGET / g["path"])
+            g["env_from"] = [str(TARGET / p) for p in g.get("env_from", [])]
         cfg["output_dir"] = str(WORK / "raw")             # Phase 1 JSON: memory only
         cfg["report_path"] = str(WORK / "report.html")
 

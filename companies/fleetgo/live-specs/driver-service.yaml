@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: FleetGo Driver Service API
+  version: 2.5.0
+servers:
+- url: http://driver-service:8080
+paths:
+  /drivers/{driver_id}:
+    get:
+      operationId: get_drivers_driver_id
+      summary: GET /drivers/{driver_id}
+      tags:
+      - driver-service
+      parameters:
+      - name: driver_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  driver_id:
+                    type: integer
+                  phone:
+                    type: string
+                  license_number:
+                    type: string
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+  /drivers/{driver_id}/status:
+    patch:
+      operationId: patch_drivers_driver_id_status
+      summary: PATCH /drivers/{driver_id}/status
+      tags:
+      - driver-service
+      parameters:
+      - name: driver_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  driver_id:
+                    type: integer
+                  status:
+                    type: string
+        '401':
+          description: No valid credential
+        '403':
+          description: Not allowed for this user
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

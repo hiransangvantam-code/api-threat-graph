@@ -1,0 +1,54 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FoodDash Dispatch Service API",
+    "version": "1.7.0"
+  },
+  "host": "dispatch-service:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/dispatch": {
+      "post": {
+        "operationId": "post_dispatch",
+        "summary": "POST /dispatch",
+        "tags": [
+          "dispatch-service"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dispatch_id": {
+                  "type": "integer"
+                },
+                "rider_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}

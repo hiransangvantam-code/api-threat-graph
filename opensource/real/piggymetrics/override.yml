@@ -1,0 +1,8 @@
+# PiggyMetrics' own compose file, plus: the network gets the name ATG joins; the Hystrix dashboard and
+# Turbine stay off. Its gateway publishes host port 80: stop anything else using port 80 first.
+networks:
+  default:
+    name: piggymetrics-net
+services:
+  monitoring: {profiles: ["off"]}
+  turbine-stream-service: {profiles: ["off"]}

@@ -1,0 +1,9 @@
+# Lakeside Mutual's own compose file, plus: the network gets the name ATG joins; the three browser
+# front ends stay off (they are static pages; the APIs behind them are what ATG reviews).
+networks:
+  default:
+    name: lakeside-mutual-net
+services:
+  customer-management-frontend: {profiles: ["off"]}
+  policy-management-frontend: {profiles: ["off"]}
+  customer-self-service-frontend: {profiles: ["off"]}

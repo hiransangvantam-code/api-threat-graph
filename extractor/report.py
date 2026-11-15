@@ -106,6 +106,8 @@ def _service_map_svg(d: dict) -> str:
     cols = defaultdict(list)
     for n in sorted(nodes, key=lambda x: (depth[x], x)):
         cols[depth[n]].append(n)
+    if not cols:   # neither manifests nor traces (a Docker Compose system without tracing): nothing to draw
+        return '<p class="muted">No service map: no deployment manifests and no traces were found.</p>'
     ncols = max(cols) + 1
     colw, nw, nh, rowh, top = 268, 182, 70, 112, 46
     height = max(len(v) for v in cols.values()) * rowh + top + 40
@@ -541,7 +543,7 @@ def _infra_panel(d):
     svc_rows = [[E(s["name"]), _chip(s["type"], "warn" if s["type"] != "ClusterIP" else "info"),
                  f'<span class="mono">{E(", ".join(str(p.get("port")) + (" → node " + str(p["nodePort"]) if p.get("nodePort") else "") for p in s["ports"]))}</span>',
                  E(", ".join(s["selects_workloads"]) or "–")] for s in _recs(inf, "service")]
-    ing_rows = [[E(i["host"] + i["path"]), E(i["backend_service"] or "?"), _chip("TLS", "ok") if i["tls"] else _chip("no TLS", "warn")]
+    ing_rows = [[E((i["host"] or "*") + (i["path"] or "/")), E(i["backend_service"] or "?"), _chip("TLS", "ok") if i["tls"] else _chip("no TLS", "warn")]
                 for i in _recs(inf, "ingress")]
     sec_rows = [[E(s["name"]), f'<span class="mono">{E(", ".join(s["keys"]))}</span>'] for s in _recs(inf, "secret")]
     st = inf["stats"]

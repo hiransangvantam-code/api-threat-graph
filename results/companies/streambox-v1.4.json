@@ -1,0 +1,358 @@
+{
+ "company": "streambox",
+ "users": "StreamBox: 446 requests in 5.8 s, 12 sessions; status codes: 200 x328, 201 x20, 401 x70, 403 x24, 502 x4",
+ "startup_s": 11.0,
+ "scan_s": 7.3,
+ "scan_log": [
+  "[scan] streambox: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 975 HTTP flows from the sidecar, 7 span batches from the Collector (1708 KB cleared from their memory)",
+  "[ok]   runtime_traffic    21 records      27.5 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             6 records      91.6 ms  -> /work/raw/openapi.json",
+  "! kong: no live spec at any probed path",
+  "! billing-service: no live spec at any probed path",
+  "[ok]   infrastructure     32 records      57.4 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          40 records      20.5 ms  -> /work/raw/callchain.json",
+  "[ok]   12 endpoints in 7 services (10 documented, 2 shadow)  -> /work/eujf.json",
+  "[ok]   6 findings (critical 0, high 2, medium 2, low 2), 8 attack paths, path risk 45.6",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] streambox: 12 APIs, 6 findings, 8 attack paths, path risk 45.6",
+  "[scan] threat graph exported to output/site/exports/1-streambox/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-092441-307dd6",
+ "summary": {
+  "findings": 6,
+  "by_severity": {
+   "critical": 0,
+   "high": 2,
+   "medium": 2,
+   "low": 2
+  },
+  "attack_paths": 8,
+  "critical_paths": 2,
+  "total_path_risk": 45.6,
+  "endpoints": 12,
+  "shadow_endpoints": 2,
+  "services": 7,
+  "rules_evaluated": 27,
+  "rules_fired": 4,
+  "label": "streambox"
+ },
+ "eujf_summary": {
+  "services": 7,
+  "endpoints": 12,
+  "inventory": {
+   "documented": 10,
+   "shadow": 2
+  },
+  "confidence": {
+   "HIGH": 10,
+   "MEDIUM": 2,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 10,
+  "endpoints_with_sensitive_data": 3,
+  "dependencies": 6,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "kong",
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/auth/session"
+   ]
+  },
+  {
+   "id": "ep:billing-service:GET:/billing/invoices",
+   "service": "billing-service",
+   "method": "GET",
+   "path": "/billing/invoices",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/billing/invoices"
+   ]
+  },
+  {
+   "id": "ep:billing-service:GET:/billing/invoices/{}",
+   "service": "billing-service",
+   "method": "GET",
+   "path": "/billing/invoices/{invoice_id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/billing/invoices/{invoice_id}"
+   ]
+  },
+  {
+   "id": "ep:billing-service:POST:/billing/payment-methods",
+   "service": "billing-service",
+   "method": "POST",
+   "path": "/billing/payment-methods",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/billing/payment-methods"
+   ]
+  },
+  {
+   "id": "ep:catalog-service:GET:/titles",
+   "service": "catalog-service",
+   "method": "GET",
+   "path": "/titles",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalog/titles"
+   ]
+  },
+  {
+   "id": "ep:catalog-service:GET:/titles/{}",
+   "service": "catalog-service",
+   "method": "GET",
+   "path": "/titles/{title_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalog/titles/{title_id}"
+   ]
+  },
+  {
+   "id": "ep:catalog-service:POST:/titles/{}/playback",
+   "service": "catalog-service",
+   "method": "POST",
+   "path": "/titles/{title_id}/playback",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalog/titles/{title_id}/playback"
+   ]
+  },
+  {
+   "id": "ep:drm-service:POST:/licenses",
+   "service": "drm-service",
+   "method": "POST",
+   "path": "/licenses",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:profile-service:GET:/profiles/{}",
+   "service": "profile-service",
+   "method": "GET",
+   "path": "/profiles/{profile_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/account/profiles/{profile_id}"
+   ]
+  },
+  {
+   "id": "ep:profile-service:PUT:/profiles/{}/preferences",
+   "service": "profile-service",
+   "method": "PUT",
+   "path": "/profiles/{profile_id}/preferences",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/account/profiles/{profile_id}/preferences"
+   ]
+  },
+  {
+   "id": "ep:recommendation-service:GET:/recommendations/{}",
+   "service": "recommendation-service",
+   "method": "GET",
+   "path": "/recommendations/{title_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:billing-service:GET:/billing/invoices/{}",
+   "detail": "GET /billing/invoices/{invoice_id} (billing-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:billing-service:POST:/billing/payment-methods",
+   "detail": "POST /billing/payment-methods (billing-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:recommendation-service",
+   "detail": "recommendation-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "LT-04",
+   "target": "ep:catalog-service:POST:/titles/{}/playback",
+   "detail": "POST /titles/{title_id}/playback (catalog-service): 4 x 5xx, 4 error spans",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:billing-service",
+   "detail": "billing-service: no live spec; 1 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-04",
+   "target": "ep:recommendation-service:GET:/recommendations/{}",
+   "detail": "GET /recommendations/{title_id} (recommendation-service): 4 x 5xx, 4 error spans",
+   "severity": "low",
+   "score": 2
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/account",
+   "upstream_service": "profile-service",
+   "auth": "required",
+   "gateway": "kong",
+   "strip_prefix": "/api/account",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/catalog",
+   "upstream_service": "catalog-service",
+   "auth": "required",
+   "gateway": "kong",
+   "strip_prefix": "/api/catalog",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/auth",
+   "upstream_service": "auth-service",
+   "auth": "none",
+   "gateway": "kong",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/billing",
+   "upstream_service": "billing-service",
+   "auth": "required",
+   "gateway": "kong",
+   "strip_prefix": null,
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "billing-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "catalog-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "drm-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "kong",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "profile-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "recommendation-service",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ]
+}

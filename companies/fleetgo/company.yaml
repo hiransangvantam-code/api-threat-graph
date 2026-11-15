@@ -1,0 +1,90 @@
+# FleetGo: parcel logistics. Go services in an Istio mesh with STRICT mTLS.
+id: fleetgo
+name: FleetGo
+industry: Logistics (parcel delivery)
+about: Shippers create shipments and track them; dispatch staff manage drivers. Istio's ingress gateway has its own load balancer, and an ext-authz policy checks sessions.
+language: go
+credential: bearer
+domain: api.fleetgo.example
+mtls: true
+spec: {path: /openapi.yaml, version: 3.0.3, format: yaml}
+
+gateway:
+  name: ingress-gateway
+  type: istio
+  expose: loadbalancer
+  envoy_login_limit: 60
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false}
+    - {prefix: /api/shipments, service: shipment-service, to: /shipments}
+    - {prefix: /api/tracking, service: tracking-service, to: /tracking}
+    - {prefix: /api/drivers, service: driver-service, to: /drivers}
+
+services:
+  auth-service: {version: 1.2.0}
+
+  shipment-service:
+    version: 6.1.0
+    routes:
+      POST /shipments:
+        body: {origin_hub: BKK1, destination_hub: CNX2, weight_kg: 2}
+        calls: [{to: GET pricing-service /quotes, forward_auth: false}]
+        status: 201
+        returns: {shipment_id: $n, status: created}
+      GET /shipments/{shipment_id}:
+        owner: shipment_id
+        returns: {shipment_id: $shipment_id, customer_id: $owner, status: in_transit, delivery_address: "***"}
+        weight: 3
+      GET /shipments/{shipment_id}/label:
+        owner: shipment_id
+        returns: {shipment_id: $shipment_id, format: zpl}
+
+  pricing-service:
+    version: 1.0.7
+    routes:
+      GET /quotes:
+        auth: none
+        client: none
+        returns: {price: 120, currency: THB}
+
+  tracking-service:
+    version: 3.4.1
+    routes:
+      GET /tracking/{shipment_id}:
+        owner: shipment_id
+        returns: {shipment_id: $shipment_id, customer_id: $owner, last_scan: CNX2, eta: "2026-11-14"}
+        weight: 3
+      GET /tracking/{shipment_id}/history:
+        owner: shipment_id
+        in_spec: false
+        returns: {shipment_id: $shipment_id, customer_id: $owner, items: [{scan: BKK1, at: "08:00"}]}
+      GET /tracking/debug/pprof/goroutine:
+        auth: none
+        client: customer
+        weight: 1
+        in_spec: false
+        returns: {goroutines: 42, heap_inuse_bytes: 1048576}
+
+  driver-service:
+    version: 2.5.0
+    flaws: [privileged, nodeport]
+    routes:
+      GET /drivers/{driver_id}:
+        auth: admin
+        returns: {driver_id: $driver_id, phone: "***", license_number: "***", status: on_shift}
+      PATCH /drivers/{driver_id}/status:
+        auth: admin
+        body: {status: on_break}
+        returns: {driver_id: $driver_id, status: on_break}
+
+planted:
+  - {rule: API8-DEBUG, at: "GET /tracking/debug/pprof/goroutine", why: "Go's pprof profiler is reachable through the public tracking route."}
+  - {rule: API9-SHADOW, at: "GET /tracking/{shipment_id}/history", why: "Scan history endpoint the spec does not list."}
+  - {rule: API9-SHADOW, at: "GET /tracking/debug/pprof/goroutine", why: "The profiler is not in the spec either."}
+  - {rule: API8-PRIV, at: driver-service, why: "Runs privileged."}
+  - {rule: API8-NODEPORT, at: driver-service, why: "A NodePort left from a dispatch console makes it reachable on every node."}
+
+not_flaws:
+  - {rule: TS-08, at: "GET /quotes", why: "STRICT mTLS: only mesh workloads with an identity can call the pricing service."}
+  - {rule: TS-02, at: ingress-gateway, why: "Every route except login is behind the CUSTOM (ext-authz) AuthorizationPolicy."}
+  - {rule: TS-07, at: "POST /auth/session", why: "An EnvoyFilter local rate limit protects the login path."}

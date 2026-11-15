@@ -1,0 +1,572 @@
+{
+ "applicable": true,
+ "pairs": [
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/customers"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/customers/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/interaction-logs/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/notifications"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:PATCH:/interaction-logs/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:PUT:/customers/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-self-service-backend:GET:/cities/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-self-service-backend:POST:/auth"
+  ],
+  [
+   "A1",
+   "ep:customer-self-service-backend:POST:/auth/signup"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:DELETE:/policies/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/customers"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/customers/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/customers/{}/policies"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/insurance-quote-requests"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/insurance-quote-requests/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/policies"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/policies/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:POST:/policies"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:POST:/riskfactor/compute"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:PUT:/policies/{}"
+  ],
+  [
+   "A6",
+   "ep:customer-self-service-backend:POST:/auth"
+  ],
+  [
+   "A6",
+   "ep:customer-self-service-backend:POST:/auth/signup"
+  ],
+  [
+   "C8",
+   "svc:customer-core"
+  ],
+  [
+   "C8",
+   "svc:customer-management-backend"
+  ],
+  [
+   "C8",
+   "svc:customer-self-service-backend"
+  ],
+  [
+   "C8",
+   "svc:policy-management-backend"
+  ]
+ ],
+ "raw": {
+  "owasp:api9:2023-inventory-access": 4,
+  "owasp:api8:2023-no-server-http": 4,
+  "owasp:api4:2023-rate-limit-responses-429": 74,
+  "owasp:api8:2023-define-error-responses-401": 74,
+  "owasp:api8:2023-define-error-responses-500": 74,
+  "owasp:api8:2023-define-error-validation": 37,
+  "owasp:api4:2023-rate-limit": 37,
+  "owasp:api4:2023-array-limit": 15,
+  "owasp:api4:2023-integer-format": 40,
+  "owasp:api4:2023-integer-limit-legacy": 40,
+  "owasp:api4:2023-string-limit": 79,
+  "owasp:api4:2023-string-restricted": 79,
+  "owasp:api2:2023-jwt-best-practices": 4,
+  "owasp:api2:2023-write-restricted": 9,
+  "owasp:api2:2023-read-restricted": 12
+ },
+ "seconds": 3.62,
+ "findings": 582,
+ "score": {
+  "labels": 80,
+  "found": 11,
+  "reported": 27,
+  "confirmed": 11,
+  "by_group": {
+   "Configuration": {
+    "labels": 63,
+    "found": 3,
+    "reported": 4,
+    "confirmed": 3
+   },
+   "API behaviour": {
+    "labels": 11,
+    "found": 8,
+    "reported": 23,
+    "confirmed": 8
+   },
+   "Inventory and visibility": {
+    "labels": 6,
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
+   }
+  },
+  "by_cat": {
+   "A1": {
+    "labels": 7,
+    "found": 7
+   },
+   "A2": {
+    "labels": 1,
+    "found": 0
+   },
+   "A3": {
+    "labels": 1,
+    "found": 0
+   },
+   "A6": {
+    "labels": 1,
+    "found": 1
+   },
+   "A9": {
+    "labels": 1,
+    "found": 0
+   },
+   "C1": {
+    "labels": 9,
+    "found": 0
+   },
+   "C10": {
+    "labels": 9,
+    "found": 0
+   },
+   "C3": {
+    "labels": 9,
+    "found": 0
+   },
+   "C4": {
+    "labels": 9,
+    "found": 0
+   },
+   "C5": {
+    "labels": 2,
+    "found": 0
+   },
+   "C6": {
+    "labels": 9,
+    "found": 0
+   },
+   "C7": {
+    "labels": 1,
+    "found": 0
+   },
+   "C8": {
+    "labels": 6,
+    "found": 3
+   },
+   "C9": {
+    "labels": 9,
+    "found": 0
+   },
+   "O1": {
+    "labels": 1,
+    "found": 0
+   },
+   "O2": {
+    "labels": 5,
+    "found": 0
+   }
+  },
+  "missed": [
+   [
+    "A2",
+    "ep:customer-self-service-backend:GET:/customers/{}"
+   ],
+   [
+    "A3",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "A9",
+    "ep:customer-management-backend:GET:/customers"
+   ],
+   [
+    "C1",
+    "svc:customer-core"
+   ],
+   [
+    "C1",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C1",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C1",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C1",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C1",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C1",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C1",
+    "svc:risk-management-server"
+   ],
+   [
+    "C1",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C10",
+    "svc:customer-core"
+   ],
+   [
+    "C10",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C10",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C10",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C10",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C10",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C10",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C10",
+    "svc:risk-management-server"
+   ],
+   [
+    "C10",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C3",
+    "svc:customer-core"
+   ],
+   [
+    "C3",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C3",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C3",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C3",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C3",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C3",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C3",
+    "svc:risk-management-server"
+   ],
+   [
+    "C3",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C4",
+    "svc:customer-core"
+   ],
+   [
+    "C4",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C4",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C4",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C4",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C4",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C4",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C4",
+    "svc:risk-management-server"
+   ],
+   [
+    "C4",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C5",
+    "svc:risk-management-server"
+   ],
+   [
+    "C5",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C6",
+    "svc:customer-core"
+   ],
+   [
+    "C6",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C6",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C6",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C6",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C6",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C6",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C6",
+    "svc:risk-management-server"
+   ],
+   [
+    "C6",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "C7",
+    "svc:customer-core"
+   ],
+   [
+    "C8",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C8",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C8",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C9",
+    "svc:customer-core"
+   ],
+   [
+    "C9",
+    "svc:customer-management-backend"
+   ],
+   [
+    "C9",
+    "svc:customer-management-frontend"
+   ],
+   [
+    "C9",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "C9",
+    "svc:customer-self-service-frontend"
+   ],
+   [
+    "C9",
+    "svc:policy-management-backend"
+   ],
+   [
+    "C9",
+    "svc:policy-management-frontend"
+   ],
+   [
+    "C9",
+    "svc:risk-management-server"
+   ],
+   [
+    "C9",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "O1",
+    "svc:spring-boot-admin"
+   ],
+   [
+    "O2",
+    "svc:customer-core"
+   ],
+   [
+    "O2",
+    "svc:customer-management-backend"
+   ],
+   [
+    "O2",
+    "svc:customer-self-service-backend"
+   ],
+   [
+    "O2",
+    "svc:policy-management-backend"
+   ],
+   [
+    "O2",
+    "svc:spring-boot-admin"
+   ]
+  ],
+  "unconfirmed": [
+   [
+    "A1",
+    "ep:customer-management-backend:GET:/customers/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-management-backend:GET:/notifications"
+   ],
+   [
+    "A1",
+    "ep:customer-management-backend:PATCH:/interaction-logs/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-self-service-backend:GET:/cities/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-self-service-backend:POST:/auth"
+   ],
+   [
+    "A1",
+    "ep:customer-self-service-backend:POST:/auth/signup"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/customers/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/customers/{}/policies"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/insurance-quote-requests"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/insurance-quote-requests/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/policies/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:POST:/riskfactor/compute"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:PUT:/policies/{}"
+   ],
+   [
+    "A6",
+    "ep:customer-self-service-backend:POST:/auth/signup"
+   ],
+   [
+    "C8",
+    "svc:customer-core"
+   ]
+  ],
+  "in_reach": {
+   "labels": 14,
+   "found": 11
+  }
+ }
+}

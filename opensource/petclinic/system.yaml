@@ -1,0 +1,80 @@
+# Spring PetClinic Microservices: gateway routes from spring-petclinic-api-gateway/src/main/resources/
+# application.yml (new spring.cloud.gateway.server.webflux keys), service routes from the
+# *Resource.java classes, deployment from docker-compose.yml.
+id: petclinic
+name: Spring PetClinic Microservices
+field: Veterinary clinic
+by: Spring community
+upstream: {repo: https://github.com/spring-petclinic/spring-petclinic-microservices, commit: e8b747ab522721076cacb5cf688eb8a54ba8c5c9, license: Apache-2.0}
+languages: [Java]
+artifacts:
+  compose: docker-compose.yml
+  gateway_configs:
+    - {path: spring-petclinic-api-gateway/src/main/resources/application.yml, type: spring-cloud-gateway, service: api-gateway}
+gateway:
+  name: api-gateway
+  port: 8080
+  type: spring-cloud-gateway
+  routes:
+    - {prefix: /api/vet, service: vets-service, to: ""}
+    - {prefix: /api/visit, service: visits-service, to: ""}
+    - {prefix: /api/customer, service: customers-service, to: ""}
+    - {prefix: /api/genai, service: genai-service, to: ""}
+  own_routes:
+    GET /api/gateway/owners/{ownerId}: {calls: ["GET customers-service /owners/{ownerId}", "GET visits-service /pets/visits"], returns: {id: $ownerId, firstName: "***", lastName: "***", address: "***", telephone: "***", pets: [{id: 1, name: Leo}]}, weight: 3}
+traced: true          # Micrometer tracing to Zipkin (tracing-server)
+services:
+  customers-service:
+    port: 8081
+    language: Java
+    routes:
+      POST /owners: {body: {firstName: "***", lastName: "***", address: "***", city: Bangkok, telephone: "***"}, status: 201, returns: {id: $n}, weight: 1}
+      GET /owners/{ownerId}: {returns: {id: $ownerId, firstName: "***", lastName: "***", address: "***", city: Bangkok, telephone: "***"}, weight: 2}
+      GET /owners: {returns: [{id: $n, firstName: "***", lastName: "***", address: "***", telephone: "***"}], weight: 2}
+      PUT /owners/{ownerId}: {body: {firstName: "***", lastName: "***", address: "***", city: Bangkok, telephone: "***"}, returns: {}, weight: 1}
+      GET /petTypes: {returns: [{id: 1, name: cat}]}
+      POST /owners/{ownerId}/pets: {body: {name: Leo, birthDate: "2020-01-01", typeId: 1}, status: 201, returns: {id: $n}, weight: 1}
+      PUT /owners/{ownerId}/pets/{petId}: {body: {name: Leo, birthDate: "2020-01-01", typeId: 1}, returns: {}, weight: 1}
+      GET /owners/{ownerId}/pets/{petId}: {returns: {id: $petId, name: Leo, owner: "***"}}
+  visits-service:
+    port: 8082
+    language: Java
+    routes:
+      POST /owners/{ownerId}/pets/{petId}/visits: {body: {date: "2026-11-01", description: checkup}, status: 201, returns: {id: $n}, weight: 1}
+      GET /owners/{ownerId}/pets/{petId}/visits: {returns: [{id: $n, date: "2026-11-01", description: checkup}]}
+      GET /pets/visits: {query: {petId: 7}, returns: {items: [{id: $n, petId: 7}]}}
+  vets-service:
+    port: 8083
+    language: Java
+    routes:
+      GET /vets: {returns: [{id: 1, firstName: James, lastName: Carter, specialties: [radiology]}], weight: 2}
+  genai-service:
+    port: 8084
+    language: Java
+    routes:
+      POST /chatclient: {body: {message: "list the owners"}, calls: ["GET customers-service /owners"], external: [POST openai-api /v1/chat/completions], returns: {answer: ok}, weight: 1}
+  admin-server:
+    port: 9090
+    language: Java
+    routes:
+      GET /applications: {client: none, returns: [{name: CUSTOMERS-SERVICE, status: UP}]}
+  config-server:
+    port: 8888
+    language: Java
+    routes:
+      GET /{application}/{profile}: {client: none, returns: {name: customers-service, propertySources: [{name: config}]}}
+external:
+  openai-api:
+    routes:
+      POST /v1/chat/completions: {returns: {choices: []}}
+cron:
+  - {name: ops-console, every: 3, calls: ["GET admin-server /applications", "GET config-server /customers-service/docker"]}
+labels:
+  - {cat: A1, at: "GET /owners (customers-service)", why: "All owners with addresses and phone numbers, no login anywhere in the system.", evidence: OwnerResource.java:75}
+  - {cat: A9, at: "GET /owners (customers-service)", why: "Bulk personal data in one anonymous response.", evidence: OwnerResource.java:75}
+  - {cat: A1, at: "PUT /owners/{ownerId} (customers-service)", why: "Anyone can change any owner's details.", evidence: OwnerResource.java:83}
+  - {cat: A1, at: "GET /owners/{ownerId} (customers-service)", why: "Owner details by id, no login.", evidence: OwnerResource.java:67}
+  - {cat: A3, at: admin-server, why: "Spring Boot Admin (all services' health, logs, env) is published on port 9090 with no login.", evidence: docker-compose.yml}
+  - {cat: A4, at: config-server, why: "The config server is published on port 8888 and hands out every service's configuration.", evidence: docker-compose.yml}
+  - {cat: A10, at: genai-service, why: "Calls the OpenAI / Azure OpenAI API.", evidence: docker-compose.yml (OPENAI_API_KEY)}
+  - {cat: C8, at: api-gateway, why: "Published on plain HTTP port 8080.", evidence: docker-compose.yml}

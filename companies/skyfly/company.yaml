@@ -1,0 +1,99 @@
+# SkyFly: an airline. Node.js services behind Spring Cloud Gateway; travel partners use API keys.
+id: skyfly
+name: SkyFly
+industry: Airline (booking and check-in)
+about: Customers search flights, book and check in online. Travel agencies pull bookings through a partner API with an API key.
+language: node
+credential: bearer
+domain: api.skyfly.example
+spec: {path: /api-docs, version: 3.0.3, format: json}
+
+gateway:
+  name: api-gateway
+  type: spring-cloud-gateway
+  version: 3.1.4
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/flights, service: flight-service, to: /flights}
+    - {prefix: /api/bookings, service: booking-service, to: /bookings}
+    - {prefix: /api/checkin, service: checkin-service, to: /checkin, auth: false}
+    - {prefix: /partner, service: partner-api, to: /partner}
+
+services:
+  auth-service: {version: 1.4.2}
+
+  flight-service:
+    version: 5.0.3
+    routes:
+      GET /flights:
+        query: {from: BKK, to: CNX, date: "2026-12-01"}
+        returns: {items: [{flight_id: $n, origin: BKK, destination: CNX, departs: "08:15"}]}
+        weight: 3
+      GET /flights/{flight_id}:
+        returns: {flight_id: $flight_id, origin: BKK, destination: CNX, aircraft: A320, seats_left: 12}
+
+  booking-service:
+    version: 3.3.0
+    routes:
+      POST /bookings:
+        body: {flight_id: 120, seats: 1}
+        external: [GET gds-provider /availability]
+        status: 201
+        returns: {booking_id: $n, status: held}
+      GET /bookings/{booking_id}:
+        owner: booking_id
+        returns: {booking_id: $booking_id, customer_id: $owner, flight_id: 120, passport_number: "***"}
+      POST /bookings/{booking_id}/webhooks:
+        owner: booking_id
+        body: {webhook_url: "https://hooks.example.org/skyfly/updates", events: [delay]}
+        status: 201
+        weight: 1
+        returns: {booking_id: $booking_id, webhook_id: $n}
+
+  checkin-service:
+    version: 2.0.0
+    flaws: [no_limits]
+    routes:
+      GET /checkin/{booking_id}:
+        auth: none
+        returns: {booking_id: $booking_id, passenger: "***", passport_number: "***", seat: 14C, gate: B3}
+      POST /checkin/{booking_id}/boarding-pass:
+        auth: none
+        body: {seat: 14C}
+        status: 201
+        returns: {booking_id: $booking_id, boarding_group: 3}
+
+  partner-api:
+    version: 2.2.0
+    routes:
+      GET /partner/bookings:
+        auth: partner
+        query: {since: "2026-11-01"}
+        returns: {items: [{booking_id: $n, customer_id: c1, email: "***"}]}
+      GET /partner/v1/fares:
+        auth: partner
+        deprecated: true
+        ua: AgencySync/1.8
+        returns: {items: [{fare_class: Y, amount: 0}]}
+      GET /partner/v2/fares:
+        auth: partner
+        returns: {items: [{fare_class: Y, amount: 0, currency: THB}]}
+
+external:
+  gds-provider:
+    routes:
+      GET /availability: {returns: {flight: 120, seats: 12}}
+
+planted:
+  - {rule: TS-02, at: api-gateway, match: /api/checkin, why: "The check-in route has no TokenRelay filter: the gateway lets anyone through."}
+  - {rule: TS-01, at: "GET /checkin/{booking_id}", why: "Check-in details, passport number included, for anyone who guesses a booking number."}
+  - {rule: TS-01, at: "POST /checkin/{booking_id}/boarding-pass", why: "Anyone can issue a boarding pass for any booking number."}
+  - {rule: API7, at: "POST /bookings/{booking_id}/webhooks", why: "Takes a webhook_url the server will call later."}
+  - {rule: API10, at: booking-service, match: gds-provider, why: "Seat availability comes from an outside GDS."}
+  - {rule: API9-ZOMBIE, at: "GET /partner/v1/fares", why: "Deprecated v1 still used by agencies."}
+  - {rule: API4, at: checkin-service, why: "No CPU or memory limits on a service the internet reaches."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "RequestRateLimiter is on the login route."}
+  - {rule: API3, at: "GET /partner/bookings", why: "Bulk data, but only to keyed partners, its intended audience."}
+  - {rule: API1, at: "GET /bookings/{booking_id}", why: "Owner check present: other customers get 403."}

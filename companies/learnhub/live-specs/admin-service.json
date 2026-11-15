@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LearnHub Admin Service API",
+    "version": "0.4.0"
+  },
+  "servers": [
+    {
+      "url": "http://admin-service:3000"
+    }
+  ],
+  "paths": {
+    "/admin/stats": {
+      "get": {
+        "operationId": "get_admin_stats",
+        "summary": "GET /admin/stats",
+        "tags": [
+          "admin-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "active_users": {
+                      "type": "integer"
+                    },
+                    "courses": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/admin/users/export": {
+      "get": {
+        "operationId": "get_admin_users_export",
+        "summary": "GET /admin/users/export",
+        "tags": [
+          "admin-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user_id": {
+                            "type": "integer"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

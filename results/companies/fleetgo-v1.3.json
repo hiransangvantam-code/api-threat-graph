@@ -1,0 +1,584 @@
+{
+ "company": "fleetgo",
+ "users": "FleetGo: 466 requests in 3.0 s, 14 sessions; status codes: 200 x314, 201 x40, 401 x53, 403 x59",
+ "startup_s": 9.7,
+ "scan_s": 7.2,
+ "scan_log": [
+  "[scan] fleetgo: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 954 HTTP flows from the sidecar, 4 span batches from the Collector (1612 KB cleared from their memory)",
+  "[ok]   runtime_traffic    20 records      18.7 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      50.3 ms  -> /work/raw/openapi.json",
+  "! ingress-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     29 records      35.9 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          39 records      21.2 ms  -> /work/raw/callchain.json",
+  "[ok]   20 endpoints in 6 services (9 documented, 11 shadow)  -> /work/eujf.json",
+  "[ok]   31 findings (critical 0, high 1, medium 20, low 10), 2 attack paths, path risk 22",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] fleetgo: 20 APIs, 31 findings, 2 attack paths, path risk 22",
+  "[scan] threat graph exported to output/site/exports/1-fleetgo/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261113-055426-1e2fe9",
+ "summary": {
+  "findings": 31,
+  "by_severity": {
+   "critical": 0,
+   "high": 1,
+   "medium": 20,
+   "low": 10
+  },
+  "attack_paths": 2,
+  "critical_paths": 1,
+  "total_path_risk": 22.0,
+  "endpoints": 20,
+  "shadow_endpoints": 11,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 7,
+  "label": "fleetgo"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 20,
+  "inventory": {
+   "documented": 9,
+   "shadow": 11
+  },
+  "confidence": {
+   "HIGH": 9,
+   "MEDIUM": 11,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 0,
+  "endpoints_with_sensitive_data": 4,
+  "dependencies": 5,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:driver-service:GET:/drivers/{}",
+   "service": "driver-service",
+   "method": "GET",
+   "path": "/drivers/{driver_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:driver-service:PATCH:/drivers/{}/status",
+   "service": "driver-service",
+   "method": "PATCH",
+   "path": "/drivers/{driver_id}/status",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:POST:/api/auth/session",
+   "service": "ingress-gateway",
+   "method": "POST",
+   "path": "/api/auth/session",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:GET:/api/drivers/{}",
+   "service": "ingress-gateway",
+   "method": "GET",
+   "path": "/api/drivers/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:PATCH:/api/drivers/{}/status",
+   "service": "ingress-gateway",
+   "method": "PATCH",
+   "path": "/api/drivers/{id}/status",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:POST:/api/shipments",
+   "service": "ingress-gateway",
+   "method": "POST",
+   "path": "/api/shipments",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:GET:/api/shipments/{}",
+   "service": "ingress-gateway",
+   "method": "GET",
+   "path": "/api/shipments/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:GET:/api/shipments/{}/label",
+   "service": "ingress-gateway",
+   "method": "GET",
+   "path": "/api/shipments/{id}/label",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:GET:/api/tracking/debug/pprof/goroutine",
+   "service": "ingress-gateway",
+   "method": "GET",
+   "path": "/api/tracking/debug/pprof/goroutine",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:GET:/api/tracking/{}",
+   "service": "ingress-gateway",
+   "method": "GET",
+   "path": "/api/tracking/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ingress-gateway:GET:/api/tracking/{}/history",
+   "service": "ingress-gateway",
+   "method": "GET",
+   "path": "/api/tracking/{id}/history",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:pricing-service:GET:/quotes",
+   "service": "pricing-service",
+   "method": "GET",
+   "path": "/quotes",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:shipment-service:POST:/shipments",
+   "service": "shipment-service",
+   "method": "POST",
+   "path": "/shipments",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:shipment-service:GET:/shipments/{}",
+   "service": "shipment-service",
+   "method": "GET",
+   "path": "/shipments/{shipment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:shipment-service:GET:/shipments/{}/label",
+   "service": "shipment-service",
+   "method": "GET",
+   "path": "/shipments/{shipment_id}/label",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+   "service": "tracking-service",
+   "method": "GET",
+   "path": "/tracking/debug/pprof/goroutine",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:tracking-service:GET:/tracking/{}",
+   "service": "tracking-service",
+   "method": "GET",
+   "path": "/tracking/{shipment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:tracking-service:GET:/tracking/{}/history",
+   "service": "tracking-service",
+   "method": "GET",
+   "path": "/tracking/{shipment_id}/history",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:driver-service",
+   "detail": "driver-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-PRIV",
+   "target": "svc:driver-service",
+   "detail": "driver-service runs with privileged: true",
+   "severity": "medium",
+   "score": 10
+  },
+  {
+   "rule": "LT-01",
+   "target": "svc:ingress-gateway",
+   "detail": "50 trace(s) start at ingress-gateway GET /api/drivers/** with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "svc:ingress-gateway",
+   "detail": "133 trace(s) start at ingress-gateway GET /api/shipments/** with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "svc:ingress-gateway",
+   "detail": "150 trace(s) start at ingress-gateway GET /api/tracking/** with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "svc:ingress-gateway",
+   "detail": "55 trace(s) start at ingress-gateway PATCH /api/drivers/** with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "svc:ingress-gateway",
+   "detail": "34 trace(s) start at ingress-gateway POST /api/auth/** with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "LT-01",
+   "target": "svc:ingress-gateway",
+   "detail": "44 trace(s) start at ingress-gateway POST /api/shipments/** with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:GET:/api/drivers/{}",
+   "detail": "GET /api/drivers/{id} (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:GET:/api/shipments/{}",
+   "detail": "GET /api/shipments/{id} (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:ingress-gateway:POST:/api/auth/session",
+   "detail": "POST /api/auth/session (ingress-gateway): 20 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:auth-service:POST:/auth/session",
+   "detail": "POST /auth/session (auth-service): 20 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:GET:/api/shipments/{}/label",
+   "detail": "GET /api/shipments/{id}/label (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:GET:/api/tracking/debug/pprof/goroutine",
+   "detail": "GET /api/tracking/debug/pprof/goroutine (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:GET:/api/tracking/{}",
+   "detail": "GET /api/tracking/{id} (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:GET:/api/tracking/{}/history",
+   "detail": "GET /api/tracking/{id}/history (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+   "detail": "GET /tracking/debug/pprof/goroutine (tracking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:tracking-service:GET:/tracking/{}/history",
+   "detail": "GET /tracking/{shipment_id}/history (tracking-service) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:PATCH:/api/drivers/{}/status",
+   "detail": "PATCH /api/drivers/{id}/status (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:POST:/api/auth/session",
+   "detail": "POST /api/auth/session (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ingress-gateway:POST:/api/shipments",
+   "detail": "POST /api/shipments (ingress-gateway) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ingress-gateway",
+   "detail": "ingress-gateway: no live spec; 0 of 9 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:GET:/api/drivers/{}",
+   "detail": "GET /api/drivers/{id} (ingress-gateway): 50 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:GET:/api/shipments/{}",
+   "detail": "GET /api/shipments/{id} (ingress-gateway): 77 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:GET:/api/shipments/{}/label",
+   "detail": "GET /api/shipments/{id}/label (ingress-gateway): 56 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:GET:/api/tracking/debug/pprof/goroutine",
+   "detail": "GET /api/tracking/debug/pprof/goroutine (ingress-gateway): 20 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:GET:/api/tracking/{}",
+   "detail": "GET /api/tracking/{id} (ingress-gateway): 75 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:GET:/api/tracking/{}/history",
+   "detail": "GET /api/tracking/{id}/history (ingress-gateway): 55 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:PATCH:/api/drivers/{}/status",
+   "detail": "PATCH /api/drivers/{id}/status (ingress-gateway): 55 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:POST:/api/auth/session",
+   "detail": "POST /api/auth/session (ingress-gateway): 34 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ingress-gateway:POST:/api/shipments",
+   "detail": "POST /api/shipments (ingress-gateway): 44 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": "/auth",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/drivers",
+   "upstream_service": "driver-service",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": "/drivers",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/shipments",
+   "upstream_service": "shipment-service",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": "/shipments",
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/api/tracking",
+   "upstream_service": "tracking-service",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": "/tracking",
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "driver-service",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "ingress-gateway",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "pricing-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "shipment-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "tracking-service",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ]
+}

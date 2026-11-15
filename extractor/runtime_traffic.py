@@ -85,18 +85,28 @@ def load_flows(paths: list[str]) -> tuple[list[dict], list[str], list[str]]:
 
 
 _KEY_HEADER = re.compile(r"(token|api[-_]?key|apikey|secret|signature)", re.I)
+# cookie names that carry a login session, and query parameters that carry a credential
+_SESSION_COOKIE = re.compile(r"^(sid|sessionid|session|jsessionid|connect\.sid|phpsessid|.*[_.-](sid|session)|.*auth.*|.*token.*)$", re.I)
+_QUERY_CRED = re.compile(r"^(access_?token|token|api_?key|apikey|session(_?id)?|sid|auth(_?token)?)$", re.I)
 _ASSET = re.compile(r"\.(js|mjs|css|map|png|jpe?g|gif|svg|ico|webp|woff2?|ttf|eot|txt|webmanifest)$|^/static/", re.I)
 
 
-def _auth_scheme(headers: dict) -> str | None:
-    """Authorization header scheme ("Bearer"), or an API-key style header
-    (X-Service-Token, X-API-Key) that the addon redacted."""
+def _auth_scheme(headers: dict, query_keys=()) -> str | None:
+    """Authorization header scheme ("Bearer"), an API-key style header (X-Service-Token,
+    X-API-Key) that the addon redacted, a session cookie (only its name is captured), or a
+    credential in the query string."""
     v = headers.get("authorization")
     if v:
         return v.strip("<>")
     for name, val in headers.items():
         if val == "<redacted>" and _KEY_HEADER.search(name):
             return f"apiKey({name})"
+    cookies = [n for n in str(headers.get("cookie", "")).strip("<>").split(",") if _SESSION_COOKIE.match(n.strip())]
+    if cookies:
+        return f"cookie({cookies[0].strip()})"
+    q = [k for k in query_keys or () if _QUERY_CRED.match(k)]
+    if q:
+        return f"query({q[0]})"
     return None
 
 
@@ -151,7 +161,7 @@ def extract(cfg: dict, service_map: dict[str, str], run_id: str) -> dict:
         if fl.get("error"):
             g["errors"] += 1
         hdr = fl.get("req_headers", {}) or {}
-        scheme = _auth_scheme(hdr)
+        scheme = _auth_scheme(hdr, fl.get("query_keys"))
         if scheme:
             g["auth_present"] += 1
             g["auth_schemes"].add(scheme)

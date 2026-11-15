@@ -1,0 +1,183 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "StreamBox Catalog Service API",
+    "version": "7.2.0"
+  },
+  "servers": [
+    {
+      "url": "http://catalog-service:8000"
+    }
+  ],
+  "paths": {
+    "/titles": {
+      "get": {
+        "operationId": "get_titles",
+        "summary": "GET /titles",
+        "tags": [
+          "catalog-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title_id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "genre": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/titles/{title_id}": {
+      "get": {
+        "operationId": "get_titles_title_id",
+        "summary": "GET /titles/{title_id}",
+        "tags": [
+          "catalog-service"
+        ],
+        "parameters": [
+          {
+            "name": "title_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title_id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "seasons": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/titles/{title_id}/playback": {
+      "post": {
+        "operationId": "post_titles_title_id_playback",
+        "summary": "POST /titles/{title_id}/playback",
+        "tags": [
+          "catalog-service"
+        ],
+        "parameters": [
+          {
+            "name": "title_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title_id": {
+                      "type": "integer"
+                    },
+                    "manifest": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sid"
+      }
+    }
+  }
+}

@@ -175,6 +175,8 @@ def ts01(ctx: Context):
       snippet="routes:\n  - prefix: /api/payments\n    service: payment-service\n    auth: required      # was: none",
       exposure_sensitive=False)
 def ts02(ctx: Context):
+    if not ctx.gateway:   # routes whose gateway workload is not in the manifests cannot be attributed
+        return
     for r in ctx.d["gateway_routes"]:
         if r["auth"] not in ("none", "unspecified"):
             continue
@@ -231,28 +233,39 @@ def ts04(ctx: Context):
                       risk="account_takeover" if signing else "credential_compromise")
 
 
-@rule(id="TS-05", group="Token security", title="Tokens and data cross the internet without TLS",
-      description="The public ingress has no TLS, and traffic through it carries Authorization headers and "
-                  "personal data, so they can be read or replayed on the network.",
+@rule(id="TS-05", group="Token security", title="Public entry serves the API without TLS",
+      description="The public entry (Ingress, load balancer, Istio Gateway or published port) has no TLS, so "
+                  "Authorization headers and personal data sent through it can be read or replayed on the "
+                  "network. The evidence says how many public endpoints carried them in this capture.",
       risk="account_takeover", likelihood=3, impact=4, owasp="API8:2023 Security Misconfiguration",
       cwe=["CWE-319"], attack=["T1557", "T1040"], nist=["SP 800-95", "SP 800-204"],
       mitigation=["Terminate TLS at the ingress (tls: section + certificate) and redirect HTTP to HTTPS.",
                   "Send Strict-Transport-Security so browsers never fall back to HTTP."],
-      snippet="spec:\n  tls:\n    - hosts: [shop.example.com]\n      secretName: shop-tls",
+      snippet="spec:\n  tls:\n    - hosts: [api.example.com]\n      secretName: api-tls",
       exposure_sensitive=False)
 def ts05(ctx: Context):
-    for ing in ctx.d["ingress"]:
-        if ing["tls"]:
-            continue
-        with_tokens = [e for e in ctx.endpoints if e["sources"].get("public_traffic") and e["auth_observed"]["authenticated_calls"]]
-        with_data = [e for e in ctx.endpoints if e["sources"].get("public_traffic") and e["data_classes"]]
-        if not (with_tokens or with_data):
-            continue
-        gw = ctx.services.get(ing["backend_service"], {})
-        yield Hit(gw.get("id", f"svc:{ing['backend_service']}"), f"ingress {ing['host']}{ing['path']} serves the API over plain HTTP",
+    public = [e for e in ctx.endpoints if e["public_paths"] and (e["sources"].get("public_traffic") or e["sources"].get("traffic"))]
+    with_tokens = [e for e in public if e["auth_observed"]["authenticated_calls"]]
+    with_data = [e for e in public if e["data_classes"]]
+    if not public:
+        return
+    # an Ingress without TLS, and (version 1.5) a LoadBalancer Service, Istio Gateway or published compose
+    # port in front of the gateway or the edge service that serves plain HTTP. An Istio Gateway whose
+    # ingress workload is not in the manifests (installed with Istio) is in front of the gateway / edge.
+    # Version 1.5 also flags a plain-HTTP entry that carried no token or sensitive data in this capture:
+    # the next client may send them.
+    entries = [(ing["backend_service"], f"ingress {ing['host']}{ing['path']}") for ing in ctx.d["ingress"] if not ing["tls"]]
+    front = [x for x in (ctx.gateway, ctx.d.get("edge")) if x]
+    for x in ctx.d.get("edge_tls", []):
+        w = x["workload"] or (front[0] if front and x["source"] == "Istio Gateway" else None)
+        if not x["tls"] and w in front and (w, f"{x['source']} {x['name']}") not in entries:
+            entries.append((w, f"{x['source']} {x['name']}"))
+    for backend, where in entries:
+        gw = ctx.services.get(backend, {})
+        yield Hit(gw.get("id", f"svc:{backend}"), f"{where} serves the API over plain HTTP",
                   [f"{len(with_tokens)} public endpoint(s) received bearer tokens",
                    f"{len(with_data)} public endpoint(s) returned sensitive data"],
-                  ["infrastructure", "runtime_traffic"], f"Enable TLS on ingress {ing['host']}.")
+                  ["infrastructure", "runtime_traffic"], f"Enable TLS on {where}.")
 
 
 @rule(id="TS-06", group="Token security", title="Credential passed in the URL query string",
@@ -488,7 +501,7 @@ def api8_root(ctx: Context):
       snippet="spec:\n  type: ClusterIP   # was NodePort", exposure_sensitive=False)
 def api8_nodeport(ctx: Context):
     for s in ctx.services.values():
-        if s["node_port"] and s["role"] != "gateway":
+        if (s["node_port"] or s.get("published")) and s["role"] != "gateway" and s["name"] != ctx.d.get("edge"):
             yield Hit(s["id"], f"{s['name']} is published on every node", [v for v in s["exposure"]["via"] if "NodePort" in v or "LoadBalancer" in v],
                       ["infrastructure"], f"Make {s['name']} ClusterIP-only.",
                       risk="financial_fraud" if s["name"].startswith("pay") else "data_breach")

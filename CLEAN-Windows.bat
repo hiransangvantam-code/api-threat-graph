@@ -20,6 +20,7 @@ if errorlevel 1 (
 ) else (
   docker compose down -v --remove-orphans >nul 2>nul
   docker compose -f target/docker-compose.yml --profile users down -v --remove-orphans >nul 2>nul
+  for /d %%c in (companies\* opensource\*) do if exist "%%c\docker-compose.yml" docker compose -f "%%c\docker-compose.yml" --profile users down -v --remove-orphans >nul 2>nul
   docker volume rm atg_atg-capture atg_atg-telemetry >nul 2>nul
 )
 if exist output rmdir /s /q output

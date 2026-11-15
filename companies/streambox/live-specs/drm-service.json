@@ -1,0 +1,60 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "StreamBox Drm Service API",
+    "version": "1.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://drm-service:8000"
+    }
+  ],
+  "paths": {
+    "/licenses": {
+      "post": {
+        "operationId": "post_licenses",
+        "summary": "POST /licenses",
+        "tags": [
+          "drm-service"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "license_id": {
+                      "type": "integer"
+                    },
+                    "expires_in": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sid"
+      }
+    }
+  }
+}

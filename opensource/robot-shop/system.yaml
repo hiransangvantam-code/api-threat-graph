@@ -1,0 +1,99 @@
+# Stan's Robot Shop (Instana, now IBM): nginx routes from web/default.conf.template, service routes
+# from catalogue/user/cart server.js, payment/payment.py, shipping Controller.java and the ratings
+# Symfony controller. dispatch only reads RabbitMQ (no HTTP API).
+id: robot-shop
+name: Stan's Robot Shop
+field: Retail (robot store)
+by: Instana (IBM)
+upstream: {repo: https://github.com/instana/robot-shop, commit: 55292e2199f2fb00a165b1f7d3045fe7f8922038, license: Apache-2.0}
+languages: [Node.js, Java, Python, PHP, Go]
+artifacts:
+  compose: docker-compose.yaml
+  gateway_configs:
+    - {path: web/default.conf.template, type: nginx, service: web, env: {CATALOGUE_HOST: catalogue, USER_HOST: user, CART_HOST: cart, SHIPPING_HOST: shipping, PAYMENT_HOST: payment, RATINGS_HOST: ratings}}
+gateway:
+  name: web
+  port: 8080
+  type: nginx
+  routes:
+    - {prefix: /api/catalogue/, service: catalogue, to: /}
+    - {prefix: /api/user/, service: user, to: /}
+    - {prefix: /api/cart/, service: cart, to: /}
+    - {prefix: /api/shipping/, service: shipping, to: /}
+    - {prefix: /api/payment/, service: payment, to: /}
+    - {prefix: /api/ratings/, service: ratings, to: /}
+  own_routes:
+    GET /nginx_status: {returns: {active_connections: 3, reading: 0, writing: 1}, client: anonymous, weight: 1}
+traced: false         # Instana's own agent; no OpenTelemetry export
+services:
+  catalogue:
+    port: 8080
+    language: Node.js
+    routes:
+      GET /products: {returns: [{sku: Watson, name: Watson, price: 2001}], weight: 3}
+      GET /product/{sku}: {returns: {sku: $sku, name: Robot, price: 1000, instock: 5}, weight: 3}
+      GET /products/{cat}: {returns: [{sku: Watson, category: $cat}]}
+      GET /categories: {returns: [Robot, AI]}
+      GET /search/{text}: {returns: [{sku: Watson}], weight: 1}
+  user:
+    port: 8080
+    language: Node.js
+    routes:
+      GET /uniqueid: {returns: {uuid: $n}}
+      GET /check/{id}: {client: none, returns: {status: ok}}
+      GET /users: {returns: [{name: "***", email: "***", password: "***"}], weight: 1}
+      POST /login: {body: {name: "$user", password: "***"}, returns: {name: "***", email: "***"}}
+      POST /register: {body: {name: new-user, password: "***", email: "***"}, returns: {status: registered}, weight: 1}
+      POST /order/{id}: {client: none, returns: {status: ok}}
+      GET /history/{id}: {returns: {history: [{orderid: $n, total: 0}]}}
+  cart:
+    port: 8080
+    language: Node.js
+    routes:
+      GET /cart/{id}: {returns: {total: 0, items: [{sku: Watson, qty: 1}]}, weight: 3}
+      DELETE /cart/{id}: {returns: {status: deleted}, weight: 1}
+      GET /rename/{from}/{to}: {returns: {status: renamed}, weight: 1}
+      GET /add/{id}/{sku}/{qty}: {calls: ["GET catalogue /product/{sku}"], returns: {total: 0, items: [{sku: $sku}]}, weight: 2}
+      GET /update/{id}/{sku}/{qty}: {returns: {total: 0}, weight: 1}
+      POST /shipping/{id}: {client: none, returns: {total: 0}}
+  shipping:
+    port: 8080
+    language: Java
+    routes:
+      GET /count: {returns: {count: 47000}}
+      GET /codes: {returns: [{code: th, name: Thailand}]}
+      GET /cities/{code}: {returns: [{uuid: $n, name: Bangkok}]}
+      GET /match/{code}/{text}: {returns: [{uuid: $n, name: Bangkok}]}
+      GET /calc/{id}: {returns: {distance: 100, cost: 8}}
+      POST /confirm/{id}: {calls: ["POST cart /shipping/{id}"], returns: {total: 8}}
+      GET /memory: {returns: {memory_mb: 512}, weight: 1}
+      GET /free: {returns: {memory_mb: 0}, weight: 1}
+  payment:
+    port: 8080
+    language: Python
+    routes:
+      POST /pay/{id}: {body: {total: 1000, items: [{sku: Watson, qty: 1}]}, calls: ["GET user /check/{id}", "POST user /order/{id}"], external: [GET payment-gateway /], returns: {orderid: $n}}
+  ratings:
+    port: 80
+    language: PHP
+    routes:
+      PUT /api/rate/{sku}/{score}: {calls: ["GET catalogue /product/{sku}"], returns: {status: rated}, weight: 1}
+      GET /api/fetch/{sku}: {returns: {avg_rating: 4, rating_count: 2}}
+external:
+  payment-gateway:
+    routes:
+      GET /: {returns: {status: ok}}
+labels:
+  - {cat: A1, at: "GET /users (user)", why: "Lists every user, with password field, to anyone through /api/user/users.", evidence: "user/server.js:104-116"}
+  - {cat: A9, at: "GET /users (user)", why: "Bulk personal data in one anonymous response.", evidence: "user/server.js:104-116"}
+  - {cat: A1, at: "GET /history/{id} (user)", why: "Order history of any user id, no login check.", evidence: "user/server.js:237"}
+  - {cat: A1, at: "GET /cart/{id} (cart)", why: "Any cart by id, no login check.", evidence: "cart/server.js:84"}
+  - {cat: A1, at: "DELETE /cart/{id} (cart)", why: "Anyone can delete any cart.", evidence: "cart/server.js:101"}
+  - {cat: A1, at: "GET /add/{id}/{sku}/{qty} (cart)", why: "State change over GET for any cart id, no login check.", evidence: "cart/server.js:139"}
+  - {cat: A1, at: "POST /pay/{id} (payment)", why: "Pays for any user id's cart without a login.", evidence: "payment/payment.py:54"}
+  - {cat: A6, at: "POST /login (user)", why: "No rate limit or lockout on login.", evidence: "user/server.js:118"}
+  - {cat: A4, at: "GET /memory (shipping)", why: "Diagnostic endpoint that allocates memory, reachable at /api/shipping/memory.", evidence: "shipping/.../Controller.java:41"}
+  - {cat: A4, at: "GET /free (shipping)", why: "Diagnostic endpoint, public.", evidence: "shipping/.../Controller.java:50"}
+  - {cat: A4, at: web, why: "nginx stub_status exposed at /nginx_status.", evidence: "web/default.conf.template:84"}
+  - {cat: A10, at: payment, why: "Calls the outside payment gateway (PAYMENT_GATEWAY, default paypal.com).", evidence: "payment/payment.py:26,84"}
+  - {cat: C8, at: web, why: "The shop is published on plain HTTP port 8080.", evidence: docker-compose.yaml}

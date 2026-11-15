@@ -1,0 +1,120 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Plan Service API",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://plan-service:8080"
+    }
+  ],
+  "paths": {
+    "/plans": {
+      "get": {
+        "operationId": "get_plans",
+        "summary": "GET /plans",
+        "tags": [
+          "plan-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "plan_id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "monthly_fee": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/plans/{plan_id}": {
+      "get": {
+        "operationId": "get_plans_plan_id",
+        "summary": "GET /plans/{plan_id}",
+        "tags": [
+          "plan-service"
+        ],
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "plan_id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "data_gb": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

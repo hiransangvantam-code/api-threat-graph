@@ -1,0 +1,155 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SkyFly Flight Service API",
+    "version": "5.0.3"
+  },
+  "servers": [
+    {
+      "url": "http://flight-service:3000"
+    }
+  ],
+  "paths": {
+    "/flights": {
+      "get": {
+        "operationId": "get_flights",
+        "summary": "GET /flights",
+        "tags": [
+          "flight-service"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "flight_id": {
+                            "type": "integer"
+                          },
+                          "origin": {
+                            "type": "string"
+                          },
+                          "destination": {
+                            "type": "string"
+                          },
+                          "departs": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/flights/{flight_id}": {
+      "get": {
+        "operationId": "get_flights_flight_id",
+        "summary": "GET /flights/{flight_id}",
+        "tags": [
+          "flight-service"
+        ],
+        "parameters": [
+          {
+            "name": "flight_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "flight_id": {
+                      "type": "integer"
+                    },
+                    "origin": {
+                      "type": "string"
+                    },
+                    "destination": {
+                      "type": "string"
+                    },
+                    "aircraft": {
+                      "type": "string"
+                    },
+                    "seats_left": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

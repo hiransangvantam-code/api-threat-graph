@@ -1,0 +1,146 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "TeleMax Billing Service API",
+    "version": "5.2.0"
+  },
+  "servers": [
+    {
+      "url": "http://billing-service:8080"
+    }
+  ],
+  "paths": {
+    "/bills/{bill_id}": {
+      "get": {
+        "operationId": "get_bills_bill_id",
+        "summary": "GET /bills/{bill_id}",
+        "tags": [
+          "billing-service"
+        ],
+        "parameters": [
+          {
+            "name": "bill_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bill_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "due": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/bills/{bill_id}/pay": {
+      "post": {
+        "operationId": "post_bills_bill_id_pay",
+        "summary": "POST /bills/{bill_id}/pay",
+        "tags": [
+          "billing-service"
+        ],
+        "parameters": [
+          {
+            "name": "bill_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bill_id": {
+                      "type": "integer"
+                    },
+                    "payment_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

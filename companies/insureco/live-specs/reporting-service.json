@@ -1,0 +1,106 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "InsureCo Reporting Service API",
+    "version": "0.7.0"
+  },
+  "servers": [
+    {
+      "url": "http://reporting-service:8000"
+    }
+  ],
+  "paths": {
+    "/reports/claims-export": {
+      "get": {
+        "operationId": "get_reports_claims_export",
+        "summary": "GET /reports/claims-export",
+        "tags": [
+          "reporting-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "claim_id": {
+                            "type": "integer"
+                          },
+                          "customer_id": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "integer"
+                          },
+                          "email": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/reports/weekly-summary": {
+      "get": {
+        "operationId": "get_reports_weekly_summary",
+        "summary": "GET /reports/weekly-summary",
+        "tags": [
+          "reporting-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claims": {
+                      "type": "integer"
+                    },
+                    "paid_amount": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

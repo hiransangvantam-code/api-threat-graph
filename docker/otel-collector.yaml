@@ -8,6 +8,16 @@ receivers:
         endpoint: 0.0.0.0:4318
       grpc:
         endpoint: 0.0.0.0:4317
+  zipkin:                      # Spring Boot (Micrometer/Sleuth), Istio/Envoy
+    endpoint: 0.0.0.0:9411
+  jaeger:                      # older Jaeger clients (DeathStarBench, ...)
+    protocols:
+      thrift_http:
+        endpoint: 0.0.0.0:14268
+      grpc:
+        endpoint: 0.0.0.0:14250
+      thrift_compact:          # the Jaeger agent protocol (UDP), for clients that send to jaeger:6831
+        endpoint: 0.0.0.0:6831
 
 processors:
   batch:
@@ -27,6 +37,6 @@ service:
   extensions: [health_check]
   pipelines:
     traces:
-      receivers: [otlp]
+      receivers: [otlp, zipkin, jaeger]
       processors: [batch]
       exporters: [file]

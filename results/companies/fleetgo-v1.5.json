@@ -1,0 +1,332 @@
+{
+ "company": "fleetgo",
+ "users": "FleetGo: 466 requests in 3.3 s, 14 sessions; status codes: 200 x314, 201 x40, 401 x53, 403 x59",
+ "startup_s": 10.0,
+ "scan_s": 7.3,
+ "scan_log": [
+  "[scan] fleetgo: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 954 HTTP flows from the sidecar, 5 span batches from the Collector (1612 KB cleared from their memory)",
+  "[ok]   runtime_traffic    20 records      28.1 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             5 records      76.7 ms  -> /work/raw/openapi.json",
+  "! ingress-gateway: no live spec at any probed path",
+  "[ok]   infrastructure     32 records     152.7 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          39 records      34.3 ms  -> /work/raw/callchain.json",
+  "[ok]   11 endpoints in 6 services (9 documented, 2 shadow)  -> /work/eujf.json",
+  "[ok]   5 findings (critical 0, high 5, medium 0, low 0), 7 attack paths, path risk 66",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] fleetgo: 11 APIs, 5 findings, 7 attack paths, path risk 66",
+  "[scan] threat graph exported to output/site/exports/1-fleetgo/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-102133-8b15ce",
+ "summary": {
+  "findings": 5,
+  "by_severity": {
+   "critical": 0,
+   "high": 5,
+   "medium": 0,
+   "low": 0
+  },
+  "attack_paths": 7,
+  "critical_paths": 7,
+  "total_path_risk": 66.0,
+  "endpoints": 11,
+  "shadow_endpoints": 2,
+  "services": 6,
+  "rules_evaluated": 27,
+  "rules_fired": 4,
+  "label": "fleetgo"
+ },
+ "eujf_summary": {
+  "services": 6,
+  "endpoints": 11,
+  "inventory": {
+   "documented": 9,
+   "shadow": 2
+  },
+  "confidence": {
+   "HIGH": 9,
+   "MEDIUM": 2,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 10,
+  "endpoints_with_sensitive_data": 2,
+  "dependencies": 5,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "ingress-gateway",
+ "endpoints": [
+  {
+   "id": "ep:auth-service:GET:/auth/introspect",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/auth/introspect",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/introspect"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/auth/session",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/auth/session",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/auth/session"
+   ]
+  },
+  {
+   "id": "ep:driver-service:GET:/drivers/{}",
+   "service": "driver-service",
+   "method": "GET",
+   "path": "/drivers/{driver_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/drivers/{driver_id}"
+   ]
+  },
+  {
+   "id": "ep:driver-service:PATCH:/drivers/{}/status",
+   "service": "driver-service",
+   "method": "PATCH",
+   "path": "/drivers/{driver_id}/status",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/drivers/{driver_id}/status"
+   ]
+  },
+  {
+   "id": "ep:pricing-service:GET:/quotes",
+   "service": "pricing-service",
+   "method": "GET",
+   "path": "/quotes",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:shipment-service:POST:/shipments",
+   "service": "shipment-service",
+   "method": "POST",
+   "path": "/shipments",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipments"
+   ]
+  },
+  {
+   "id": "ep:shipment-service:GET:/shipments/{}",
+   "service": "shipment-service",
+   "method": "GET",
+   "path": "/shipments/{shipment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipments/{shipment_id}"
+   ]
+  },
+  {
+   "id": "ep:shipment-service:GET:/shipments/{}/label",
+   "service": "shipment-service",
+   "method": "GET",
+   "path": "/shipments/{shipment_id}/label",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipments/{shipment_id}/label"
+   ]
+  },
+  {
+   "id": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+   "service": "tracking-service",
+   "method": "GET",
+   "path": "/tracking/debug/pprof/goroutine",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/tracking/debug/pprof/goroutine"
+   ]
+  },
+  {
+   "id": "ep:tracking-service:GET:/tracking/{}",
+   "service": "tracking-service",
+   "method": "GET",
+   "path": "/tracking/{shipment_id}",
+   "inventory": "documented",
+   "seen_in": [
+    "public_traffic",
+    "spec",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/tracking/{shipment_id}"
+   ]
+  },
+  {
+   "id": "ep:tracking-service:GET:/tracking/{}/history",
+   "service": "tracking-service",
+   "method": "GET",
+   "path": "/tracking/{shipment_id}/history",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/tracking/{shipment_id}/history"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API8-DEBUG",
+   "target": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+   "detail": "GET /tracking/debug/pprof/goroutine (tracking-service) is reachable at /api/tracking/debug/pprof/goroutine",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API8-PRIV",
+   "target": "svc:driver-service",
+   "detail": "driver-service runs with privileged: true",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:driver-service",
+   "detail": "driver-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:tracking-service:GET:/tracking/debug/pprof/goroutine",
+   "detail": "GET /tracking/debug/pprof/goroutine (tracking-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:tracking-service:GET:/tracking/{}/history",
+   "detail": "GET /tracking/{shipment_id}/history (tracking-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/auth",
+   "upstream_service": "auth-service",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": "/api/auth",
+   "replace_with": "/auth"
+  },
+  {
+   "match_prefix": "/api/drivers",
+   "upstream_service": "driver-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/drivers",
+   "replace_with": "/drivers"
+  },
+  {
+   "match_prefix": "/api/shipments",
+   "upstream_service": "shipment-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/shipments",
+   "replace_with": "/shipments"
+  },
+  {
+   "match_prefix": "/api/tracking",
+   "upstream_service": "tracking-service",
+   "auth": "required",
+   "gateway": "istio",
+   "strip_prefix": "/api/tracking",
+   "replace_with": "/tracking"
+  }
+ ],
+ "services": [
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "driver-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "ingress-gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "pricing-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "shipment-service",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "tracking-service",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ]
+}

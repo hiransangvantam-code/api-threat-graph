@@ -1,0 +1,1108 @@
+{
+ "company": "hotel-reservation",
+ "users": "DeathStarBench Hotel Reservation: 120 requests in 3.0 s, 0 sessions; status codes: 200 x120",
+ "startup_s": 11.9,
+ "scan_s": 8.1,
+ "scan_log": [
+  "[scan] hotel-reservation: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 466 HTTP flows from the sidecar, 4 span batches from the Collector (878 KB cleared from their memory)",
+  "[ok]   runtime_traffic    12 records      42.3 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     343.6 ms  -> /work/raw/openapi.json",
+  "! frontend: no live spec at any probed path",
+  "! search: no live spec at any probed path",
+  "! geo: no live spec at any probed path",
+  "! rate: no live spec at any probed path",
+  "! profile: no live spec at any probed path",
+  "! recommendation: no live spec at any probed path",
+  "! user: no live spec at any probed path",
+  "! reservation: no live spec at any probed path",
+  "[ok]   infrastructure     57 records     151.6 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          23 records      11.5 ms  -> /work/raw/callchain.json",
+  "[ok]   12 endpoints in 19 services (12 shadow)  -> /work/eujf.json",
+  "[ok]   113 findings (critical 1, high 15, medium 40, low 57), 180 attack paths, path risk 331",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] hotel-reservation: 12 APIs, 113 findings, 180 attack paths, path risk 331",
+  "[scan] threat graph exported to output/site/exports/1-hotel-reservation/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261115-113943-053ba8",
+ "summary": {
+  "findings": 113,
+  "by_severity": {
+   "critical": 1,
+   "high": 15,
+   "medium": 40,
+   "low": 57
+  },
+  "attack_paths": 180,
+  "critical_paths": 0,
+  "total_path_risk": 331.0,
+  "endpoints": 12,
+  "shadow_endpoints": 12,
+  "services": 19,
+  "rules_evaluated": 27,
+  "rules_fired": 10,
+  "label": "hotel-reservation"
+ },
+ "eujf_summary": {
+  "services": 19,
+  "endpoints": 12,
+  "inventory": {
+   "shadow": 12
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 12,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 4,
+  "endpoints_with_sensitive_data": 1,
+  "dependencies": 7,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:frontend:GET:/hotels",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/hotels",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/hotels"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/recommendations",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/recommendations",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/recommendations"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/reservation",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/reservation",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/reservation"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/user",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/user",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/user"
+   ]
+  },
+  {
+   "id": "ep:geo:POST:/geo.Geo/Nearby",
+   "service": "geo",
+   "method": "POST",
+   "path": "/geo.Geo/Nearby",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:profile:POST:/profile.Profile/GetProfiles",
+   "service": "profile",
+   "method": "POST",
+   "path": "/profile.Profile/GetProfiles",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:rate:POST:/rate.Rate/GetRates",
+   "service": "rate",
+   "method": "POST",
+   "path": "/rate.Rate/GetRates",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:recommendation:POST:/recommendation.Recommendation/GetRecommendations",
+   "service": "recommendation",
+   "method": "POST",
+   "path": "/recommendation.Recommendation/GetRecommendations",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:reservation:POST:/reservation.Reservation/CheckAvailability",
+   "service": "reservation",
+   "method": "POST",
+   "path": "/reservation.Reservation/CheckAvailability",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:reservation:POST:/reservation.Reservation/MakeReservation",
+   "service": "reservation",
+   "method": "POST",
+   "path": "/reservation.Reservation/MakeReservation",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:search:POST:/search.Search/Nearby",
+   "service": "search",
+   "method": "POST",
+   "path": "/search.Search/Nearby",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:user:POST:/user.User/CheckUser",
+   "service": "user",
+   "method": "POST",
+   "path": "/user.User/CheckUser",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "TS-01",
+   "target": "ep:frontend:POST:/reservation",
+   "detail": "POST /reservation (frontend) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-06",
+   "target": "ep:frontend:GET:/user",
+   "detail": "GET /user (frontend) takes password in the query string",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-06",
+   "target": "ep:frontend:POST:/reservation",
+   "detail": "POST /reservation (frontend) takes password in the query string",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API3",
+   "target": "ep:profile:POST:/profile.Profile/GetProfiles",
+   "detail": "POST /profile.Profile/GetProfiles (profile) returns a list with pii fields",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/hotels",
+   "detail": "GET /hotels (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/recommendations",
+   "detail": "GET /recommendations (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/user",
+   "detail": "GET /user (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/reservation",
+   "detail": "POST /reservation (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:geo:POST:/geo.Geo/Nearby",
+   "detail": "POST /geo.Geo/Nearby (geo) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:profile:POST:/profile.Profile/GetProfiles",
+   "detail": "POST /profile.Profile/GetProfiles (profile) returned 2xx to 75 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:rate:POST:/rate.Rate/GetRates",
+   "detail": "POST /rate.Rate/GetRates (rate) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:recommendation:POST:/recommendation.Recommendation/GetRecommendations",
+   "detail": "POST /recommendation.Recommendation/GetRecommendations (recommendation) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:reservation:POST:/reservation.Reservation/CheckAvailability",
+   "detail": "POST /reservation.Reservation/CheckAvailability (reservation) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:reservation:POST:/reservation.Reservation/MakeReservation",
+   "detail": "POST /reservation.Reservation/MakeReservation (reservation) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:search:POST:/search.Search/Nearby",
+   "detail": "POST /search.Search/Nearby (search) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:user:POST:/user.User/CheckUser",
+   "detail": "POST /user.User/CheckUser (user) returned 2xx to 45 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:profile:POST:/profile.Profile/GetProfiles",
+   "detail": "POST /profile.Profile/GetProfiles (profile) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:consul",
+   "detail": "consul accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:frontend",
+   "detail": "frontend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:geo",
+   "detail": "geo accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:jaeger",
+   "detail": "jaeger accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:memcached-profile",
+   "detail": "memcached-profile accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:memcached-rate",
+   "detail": "memcached-rate accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:memcached-reserve",
+   "detail": "memcached-reserve accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb-geo",
+   "detail": "mongodb-geo accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb-profile",
+   "detail": "mongodb-profile accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb-rate",
+   "detail": "mongodb-rate accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb-recommendation",
+   "detail": "mongodb-recommendation accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb-reservation",
+   "detail": "mongodb-reservation accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb-user",
+   "detail": "mongodb-user accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:profile",
+   "detail": "profile accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:rate",
+   "detail": "rate accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:recommendation",
+   "detail": "recommendation accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:reservation",
+   "detail": "reservation accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:search",
+   "detail": "search accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:user",
+   "detail": "user accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:consul",
+   "detail": "consul uses image hashicorp/consul:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:frontend",
+   "detail": "frontend uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:geo",
+   "detail": "geo uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:jaeger",
+   "detail": "jaeger uses image jaegertracing/all-in-one:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:memcached-profile",
+   "detail": "memcached-profile uses image memcached",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:memcached-rate",
+   "detail": "memcached-rate uses image memcached",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:memcached-reserve",
+   "detail": "memcached-reserve uses image memcached",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:profile",
+   "detail": "profile uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:rate",
+   "detail": "rate uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:recommendation",
+   "detail": "recommendation uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:reservation",
+   "detail": "reservation uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:search",
+   "detail": "search uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:user",
+   "detail": "user uses image deathstarbench/hotel-reservation:latest",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:geo:POST:/geo.Geo/Nearby",
+   "detail": "POST /geo.Geo/Nearby (geo) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:rate:POST:/rate.Rate/GetRates",
+   "detail": "POST /rate.Rate/GetRates (rate) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:recommendation:POST:/recommendation.Recommendation/GetRecommendations",
+   "detail": "POST /recommendation.Recommendation/GetRecommendations (recommendation) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:reservation:POST:/reservation.Reservation/CheckAvailability",
+   "detail": "POST /reservation.Reservation/CheckAvailability (reservation) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:reservation:POST:/reservation.Reservation/MakeReservation",
+   "detail": "POST /reservation.Reservation/MakeReservation (reservation) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:search:POST:/search.Search/Nearby",
+   "detail": "POST /search.Search/Nearby (search) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:POST:/user.User/CheckUser",
+   "detail": "POST /user.User/CheckUser (user) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:consul",
+   "detail": "consul: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:frontend",
+   "detail": "frontend: no live spec; 0 of 4 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:geo",
+   "detail": "geo: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:jaeger",
+   "detail": "jaeger: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:memcached-profile",
+   "detail": "memcached-profile: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:memcached-rate",
+   "detail": "memcached-rate: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:memcached-reserve",
+   "detail": "memcached-reserve: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb-geo",
+   "detail": "mongodb-geo: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb-profile",
+   "detail": "mongodb-profile: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb-rate",
+   "detail": "mongodb-rate: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb-recommendation",
+   "detail": "mongodb-recommendation: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb-reservation",
+   "detail": "mongodb-reservation: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb-user",
+   "detail": "mongodb-user: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:profile",
+   "detail": "profile: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:rate",
+   "detail": "rate: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:recommendation",
+   "detail": "recommendation: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:reservation",
+   "detail": "reservation: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:search",
+   "detail": "search: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:user",
+   "detail": "user: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:consul",
+   "detail": "consul is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:jaeger",
+   "detail": "jaeger is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:memcached-profile",
+   "detail": "memcached-profile is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:memcached-rate",
+   "detail": "memcached-rate is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:memcached-reserve",
+   "detail": "memcached-reserve is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb-geo",
+   "detail": "mongodb-geo is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb-profile",
+   "detail": "mongodb-profile is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb-rate",
+   "detail": "mongodb-rate is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb-recommendation",
+   "detail": "mongodb-recommendation is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb-reservation",
+   "detail": "mongodb-reservation is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb-user",
+   "detail": "mongodb-user is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:geo:POST:/geo.Geo/Nearby",
+   "detail": "search -> POST /geo.Geo/Nearby (geo) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:profile:POST:/profile.Profile/GetProfiles",
+   "detail": "frontend -> POST /profile.Profile/GetProfiles (profile) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:rate:POST:/rate.Rate/GetRates",
+   "detail": "search -> POST /rate.Rate/GetRates (rate) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:recommendation:POST:/recommendation.Recommendation/GetRecommendations",
+   "detail": "frontend -> POST /recommendation.Recommendation/GetRecommendations (recommendation) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:reservation:POST:/reservation.Reservation/CheckAvailability",
+   "detail": "frontend -> POST /reservation.Reservation/CheckAvailability (reservation) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:reservation:POST:/reservation.Reservation/MakeReservation",
+   "detail": "frontend -> POST /reservation.Reservation/MakeReservation (reservation) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:search:POST:/search.Search/Nearby",
+   "detail": "frontend -> POST /search.Search/Nearby (search) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:user:POST:/user.User/CheckUser",
+   "detail": "frontend -> POST /user.User/CheckUser (user) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:consul",
+   "detail": "consul does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:frontend",
+   "detail": "frontend does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:geo",
+   "detail": "geo does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:jaeger",
+   "detail": "jaeger does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:memcached-profile",
+   "detail": "memcached-profile does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:memcached-rate",
+   "detail": "memcached-rate does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:memcached-reserve",
+   "detail": "memcached-reserve does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:mongodb-geo",
+   "detail": "mongodb-geo does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:mongodb-profile",
+   "detail": "mongodb-profile does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:mongodb-rate",
+   "detail": "mongodb-rate does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:mongodb-recommendation",
+   "detail": "mongodb-recommendation does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:mongodb-reservation",
+   "detail": "mongodb-reservation does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:mongodb-user",
+   "detail": "mongodb-user does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:profile",
+   "detail": "profile does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:rate",
+   "detail": "rate does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:recommendation",
+   "detail": "recommendation does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:reservation",
+   "detail": "reservation does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:search",
+   "detail": "search does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:user",
+   "detail": "user does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [],
+ "services": [
+  {
+   "name": "consul",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "frontend",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "geo",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "jaeger",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "memcached-profile",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "memcached-rate",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "memcached-reserve",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb-geo",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb-profile",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb-rate",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb-recommendation",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb-reservation",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb-user",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "profile",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "rate",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "recommendation",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "reservation",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "search",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "user",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ]
+}

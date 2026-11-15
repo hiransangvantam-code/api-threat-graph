@@ -1,0 +1,75 @@
+# PiggyMetrics: Zuul routes from config/src/main/resources/shared/gateway.yml, service routes from the
+# controllers, OAuth2 from auth-service; every service checks the token with
+# auth-service /uaa/users/current (security.oauth2.resource.user-info-uri).
+id: piggymetrics
+name: PiggyMetrics
+field: Personal finance
+by: Alexander Lukyanchikov (sqshq)
+upstream: {repo: https://github.com/sqshq/piggymetrics, commit: 6bb2cf9ddbca980b664d3edbb6ff775d75369278, license: MIT}
+languages: [Java]
+artifacts:
+  compose: docker-compose.yml
+  gateway_configs:
+    - {path: config/src/main/resources/shared/gateway.yml, type: zuul, service: gateway}
+gateway:
+  name: gateway
+  port: 4000
+  type: zuul
+  routes:
+    - {prefix: /uaa, service: auth-service}
+    - {prefix: /accounts, service: account-service}
+    - {prefix: /statistics, service: statistics-service}
+    - {prefix: /notifications, service: notification-service}
+auth:
+  service: auth-service
+  login: POST /uaa/oauth/token
+  user_field: username
+  login_extra: {password: "***", grant_type: password, scope: ui}
+  introspect: /uaa/users/current
+traced: false
+services:
+  auth-service:
+    port: 5000
+    language: Java
+    routes:
+      POST /uaa/users: {client: none, returns: {status: created}}
+  account-service:
+    port: 6000
+    language: Java
+    verify: self
+    routes:
+      GET /accounts/{name}: {auth: user, owner: name, returns: {name: $owner, incomes: [{title: Salary, amount: 0}], expenses: [{title: Rent, amount: 0}]}}
+      GET /accounts/current: {auth: user, returns: {name: $user, saving: {amount: 0}}, weight: 3}
+      PUT /accounts/current: {auth: user, body: {incomes: [{title: Salary, amount: 1000}]}, calls: ["PUT statistics-service /statistics/{owned}"], returns: {}, weight: 2}
+      POST /accounts/: {body: {username: new-user, password: "***"}, calls: [{to: "POST auth-service /uaa/users", forward_auth: false}], returns: {name: new-user}, weight: 1}
+  statistics-service:
+    port: 7000
+    language: Java
+    verify: self
+    routes:
+      GET /statistics/current: {auth: user, external: [GET exchangerates-api /latest], returns: [{date: "2026-11-01", amount: 0}], weight: 2}
+      GET /statistics/{accountName}: {auth: user, owner: accountName, returns: [{account: $owner, amount: 0}]}
+      PUT /statistics/{accountName}: {auth: user, client: none, returns: {}}
+  notification-service:
+    port: 8000
+    language: Java
+    verify: self
+    routes:
+      GET /notifications/recipients/current: {auth: user, returns: {accountName: $user, email: "***"}}
+      PUT /notifications/recipients/current: {auth: user, body: {email: "***", scheduledNotifications: {REMIND: {active: true}}}, calls: ["GET account-service /accounts/{owned}"], returns: {}, weight: 1}
+  monitoring:
+    port: 8080
+    language: Java
+    routes:
+      GET /hystrix: {client: none, returns: {page: hystrix-dashboard}}
+external:
+  exchangerates-api:
+    routes:
+      GET /latest: {returns: {base: USD, rates: {EUR: 0.9}}}
+cron:
+  - {name: ops-console, every: 4, calls: ["GET monitoring /hystrix"]}
+labels:
+  - {cat: A6, at: "POST /uaa/oauth/token (auth-service)", why: "No rate limit or lockout on the OAuth2 password grant.", evidence: auth-service OAuth2AuthorizationConfig.java}
+  - {cat: A10, at: statistics-service, why: "Fetches exchange rates from an outside API.", evidence: ExchangeRatesClient.java}
+  - {cat: A4, at: monitoring, why: "Hystrix dashboard published on port 9000 without a login.", evidence: docker-compose.yml}
+  - {cat: C8, at: gateway, why: "The gateway is published on plain HTTP port 80.", evidence: docker-compose.yml}

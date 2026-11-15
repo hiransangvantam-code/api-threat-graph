@@ -1,0 +1,204 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SkyFly Booking Service API",
+    "version": "3.3.0"
+  },
+  "servers": [
+    {
+      "url": "http://booking-service:3000"
+    }
+  ],
+  "paths": {
+    "/bookings": {
+      "post": {
+        "operationId": "post_bookings",
+        "summary": "POST /bookings",
+        "tags": [
+          "booking-service"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "flight_id": {
+                    "type": "integer"
+                  },
+                  "seats": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "booking_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/bookings/{booking_id}": {
+      "get": {
+        "operationId": "get_bookings_booking_id",
+        "summary": "GET /bookings/{booking_id}",
+        "tags": [
+          "booking-service"
+        ],
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "booking_id": {
+                      "type": "integer"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "flight_id": {
+                      "type": "integer"
+                    },
+                    "passport_number": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/bookings/{booking_id}/webhooks": {
+      "post": {
+        "operationId": "post_bookings_booking_id_webhooks",
+        "summary": "POST /bookings/{booking_id}/webhooks",
+        "tags": [
+          "booking-service"
+        ],
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "webhook_url": {
+                    "type": "string"
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "booking_id": {
+                      "type": "integer"
+                    },
+                    "webhook_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          },
+          "403": {
+            "description": "Not allowed for this user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

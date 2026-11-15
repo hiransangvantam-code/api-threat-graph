@@ -1,0 +1,71 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "StreamBox Billing Service API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://billing-service:8000"
+    }
+  ],
+  "paths": {
+    "/billing/invoices": {
+      "get": {
+        "operationId": "get_billing_invoices",
+        "summary": "GET /billing/invoices",
+        "tags": [
+          "billing-service"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "invoice_id": {
+                            "type": "integer"
+                          },
+                          "amount": {
+                            "type": "integer"
+                          },
+                          "currency": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid credential"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sid"
+      }
+    }
+  }
+}

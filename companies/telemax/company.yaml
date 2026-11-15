@@ -1,0 +1,155 @@
+# TeleMax: a mobile operator. Go services behind Spring Cloud Gateway (RewritePath routes). The largest company.
+id: telemax
+name: TeleMax
+industry: Telecom (mobile operator)
+about: Subscribers check usage, pay bills, swap SIMs and port numbers; a network operations dashboard polls cell status.
+language: go
+credential: bearer
+domain: api.telemax.example
+spec: {path: /openapi.json, version: 3.0.3, format: json}
+traffic_rounds: 15
+
+gateway:
+  name: api-gateway
+  type: spring-cloud-gateway
+  version: 4.1.2
+  rewrite_path: true
+  routes:
+    - {prefix: /api/auth, service: auth-service, to: /auth, auth: false, rate_limit: 60}
+    - {prefix: /api/subscribers, service: subscriber-service, to: /subscribers}
+    - {prefix: /api/plans, service: plan-service, to: /plans}
+    - {prefix: /api/usage, service: usage-service, to: /usage}
+    - {prefix: /api/bills, service: billing-service, to: /bills}
+    - {prefix: /api/sims, service: sim-service, to: /sims}
+    - {prefix: /api/porting, service: number-porting-service, to: /porting}
+    - {prefix: /api/devices, service: device-service, to: /devices}
+    - {prefix: /api/tickets, service: support-service, to: /tickets}
+
+services:
+  auth-service: {version: 2.4.0}
+
+  subscriber-service:
+    version: 8.0.1
+    routes:
+      GET /subscribers/{subscriber_id}:
+        owner: subscriber_id
+        returns: {subscriber_id: $subscriber_id, user_id: $owner, email: "***", address: "***", plan_id: 3}
+        weight: 3
+      PATCH /subscribers/{subscriber_id}:
+        owner: subscriber_id
+        body: {plan_id: 4}
+        returns: {subscriber_id: $subscriber_id, status: updated}
+
+  plan-service:
+    version: 2.0.0
+    routes:
+      GET /plans:
+        returns: {items: [{plan_id: $n, name: 5G Max, monthly_fee: 599}]}
+        weight: 3
+      GET /plans/{plan_id}:
+        returns: {plan_id: $plan_id, name: 5G Max, data_gb: 100}
+
+  usage-service:
+    version: 3.6.0
+    routes:
+      GET /usage/{subscriber_id}:
+        owner: subscriber_id
+        query: {month: "2026-10"}
+        returns: {user_id: $owner, data_mb: 0, minutes: 0}
+        weight: 3
+      GET /usage/{subscriber_id}/cdr:
+        owner: subscriber_id
+        owner_check: false
+        returns: {user_id: $owner, items: [{call_id: $n, duration_s: 60, called_number: "***"}]}
+
+  billing-service:
+    version: 5.2.0
+    routes:
+      GET /bills/{bill_id}:
+        owner: bill_id
+        returns: {bill_id: $bill_id, user_id: $owner, amount: 0, due: "2026-11-30"}
+      POST /bills/{bill_id}/pay:
+        owner: bill_id
+        body: {amount: 599}
+        external: [POST bank-switch /payments]
+        status: 201
+        returns: {bill_id: $bill_id, payment_id: $n, status: paid}
+
+  sim-service:
+    version: 1.9.0
+    routes:
+      POST /sims/{sim_id}/swap:
+        owner: sim_id
+        body: {reason: lost}
+        calls: ["GET subscriber-service /subscribers/{sim_id}"]
+        errors_every: 20
+        returns: {sim_id: $sim_id, status: swap_pending}
+
+  network-ops-service:
+    version: 0.12.0
+    routes:
+      GET /ops/cell-status:
+        auth: none
+        client: none
+        returns: {cells_up: 0, cells_down: 0}
+
+  number-porting-service:
+    version: 1.0.3
+    flaws: [untraced]
+    routes:
+      POST /porting:
+        body: {donor_operator: OtherTel}
+        status: 201
+        returns: {request_id: $n, status: submitted}
+      GET /porting/{request_id}:
+        owner: request_id
+        returns: {request_id: $request_id, user_id: $owner, status: pending}
+
+  device-service:
+    version: 2.2.0
+    flaws: [latest_tag]
+    routes:
+      GET /devices/{device_id}:
+        owner: device_id
+        returns: {device_id: $device_id, user_id: $owner, model: Phone X, imei: "***"}
+
+  support-service:
+    version: 4.4.0
+    routes:
+      POST /tickets:
+        body: {topic: billing, message: bill looks wrong}
+        status: 201
+        returns: {ticket_id: $n, status: open}
+      GET /tickets/{ticket_id}:
+        owner: ticket_id
+        returns: {ticket_id: $ticket_id, user_id: $owner, status: open}
+      GET /tickets/search:
+        auth: admin
+        in_spec: false
+        query: {q: billing}
+        returns: {items: [{ticket_id: $n, user_id: c1}]}
+
+external:
+  bank-switch:
+    routes:
+      POST /payments: {returns: {status: approved}}
+
+cron:
+  - {name: noc-dashboard, every: 2, calls: ["GET network-ops-service /ops/cell-status"]}
+
+planted:
+  - {rule: API1, at: "GET /usage/{subscriber_id}/cdr", why: "No owner check: call records of any subscriber."}
+  - {rule: API10, at: billing-service, match: bank-switch, why: "Bill payments go to an outside bank switch."}
+  - {rule: LT-04, at: "POST /sims/{sim_id}/swap", why: "One SIM swap in 20 fails with a server error."}
+  - {rule: API5, at: "GET /ops/cell-status", why: "Network operations endpoint answers any pod without a credential."}
+  - {rule: TS-01, at: "GET /ops/cell-status", why: "The same endpoint returns 2xx to anonymous callers."}
+  - {rule: LT-01, at: "GET /ops/cell-status", why: "Polled by a dashboard outside the cluster that sends no trace."}
+  - {rule: LT-02, at: number-porting-service, why: "The number porting service was never instrumented."}
+  - {rule: LT-03, at: "POST /porting", why: "Traffic but no spans (untraced service)."}
+  - {rule: LT-03, at: "GET /porting/{request_id}", why: "Traffic but no spans (untraced service)."}
+  - {rule: API8-TAG, at: device-service, why: "Deployed from the :latest image tag."}
+  - {rule: API9-SHADOW, at: "GET /tickets/search", why: "Staff search endpoint the spec does not list."}
+
+not_flaws:
+  - {rule: TS-07, at: "POST /auth/session", why: "RequestRateLimiter is on the login route."}
+  - {rule: API1, at: "GET /bills/{bill_id}", why: "Owner check present: other subscribers get 403."}

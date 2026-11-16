@@ -129,15 +129,17 @@ GO_BIN = os.environ.get("ATG_GO_BIN", "/usr/local/go1.24.7/bin")
 def gosec_dir(src: Path) -> tuple[str, float]:
     """gosec on a copy of one Go module. The module proxy is not reachable here, so the copy is told to use the
     local Go toolchain (its go/toolchain lines are lowered to it) and to load packages without downloading
-    dependencies. gosec then still parses every file; rules that need the types of third-party packages may
+    dependencies (the go line is lowered to the local Go version). gosec then still parses every file; rules that need the types of third-party packages may
     miss findings, which the benchmark notes."""
     import shutil
     with tempfile.TemporaryDirectory() as d:
         dst = Path(d) / src.name
         shutil.copytree(src, dst, ignore=shutil.ignore_patterns(".git", "node_modules", "vendor"))
+        ver = subprocess.run([f"{GO_BIN}/go", "env", "GOVERSION"], capture_output=True, text=True).stdout.strip()
+        local = ".".join(ver.removeprefix("go").split(".")[:2]) or "1.22"   # e.g. go1.22.12 -> 1.22
         for gm in dst.rglob("go.mod"):
             txt = gm.read_text(encoding="utf-8")
-            txt = re.sub(r"(?m)^go \d+\.\d+(\.\d+)?$", "go 1.24", txt)
+            txt = re.sub(r"(?m)^go \d+\.\d+(\.\d+)?$", f"go {local}", txt)
             txt = re.sub(r"(?m)^toolchain .*$", "", txt)
             gm.write_text(txt, encoding="utf-8")
         env = {"PATH": f"{GO_BIN}:{os.environ.get('PATH', '')}", "GOTOOLCHAIN": "local",

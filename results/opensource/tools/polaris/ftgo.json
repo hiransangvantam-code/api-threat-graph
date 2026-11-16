@@ -277,7 +277,7 @@
   "livenessProbeMissing": 3,
   "readinessProbeMissing": 3
  },
- "seconds": 0.17,
+ "seconds": 0.13,
  "findings": 188,
  "score": {
   "labels": 82,

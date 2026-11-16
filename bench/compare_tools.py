@@ -128,9 +128,14 @@ def main() -> int:
         md.append(f"| {'**ATG**' if t == 'atg' else NAMES[t]} | {x['ran']}/10 | {x['found']}/{x['labels']} ({pct(x['found'], x['labels'])}) | "
                   f"{groups} | {x['in_reach_found']}/{x['in_reach']} ({pct(x['in_reach_found'], x['in_reach'])}) | "
                   f"{x['confirmed']}/{x['reported']} ({pct(x['confirmed'], x['reported'])}) | {med} |")
-    md += ["", "ATG's time is the whole scan as START runs it (about 7 s of it is waiting for the sidecar and the "
-           "Collector to go quiet); the analysis itself (Phases 1-4) takes well under a second. The other tools' "
-           "time is one run of the tool on the system's files.", ""]
+    if a.atg == "laptop":
+        md += ["", "ATG's time is Phases 1-4 of one scan (reading all four sources, normalising, analysing and writing "
+               "the pages), measured inside the ATG container; it does not include starting the system or its users. "
+               "The other tools' time is one run of the tool on the system's files.", ""]
+    else:
+        md += ["", "ATG's time is the whole scan as START runs it (about 7 s of it is waiting for the sidecar and the "
+               "Collector to go quiet); the analysis itself (Phases 1-4) takes well under a second. The other tools' "
+               "time is one run of the tool on the system's files.", ""]
 
     # ---- Table B: by category
     cats = sorted(T["atg"]["cats"], key=lambda c: (c[0], int(c[1:])))

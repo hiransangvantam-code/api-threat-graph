@@ -193,6 +193,10 @@ Mutual, FTGO, Hotel Reservation and Bookinfo. ATG and eight free tools ran on al
 | Precision | 75% | 95% | |
 
 The code scanners (Bandit, gosec, njsscan) each read one language, 26 of the 65 services together.
+To rerun the whole comparison on your own computer: `DEMO-ALL-Windows.bat`, then `BENCH-Windows.bat`
+(or `sh demo-all.sh`, then `sh bench.sh`). BENCH runs the eight tools in one Docker image, scores
+everything against the same labels and opens `results/opensource/comparison.html` with all the charts
+and tables (`bench/oss_figures.py`).
 `sh start.sh bookinfo` (or `START-Windows.bat bookinfo`) reviews one of them with stand-in services, and
 `sh real.sh robot-shop` (or `REAL-Windows.bat robot-shop`) runs seven of them on their real images
 (`opensource/real/README.md`). Version 1.5 fixed gaps that v1.4 showed on these systems, so read its

@@ -1,0 +1,620 @@
+{
+ "company": "bank-of-anthos",
+ "users": "real images, own load generator and opensource/real/<id>/load.txt",
+ "scan_s": 0.5,
+ "timings": {
+  "phase1_ms": 446.05614399995375,
+  "phase2_ms": 2.8354319999834843,
+  "phase3_ms": 28.231022999989364,
+  "phase4_ms": 4.9063210000213076
+ },
+ "run_id": "20261115-223612-4068fd",
+ "summary": {
+  "findings": 45,
+  "by_severity": {
+   "critical": 1,
+   "high": 13,
+   "medium": 16,
+   "low": 15
+  },
+  "attack_paths": 65,
+  "critical_paths": 0,
+  "total_path_risk": 173.5,
+  "endpoints": 15,
+  "shadow_endpoints": 15,
+  "services": 9,
+  "rules_evaluated": 27,
+  "rules_fired": 11,
+  "label": "bank-of-anthos"
+ },
+ "eujf_summary": {
+  "services": 9,
+  "endpoints": 15,
+  "inventory": {
+   "shadow": 15
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 15,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 9,
+  "endpoints_with_sensitive_data": 3,
+  "dependencies": 6,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:balancereader:GET:/balances/{}",
+   "service": "balancereader",
+   "method": "GET",
+   "path": "/balances/{accountId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:contacts:GET:/contacts/{}",
+   "service": "contacts",
+   "method": "GET",
+   "path": "/contacts/{username}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:frontend:GET:/consent",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/consent",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/consent"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/deposit",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/deposit",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/deposit"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/home",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/home",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/home"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/login",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/login"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/login",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/login"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/logout",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/logout",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/logout"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/payment",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/payment",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/payment"
+   ]
+  },
+  {
+   "id": "ep:frontend:GET:/signup",
+   "service": "frontend",
+   "method": "GET",
+   "path": "/signup",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/signup"
+   ]
+  },
+  {
+   "id": "ep:frontend:POST:/signup",
+   "service": "frontend",
+   "method": "POST",
+   "path": "/signup",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/signup"
+   ]
+  },
+  {
+   "id": "ep:ledgerwriter:POST:/transactions",
+   "service": "ledgerwriter",
+   "method": "POST",
+   "path": "/transactions",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:transactionhistory:GET:/transactions/{}",
+   "service": "transactionhistory",
+   "method": "GET",
+   "path": "/transactions/{accountId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:userservice:GET:/login",
+   "service": "userservice",
+   "method": "GET",
+   "path": "/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:userservice:POST:/users",
+   "service": "userservice",
+   "method": "POST",
+   "path": "/users",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:frontend:GET:/home",
+   "detail": "GET /home (frontend) returns a list with financial fields",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/home",
+   "detail": "GET /home (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:frontend:POST:/login",
+   "detail": "POST /login (frontend): 15 failed logins, no 429 seen",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-04",
+   "target": "svc:userservice",
+   "detail": "TOKEN_EXPIRY_SECONDS is written in plaintext in the userservice manifest",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API3",
+   "target": "ep:transactionhistory:GET:/transactions/{}",
+   "detail": "GET /transactions/{accountId} (transactionhistory) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/consent",
+   "detail": "GET /consent (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/login",
+   "detail": "GET /login (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:GET:/signup",
+   "detail": "GET /signup (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/deposit",
+   "detail": "POST /deposit (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/login",
+   "detail": "POST /login (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/logout",
+   "detail": "POST /logout (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/payment",
+   "detail": "POST /payment (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:frontend:POST:/signup",
+   "detail": "POST /signup (frontend) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:frontend",
+   "detail": "LoadBalancer Service frontend serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:balancereader:GET:/balances/{}",
+   "detail": "GET /balances/{accountId} (balancereader) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:transactionhistory:GET:/transactions/{}",
+   "detail": "GET /transactions/{accountId} (transactionhistory) is served but in no spec",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-06",
+   "target": "ep:userservice:GET:/login",
+   "detail": "GET /login (userservice) takes password in the query string",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:accounts-db",
+   "detail": "accounts-db accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:balancereader",
+   "detail": "balancereader accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:contacts",
+   "detail": "contacts accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:frontend",
+   "detail": "frontend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ledger-db",
+   "detail": "ledger-db accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ledgerwriter",
+   "detail": "ledgerwriter accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:transactionhistory",
+   "detail": "transactionhistory accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:userservice",
+   "detail": "userservice accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:contacts:GET:/contacts/{}",
+   "detail": "GET /contacts/{username} (contacts) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:userservice:GET:/login",
+   "detail": "GET /login (userservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ledgerwriter:POST:/transactions",
+   "detail": "POST /transactions (ledgerwriter) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:userservice:POST:/users",
+   "detail": "POST /users (userservice) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:accounts-db",
+   "detail": "accounts-db: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:balancereader",
+   "detail": "balancereader: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:contacts",
+   "detail": "contacts: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:frontend",
+   "detail": "frontend: no live spec; 0 of 9 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ledger-db",
+   "detail": "ledger-db: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ledgerwriter",
+   "detail": "ledgerwriter: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:transactionhistory",
+   "detail": "transactionhistory: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:userservice",
+   "detail": "userservice: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:accounts-db",
+   "detail": "accounts-db is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ledger-db",
+   "detail": "ledger-db is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:loadgenerator",
+   "detail": "loadgenerator is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:userservice:GET:/login",
+   "detail": "frontend -> GET /login (userservice) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:accounts-db",
+   "detail": "accounts-db does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ledger-db",
+   "detail": "ledger-db does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [],
+ "services": [
+  {
+   "name": "accounts-db",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "balancereader",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "contacts",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "frontend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "ledger-db",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ledgerwriter",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "loadgenerator",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "transactionhistory",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "userservice",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ],
+ "trace_services": [
+  "balancereader",
+  "contacts",
+  "frontend",
+  "ledgerwriter",
+  "transactionhistory",
+  "userservice"
+ ]
+}

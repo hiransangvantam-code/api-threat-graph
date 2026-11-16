@@ -109,7 +109,7 @@
   "missingPodDisruptionBudget": 7,
   "sensitiveContainerEnvVar": 1
  },
- "seconds": 0.18,
+ "seconds": 0.16,
  "findings": 91,
  "score": {
   "labels": 44,

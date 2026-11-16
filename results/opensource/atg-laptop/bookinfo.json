@@ -1,0 +1,572 @@
+{
+ "company": "bookinfo",
+ "users": "real images, own load generator and opensource/real/<id>/load.txt",
+ "scan_s": 0.3,
+ "timings": {
+  "phase1_ms": 228.23830400011502,
+  "phase2_ms": 5.399143999966327,
+  "phase3_ms": 33.692531000042436,
+  "phase4_ms": 7.66764099989814
+ },
+ "run_id": "20261115-224011-ba73be",
+ "summary": {
+  "findings": 32,
+  "by_severity": {
+   "critical": 1,
+   "high": 11,
+   "medium": 9,
+   "low": 11
+  },
+  "attack_paths": 58,
+  "critical_paths": 0,
+  "total_path_risk": 126.5,
+  "endpoints": 17,
+  "shadow_endpoints": 13,
+  "services": 4,
+  "rules_evaluated": 27,
+  "rules_fired": 8,
+  "label": "bookinfo"
+ },
+ "eujf_summary": {
+  "services": 4,
+  "endpoints": 17,
+  "inventory": {
+   "shadow": 13,
+   "dormant": 4
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 13,
+   "ZOMBIE": 4
+  },
+  "public_endpoints": 13,
+  "endpoints_with_sensitive_data": 1,
+  "dependencies": 4,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:details:GET:/details/{}",
+   "service": "details",
+   "method": "GET",
+   "path": "/details/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:productpage:GET:/",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/api/v1/products",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/api/v1/products",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/v1/products"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/api/v1/products/{}",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/api/v1/products/{product_id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/v1/products/{product_id}"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/api/v1/products/{}/ratings",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/api/v1/products/{product_id}/ratings",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/v1/products/{product_id}/ratings"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/api/v1/products/{}/reviews",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/api/v1/products/{product_id}/reviews",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/v1/products/{product_id}/reviews"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/index.html",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/index.html",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/index.html"
+   ]
+  },
+  {
+   "id": "ep:productpage:POST:/login",
+   "service": "productpage",
+   "method": "POST",
+   "path": "/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/login"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/logout",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/logout",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/logout"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/productpage",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/productpage",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": [
+    "/productpage"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/products",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/products",
+   "inventory": "dormant",
+   "seen_in": [
+    "spec"
+   ],
+   "public_paths": [
+    "/products"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/products/{}",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/products/{id}",
+   "inventory": "dormant",
+   "seen_in": [
+    "spec"
+   ],
+   "public_paths": [
+    "/products/{id}"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/products/{}/ratings",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/products/{id}/ratings",
+   "inventory": "dormant",
+   "seen_in": [
+    "spec"
+   ],
+   "public_paths": [
+    "/products/{id}/ratings"
+   ]
+  },
+  {
+   "id": "ep:productpage:GET:/products/{}/reviews",
+   "service": "productpage",
+   "method": "GET",
+   "path": "/products/{id}/reviews",
+   "inventory": "dormant",
+   "seen_in": [
+    "spec"
+   ],
+   "public_paths": [
+    "/products/{id}/reviews"
+   ]
+  },
+  {
+   "id": "ep:ratings:GET:/ratings/{}",
+   "service": "ratings",
+   "method": "GET",
+   "path": "/ratings/{productId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:ratings:POST:/ratings/{}",
+   "service": "ratings",
+   "method": "POST",
+   "path": "/ratings/{productId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:reviews:GET:/reviews/{}",
+   "service": "reviews",
+   "method": "GET",
+   "path": "/reviews/{productId}",
+   "inventory": "shadow",
+   "seen_in": [
+    "trace",
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "TS-01",
+   "target": "ep:productpage:GET:/api/v1/products/{}",
+   "detail": "GET /api/v1/products/{product_id} (productpage) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/api/v1/products/{}",
+   "detail": "GET /api/v1/products/{product_id} (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/",
+   "detail": "GET / (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/api/v1/products",
+   "detail": "GET /api/v1/products (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/api/v1/products/{}/ratings",
+   "detail": "GET /api/v1/products/{product_id}/ratings (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/api/v1/products/{}/reviews",
+   "detail": "GET /api/v1/products/{product_id}/reviews (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/index.html",
+   "detail": "GET /index.html (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/logout",
+   "detail": "GET /logout (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:GET:/productpage",
+   "detail": "GET /productpage (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:productpage:POST:/login",
+   "detail": "POST /login (productpage) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ratings:POST:/ratings/{}",
+   "detail": "POST /ratings/{productId} (ratings) returned 2xx to 4 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:productpage",
+   "detail": "Istio Gateway bookinfo-gateway serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "LT-01",
+   "target": "ep:ratings:POST:/ratings/{}",
+   "detail": "4 trace(s) start at ratings POST /ratings/{productId} with no traced caller",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:details",
+   "detail": "details accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:productpage",
+   "detail": "productpage accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ratings",
+   "detail": "ratings accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:reviews",
+   "detail": "reviews accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:details:GET:/details/{}",
+   "detail": "GET /details/{id} (details) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ratings:GET:/ratings/{}",
+   "detail": "GET /ratings/{productId} (ratings) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:reviews:GET:/reviews/{}",
+   "detail": "GET /reviews/{productId} (reviews) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ratings:POST:/ratings/{}",
+   "detail": "POST /ratings/{productId} (ratings) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:details",
+   "detail": "details: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:productpage",
+   "detail": "productpage: no live spec; 4 of 13 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ratings",
+   "detail": "ratings: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:reviews",
+   "detail": "reviews: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:details:GET:/details/{}",
+   "detail": "productpage -> GET /details/{id} (details) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:ratings:GET:/ratings/{}",
+   "detail": "productpage, reviews -> GET /ratings/{productId} (ratings) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "TS-08",
+   "target": "ep:reviews:GET:/reviews/{}",
+   "detail": "productpage -> GET /reviews/{productId} (reviews) with no credential",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:details",
+   "detail": "details does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:productpage",
+   "detail": "productpage does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:ratings",
+   "detail": "ratings does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:reviews",
+   "detail": "reviews does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/v1/products",
+   "upstream_service": "productpage",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/login",
+   "upstream_service": "productpage",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/logout",
+   "upstream_service": "productpage",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/productpage",
+   "upstream_service": "productpage",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/static",
+   "upstream_service": "productpage",
+   "auth": "unspecified",
+   "gateway": "istio",
+   "strip_prefix": null,
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "details",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "productpage",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ratings",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "reviews",
+   "role": "service",
+   "exposure": "internal"
+  }
+ ],
+ "trace_services": [
+  "details",
+  "productpage",
+  "ratings",
+  "reviews"
+ ]
+}

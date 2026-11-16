@@ -240,7 +240,7 @@
   "CKV_K8S_31": 9,
   "CKV2_K8S_6": 9
  },
- "seconds": 2.6,
+ "seconds": 2.32,
  "findings": 190,
  "score": {
   "labels": 80,

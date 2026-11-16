@@ -288,7 +288,7 @@
   "run-as-non-root": 19,
   "unset-memory-requirements": 19
  },
- "seconds": 0.04,
+ "seconds": 0.05,
  "findings": 70,
  "score": {
   "labels": 107,

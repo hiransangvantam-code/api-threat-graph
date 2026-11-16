@@ -142,6 +142,27 @@ sh real.sh robot-shop
 ATG is then on http://localhost:18080, and the result goes to `results\opensource\atg-real\`. Details:
 `opensource\real\README.md`.
 
+## Rerun the comparison with eight other tools (the evaluation charts)
+
+Two scripts rerun the whole open-source benchmark on your computer and draw every chart and table from
+what they measure. Only Docker and internet are needed.
+
+```powershell
+DEMO-ALL-Windows.bat       # 1. ATG reviews the ten systems (about 10 minutes); saves results\opensource\atg-laptop\
+BENCH-Windows.bat          # 2. eight other tools on the same ten systems, scoring, charts (first time 5-10 minutes)
+```
+
+```bash
+sh demo-all.sh
+sh bench.sh
+```
+
+BENCH builds one Docker image with Checkov, Kubescape, kube-linter, Polaris, Spectral (OWASP ruleset),
+Bandit, gosec and njsscan, runs each of them on the ten systems' files, scores them and ATG against the
+same 716 labels, and opens `results\opensource\comparison.html`: five charts (found by category, per
+system, where each tool stops, speed, the fix plans) and every table. The charts are also saved as PNG
+files in `results\opensource\figures\`, and the tables in `results\opensource\comparison.md`.
+
 ## Review another system (not ShopLite)
 
 The company changes two settings in its own deployment for the duration of the review:

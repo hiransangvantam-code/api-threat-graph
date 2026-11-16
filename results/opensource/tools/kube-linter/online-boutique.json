@@ -55,7 +55,7 @@
   "unset-cpu-requirements": 1,
   "unset-memory-requirements": 1
  },
- "seconds": 0.05,
+ "seconds": 0.06,
  "findings": 13,
  "score": {
   "labels": 55,

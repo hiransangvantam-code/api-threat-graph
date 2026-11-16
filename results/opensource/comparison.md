@@ -1,4 +1,4 @@
-# ATG and eight free tools on ten open-source systems (ATG v1.5)
+# ATG and eight free tools on ten open-source systems (ATG laptop)
 
 Produced by `bench/compare_tools.py` from the saved runs in `results/opensource/`. Every tool is scored against the same ground truth (`opensource/<id>/ground-truth.json`): a label counts as found when the tool reports the same weakness category on the same service or endpoint. Method and limits: `docs/BENCHMARK_OSS.md`.
 
@@ -8,17 +8,17 @@ Produced by `bench/compare_tools.py` from the saved runs in `results/opensource/
 
 | Tool | Runs on | Labels found (all) | Configuration | API behaviour | Inventory and visibility | In reach | Precision | Time per system (median) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| **ATG** | 10/10 | 466/716 (65%) | 326/546 (60%) | 52/82 (63%) | 88/88 (100%) | 466/547 (85%) | 718/954 (75%) | 7.9 s |
-| Checkov | 7/10 | 262/716 (37%) | 262/546 (48%) | 0/82 (0%) | 0/88 (0%) | 262/354 (74%) | 262/355 (74%) | 2.7 s |
-| Kubescape | 7/10 | 254/716 (35%) | 254/546 (47%) | 0/82 (0%) | 0/88 (0%) | 254/370 (69%) | 254/291 (87%) | 6.2 s |
+| **ATG** | 10/10 | 466/716 (65%) | 326/546 (60%) | 52/82 (63%) | 88/88 (100%) | 466/547 (85%) | 718/954 (75%) | 0.3 s |
+| Checkov | 7/10 | 262/716 (37%) | 262/546 (48%) | 0/82 (0%) | 0/88 (0%) | 262/354 (74%) | 262/355 (74%) | 2.3 s |
+| Kubescape | 7/10 | 254/716 (35%) | 254/546 (47%) | 0/82 (0%) | 0/88 (0%) | 254/370 (69%) | 254/291 (87%) | 1.9 s |
 | kube-linter | 7/10 | 164/716 (23%) | 164/546 (30%) | 0/82 (0%) | 0/88 (0%) | 164/282 (58%) | 164/184 (89%) | 0.04 s |
-| Polaris | 7/10 | 331/716 (46%) | 331/546 (61%) | 0/82 (0%) | 0/88 (0%) | 331/338 (98%) | 331/350 (95%) | 0.2 s |
-| Spectral (OWASP) | 3/10 | 14/716 (2%) | 4/546 (1%) | 10/82 (12%) | 0/88 (0%) | 14/22 (64%) | 14/38 (37%) | 1.7 s |
-| Bandit | 4/10 | 1/716 (0%) | 1/546 (0%) | 0/82 (0%) | 0/88 (0%) | 1/5 (20%) | 1/5 (20%) | 0.4 s |
-| gosec | 3/10 | 0/716 (0%) | 0/546 (0%) | 0/82 (0%) | 0/88 (0%) | 0/0 (–) | 0/0 (–) | 4.3 s |
-| njsscan | 3/10 | 0/716 (0%) | 0/546 (0%) | 0/82 (0%) | 0/88 (0%) | 0/0 (–) | 0/0 (–) | 0.8 s |
+| Polaris | 7/10 | 331/716 (46%) | 331/546 (61%) | 0/82 (0%) | 0/88 (0%) | 331/338 (98%) | 331/350 (95%) | 0.1 s |
+| Spectral (OWASP) | 3/10 | 14/716 (2%) | 4/546 (1%) | 10/82 (12%) | 0/88 (0%) | 14/22 (64%) | 14/38 (37%) | 1.4 s |
+| Bandit | 4/10 | 1/716 (0%) | 1/546 (0%) | 0/82 (0%) | 0/88 (0%) | 1/5 (20%) | 1/5 (20%) | 0.5 s |
+| gosec | 3/10 | 0/716 (0%) | 0/546 (0%) | 0/82 (0%) | 0/88 (0%) | 0/0 (–) | 0/0 (–) | 3.6 s |
+| njsscan | 3/10 | 0/716 (0%) | 0/546 (0%) | 0/82 (0%) | 0/88 (0%) | 0/0 (–) | 0/0 (–) | 0.6 s |
 
-ATG's time is the whole scan as START runs it (about 7 s of it is waiting for the sidecar and the Collector to go quiet); the analysis itself (Phases 1-4) takes well under a second. The other tools' time is one run of the tool on the system's files.
+ATG's time is Phases 1-4 of one scan (reading all four sources, normalising, analysing and writing the pages), measured inside the ATG container; it does not include starting the system or its users. The other tools' time is one run of the tool on the system's files.
 
 ## Table B. Found, by weakness category
 
@@ -108,11 +108,11 @@ Labels found by each tool, by both, and by either. The scanners add the containe
 | ATG + Kubescape | 466 | 254 | 130 | 590/716 (82%) |
 | ATG + Checkov | 466 | 262 | 115 | 613/716 (86%) |
 
-## Table F. ATG v1.4 and v1.5 on the same systems
+## Table F. ATG v1.4 and laptop on the same systems
 
 Version 1.5 was made after reading the misses of version 1.4 on these systems (see `docs/BENCHMARK_OSS.md`), so this table shows the fixes worked, not how ATG does on unseen systems.
 
-| System | Labels | Found v1.4 | Found v1.5 | Precision v1.4 | Precision v1.5 |
+| System | Labels | Found v1.4 | Found laptop | Precision v1.4 | Precision laptop |
 |---|---:|---:|---:|---:|---:|
 | online-boutique | 55 | 42 | 43 | 67% | 76% |
 | bank-of-anthos | 44 | 21 | 22 | 68% | 82% |

@@ -38,7 +38,7 @@
   "owasp:api4:2023-string-restricted": 12,
   "owasp:api4:2023-array-limit": 1
  },
- "seconds": 1.74,
+ "seconds": 1.44,
  "findings": 63,
  "score": {
   "labels": 82,

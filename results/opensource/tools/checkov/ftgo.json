@@ -273,13 +273,13 @@
   "CKV_K8S_13": 11,
   "CKV_K8S_22": 11,
   "CKV_K8S_31": 11,
-  "CKV_K8S_15": 4,
   "CKV_K8S_35": 4,
+  "CKV_K8S_15": 4,
   "CKV_K8S_9": 3,
   "CKV_K8S_8": 3,
   "CKV2_K8S_6": 10
  },
- "seconds": 2.95,
+ "seconds": 2.29,
  "findings": 220,
  "score": {
   "labels": 82,

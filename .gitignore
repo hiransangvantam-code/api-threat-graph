@@ -20,3 +20,7 @@ results/*/crapi-*/raw/
 
 # the open-source systems' own code (opensource/fetch.py downloads it)
 opensource/*/upstream/
+
+# demo-all output (demo/index.html is kept)
+demo/*/
+demo/*.log

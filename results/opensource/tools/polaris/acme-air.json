@@ -218,7 +218,7 @@
   "sensitiveContainerEnvVar": 5,
   "tagNotSpecified": 8
  },
- "seconds": 0.15,
+ "seconds": 0.12,
  "findings": 162,
  "score": {
   "labels": 79,

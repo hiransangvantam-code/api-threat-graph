@@ -99,6 +99,8 @@
   ]
  ],
  "raw": {
+  "CKV_SECRET_4": 1,
+  "CKV_SECRET_6": 2,
   "CKV_K8S_21": 24,
   "CKV_K8S_9": 3,
   "CKV_K8S_37": 2,
@@ -112,11 +114,9 @@
   "CKV_K8S_22": 2,
   "CKV_K8S_8": 6,
   "CKV_K8S_31": 9,
-  "CKV2_K8S_6": 9,
-  "CKV_SECRET_4": 1,
-  "CKV_SECRET_6": 2
+  "CKV2_K8S_6": 9
  },
- "seconds": 2.63,
+ "seconds": 2.43,
  "findings": 86,
  "score": {
   "labels": 44,

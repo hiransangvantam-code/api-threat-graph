@@ -40,7 +40,7 @@ tool stops) are in `results/opensource/comparison.md` and summarised in `docs/BE
 | API behaviour (82) and inventory (88) labels | 52 + 88 | 0 | 0 | 0 | 0 | 10 + 0 | 0 |
 | Configuration labels (546) | 326 | 331 | 262 | 254 | 164 | 4 | 1 / 0 / 0 |
 | Precision | 75% | 95% | 74% | 87% | 89% | 37% | – |
-| Time per system | ~8 s per scan, under 1 s of analysis | 0.2 s | 2.7 s | 6.2 s | 0.05 s | 2.3 s | 0.5-3.8 s |
+| Time per system (median) | 0.35 s for Phases 1-4 (~8 s per whole scan) | 0.13 s | 2.3 s | 1.9 s | 0.04 s | 1.4 s | 0.5-3.6 s |
 
 The Kubernetes scanners are as good as ATG on deployment configuration and more precise, but they stop
 at the manifests: three systems ship Docker Compose, which none of them reads, and they say nothing about

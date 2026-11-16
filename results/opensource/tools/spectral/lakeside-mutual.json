@@ -127,7 +127,7 @@
   "owasp:api2:2023-write-restricted": 9,
   "owasp:api2:2023-read-restricted": 12
  },
- "seconds": 3.62,
+ "seconds": 4.1,
  "findings": 582,
  "score": {
   "labels": 80,

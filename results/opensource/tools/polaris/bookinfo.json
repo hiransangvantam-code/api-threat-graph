@@ -103,7 +103,7 @@
   "readinessProbeMissing": 6,
   "runAsRootAllowed": 6
  },
- "seconds": 0.09,
+ "seconds": 0.07,
  "findings": 114,
  "score": {
   "labels": 38,

@@ -1,0 +1,1382 @@
+{
+ "company": "lakeside-mutual",
+ "users": "real images, own load generator and opensource/real/<id>/load.txt",
+ "scan_s": 0.2,
+ "timings": {
+  "phase1_ms": 185.9736569999768,
+  "phase2_ms": 3.472476000069946,
+  "phase3_ms": 37.58607000008851,
+  "phase4_ms": 8.738791000041601
+ },
+ "run_id": "20261115-223845-cc4d65",
+ "summary": {
+  "findings": 118,
+  "by_severity": {
+   "critical": 0,
+   "high": 26,
+   "medium": 40,
+   "low": 52
+  },
+  "attack_paths": 118,
+  "critical_paths": 0,
+  "total_path_risk": 414.5,
+  "endpoints": 38,
+  "shadow_endpoints": 1,
+  "services": 9,
+  "rules_evaluated": 27,
+  "rules_fired": 13,
+  "label": "lakeside-mutual"
+ },
+ "eujf_summary": {
+  "services": 9,
+  "endpoints": 38,
+  "inventory": {
+   "documented": 36,
+   "dormant": 1,
+   "shadow": 1
+  },
+  "confidence": {
+   "HIGH": 36,
+   "MEDIUM": 1,
+   "ZOMBIE": 1
+  },
+  "public_endpoints": 0,
+  "endpoints_with_sensitive_data": 13,
+  "dependencies": 8,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": null,
+ "endpoints": [
+  {
+   "id": "ep:customer-core:GET:/cities/{}",
+   "service": "customer-core",
+   "method": "GET",
+   "path": "/cities/{postalCode}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-core:GET:/customers",
+   "service": "customer-core",
+   "method": "GET",
+   "path": "/customers",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-core:POST:/customers",
+   "service": "customer-core",
+   "method": "POST",
+   "path": "/customers",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-core:PUT:/customers/{}",
+   "service": "customer-core",
+   "method": "PUT",
+   "path": "/customers/{customerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-core:PUT:/customers/{}/address",
+   "service": "customer-core",
+   "method": "PUT",
+   "path": "/customers/{customerId}/address",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-core:GET:/customers/{}",
+   "service": "customer-core",
+   "method": "GET",
+   "path": "/customers/{ids}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-core:GET:/getCustomers/{}",
+   "service": "customer-core",
+   "method": "GET",
+   "path": "/getCustomers/{ids}",
+   "inventory": "dormant",
+   "seen_in": [
+    "spec"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-management-backend:GET:/customers",
+   "service": "customer-management-backend",
+   "method": "GET",
+   "path": "/customers",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-management-backend:GET:/customers/{}",
+   "service": "customer-management-backend",
+   "method": "GET",
+   "path": "/customers/{customerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-management-backend:PUT:/customers/{}",
+   "service": "customer-management-backend",
+   "method": "PUT",
+   "path": "/customers/{customerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-management-backend:GET:/interaction-logs/{}",
+   "service": "customer-management-backend",
+   "method": "GET",
+   "path": "/interaction-logs/{customerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-management-backend:PATCH:/interaction-logs/{}",
+   "service": "customer-management-backend",
+   "method": "PATCH",
+   "path": "/interaction-logs/{customerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-management-backend:GET:/notifications",
+   "service": "customer-management-backend",
+   "method": "GET",
+   "path": "/notifications",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:POST:/auth",
+   "service": "customer-self-service-backend",
+   "method": "POST",
+   "path": "/auth",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:POST:/auth/signup",
+   "service": "customer-self-service-backend",
+   "method": "POST",
+   "path": "/auth/signup",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:GET:/cities/{}",
+   "service": "customer-self-service-backend",
+   "method": "GET",
+   "path": "/cities/{postalCode}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:POST:/customers",
+   "service": "customer-self-service-backend",
+   "method": "POST",
+   "path": "/customers",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:GET:/customers/{}",
+   "service": "customer-self-service-backend",
+   "method": "GET",
+   "path": "/customers/{customerId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:PUT:/customers/{}/address",
+   "service": "customer-self-service-backend",
+   "method": "PUT",
+   "path": "/customers/{customerId}/address",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:GET:/customers/{}/insurance-quote-requests",
+   "service": "customer-self-service-backend",
+   "method": "GET",
+   "path": "/customers/{customerId}/insurance-quote-requests",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:GET:/insurance-quote-requests",
+   "service": "customer-self-service-backend",
+   "method": "GET",
+   "path": "/insurance-quote-requests",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:POST:/insurance-quote-requests",
+   "service": "customer-self-service-backend",
+   "method": "POST",
+   "path": "/insurance-quote-requests",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:PATCH:/insurance-quote-requests/{}",
+   "service": "customer-self-service-backend",
+   "method": "PATCH",
+   "path": "/insurance-quote-requests/{id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:GET:/insurance-quote-requests/{}",
+   "service": "customer-self-service-backend",
+   "method": "GET",
+   "path": "/insurance-quote-requests/{insuranceQuoteRequestId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:customer-self-service-backend:GET:/user",
+   "service": "customer-self-service-backend",
+   "method": "GET",
+   "path": "/user",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/customers",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/customers",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/customers/{}",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/customers/{customerIdDto}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/customers/{}/policies",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/customers/{customerIdDto}/policies",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/insurance-quote-requests",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/insurance-quote-requests",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/insurance-quote-requests/{}",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/insurance-quote-requests/{id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}",
+   "service": "policy-management-backend",
+   "method": "PATCH",
+   "path": "/insurance-quote-requests/{id}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/policies",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/policies",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:POST:/policies",
+   "service": "policy-management-backend",
+   "method": "POST",
+   "path": "/policies",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:DELETE:/policies/{}",
+   "service": "policy-management-backend",
+   "method": "DELETE",
+   "path": "/policies/{policyId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:GET:/policies/{}",
+   "service": "policy-management-backend",
+   "method": "GET",
+   "path": "/policies/{policyId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:PUT:/policies/{}",
+   "service": "policy-management-backend",
+   "method": "PUT",
+   "path": "/policies/{policyId}",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:policy-management-backend:POST:/riskfactor/compute",
+   "service": "policy-management-backend",
+   "method": "POST",
+   "path": "/riskfactor/compute",
+   "inventory": "documented",
+   "seen_in": [
+    "spec",
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:spring-boot-admin:GET:/applications",
+   "service": "spring-boot-admin",
+   "method": "GET",
+   "path": "/applications",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:customer-management-backend:GET:/customers",
+   "detail": "GET /customers (customer-management-backend) returns a list with pii fields",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API3",
+   "target": "ep:policy-management-backend:GET:/customers",
+   "detail": "GET /customers (policy-management-backend) returns a list with pii fields",
+   "severity": "high",
+   "score": 15
+  },
+  {
+   "rule": "API3",
+   "target": "ep:policy-management-backend:GET:/customers/{}/policies",
+   "detail": "GET /customers/{customerIdDto}/policies (policy-management-backend) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API3",
+   "target": "ep:policy-management-backend:GET:/policies",
+   "detail": "GET /policies (policy-management-backend) returns a list with financial fields",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:customer-management-backend",
+   "detail": "customer-management-backend is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:customer-self-service-backend",
+   "detail": "customer-self-service-backend is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:policy-management-backend",
+   "detail": "policy-management-backend is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:DELETE:/policies/{}",
+   "detail": "DELETE /policies/{policyId} (policy-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customer-management-backend:GET:/customers",
+   "detail": "GET /customers (customer-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:GET:/customers",
+   "detail": "GET /customers (policy-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:GET:/customers/{}",
+   "detail": "GET /customers/{customerIdDto} (policy-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:GET:/customers/{}/policies",
+   "detail": "GET /customers/{customerIdDto}/policies (policy-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customer-management-backend:GET:/customers/{}",
+   "detail": "GET /customers/{customerId} (customer-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:GET:/policies",
+   "detail": "GET /policies (policy-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:GET:/policies/{}",
+   "detail": "GET /policies/{policyId} (policy-management-backend) returned 2xx to 30 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}",
+   "detail": "PATCH /insurance-quote-requests/{id} (policy-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customer-management-backend:PATCH:/interaction-logs/{}",
+   "detail": "PATCH /interaction-logs/{customerId} (customer-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:POST:/policies",
+   "detail": "POST /policies (policy-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:POST:/riskfactor/compute",
+   "detail": "POST /riskfactor/compute (policy-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:customer-management-backend:PUT:/customers/{}",
+   "detail": "PUT /customers/{customerId} (customer-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:policy-management-backend:PUT:/policies/{}",
+   "detail": "PUT /policies/{policyId} (policy-management-backend) returned 2xx to 15 request(s) without a token",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API1",
+   "target": "ep:customer-self-service-backend:GET:/customers/{}",
+   "detail": "GET /customers/{customerId} (customer-self-service-backend): object ID from path, response carries owner field customerId, 0 x 403 in 40 calls",
+   "severity": "medium",
+   "score": 10
+  },
+  {
+   "rule": "API1",
+   "target": "ep:customer-core:GET:/customers/{}",
+   "detail": "GET /customers/{ids} (customer-core): object ID from path, response carries owner field customers[].customerId, 0 x 403 in 97 calls",
+   "severity": "medium",
+   "score": 10
+  },
+  {
+   "rule": "API1",
+   "target": "ep:customer-core:PUT:/customers/{}/address",
+   "detail": "PUT /customers/{customerId}/address (customer-core): object ID from path, returns pii data, 0 x 403 in 15 calls",
+   "severity": "medium",
+   "score": 10
+  },
+  {
+   "rule": "API4",
+   "target": "svc:customer-management-backend",
+   "detail": "customer-management-backend has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:customer-self-service-backend",
+   "detail": "customer-self-service-backend has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:policy-management-backend",
+   "detail": "policy-management-backend has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:customer-management-backend",
+   "detail": "customer-management-backend does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:customer-self-service-backend",
+   "detail": "customer-self-service-backend does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:policy-management-backend",
+   "detail": "policy-management-backend does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API1",
+   "target": "ep:customer-core:PUT:/customers/{}",
+   "detail": "PUT /customers/{customerId} (customer-core): object ID from path, PUT changes the object, 0 x 403 in 15 calls",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:customer-self-service-backend:POST:/auth",
+   "detail": "POST /auth (customer-self-service-backend): 15 failed logins, no 429 seen",
+   "severity": "medium",
+   "score": 8
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:customer-core",
+   "detail": "customer-core accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:customer-management-backend",
+   "detail": "customer-management-backend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:customer-self-service-backend",
+   "detail": "customer-self-service-backend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:policy-management-backend",
+   "detail": "policy-management-backend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:customer-core",
+   "detail": "customer-core uses image gcr.io/lakeside-mutual-2020/customer-core",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:customer-management-backend",
+   "detail": "customer-management-backend uses image gcr.io/lakeside-mutual-2020/customer-management-backend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend uses image gcr.io/lakeside-mutual-2020/customer-management-frontend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:customer-self-service-backend",
+   "detail": "customer-self-service-backend uses image gcr.io/lakeside-mutual-2020/customer-self-service-backend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend uses image gcr.io/lakeside-mutual-2020/customer-self-service-frontend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:policy-management-backend",
+   "detail": "policy-management-backend uses image gcr.io/lakeside-mutual-2020/policy-management-backend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend uses image gcr.io/lakeside-mutual-2020/policy-management-frontend",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server uses image gcr.io/lakeside-mutual-2020/risk-management-server",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin uses image gcr.io/lakeside-mutual-2020/spring-boot-admin",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:spring-boot-admin:GET:/applications",
+   "detail": "GET /applications (spring-boot-admin) is served but in no spec",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:customer-core",
+   "detail": "customer-core is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:customer-management-backend",
+   "detail": "customer-management-backend is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:customer-management-frontend",
+   "detail": "customer-management-frontend is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:customer-self-service-backend",
+   "detail": "customer-self-service-backend is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:customer-self-service-frontend",
+   "detail": "customer-self-service-frontend is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:policy-management-backend",
+   "detail": "policy-management-backend is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:policy-management-frontend",
+   "detail": "policy-management-frontend is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:risk-management-server",
+   "detail": "risk-management-server is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:spring-boot-admin",
+   "detail": "spring-boot-admin is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:DELETE:/policies/{}",
+   "detail": "DELETE /policies/{policyId} (policy-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:spring-boot-admin:GET:/applications",
+   "detail": "GET /applications (spring-boot-admin): 4 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-core:GET:/cities/{}",
+   "detail": "GET /cities/{postalCode} (customer-core): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:GET:/cities/{}",
+   "detail": "GET /cities/{postalCode} (customer-self-service-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-core:GET:/customers",
+   "detail": "GET /customers (customer-core): 60 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-management-backend:GET:/customers",
+   "detail": "GET /customers (customer-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/customers",
+   "detail": "GET /customers (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/customers/{}",
+   "detail": "GET /customers/{customerIdDto} (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/customers/{}/policies",
+   "detail": "GET /customers/{customerIdDto}/policies (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-management-backend:GET:/customers/{}",
+   "detail": "GET /customers/{customerId} (customer-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:GET:/customers/{}",
+   "detail": "GET /customers/{customerId} (customer-self-service-backend): 40 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:GET:/customers/{}/insurance-quote-requests",
+   "detail": "GET /customers/{customerId}/insurance-quote-requests (customer-self-service-backend): 42 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-core:GET:/customers/{}",
+   "detail": "GET /customers/{ids} (customer-core): 97 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:GET:/insurance-quote-requests",
+   "detail": "GET /insurance-quote-requests (customer-self-service-backend): 35 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/insurance-quote-requests",
+   "detail": "GET /insurance-quote-requests (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/insurance-quote-requests/{}",
+   "detail": "GET /insurance-quote-requests/{id} (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:GET:/insurance-quote-requests/{}",
+   "detail": "GET /insurance-quote-requests/{insuranceQuoteRequestId} (customer-self-service-backend): 42 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-management-backend:GET:/interaction-logs/{}",
+   "detail": "GET /interaction-logs/{customerId} (customer-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-management-backend:GET:/notifications",
+   "detail": "GET /notifications (customer-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/policies",
+   "detail": "GET /policies (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:GET:/policies/{}",
+   "detail": "GET /policies/{policyId} (policy-management-backend): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:GET:/user",
+   "detail": "GET /user (customer-self-service-backend): 35 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:PATCH:/insurance-quote-requests/{}",
+   "detail": "PATCH /insurance-quote-requests/{id} (customer-self-service-backend): 29 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}",
+   "detail": "PATCH /insurance-quote-requests/{id} (policy-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-management-backend:PATCH:/interaction-logs/{}",
+   "detail": "PATCH /interaction-logs/{customerId} (customer-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:POST:/auth",
+   "detail": "POST /auth (customer-self-service-backend): 27 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:POST:/auth/signup",
+   "detail": "POST /auth/signup (customer-self-service-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-core:POST:/customers",
+   "detail": "POST /customers (customer-core): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:POST:/customers",
+   "detail": "POST /customers (customer-self-service-backend): 19 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:POST:/insurance-quote-requests",
+   "detail": "POST /insurance-quote-requests (customer-self-service-backend): 16 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:POST:/policies",
+   "detail": "POST /policies (policy-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:POST:/riskfactor/compute",
+   "detail": "POST /riskfactor/compute (policy-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-core:PUT:/customers/{}",
+   "detail": "PUT /customers/{customerId} (customer-core): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-management-backend:PUT:/customers/{}",
+   "detail": "PUT /customers/{customerId} (customer-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-core:PUT:/customers/{}/address",
+   "detail": "PUT /customers/{customerId}/address (customer-core): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:customer-self-service-backend:PUT:/customers/{}/address",
+   "detail": "PUT /customers/{customerId}/address (customer-self-service-backend): 26 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:policy-management-backend:PUT:/policies/{}",
+   "detail": "PUT /policies/{policyId} (policy-management-backend): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:customer-core",
+   "detail": "customer-core does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [],
+ "services": [
+  {
+   "name": "customer-core",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "customer-management-backend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "customer-management-frontend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "customer-self-service-backend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "customer-self-service-frontend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "policy-management-backend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "policy-management-frontend",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "risk-management-server",
+   "role": "service",
+   "exposure": "internet"
+  },
+  {
+   "name": "spring-boot-admin",
+   "role": "service",
+   "exposure": "internet"
+  }
+ ],
+ "trace_services": []
+}

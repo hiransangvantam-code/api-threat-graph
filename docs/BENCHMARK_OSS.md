@@ -63,18 +63,19 @@ match a label):
 
 | Tool | Runs on | Labels found | Configuration | API behaviour | Inventory | Precision | Time per system |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **ATG v1.5** | 10/10 | **466 (65%)** | 326/546 (60%) | **52/82 (63%)** | **88/88 (100%)** | 75% | 7.9 s* |
-| Polaris | 7/10 | 331 (46%) | 331/546 (61%) | 0 | 0 | 95% | 0.2 s |
-| Checkov | 7/10 | 262 (37%) | 262/546 (48%) | 0 | 0 | 74% | 2.7 s |
-| Kubescape | 7/10 | 254 (35%) | 254/546 (47%) | 0 | 0 | 87% | 6.2 s |
-| kube-linter | 7/10 | 164 (23%) | 164/546 (30%) | 0 | 0 | 89% | 0.05 s |
-| Spectral (OWASP) | 3/10 | 14 (2%) | 4 | 10 | 0 | 37% | 2.3 s |
-| Bandit | 4/10 | 1 | 1 | 0 | 0 | 20% | 0.5 s |
-| gosec | 3/10 | 0 | 0 | 0 | 0 | – | 3.8 s |
-| njsscan | 3/10 | 0 | 0 | 0 | 0 | – | 0.7 s |
+| **ATG v1.5** | 10/10 | **466 (65%)** | 326/546 (60%) | **52/82 (63%)** | **88/88 (100%)** | 75% | 0.35 s* |
+| Polaris | 7/10 | 331 (46%) | 331/546 (61%) | 0 | 0 | 95% | 0.13 s |
+| Checkov | 7/10 | 262 (37%) | 262/546 (48%) | 0 | 0 | 74% | 2.3 s |
+| Kubescape | 7/10 | 254 (35%) | 254/546 (47%) | 0 | 0 | 87% | 1.9 s |
+| kube-linter | 7/10 | 164 (23%) | 164/546 (30%) | 0 | 0 | 89% | 0.04 s |
+| Spectral (OWASP) | 3/10 | 14 (2%) | 4 | 10 | 0 | 37% | 1.4 s |
+| Bandit | 4/10 | 1 | 1 | 0 | 0 | 20% | 0.47 s |
+| gosec | 3/10 | 0 | 0 | 0 | 0 | – | 3.6 s |
+| njsscan | 3/10 | 0 | 0 | 0 | 0 | – | 0.61 s |
 
-\* ATG's time is a whole scan as START runs it. Reading all four sources takes 0.2-0.8 s, and Phases 2-4
-take under a second. Most of the rest is waiting for the sidecar and the Collector to go quiet before
+Times are medians per system from one run of `BENCH-Windows.bat` / `bench.sh` on a 2-vCPU host; they
+change a little from run to run. \* ATG's time is Phases 1-4 of one scan (0.2-0.9 s). A whole scan as
+START runs it takes 7.2-8.1 s, most of it waiting for the sidecar and the Collector to go quiet before
 reading them. The other tools' time is one run on the files.
 
 What this shows:

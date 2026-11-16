@@ -24,3 +24,10 @@ opensource/*/upstream/
 # demo-all output (demo/index.html is kept)
 demo/*/
 demo/*.log
+
+# evaluation on the open-source systems: keep the Phase 1 output (live/scans/*/raw), the version 1.6
+# analyses (v16/) and the summaries; the scan's own copies and the fixed deployment files are rebuilt
+results/opensource/eval/*/*/runs/
+results/opensource/eval/*/*/live/scans/*/analysis.json
+results/opensource/eval/*/*/live/scans/*/eujf.json
+results/opensource/fixes/*/

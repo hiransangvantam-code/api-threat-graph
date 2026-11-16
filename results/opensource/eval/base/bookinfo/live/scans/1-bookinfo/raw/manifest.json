@@ -1,0 +1,107 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023447-9012ad",
+  "target": "Istio Bookinfo",
+  "started_at": "2026-11-16T02:34:47+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "66dfc28fccfc48c00fcce76a4745f9ae69ec66cc7a97a076d83477c9858ce2bd",
+      "records": 13,
+      "stats": {
+        "flows": 544,
+        "flows_ignored": 1,
+        "endpoints": 13,
+        "services": 4,
+        "flows_by_capture_point": {
+          "north-south": 240,
+          "east-west": 304
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 17.6
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "4abf676b3ac84a0e8d96f946734ce81b9e4c8ef0abb1d6d12f0ca704349cbcdf",
+      "records": 1,
+      "stats": {
+        "specs": 1,
+        "services_with_spec": [
+          "productpage"
+        ],
+        "services_without_live_spec": [
+          "details",
+          "productpage",
+          "ratings",
+          "reviews"
+        ],
+        "operations": 4,
+        "probes": 40
+      },
+      "warnings": [
+        "productpage: no live spec at any probed path",
+        "details: no live spec at any probed path",
+        "reviews: no live spec at any probed path",
+        "ratings: no live spec at any probed path"
+      ],
+      "duration_ms": 154.6
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "ef5a1ab6734fcb14b8be3c13624c140c6615bcfe726d9b59a6e3a4cdcdb5f17c",
+      "records": 22,
+      "stats": {
+        "files": 2,
+        "workloads": 6,
+        "services": 4,
+        "ingress_paths": 0,
+        "gateway_routes": 5,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [
+          "details-v1",
+          "productpage-v1",
+          "ratings-v1",
+          "reviews-v1",
+          "reviews-v2",
+          "reviews-v3"
+        ],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {
+          "ServiceAccount": 4
+        }
+      },
+      "warnings": [],
+      "duration_ms": 34.5
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "5a34df772d59f1cc6c4f3a6f55f061d43e4ef4c013e0b710a1c1a78e348386d8",
+      "records": 28,
+      "stats": {
+        "spans": 844,
+        "spans_ignored": 0,
+        "traces": 244,
+        "services": 4,
+        "edges": 4,
+        "distinct_call_chains": 10,
+        "max_chain_depth": 3
+      },
+      "warnings": [],
+      "duration_ms": 13.3
+    }
+  },
+  "finished_at": "2026-11-16T02:34:47+00:00",
+  "total_duration_ms": 230.0
+}

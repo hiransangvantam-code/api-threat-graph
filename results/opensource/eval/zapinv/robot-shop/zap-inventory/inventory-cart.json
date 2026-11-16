@@ -1,0 +1,186 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "cart (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/add/{id}/{id}/{id}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  },
+  "/cart/{id}": {
+   "delete": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   },
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  },
+  "/rename/{id}/{id}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  },
+  "/shipping/{id}": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/update/{id}/{id}/{id}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

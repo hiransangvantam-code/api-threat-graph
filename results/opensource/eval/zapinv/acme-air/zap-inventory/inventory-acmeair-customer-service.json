@@ -1,0 +1,113 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "acmeair-customer-service (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/customer/byid/{id}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   },
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/customer/config/countCustomers": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  },
+  "/customer/internal/updateCustomerTotalMiles/{id}": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/customer/loader/load": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  }
+ }
+}

@@ -2,14 +2,17 @@
 setlocal
 cd /d "%~dp0"
 title API Threat Graph
-rem   START-Windows.bat            ShopLite, scanned before and after its fixes
-rem   START-Windows.bat paynow     one of the ten test companies in companies\ (see companies\README.md)
-rem   START-Windows.bat bookinfo   one of the ten open-source systems in opensource\, with stand-in services
+rem   START-Windows.bat                  Bank of Anthos, one of the ten open-source systems (stand-in services)
+rem   START-Windows.bat bookinfo         any of the ten open-source systems in opensource\ (see opensource\README.md)
+rem   START-Windows.bat shoplite         ShopLite, the development testbed, before and after its fixes
+rem   START-Windows.bat paynow           one of the generated test companies in companies\ (development tests)
 where docker >nul 2>nul
 if errorlevel 1 goto nodocker
 docker info >nul 2>nul
 if errorlevel 1 goto notrunning
-if not "%~1"=="" goto company
+set "CO=%~1"
+if "%CO%"=="" set "CO=bank-of-anthos"
+if /i not "%CO%"=="shoplite" goto company
 echo.
 echo   API Threat Graph - two Dockers
 echo     company Docker : ShopLite, the system under review  (target\docker-compose.yml)
@@ -80,7 +83,6 @@ exit /b 0
 
 rem ------------------------------------------------------------------ a test company
 :company
-set "CO=%~1"
 set "F=companies"
 if not exist "companies\%CO%\atg.env" if exist "opensource\%CO%\atg.env" set "F=opensource"
 if not exist "%F%\%CO%\atg.env" (

@@ -1,0 +1,946 @@
+{
+ "system": "petclinic",
+ "bases": [
+  "http://172.18.0.4:9090",
+  "http://172.18.0.6:8888",
+  "http://172.18.0.3:8081",
+  "http://172.18.0.7:8084",
+  "http://172.18.0.9:8083",
+  "http://172.18.0.2:8082"
+ ],
+ "ips": {
+  "admin-server": "172.18.0.4",
+  "config-server": "172.18.0.6",
+  "customers-service": "172.18.0.3",
+  "genai-service": "172.18.0.7",
+  "vets-service": "172.18.0.9",
+  "visits-service": "172.18.0.2"
+ },
+ "by_ip": {
+  "172.18.0.4": "admin-server",
+  "172.18.0.6": "config-server",
+  "172.18.0.3": "customers-service",
+  "172.18.0.7": "genai-service",
+  "172.18.0.9": "vets-service",
+  "172.18.0.2": "visits-service"
+ },
+ "total_s": 24.9,
+ "messages": 5885,
+ "urls": [
+  "http://172.18.0.2:8082",
+  "http://172.18.0.2:8082/owners",
+  "http://172.18.0.2:8082/owners/1",
+  "http://172.18.0.2:8082/owners/1/pets",
+  "http://172.18.0.2:8082/owners/1/pets/1",
+  "http://172.18.0.2:8082/owners/1/pets/1/visits",
+  "http://172.18.0.2:8082/pets",
+  "http://172.18.0.2:8082/pets/visits?petId=1",
+  "http://172.18.0.3:8081",
+  "http://172.18.0.3:8081/owners",
+  "http://172.18.0.3:8081/owners/1",
+  "http://172.18.0.3:8081/owners/1/pets",
+  "http://172.18.0.3:8081/owners/1/pets/1",
+  "http://172.18.0.3:8081/petTypes",
+  "http://172.18.0.4:9090",
+  "http://172.18.0.4:9090/applications",
+  "http://172.18.0.6:8888",
+  "http://172.18.0.6:8888/1",
+  "http://172.18.0.6:8888/1/1",
+  "http://172.18.0.7:8084",
+  "http://172.18.0.7:8084/chatclient",
+  "http://172.18.0.9:8083",
+  "http://172.18.0.9:8083/vets"
+ ],
+ "alerts": [
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9090/applications",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.6:8888/1/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "40042",
+   "alert": "Spring Actuator Information Leak",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "215",
+   "method": "GET",
+   "url": "http://172.18.0.6:8888/actuator/health",
+   "param": ""
+  },
+  {
+   "pluginId": "40035",
+   "alert": "Hidden File Found",
+   "risk": "Medium",
+   "confidence": "High",
+   "cweid": "538",
+   "method": "GET",
+   "url": "http://172.18.0.6:8888/CVS/root",
+   "param": ""
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners/1/pets/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "PUT",
+   "url": "http://172.18.0.3:8081/owners/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "PUT",
+   "url": "http://172.18.0.3:8081/owners/1/pets/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/petTypes",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.3:8081/owners/1/pets",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8081/owners",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.7:8084/chatclient",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.9:8083/vets",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/owners/1/pets/1/visits",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.2:8082/pets/visits?petId=1",
+   "param": "Header User-Agent"
+  }
+ ]
+}

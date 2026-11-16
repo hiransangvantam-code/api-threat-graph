@@ -4,7 +4,7 @@ The setup has two Docker deployments, as in Fig. 1 of the paper.
 
 | Docker | What it is | File |
 |---|---|---|
-| Company Docker (target) | The system under review: ShopLite, four microservices (api-gateway, user-service, order-service, payment-service) on the network `customer-net` | `target/docker-compose.yml` |
+| Company Docker (target) | The system under review, for example Bank of Anthos on its network `bank-of-anthos-net` | `opensource/<name>/docker-compose.yml` |
 | ATG Docker (ours) | Joins the company's network, collects the four Phase 1 sources and runs Phases 1-4 | `docker-compose.yml` |
 
 The ATG Docker has four containers:
@@ -29,14 +29,21 @@ Windows: open the project folder, click the address bar, type `powershell`, pres
 
 macOS / Linux: open a terminal in the folder and run `sh start.sh`.
 
-The script runs six steps and prints which one it is on:
+With no name, START reviews **Bank of Anthos**, one of the ten open-source systems (`opensource/`). Give another
+name to review another one: `.\START-Windows.bat bookinfo` (Windows) or `sh start.sh bookinfo`. The names are
+`online-boutique`, `bank-of-anthos`, `robot-shop`, `acme-air`, `petclinic`, `piggymetrics`, `lakeside-mutual`,
+`ftgo`, `hotel-reservation` and `bookinfo`.
 
-1. Starts the company Docker (ShopLite as shipped, with its weaknesses).
-2. Starts the ATG Docker and opens http://localhost:8080. Until the first scan, that page shows whether every container of both Dockers is up.
-3. Simulated customers use the shop. Their traffic goes through ATG's sidecar.
-4. Scan 1 (Phases 1-4). The page switches to the threat graph.
-5. The company deploys the fixed version, and the customers use the shop again.
-6. Scan 2. The home page shows the before/after comparison (attack-path risk 472 → 13.5).
+The script runs four steps and prints which one it is on:
+
+1. Starts the company Docker: the system's services (stand-ins built from its code; the first start also
+   downloads the system's code at the pinned commit, because ATG reads its real deployment files).
+2. Starts the ATG Docker and opens http://localhost:8080.
+3. The system's users send their requests. Their traffic goes through ATG's sidecar.
+4. One scan (Phases 1-4). The page switches to the threat graph; for Bank of Anthos the attack-path risk is 316.55.
+
+ShopLite, the small shop used while ATG was developed, is still there for the unit tests and runs with
+`START-Windows.bat shoplite` (scanned before and after its fixes). It is not part of the evaluation.
 
 When the window says `Done`, press F5 in the browser.
 
@@ -48,12 +55,12 @@ Every start is a fresh review. The pages and exports of the previous review are 
 |---|---|---|
 | Home (`index.html`) | Threat graph preview, before/after table, the four phases, all scans, export links, what was kept and deleted, the two-Docker diagram, the Section IV results | yes |
 | `threat-graph.html` | The threat graph, full screen. Click a node or an attack path. Download buttons for the four export formats at the top. | yes |
-| `dashboard-1-vulnerable.html` | The full Phase 4 dashboard: API overview (by source and by confidence HIGH/MEDIUM/ZOMBIE), risk summary, top vulnerabilities, attack paths, fix plan | yes |
-| `hardening-1-vulnerable.html` | What to fix, in order: the risk after each fix, every finding with why it matters, the fix for this system's own gateway / Kubernetes / framework, how to check the fix, a hardening baseline per service, accuracy and speed (`docs/HARDENING_REPORT.md`). Also as `exports/1-vulnerable/hardening.md` | yes |
-| `exports/1-vulnerable/` | The threat graph as GraphML, JSON, SARIF and SVG (`docs/EXPORT_FORMATS.md`) | yes |
-| `live/phase1-report-1-vulnerable.html` | What each Phase 1 source found | no, only while running |
-| `live/scans/1-vulnerable/eujf.json` | The Phase 2 output as EUJF records (Algorithm 1 in the paper) | no, only while running |
-| `live/scans/1-vulnerable/raw/*.json` | Raw Phase 1 output, one file per source | no, only while running |
+| `dashboard-1-&lt;name&gt;.html` | The full Phase 4 dashboard: API overview (by source and by confidence HIGH/MEDIUM/ZOMBIE), risk summary, top vulnerabilities, attack paths, fix plan | yes |
+| `hardening-1-&lt;name&gt;.html` | What to fix, in order: the risk after each fix, every finding with why it matters, the fix for this system's own gateway / Kubernetes / framework, how to check the fix, a hardening baseline per service, accuracy and speed (`docs/HARDENING_REPORT.md`). Also as `exports/1-&lt;name&gt;/hardening.md` | yes |
+| `exports/1-&lt;name&gt;/` | The threat graph as GraphML, JSON, SARIF and SVG (`docs/EXPORT_FORMATS.md`) | yes |
+| `live/phase1-report-1-&lt;name&gt;.html` | What each Phase 1 source found | no, only while running |
+| `live/scans/1-&lt;name&gt;/eujf.json` | The Phase 2 output as EUJF records (Algorithm 1 in the paper) | no, only while running |
+| `live/scans/1-&lt;name&gt;/raw/*.json` | Raw Phase 1 output, one file per source | no, only while running |
 
 The `live/` pages are kept in memory, so they work only while the review is running.
 

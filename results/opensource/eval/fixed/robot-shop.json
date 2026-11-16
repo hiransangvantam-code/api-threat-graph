@@ -1,0 +1,1348 @@
+{
+ "system": "robot-shop",
+ "tag": "fixed",
+ "users": "Stan's Robot Shop: 690 requests in 8.7 s, 0 sessions; status codes: 200 x690",
+ "startup_s": 20.6,
+ "scan_wall_s": 7.4,
+ "scan_log": [
+  "[scan] robot-shop: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 1516 HTTP flows from the sidecar, 0 span batches from the Collector (1087 KB cleared from their memory)",
+  "[ok]   runtime_traffic    55 records      55.5 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     270.0 ms  -> /work/raw/openapi.json",
+  "! web: no live spec at any probed path",
+  "! catalogue: no live spec at any probed path",
+  "! user: no live spec at any probed path",
+  "! cart: no live spec at any probed path",
+  "! shipping: no live spec at any probed path",
+  "! payment: no live spec at any probed path",
+  "! ratings: no live spec at any probed path",
+  "[ok]   infrastructure     32 records      15.6 ms  -> /work/raw/infrastructure.json",
+  "! gateway route \\.php$ points at '127', which no manifest defines",
+  "[ok]   callchain           0 records       0.3 ms  -> /work/raw/callchain.json",
+  "! no spans found; is the OTel exporter writing to trace_paths?",
+  "[ok]   29 endpoints in 12 services (29 shadow)  -> /work/eujf.json",
+  "[ok]   108 findings (critical 8, high 36, medium 12, low 52), 285 attack paths, path risk 874",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] robot-shop: 29 APIs, 108 findings, 285 attack paths, path risk 874",
+  "[scan] threat graph exported to output/site/exports/1-robot-shop/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261116-025055-08b389",
+ "summary": {
+  "findings": 108,
+  "by_severity": {
+   "critical": 8,
+   "high": 36,
+   "medium": 12,
+   "low": 52
+  },
+  "attack_paths": 285,
+  "critical_paths": 46,
+  "total_path_risk": 874.0,
+  "endpoints": 29,
+  "shadow_endpoints": 29,
+  "services": 12,
+  "rules_evaluated": 27,
+  "rules_fired": 9,
+  "label": "robot-shop"
+ },
+ "eujf_summary": {
+  "services": 12,
+  "endpoints": 29,
+  "inventory": {
+   "shadow": 29
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 29,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 29,
+  "endpoints_with_sensitive_data": 2,
+  "dependencies": 7,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "web",
+ "endpoints": [
+  {
+   "id": "ep:cart:GET:/add/{}/{}/{}",
+   "service": "cart",
+   "method": "GET",
+   "path": "/add/{id}/{id}/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/cart/add/{id}/{id}/{id}"
+   ]
+  },
+  {
+   "id": "ep:cart:DELETE:/cart/{}",
+   "service": "cart",
+   "method": "DELETE",
+   "path": "/cart/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/cart/cart/{id}"
+   ]
+  },
+  {
+   "id": "ep:cart:GET:/cart/{}",
+   "service": "cart",
+   "method": "GET",
+   "path": "/cart/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/cart/cart/{id}"
+   ]
+  },
+  {
+   "id": "ep:cart:GET:/rename/{}/{}",
+   "service": "cart",
+   "method": "GET",
+   "path": "/rename/{id}/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/cart/rename/{id}/{id}"
+   ]
+  },
+  {
+   "id": "ep:cart:POST:/shipping/{}",
+   "service": "cart",
+   "method": "POST",
+   "path": "/shipping/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/cart/shipping/{id}"
+   ]
+  },
+  {
+   "id": "ep:cart:GET:/update/{}/{}/{}",
+   "service": "cart",
+   "method": "GET",
+   "path": "/update/{id}/{id}/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/cart/update/{id}/{id}/{id}"
+   ]
+  },
+  {
+   "id": "ep:catalogue:GET:/categories",
+   "service": "catalogue",
+   "method": "GET",
+   "path": "/categories",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalogue/categories"
+   ]
+  },
+  {
+   "id": "ep:catalogue:GET:/product/{}",
+   "service": "catalogue",
+   "method": "GET",
+   "path": "/product/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalogue/product/{id}"
+   ]
+  },
+  {
+   "id": "ep:catalogue:GET:/products",
+   "service": "catalogue",
+   "method": "GET",
+   "path": "/products",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalogue/products"
+   ]
+  },
+  {
+   "id": "ep:catalogue:GET:/products/{}",
+   "service": "catalogue",
+   "method": "GET",
+   "path": "/products/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalogue/products/{id}"
+   ]
+  },
+  {
+   "id": "ep:catalogue:GET:/search/{}",
+   "service": "catalogue",
+   "method": "GET",
+   "path": "/search/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/catalogue/search/{id}"
+   ]
+  },
+  {
+   "id": "ep:payment:POST:/pay/{}",
+   "service": "payment",
+   "method": "POST",
+   "path": "/pay/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/payment/pay/{id}"
+   ]
+  },
+  {
+   "id": "ep:ratings:GET:/api/fetch/{}",
+   "service": "ratings",
+   "method": "GET",
+   "path": "/api/fetch/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/ratings/api/fetch/{id}"
+   ]
+  },
+  {
+   "id": "ep:ratings:PUT:/api/rate/{}/{}",
+   "service": "ratings",
+   "method": "PUT",
+   "path": "/api/rate/{id}/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/ratings/api/rate/{id}/{id}"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/calc/{}",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/calc/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/calc/{id}"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/cities/{}",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/cities/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/cities/{id}"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/codes",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/codes",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/codes"
+   ]
+  },
+  {
+   "id": "ep:shipping:POST:/confirm/{}",
+   "service": "shipping",
+   "method": "POST",
+   "path": "/confirm/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/confirm/{id}"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/count",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/count",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/count"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/free",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/free",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/free"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/match/{}/{}",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/match/{id}/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/match/{id}/{id}"
+   ]
+  },
+  {
+   "id": "ep:shipping:GET:/memory",
+   "service": "shipping",
+   "method": "GET",
+   "path": "/memory",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/shipping/memory"
+   ]
+  },
+  {
+   "id": "ep:user:GET:/check/{}",
+   "service": "user",
+   "method": "GET",
+   "path": "/check/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/check/{id}"
+   ]
+  },
+  {
+   "id": "ep:user:GET:/history/{}",
+   "service": "user",
+   "method": "GET",
+   "path": "/history/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/history/{id}"
+   ]
+  },
+  {
+   "id": "ep:user:POST:/login",
+   "service": "user",
+   "method": "POST",
+   "path": "/login",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/login"
+   ]
+  },
+  {
+   "id": "ep:user:POST:/order/{}",
+   "service": "user",
+   "method": "POST",
+   "path": "/order/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/order/{id}"
+   ]
+  },
+  {
+   "id": "ep:user:POST:/register",
+   "service": "user",
+   "method": "POST",
+   "path": "/register",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/register"
+   ]
+  },
+  {
+   "id": "ep:user:GET:/uniqueid",
+   "service": "user",
+   "method": "GET",
+   "path": "/uniqueid",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/uniqueid"
+   ]
+  },
+  {
+   "id": "ep:user:GET:/users",
+   "service": "user",
+   "method": "GET",
+   "path": "/users",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/api/user/users"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:user:GET:/users",
+   "detail": "GET /users (user) returns a list with credential, pii fields",
+   "severity": "critical",
+   "score": 25
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:cart:DELETE:/cart/{}",
+   "detail": "DELETE /cart/{id} (cart) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:user:GET:/users",
+   "detail": "GET /users (user) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:shipping:POST:/confirm/{}",
+   "detail": "POST /confirm/{id} (shipping) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:user:POST:/order/{}",
+   "detail": "POST /order/{id} (user) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:payment:POST:/pay/{}",
+   "detail": "POST /pay/{id} (payment) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:cart:POST:/shipping/{}",
+   "detail": "POST /shipping/{id} (cart) returned 2xx to 30 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:ratings:PUT:/api/rate/{}/{}",
+   "detail": "PUT /api/rate/{id}/{id} (ratings) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:GET:/users",
+   "detail": "GET /users (user) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:POST:/login",
+   "detail": "POST /login (user) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:web",
+   "detail": "route /api/cart//** -> cart has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:web",
+   "detail": "route /api/catalogue//** -> catalogue has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:web",
+   "detail": "route /api/payment//** -> payment has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:web",
+   "detail": "route /api/ratings//** -> ratings has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:web",
+   "detail": "route /api/shipping//** -> shipping has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:web",
+   "detail": "route /api/user//** -> user has auth: none",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cart:DELETE:/cart/{}",
+   "detail": "DELETE /cart/{id} (cart) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cart:GET:/add/{}/{}/{}",
+   "detail": "GET /add/{id}/{id}/{id} (cart) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ratings:GET:/api/fetch/{}",
+   "detail": "GET /api/fetch/{id} (ratings) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/calc/{}",
+   "detail": "GET /calc/{id} (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cart:GET:/cart/{}",
+   "detail": "GET /cart/{id} (cart) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:catalogue:GET:/categories",
+   "detail": "GET /categories (catalogue) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:GET:/check/{}",
+   "detail": "GET /check/{id} (user) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/cities/{}",
+   "detail": "GET /cities/{id} (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/codes",
+   "detail": "GET /codes (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/count",
+   "detail": "GET /count (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/free",
+   "detail": "GET /free (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:GET:/history/{}",
+   "detail": "GET /history/{id} (user) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/match/{}/{}",
+   "detail": "GET /match/{id}/{id} (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:GET:/memory",
+   "detail": "GET /memory (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:catalogue:GET:/product/{}",
+   "detail": "GET /product/{id} (catalogue) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:catalogue:GET:/products",
+   "detail": "GET /products (catalogue) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:catalogue:GET:/products/{}",
+   "detail": "GET /products/{id} (catalogue) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cart:GET:/rename/{}/{}",
+   "detail": "GET /rename/{id}/{id} (cart) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:catalogue:GET:/search/{}",
+   "detail": "GET /search/{id} (catalogue) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:GET:/uniqueid",
+   "detail": "GET /uniqueid (user) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cart:GET:/update/{}/{}/{}",
+   "detail": "GET /update/{id}/{id}/{id} (cart) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:shipping:POST:/confirm/{}",
+   "detail": "POST /confirm/{id} (shipping) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:POST:/order/{}",
+   "detail": "POST /order/{id} (user) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:payment:POST:/pay/{}",
+   "detail": "POST /pay/{id} (payment) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:user:POST:/register",
+   "detail": "POST /register (user) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:cart:POST:/shipping/{}",
+   "detail": "POST /shipping/{id} (cart) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:ratings:PUT:/api/rate/{}/{}",
+   "detail": "PUT /api/rate/{id}/{id} (ratings) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:web",
+   "detail": "published port (docker compose) web serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:cart",
+   "detail": "cart accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:catalogue",
+   "detail": "catalogue accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:dispatch",
+   "detail": "dispatch accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mongodb",
+   "detail": "mongodb accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:mysql",
+   "detail": "mysql accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:payment",
+   "detail": "payment accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:ratings",
+   "detail": "ratings accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:redis",
+   "detail": "redis accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:shipping",
+   "detail": "shipping accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:user",
+   "detail": "user accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:web",
+   "detail": "web accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:cart",
+   "detail": "cart: no live spec; 0 of 6 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:catalogue",
+   "detail": "catalogue: no live spec; 0 of 5 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:dispatch",
+   "detail": "dispatch: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mongodb",
+   "detail": "mongodb: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:mysql",
+   "detail": "mysql: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:payment",
+   "detail": "payment: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:ratings",
+   "detail": "ratings: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:redis",
+   "detail": "redis: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:shipping",
+   "detail": "shipping: no live spec; 0 of 8 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:user",
+   "detail": "user: no live spec; 0 of 7 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:cart",
+   "detail": "cart is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:catalogue",
+   "detail": "catalogue is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:dispatch",
+   "detail": "dispatch is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mongodb",
+   "detail": "mongodb is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:mysql",
+   "detail": "mysql is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:payment",
+   "detail": "payment is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:ratings",
+   "detail": "ratings is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:redis",
+   "detail": "redis is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:shipping",
+   "detail": "shipping is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:user",
+   "detail": "user is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:web",
+   "detail": "web is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:cart:DELETE:/cart/{}",
+   "detail": "DELETE /cart/{id} (cart): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:cart:GET:/add/{}/{}/{}",
+   "detail": "GET /add/{id}/{id}/{id} (cart): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ratings:GET:/api/fetch/{}",
+   "detail": "GET /api/fetch/{id} (ratings): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/calc/{}",
+   "detail": "GET /calc/{id} (shipping): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:cart:GET:/cart/{}",
+   "detail": "GET /cart/{id} (cart): 45 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:catalogue:GET:/categories",
+   "detail": "GET /categories (catalogue): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:GET:/check/{}",
+   "detail": "GET /check/{id} (user): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/cities/{}",
+   "detail": "GET /cities/{id} (shipping): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/codes",
+   "detail": "GET /codes (shipping): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/count",
+   "detail": "GET /count (shipping): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/free",
+   "detail": "GET /free (shipping): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:GET:/history/{}",
+   "detail": "GET /history/{id} (user): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/match/{}/{}",
+   "detail": "GET /match/{id}/{id} (shipping): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:GET:/memory",
+   "detail": "GET /memory (shipping): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:catalogue:GET:/product/{}",
+   "detail": "GET /product/{id} (catalogue): 90 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:catalogue:GET:/products",
+   "detail": "GET /products (catalogue): 45 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:catalogue:GET:/products/{}",
+   "detail": "GET /products/{id} (catalogue): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:cart:GET:/rename/{}/{}",
+   "detail": "GET /rename/{id}/{id} (cart): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:catalogue:GET:/search/{}",
+   "detail": "GET /search/{id} (catalogue): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:GET:/uniqueid",
+   "detail": "GET /uniqueid (user): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:cart:GET:/update/{}/{}/{}",
+   "detail": "GET /update/{id}/{id}/{id} (cart): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:GET:/users",
+   "detail": "GET /users (user): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:shipping:POST:/confirm/{}",
+   "detail": "POST /confirm/{id} (shipping): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:POST:/login",
+   "detail": "POST /login (user): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:POST:/order/{}",
+   "detail": "POST /order/{id} (user): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:payment:POST:/pay/{}",
+   "detail": "POST /pay/{id} (payment): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:user:POST:/register",
+   "detail": "POST /register (user): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:cart:POST:/shipping/{}",
+   "detail": "POST /shipping/{id} (cart): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:ratings:PUT:/api/rate/{}/{}",
+   "detail": "PUT /api/rate/{id}/{id} (ratings): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/api/cart/",
+   "upstream_service": "cart",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/cart",
+   "replace_with": "/"
+  },
+  {
+   "match_prefix": "/api/catalogue/",
+   "upstream_service": "catalogue",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/catalogue",
+   "replace_with": "/"
+  },
+  {
+   "match_prefix": "/api/payment/",
+   "upstream_service": "payment",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/payment",
+   "replace_with": "/"
+  },
+  {
+   "match_prefix": "/api/ratings/",
+   "upstream_service": "ratings",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/ratings",
+   "replace_with": "/"
+  },
+  {
+   "match_prefix": "/api/shipping/",
+   "upstream_service": "shipping",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/shipping",
+   "replace_with": "/"
+  },
+  {
+   "match_prefix": "/api/user/",
+   "upstream_service": "user",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": "/api/user",
+   "replace_with": "/"
+  },
+  {
+   "match_prefix": "\\.php$",
+   "upstream_service": "127",
+   "auth": "none",
+   "gateway": "nginx",
+   "strip_prefix": null,
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "cart",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "catalogue",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "dispatch",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mongodb",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "mysql",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "payment",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "rabbitmq",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "ratings",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "redis",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "shipping",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "user",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "web",
+   "role": "gateway",
+   "exposure": "internet"
+  }
+ ]
+}

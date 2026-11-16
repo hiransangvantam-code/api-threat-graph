@@ -1,0 +1,38 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "config-server (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/{application}/{profile}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "application",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "profile",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

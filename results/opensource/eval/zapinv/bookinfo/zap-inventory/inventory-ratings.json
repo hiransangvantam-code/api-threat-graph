@@ -1,0 +1,61 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ratings (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/ratings/{productId}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "productId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   },
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "productId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

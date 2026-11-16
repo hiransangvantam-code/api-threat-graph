@@ -1,0 +1,131 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "customer-management-backend (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/customers": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  },
+  "/customers/{customerId}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   },
+   "put": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/interaction-logs/{customerId}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   },
+   "patch": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "customerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/notifications": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  }
+ }
+}

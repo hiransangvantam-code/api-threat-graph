@@ -1,6 +1,8 @@
 # API Threat Graph
 
-Automatic API security design review for microservices using threat graph analysis. This repository holds a working prototype of all four phases of the architecture (Fig. 1 of the paper) and the experiment behind Section IV, which measures every phase against ground truth on three microservice systems.
+Automatic API security design review for microservices using threat graph analysis. This repository holds a
+working prototype of all four phases of the architecture (Fig. 1 of the paper) and the evaluation behind
+Section V of the report, run on ten published open-source microservice systems (`opensource/`).
 
 ![Threat graph page: columns from attacker to impact, attack paths ranked by APCR on the right](docs/images/threat-graph.png)
 
@@ -16,16 +18,38 @@ docker compose up --build        # then open http://localhost:8080
 
 - **Windows:** run `START-Windows.bat`; stop with `STOP-Windows.bat`; delete everything with `CLEAN-Windows.bat`
 - **macOS / Linux:** `sh start.sh`; stop with `sh stop.sh`; delete everything with `sh clean.sh`
-- **Step-by-step guide:** [HOW-TO-RUN.md](HOW-TO-RUN.md), including how to review a system other than ShopLite
+- **Step-by-step guide:** [HOW-TO-RUN.md](HOW-TO-RUN.md), including how to review each of the ten systems
 
 Two Docker deployments start, as in Fig. 1 of the paper:
 
-- **the company's Docker** (`target/docker-compose.yml`): ShopLite, a demo shop of four microservices, on its own network `customer-net`
-- **the ATG platform** (`docker-compose.yml`): joins `customer-net` and collects all four Phase 1 sources from it. A mitmproxy sidecar sits inline in front of the gateway and carries the services' east-west calls. An OpenTelemetry Collector receives their spans. ATG also probes their OpenAPI documents and reads the company's manifests, mounted read-only. EUJF records and the threat graph go to PostgreSQL.
+- **the company's Docker** (`opensource/<name>/docker-compose.yml`): the system under review, by default Bank of
+  Anthos, on its own network. Its services are stand-ins built from the system's code; ATG reads the system's
+  real deployment files, gateway configuration and API documents.
+- **the ATG platform** (`docker-compose.yml`): joins that network and collects all four Phase 1 sources from it. A mitmproxy sidecar sits inline in front of the entry service and carries the services' east-west calls. An OpenTelemetry Collector receives their spans. ATG also probes their OpenAPI documents and reads the company's manifests, mounted read-only. EUJF records and the threat graph go to PostgreSQL.
 
 ![The company's Docker and the ATG Docker: traffic through the sidecar, spans to the Collector, OpenAPI probe, manifests read-only, Phases 1-4, PostgreSQL](docs/images/two-dockers.png)
 
-The start script runs two scans, one on ShopLite as shipped and one after the company deploys the fixes. The first build takes a few minutes; the scans take about two more. The home page at http://localhost:8080 then shows the threat graph and the before/after numbers: attack-path risk drops from 472 to 13.5. [docs/PAPER_MAPPING.md](docs/PAPER_MAPPING.md) maps every part of Section III to the code.
+START reviews Bank of Anthos by default (`START-Windows.bat <name>` for any of the ten systems). The first
+build takes a few minutes; the review about one more. http://localhost:8080 then shows the threat graph, the
+fix plan and the hardening report. [docs/PAPER_MAPPING.md](docs/PAPER_MAPPING.md) maps every part of Section III
+to the code. ShopLite and the generated companies (`demo_target/`, `companies/`) were used while ATG was developed
+and still run for the unit tests (`START-Windows.bat shoplite`); they are not part of the evaluation.
+
+## Evaluation (Section V of the report)
+
+All on the ten open-source systems, with the scripts that produce each result:
+
+| Experiment | Script | Result |
+|---|---|---|
+| ATG and eight free tools, 716 labelled weaknesses | `DEMO-ALL-Windows.bat`, then `BENCH-Windows.bat` | ATG 466 (65%) on 10/10 systems; best other tool 331 (46%) on 7/10 |
+| Discovery by source, reconciliation, observation window, overhead | `bench/oss_eval.py`, `bench/oss_report.py` | 189/201 operations (94%), precision 88%; sidecar +4.2-5.7 ms |
+| OWASP ZAP on the same systems (alone, and given ATG's inventory) | `bench/oss_eval.py --zap`, `--zap-inventory` | 0 and 4 of 716 labels; 47 and 195 of 201 operations reached |
+| ATG's configuration fixes applied to the real deployment files | `bench/oss_fixes.py`, `bench/oss_eval.py --tag fixed` | 41% of the attack-path risk removed, as the planner predicted |
+| Stress test built from Online Boutique | `bench/oss_stress.py` | 1,200 workloads in 64 s; limit at 3 random calls per operation |
+| Negative controls from the systems' code | `bench/oss_report.py` | 1 false alarm on 54 controls |
+
+Results: `results/opensource/` (`comparison.md`, `eval/summary.json`, `eval/figures/`). The report's LaTeX
+source and figures are in `paper/`.
 
 ![Home page with a preview of the threat graph and the before/after table](docs/images/home.png)
 
@@ -62,31 +86,20 @@ Each scan writes its graph to `output/site/exports/<scan>/` as GraphML (for Geph
 
 ### โชว์เพื่อนยังไง
 
-1. **ด้วย Docker (ง่ายสุด):** Windows ดับเบิลคลิก `START-Windows.bat` ส่วน Mac/Linux พิมพ์ `sh start.sh` สคริปต์จะเปิด Docker 2 ชุด คือ Docker ของบริษัท (ShopLite) กับ Docker ของ ATG ที่เข้าไปต่อกับ network ของบริษัท จากนั้น scan ก่อนและหลังแก้ แล้วเปิด http://localhost:8080 ให้ วิธีละเอียดอยู่ใน `HOW-TO-RUN.md` และตารางเทียบ paper กับโค้ดอยู่ใน `docs/PAPER_MAPPING.md`
+1. **ด้วย Docker (ง่ายสุด):** Windows ดับเบิลคลิก `START-Windows.bat` ส่วน Mac/Linux พิมพ์ `sh start.sh` สคริปต์จะเปิด Docker 2 ชุด คือ Docker ของระบบที่ตรวจ (ค่าเริ่มต้นคือ Bank of Anthos ซึ่งเป็นระบบ open-source) กับ Docker ของ ATG ที่เข้าไปต่อกับ network ของระบบนั้น จากนั้น scan แล้วเปิด http://localhost:8080 ให้ ใส่ชื่อระบบอื่นได้ เช่น `START-Windows.bat bookinfo` วิธีละเอียดอยู่ใน `HOW-TO-RUN.md` และตารางเทียบ paper กับโค้ดอยู่ใน `docs/PAPER_MAPPING.md`
 2. **ไม่มี Docker และไม่อยากรันอะไร:** เปิด `results/dashboards/crapi-C2.html` หรือ `results/dashboards/trainticket-C2.html` ในเบราว์เซอร์ได้เลย เป็น dashboard ของ Phase 4 บน API ของ crAPI (OWASP) และ Train Ticket ที่สร้างตามซอร์สโค้ดจริง
 3. **ไม่มี Docker แต่มี Python:** ทำตาม Quick start ด้านล่าง ใช้เวลาราว 30 วินาที
 
-### ผลการทดลองโดยย่อ
+### ผลการทดลองโดยย่อ (Section V ของรายงาน)
 
-ทดลองกับ 3 ระบบ: ShopLite (12 endpoints), Train Ticket (272 endpoints, 45 services) และ crAPI (79 endpoints) อย่างละ 2 เงื่อนไข × 5 seeds C1 คือดักได้ทุกอย่าง ส่วน C2 คือดักได้แค่ขาเข้าและ 30% ของ service ไม่มี trace ซึ่งใกล้ของจริงกว่า ตัวเลขด้านล่างเป็นของ C2
+ทดลองกับระบบ open-source ที่มีคนเผยแพร่จริง 10 ระบบ (65 services, 8 ภาษา, 201 operations, 716 จุดอ่อนที่ติดป้ายไว้) ไม่ใช้ ShopLite หรือบริษัทที่สร้างขึ้นเองแล้ว
 
-| | ShopLite | Train Ticket | crAPI |
-|---|---|---|---|
-| Phase 1: recall รวม 4 แหล่ง (endpoint ที่สังเกตได้) | 0.965 | 0.998 | 0.972 |
-| Phase 1: precision ของ inventory | 1.000 | 1.000 | 1.000 |
-| Phase 1: แหล่งเดียวที่ดีที่สุด (recall) | 0.830 | 0.963 | 0.838 |
-| Phase 3: F1 ของ findings เทียบ oracle | 0.90 | 0.93 | 0.97 |
-| Phase 3: recall ของ attack paths เทียบ oracle | 0.86 | 0.87 | 0.93 |
-| Phase 3: risk ที่วัดได้ / risk จริง | 0.85 | 0.85 | 0.96 |
-| เวลาทั้ง 4 phase ต่อรอบ (SQLite) | 0.3 s | 13-17 s | 1.1 s |
+- ATG หา operations ได้ 189/201 (94%) precision 88% และหาจุดอ่อนได้ 466/716 (65%) รันได้ครบ 10/10 ระบบ เครื่องมือฟรีที่ดีที่สุด (Polaris) ได้ 331 (46%) และรันได้ 7/10
+- OWASP ZAP หาได้ 0 จุด และ 4 จุดเมื่อให้รายการ operations ของ ATG ไปด้วย
+- เอา fix ด้าน configuration ตามแผนของ ATG ไปใส่ในไฟล์ deployment จริงแล้ว scan ใหม่ ความเสี่ยงของ attack path ลดลง 41% ตรงกับที่ planner ทำนาย
+- negative controls จากโค้ดของระบบ 54 จุด ATG แจ้งผิด 1 จุด
 
-สิ่งที่ผลบอก:
-
-- ไม่มีแหล่งข้อมูลไหนชนะทุกระบบ การรวม 4 แหล่งได้ทั้ง inventory ที่ครบกว่าและ threat model ที่ใกล้ความจริงกว่า ถ้าใช้แหล่งเดียว F1 ของ findings ไม่เกิน 0.40 ถ้ารวมครบ 4 แหล่งได้ 0.90-0.97
-- **Oracle** คือ threat model ที่ได้จาก ground truth ล้วน ๆ (เหมือนรู้ทุกอย่างของระบบ) แล้วใช้ rule ชุดเดียวกัน ภายใต้ C1 ผลของเครื่องมือตรงกับ oracle ทุกตัว ภายใต้ C2 สิ่งที่หายไปคือสิ่งที่มองไม่เห็นจริง ๆ เช่น TS-08 ที่ต้องเห็น traffic ระหว่าง service
-- **การแก้ระบบตามแผนช่วยได้จริง:** ShopLite หลังแก้ตามคำแนะนำของ dashboard ความเสี่ยงของ attack path ลดลง 97.1% (C1) และ attack path เหลือ 2 จาก 121
-- **ตรวจกับรายการช่องโหว่ของ OWASP เอง (crAPI 18 ข้อ):** ข้อที่การวิเคราะห์ระดับ design แบบไม่ยิง payload มองเห็นได้มี 12 ข้อ เครื่องมือชี้ endpoint ที่มีปัญหาได้ 4 ข้อในทุกรอบ (ข้อ 7-10 ในฐานะ BOLA) และข้อ 14 อีกข้อใน 1 จาก 5 seeds ซึ่งเป็นข้อเดียวที่ตรงหมวด ข้อที่พลาดไม่ได้เกิดจากการเก็บข้อมูล (oracle ก็พลาดเหมือนกัน) แต่มาจาก rule ที่ยังไม่รองรับ จาก replica ที่ไม่มีเนื้อหา response จริง (ข้อ 1, 4, 5) และจาก workload (ข้อ 14) รายละเอียดอยู่ในตาราง 15
-- ระหว่างทดลองเจอ bug ของเครื่องมือ 9 ตัว แก้ไปแล้วทั้งหมด (ตาราง 20 แสดงผลก่อนและหลังแก้) ต้องเขียนเรื่องนี้ในรายงาน
+ตัวเลขและสคริปต์อยู่ในหัวข้อ Evaluation ด้านบน
 
 ## Run without Docker (Python)
 
@@ -111,7 +124,7 @@ python -m pytest -q
 
 `output/dashboard.html` is always the latest run; `--scenario both` also writes `output/dashboard-vulnerable.html` and `output/dashboard-hardened.html`. Every run is kept in `output/runs/<run_id>/`.
 
-## Results (Section IV)
+## Development experiments (ShopLite, Train Ticket, crAPI; earlier draft, not in the final report)
 
 | Where | What |
 |---|---|

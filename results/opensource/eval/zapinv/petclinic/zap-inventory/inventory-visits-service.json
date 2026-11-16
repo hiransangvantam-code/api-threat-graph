@@ -1,0 +1,98 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "visits-service (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/owners/{ownerId}/pets/{petId}/visits": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "ownerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "petId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   },
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "ownerId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     },
+     {
+      "name": "petId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/pets/visits": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "petId",
+      "in": "query",
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

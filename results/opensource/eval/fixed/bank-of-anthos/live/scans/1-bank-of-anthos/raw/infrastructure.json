@@ -1,0 +1,1466 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025012-fbc3f7",
+  "collected_at": "2026-11-16T02:50:13+00:00",
+  "duration_ms": 182.2,
+  "inputs": [
+    "/target/upstream/kubernetes-manifests/accounts-db.yaml",
+    "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+    "/target/upstream/kubernetes-manifests/balance-reader.yaml",
+    "/target/upstream/kubernetes-manifests/config.yaml",
+    "/target/upstream/kubernetes-manifests/contacts.yaml",
+    "/target/upstream/kubernetes-manifests/frontend.yaml",
+    "/target/upstream/kubernetes-manifests/ledger-db.yaml",
+    "/target/upstream/kubernetes-manifests/ledger-writer.yaml",
+    "/target/upstream/kubernetes-manifests/loadgenerator.yaml",
+    "/target/upstream/kubernetes-manifests/transaction-history.yaml",
+    "/target/upstream/kubernetes-manifests/userservice.yaml",
+    "/target/upstream/extras/jwt/jwt-secret.yaml"
+  ],
+  "stats": {
+    "files": 12,
+    "workloads": 9,
+    "services": 8,
+    "ingress_paths": 0,
+    "gateway_routes": 0,
+    "network_policies": 9,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 1,
+    "internet_exposed_workloads": [
+      "frontend"
+    ],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [],
+    "plaintext_env_with_sensitive_name": 1,
+    "ignored_kinds": {
+      "ServiceAccount": 1
+    }
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "StatefulSet",
+      "name": "accounts-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/accounts-db.yaml",
+      "labels": {
+        "app": "accounts-db",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "accounts",
+        "tier": "db"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "accounts-db",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/accounts-db:v0.6.11@sha256:e86d6533bcd05bf9e4d7d495bf03b0a5ca571f526f3a419572b6df2c7913d588",
+          "image_tag": "e86d6533bcd05bf9e4d7d495bf03b0a5ca571f526f3a419572b6df2c7913d588",
+          "ports": [
+            5432
+          ],
+          "env": [],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "accounts-db-config"
+            },
+            {
+              "configMapRef": "demo-data-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "accounts-db"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "balancereader",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/balance-reader.yaml",
+      "labels": {
+        "app": "balancereader",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "backend"
+      },
+      "replicas": null,
+      "service_account": "bank-of-anthos",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "balancereader",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/balancereader:v0.6.11@sha256:42a51d724d0537a5214b653d63c00fd60eb9d8ee0df3f396716c9e47262ae1ee",
+          "image_tag": "42a51d724d0537a5214b653d63c00fd60eb9d8ee0df3f396716c9e47262ae1ee",
+          "ports": [],
+          "env": [
+            {
+              "name": "VERSION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_TRACING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_METRICS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "POLL_MS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 3
+            },
+            {
+              "name": "CACHE_SIZE",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "JVM_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 83
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "NAMESPACE",
+              "source": "fieldRef",
+              "ref": null,
+              "sensitive_name": false
+            }
+          ],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "ledger-db-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "balancereader"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "contacts",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/contacts.yaml",
+      "labels": {
+        "app": "contacts",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "accounts",
+        "tier": "backend"
+      },
+      "replicas": null,
+      "service_account": "bank-of-anthos",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "contacts",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/contacts:v0.6.11@sha256:67be31ff16e6e8de0ca0f8ee8fa9c23a900d89b2127d9877e69c488384ef8c2a",
+          "image_tag": "67be31ff16e6e8de0ca0f8ee8fa9c23a900d89b2127d9877e69c488384ef8c2a",
+          "ports": [],
+          "env": [
+            {
+              "name": "VERSION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_TRACING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            }
+          ],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "accounts-db-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "contacts"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "labels": {
+        "app": "frontend",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "frontend",
+        "tier": "web"
+      },
+      "replicas": null,
+      "service_account": "bank-of-anthos",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "front",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.11@sha256:5746f018f3d85475e25b8283bf8fb476e2501196bbe71e3ce144527e7280e7ae",
+          "image_tag": "5746f018f3d85475e25b8283bf8fb476e2501196bbe71e3ce144527e7280e7ae",
+          "ports": [],
+          "env": [
+            {
+              "name": "VERSION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_TRACING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "SCHEME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "DEFAULT_USERNAME",
+              "source": "configMapRef",
+              "ref": "demo-data-config",
+              "sensitive_name": false
+            },
+            {
+              "name": "DEFAULT_PASSWORD",
+              "source": "configMapRef",
+              "ref": "demo-data-config",
+              "sensitive_name": true
+            },
+            {
+              "name": "REGISTERED_OAUTH_CLIENT_ID",
+              "source": "configMapRef",
+              "ref": "oauth-config",
+              "sensitive_name": true
+            },
+            {
+              "name": "ALLOWED_OAUTH_REDIRECT_URI",
+              "source": "configMapRef",
+              "ref": "oauth-config",
+              "sensitive_name": true
+            }
+          ],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "service-api-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "frontend"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "StatefulSet",
+      "name": "ledger-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/ledger-db.yaml",
+      "labels": {
+        "app": "ledger-db",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "db"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "postgres",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledger-db:v0.6.11@sha256:b434822c3122bc3f4681741fc863c02f7bb2f476b0d6b307e2282b49d896c3dd",
+          "image_tag": "b434822c3122bc3f4681741fc863c02f7bb2f476b0d6b307e2282b49d896c3dd",
+          "ports": [
+            5432
+          ],
+          "env": [],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "ledger-db-config"
+            },
+            {
+              "configMapRef": "demo-data-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ledger-db"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ledgerwriter",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/ledger-writer.yaml",
+      "labels": {
+        "app": "ledgerwriter",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "backend"
+      },
+      "replicas": null,
+      "service_account": "bank-of-anthos",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "ledgerwriter",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledgerwriter:v0.6.11@sha256:b66efed587c295788369459898e7ae5a5e15150c3fcd782170c19a8c4b31059d",
+          "image_tag": "b66efed587c295788369459898e7ae5a5e15150c3fcd782170c19a8c4b31059d",
+          "ports": [],
+          "env": [
+            {
+              "name": "VERSION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_TRACING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_METRICS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "JVM_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 83
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "NAMESPACE",
+              "source": "fieldRef",
+              "ref": null,
+              "sensitive_name": false
+            }
+          ],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "service-api-config"
+            },
+            {
+              "configMapRef": "ledger-db-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ledgerwriter"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "loadgenerator",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/loadgenerator.yaml",
+      "labels": {
+        "app": "loadgenerator",
+        "environment": "development",
+        "team": "loadgenerator",
+        "tier": "test"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "loadgenerator",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/loadgenerator:v0.6.11@sha256:59928b82854e79bcf4c30561a6268fcb20a7a53275111b2fcb9174d28dc97a4c",
+          "image_tag": "59928b82854e79bcf4c30561a6268fcb20a7a53275111b2fcb9174d28dc97a4c",
+          "ports": [],
+          "env": [
+            {
+              "name": "FRONTEND_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "frontend:80",
+              "references_service": "frontend"
+            },
+            {
+              "name": "USERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "loadgenerator"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "transactionhistory",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/transaction-history.yaml",
+      "labels": {
+        "app": "transactionhistory",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "backend"
+      },
+      "replicas": null,
+      "service_account": "bank-of-anthos",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "transactionhistory",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/transactionhistory:v0.6.11@sha256:609acd4d93aed03139a59e3c4f58bedb695cf4649dbe6fae636d2f45bad3d811",
+          "image_tag": "609acd4d93aed03139a59e3c4f58bedb695cf4649dbe6fae636d2f45bad3d811",
+          "ports": [],
+          "env": [
+            {
+              "name": "VERSION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_TRACING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_METRICS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "POLL_MS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 3
+            },
+            {
+              "name": "CACHE_SIZE",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "CACHE_MINUTES",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 2
+            },
+            {
+              "name": "HISTORY_LIMIT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 3
+            },
+            {
+              "name": "JVM_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 83
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "NAMESPACE",
+              "source": "fieldRef",
+              "ref": null,
+              "sensitive_name": false
+            }
+          ],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "ledger-db-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "transactionhistory"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "userservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/userservice.yaml",
+      "labels": {
+        "app": "userservice",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "accounts",
+        "tier": "backend"
+      },
+      "replicas": null,
+      "service_account": "bank-of-anthos",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "userservice",
+          "image": "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.11@sha256:4fcd6638b5ba9ac29096e83ea04f4ff280d1c66874908c7e1156337cad459dc0",
+          "image_tag": "4fcd6638b5ba9ac29096e83ea04f4ff280d1c66874908c7e1156337cad459dc0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "VERSION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 7
+            },
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ENABLE_TRACING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "TOKEN_EXPIRY_SECONDS",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 4
+            },
+            {
+              "name": "PRIV_KEY_PATH",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 20
+            },
+            {
+              "name": "LOG_LEVEL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            }
+          ],
+          "env_from": [
+            {
+              "configMapRef": "environment-config"
+            },
+            {
+              "configMapRef": "accounts-db-config"
+            }
+          ],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "all"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "userservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "accounts-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/accounts-db.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "accounts-db",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "accounts",
+        "tier": "db"
+      },
+      "ports": [
+        {
+          "name": "tcp",
+          "port": 5432,
+          "targetPort": 5432,
+          "protocol": "TCP"
+        }
+      ],
+      "selects_workloads": [
+        "accounts-db"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "balancereader",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/balance-reader.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "balancereader",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "backend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "balancereader"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "contacts",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/contacts.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "contacts",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "accounts",
+        "tier": "backend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "contacts"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "frontend",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "frontend",
+        "tier": "web"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 80,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ledger-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/ledger-db.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "ledger-db",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "db"
+      },
+      "ports": [
+        {
+          "name": "tcp",
+          "port": 5432,
+          "targetPort": 5432
+        }
+      ],
+      "selects_workloads": [
+        "ledger-db"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ledgerwriter",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/ledger-writer.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "ledgerwriter",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "backend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "ledgerwriter"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "transactionhistory",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/transaction-history.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "transactionhistory",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "ledger",
+        "tier": "backend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "transactionhistory"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "userservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/userservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "userservice",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "accounts",
+        "tier": "backend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "userservice"
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "accounts-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "accounts-db"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "balancereader",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "balancereader"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "contacts",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "contacts"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "frontend"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "loadgenerator"
+          }
+        },
+        {
+          "ipBlock": {
+            "cidr": "0.0.0.0/0",
+            "except": [
+              "10.0.0.0/8"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ledger-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "ledger-db"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "ledgerwriter",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "ledgerwriter"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "loadgenerator",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "loadgenerator"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "transactionhistory",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "transactionhistory"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "userservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "userservice"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "secret",
+      "name": "jwt-key",
+      "namespace": "default",
+      "defined_in": "/target/upstream/extras/jwt/jwt-secret.yaml",
+      "type": "Opaque",
+      "keys": [
+        "jwtRS256.key",
+        "jwtRS256.key.pub"
+      ]
+    },
+    {
+      "kind": "configmap",
+      "name": "accounts-db-config",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/accounts-db.yaml",
+      "keys": [
+        "ACCOUNTS_DB_URI",
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
+      "is_gateway_config": false
+    },
+    {
+      "kind": "configmap",
+      "name": "environment-config",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/config.yaml",
+      "keys": [
+        "LOCAL_ROUTING_NUM",
+        "PUB_KEY_PATH"
+      ],
+      "is_gateway_config": false
+    },
+    {
+      "kind": "configmap",
+      "name": "service-api-config",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/config.yaml",
+      "keys": [
+        "BALANCES_API_ADDR",
+        "CONTACTS_API_ADDR",
+        "HISTORY_API_ADDR",
+        "TRANSACTIONS_API_ADDR",
+        "USERSERVICE_API_ADDR"
+      ],
+      "is_gateway_config": false
+    },
+    {
+      "kind": "configmap",
+      "name": "demo-data-config",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/config.yaml",
+      "keys": [
+        "DEMO_LOGIN_PASSWORD",
+        "DEMO_LOGIN_USERNAME",
+        "USE_DEMO_DATA"
+      ],
+      "is_gateway_config": false
+    },
+    {
+      "kind": "configmap",
+      "name": "ledger-db-config",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/ledger-db.yaml",
+      "keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER",
+        "SPRING_DATASOURCE_PASSWORD",
+        "SPRING_DATASOURCE_URL",
+        "SPRING_DATASOURCE_USERNAME"
+      ],
+      "is_gateway_config": false
+    },
+    {
+      "kind": "exposure",
+      "workload": "frontend",
+      "level": "internet",
+      "via": [
+        "Service frontend type=LoadBalancer 80"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "accounts-db",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "balancereader",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "contacts",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ledger-db",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ledgerwriter",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "loadgenerator",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "transactionhistory",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "userservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "frontend",
+      "selector": {
+        "app": "frontend",
+        "application": "bank-of-anthos",
+        "environment": "development",
+        "team": "frontend",
+        "tier": "web"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "workload": "frontend"
+    }
+  ]
+}

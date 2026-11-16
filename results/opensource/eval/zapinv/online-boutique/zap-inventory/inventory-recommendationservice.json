@@ -1,0 +1,32 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "recommendationservice (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/hipstershop.RecommendationService/ListRecommendations": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

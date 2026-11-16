@@ -1,0 +1,689 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025216-baca67",
+  "collected_at": "2026-11-16T02:52:17+00:00",
+  "duration_ms": 16.3,
+  "inputs": [
+    "/target/upstream/spring-petclinic-api-gateway/src/main/resources/application.yml"
+  ],
+  "stats": {
+    "files": 0,
+    "workloads": 11,
+    "services": 0,
+    "ingress_paths": 0,
+    "gateway_routes": 4,
+    "network_policies": 0,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 0,
+    "internet_exposed_workloads": [
+      "api-gateway"
+    ],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [
+      "admin-server",
+      "api-gateway",
+      "config-server",
+      "customers-service",
+      "discovery-server",
+      "genai-service",
+      "grafana-server",
+      "prometheus-server",
+      "tracing-server",
+      "vets-service",
+      "visits-service"
+    ],
+    "plaintext_env_with_sensitive_name": 0,
+    "ignored_kinds": {}
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "config-server",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "config-server"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "config-server",
+          "image": "springcommunity/spring-petclinic-config-server:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "discovery-server",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "discovery-server"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "discovery-server",
+          "image": "springcommunity/spring-petclinic-discovery-server:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "customers-service",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "customers-service"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "customers-service",
+          "image": "springcommunity/spring-petclinic-customers-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "visits-service",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "visits-service"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "visits-service",
+          "image": "springcommunity/spring-petclinic-visits-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "vets-service",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "vets-service"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "vets-service",
+          "image": "springcommunity/spring-petclinic-vets-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "genai-service",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "genai-service"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "genai-service",
+          "image": "springcommunity/spring-petclinic-genai-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [
+            {
+              "name": "OPENAI_API_KEY",
+              "source": "variable",
+              "sensitive_name": true
+            },
+            {
+              "name": "AZURE_OPENAI_KEY",
+              "source": "variable",
+              "sensitive_name": false
+            },
+            {
+              "name": "AZURE_OPENAI_ENDPOINT",
+              "source": "variable",
+              "sensitive_name": false
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "api-gateway",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "api-gateway"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "api-gateway",
+          "image": "springcommunity/spring-petclinic-api-gateway:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "tracing-server",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "tracing-server"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "tracing-server",
+          "image": "openzipkin/zipkin:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "admin-server",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "admin-server"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "admin-server",
+          "image": "springcommunity/spring-petclinic-admin-server:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "grafana-server",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "grafana-server"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "grafana-server",
+          "image": "(built from ./docker/grafana)",
+          "image_tag": "variable",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "ComposeService",
+      "name": "prometheus-server",
+      "namespace": "compose",
+      "defined_in": "/target/upstream/docker-compose.yml",
+      "labels": {
+        "compose.service": "prometheus-server"
+      },
+      "replicas": null,
+      "service_account": null,
+      "automount_service_account_token": false,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "prometheus-server",
+          "image": "(built from ./docker/prometheus)",
+          "image_tag": "variable",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "runAsNonRoot": true
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "spring-cloud-gateway",
+      "gateway_service": "api-gateway",
+      "defined_in": "/target/upstream/spring-petclinic-api-gateway/src/main/resources/application.yml (route vets-service)",
+      "match_prefix": "/api/vet",
+      "pattern": "/api/vet/**",
+      "upstream": "lb://vets-service",
+      "upstream_service": "vets-service",
+      "strip_prefix": "/api/vet",
+      "replace_with": null,
+      "auth": "none",
+      "rate_limit": null
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "spring-cloud-gateway",
+      "gateway_service": "api-gateway",
+      "defined_in": "/target/upstream/spring-petclinic-api-gateway/src/main/resources/application.yml (route visits-service)",
+      "match_prefix": "/api/visit",
+      "pattern": "/api/visit/**",
+      "upstream": "lb://visits-service",
+      "upstream_service": "visits-service",
+      "strip_prefix": "/api/visit",
+      "replace_with": null,
+      "auth": "none",
+      "rate_limit": null
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "spring-cloud-gateway",
+      "gateway_service": "api-gateway",
+      "defined_in": "/target/upstream/spring-petclinic-api-gateway/src/main/resources/application.yml (route customers-service)",
+      "match_prefix": "/api/customer",
+      "pattern": "/api/customer/**",
+      "upstream": "lb://customers-service",
+      "upstream_service": "customers-service",
+      "strip_prefix": "/api/customer",
+      "replace_with": null,
+      "auth": "none",
+      "rate_limit": null
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "spring-cloud-gateway",
+      "gateway_service": "api-gateway",
+      "defined_in": "/target/upstream/spring-petclinic-api-gateway/src/main/resources/application.yml (route genai-service)",
+      "match_prefix": "/api/genai",
+      "pattern": "/api/genai/**",
+      "upstream": "lb://genai-service",
+      "upstream_service": "genai-service",
+      "strip_prefix": "/api/genai",
+      "replace_with": null,
+      "auth": "none",
+      "rate_limit": null
+    },
+    {
+      "kind": "exposure",
+      "workload": "api-gateway",
+      "level": "internet",
+      "via": [
+        "published port 8080:8080 (docker compose)"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "config-server",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "discovery-server",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "customers-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "visits-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "vets-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "genai-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "tracing-server",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "admin-server",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "grafana-server",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "prometheus-server",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "edge_tls",
+      "source": "published port (docker compose)",
+      "name": "api-gateway",
+      "selector": {},
+      "workload": "api-gateway",
+      "tls": false,
+      "defined_in": "compose"
+    }
+  ]
+}

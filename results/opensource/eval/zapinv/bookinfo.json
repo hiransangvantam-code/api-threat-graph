@@ -1,0 +1,222 @@
+{
+ "system": "bookinfo",
+ "bases": [
+  "http://172.18.0.3:9080",
+  "http://172.18.0.4:9080",
+  "http://172.18.0.5:9080",
+  "http://172.18.0.2:9080"
+ ],
+ "ips": {
+  "details": "172.18.0.3",
+  "productpage": "172.18.0.4",
+  "ratings": "172.18.0.5",
+  "reviews": "172.18.0.2"
+ },
+ "by_ip": {
+  "172.18.0.3": "details",
+  "172.18.0.4": "productpage",
+  "172.18.0.5": "ratings",
+  "172.18.0.2": "reviews"
+ },
+ "total_s": 20.4,
+ "messages": 3817,
+ "urls": [
+  "http://172.18.0.2:9080",
+  "http://172.18.0.2:9080/reviews",
+  "http://172.18.0.2:9080/reviews/1",
+  "http://172.18.0.3:9080",
+  "http://172.18.0.3:9080/details",
+  "http://172.18.0.3:9080/details/1",
+  "http://172.18.0.4:9080",
+  "http://172.18.0.4:9080/",
+  "http://172.18.0.4:9080/api",
+  "http://172.18.0.4:9080/api/v1",
+  "http://172.18.0.4:9080/api/v1/products",
+  "http://172.18.0.4:9080/api/v1/products/1",
+  "http://172.18.0.4:9080/api/v1/products/1/ratings",
+  "http://172.18.0.4:9080/api/v1/products/1/reviews",
+  "http://172.18.0.4:9080/index.html",
+  "http://172.18.0.4:9080/login",
+  "http://172.18.0.4:9080/logout",
+  "http://172.18.0.4:9080/productpage",
+  "http://172.18.0.4:9080/products",
+  "http://172.18.0.4:9080/products/1",
+  "http://172.18.0.4:9080/products/1/ratings",
+  "http://172.18.0.4:9080/products/1/reviews",
+  "http://172.18.0.5:9080",
+  "http://172.18.0.5:9080/ratings",
+  "http://172.18.0.5:9080/ratings/1"
+ ],
+ "alerts": [
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:9080/details/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/1/ratings",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/index.html",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.4:9080/login",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/1/reviews",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/logout",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/productpage",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "param": "\u00abproduct_id\u00bb"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/ratings",
+   "param": "\u00abproduct_id\u00bb"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/reviews",
+   "param": "\u00abproduct_id\u00bb"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.5:9080/ratings/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:9080/ratings/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.2:9080/reviews/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.2:9080/reviews/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "param": "\u00abproductId\u00bb"
+  }
+ ]
+}

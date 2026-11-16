@@ -1,0 +1,29 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "balancereader (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/balances/{accountId}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "accountId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

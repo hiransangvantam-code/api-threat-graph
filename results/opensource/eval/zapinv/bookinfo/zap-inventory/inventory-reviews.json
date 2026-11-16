@@ -1,0 +1,29 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "reviews (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/reviews/{productId}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "productId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

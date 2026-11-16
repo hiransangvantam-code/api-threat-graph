@@ -1,0 +1,115 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023743-6831cc",
+  "target": "Lakeside Mutual",
+  "started_at": "2026-11-16T02:37:43+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "aa19e981aa536781e6242499cac0767215bf968586d06b7faf6f97f264e8b2d2",
+      "records": 37,
+      "stats": {
+        "flows": 997,
+        "flows_ignored": 1,
+        "endpoints": 37,
+        "services": 5,
+        "flows_by_capture_point": {
+          "east-west": 997
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 28.1
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "a2e8d7970e9aa0d88d0a365fd8d992c31b09e6f50fd1cf23afa386d59f8e8fed",
+      "records": 4,
+      "stats": {
+        "specs": 4,
+        "services_with_spec": [
+          "customer-core",
+          "customer-management-backend",
+          "customer-self-service-backend",
+          "policy-management-backend"
+        ],
+        "services_without_live_spec": [
+          "spring-boot-admin"
+        ],
+        "operations": 37,
+        "probes": 22
+      },
+      "warnings": [
+        "spring-boot-admin: no live spec at any probed path"
+      ],
+      "duration_ms": 107.5
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "cfa9c9c9bb5ab810776f1be344e549554156eb40d17dea515c6b49862f1e0720",
+      "records": 38,
+      "stats": {
+        "files": 10,
+        "workloads": 9,
+        "services": 10,
+        "ingress_paths": 0,
+        "gateway_routes": 0,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [
+          "customer-management-backend",
+          "customer-management-frontend",
+          "customer-self-service-backend",
+          "customer-self-service-frontend",
+          "policy-management-backend",
+          "policy-management-frontend",
+          "risk-management-server",
+          "spring-boot-admin"
+        ],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [
+          "customer-core",
+          "customer-management-backend",
+          "customer-management-frontend",
+          "customer-self-service-backend",
+          "customer-self-service-frontend",
+          "policy-management-backend",
+          "policy-management-frontend",
+          "risk-management-server",
+          "spring-boot-admin"
+        ],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {}
+      },
+      "warnings": [],
+      "duration_ms": 49.3
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "ec39f9c5c62129e9c0e212d7367732a1ff8fabe717e8da7519653561d4bd7982",
+      "records": 0,
+      "stats": {
+        "spans": 0,
+        "spans_ignored": 0,
+        "traces": 0,
+        "services": 0,
+        "edges": 0,
+        "distinct_call_chains": 0,
+        "max_chain_depth": 0
+      },
+      "warnings": [
+        "no spans found; is the OTel exporter writing to trace_paths?"
+      ],
+      "duration_ms": 0.1
+    }
+  },
+  "finished_at": "2026-11-16T02:37:44+00:00",
+  "total_duration_ms": 191.9
+}

@@ -1,0 +1,31 @@
+{
+ "system": "bookinfo",
+ "R_before": 236.05,
+ "findings_before": 32,
+ "applied": [
+  "harden:svc:details",
+  "harden:svc:productpage",
+  "harden:svc:ratings",
+  "harden:svc:reviews",
+  "netpol:svc:details",
+  "netpol:svc:productpage",
+  "netpol:svc:ratings",
+  "netpol:svc:reviews"
+ ],
+ "applied_by_kind": {
+  "netpol": 4,
+  "clusterip": 0,
+  "harden": 4
+ },
+ "R_predicted": 201.4,
+ "edits": [
+  "harden details-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+  "harden ratings-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+  "harden reviews-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+  "harden productpage-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+  "netpol details",
+  "netpol productpage",
+  "netpol ratings",
+  "netpol reviews"
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "acmeair-main-service (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/acmeair": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  }
+ }
+}

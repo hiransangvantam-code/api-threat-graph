@@ -1,0 +1,127 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023405-7c1b63",
+  "target": "DeathStarBench Hotel Reservation",
+  "started_at": "2026-11-16T02:34:05+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "1eaa1b63152360625605fd0d42ddf331313ac2297231cbbf2e7ed86362ae4e21",
+      "records": 12,
+      "stats": {
+        "flows": 465,
+        "flows_ignored": 1,
+        "endpoints": 12,
+        "services": 8,
+        "flows_by_capture_point": {
+          "east-west": 345,
+          "north-south": 120
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 8.5
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "4070d068eec0bbfb9e98f493f7b634a4a891da7b1432baa218ef05bb981bcf14",
+      "records": 0,
+      "stats": {
+        "specs": 0,
+        "services_with_spec": [],
+        "services_without_live_spec": [
+          "frontend",
+          "geo",
+          "profile",
+          "rate",
+          "recommendation",
+          "reservation",
+          "search",
+          "user"
+        ],
+        "operations": 0,
+        "probes": 80
+      },
+      "warnings": [
+        "frontend: no live spec at any probed path",
+        "search: no live spec at any probed path",
+        "geo: no live spec at any probed path",
+        "rate: no live spec at any probed path",
+        "profile: no live spec at any probed path",
+        "recommendation: no live spec at any probed path",
+        "user: no live spec at any probed path",
+        "reservation: no live spec at any probed path"
+      ],
+      "duration_ms": 300.3
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "e24ddf4a60b872e1c5cec5608be5f29260cf28369841603840dd7782918f05b7",
+      "records": 57,
+      "stats": {
+        "files": 50,
+        "workloads": 19,
+        "services": 19,
+        "ingress_paths": 0,
+        "gateway_routes": 0,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [
+          "consul",
+          "frontend",
+          "geo",
+          "jaeger",
+          "memcached-profile",
+          "memcached-rate",
+          "memcached-reserve",
+          "mongodb-geo",
+          "mongodb-profile",
+          "mongodb-rate",
+          "mongodb-recommendation",
+          "mongodb-reservation",
+          "mongodb-user",
+          "profile",
+          "rate",
+          "recommendation",
+          "reservation",
+          "search",
+          "user"
+        ],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {
+          "PersistentVolume": 6,
+          "PersistentVolumeClaim": 6
+        }
+      },
+      "warnings": [],
+      "duration_ms": 142.5
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "839005837e31ea3b2d8c99f787c84231a79d1d3399b0ee29bbe5b4b592919cd6",
+      "records": 23,
+      "stats": {
+        "spans": 810,
+        "spans_ignored": 0,
+        "traces": 120,
+        "services": 8,
+        "edges": 7,
+        "distinct_call_chains": 4,
+        "max_chain_depth": 3
+      },
+      "warnings": [],
+      "duration_ms": 14.1
+    }
+  },
+  "finished_at": "2026-11-16T02:34:05+00:00",
+  "total_duration_ms": 470.3
+}

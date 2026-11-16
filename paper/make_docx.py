@@ -164,6 +164,7 @@ def convert(tex: str) -> str:
     res.append(b2[pos:])
     b = "".join(res)
     b = re.sub(r"\\setlength\{\\tabcolsep\}\{[^}]*\}", "", b)
+    b = re.sub(r"\\cmidrule(\([a-z]*\))?\{[^}]*\}", "", b)
     b = re.sub(r"\\(footnotesize|scriptsize|small|centering)\b", "", b)
     # table footnote rows: keep the text as a plain row
     # a footnote row after \bottomrule becomes a small paragraph under the table

@@ -1,0 +1,2532 @@
+{
+ "discovery": {
+  "online-boutique": {
+   "by_source": {
+    "O": {
+     "real": 26,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    },
+    "K": {
+     "real": 26,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    },
+    "TKC": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    },
+    "OKC": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    },
+    "OTC": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    },
+    "OTK": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    },
+    "OTKC": {
+     "real": 26,
+     "listed": 25,
+     "correct": 25
+    }
+   },
+   "no_reconcile": {
+    "listed": 25,
+    "correct": 25
+   },
+   "traffic_only_extra": 0,
+   "flows": 825,
+   "spans": 1395,
+   "traffic_records": 25,
+   "probes": 100,
+   "spec_operations": 0,
+   "single_source_entries": 50,
+   "merged": 25,
+   "scan_endpoints_match": true
+  },
+  "bank-of-anthos": {
+   "by_source": {
+    "O": {
+     "real": 17,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    },
+    "K": {
+     "real": 17,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    },
+    "TKC": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    },
+    "OKC": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    },
+    "OTC": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    },
+    "OTK": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    },
+    "OTKC": {
+     "real": 17,
+     "listed": 15,
+     "correct": 15
+    }
+   },
+   "no_reconcile": {
+    "listed": 15,
+    "correct": 15
+   },
+   "traffic_only_extra": 0,
+   "flows": 461,
+   "spans": 698,
+   "traffic_records": 15,
+   "probes": 60,
+   "spec_operations": 0,
+   "single_source_entries": 30,
+   "merged": 15,
+   "scan_endpoints_match": true
+  },
+  "robot-shop": {
+   "by_source": {
+    "O": {
+     "real": 30,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 30,
+     "listed": 55,
+     "correct": 29
+    },
+    "K": {
+     "real": 30,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 30,
+     "listed": 0,
+     "correct": 0
+    },
+    "TKC": {
+     "real": 30,
+     "listed": 29,
+     "correct": 29
+    },
+    "OKC": {
+     "real": 30,
+     "listed": 0,
+     "correct": 0
+    },
+    "OTC": {
+     "real": 30,
+     "listed": 55,
+     "correct": 29
+    },
+    "OTK": {
+     "real": 30,
+     "listed": 29,
+     "correct": 29
+    },
+    "OTKC": {
+     "real": 30,
+     "listed": 29,
+     "correct": 29
+    }
+   },
+   "no_reconcile": {
+    "listed": 29,
+    "correct": 29
+   },
+   "traffic_only_extra": 26,
+   "flows": 1515,
+   "spans": 0,
+   "traffic_records": 55,
+   "probes": 70,
+   "spec_operations": 0,
+   "single_source_entries": 55,
+   "merged": 29,
+   "scan_endpoints_match": true
+  },
+  "acme-air": {
+   "by_source": {
+    "O": {
+     "real": 22,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 22,
+     "listed": 35,
+     "correct": 20
+    },
+    "K": {
+     "real": 22,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 22,
+     "listed": 0,
+     "correct": 0
+    },
+    "TKC": {
+     "real": 22,
+     "listed": 35,
+     "correct": 20
+    },
+    "OKC": {
+     "real": 22,
+     "listed": 0,
+     "correct": 0
+    },
+    "OTC": {
+     "real": 22,
+     "listed": 35,
+     "correct": 20
+    },
+    "OTK": {
+     "real": 22,
+     "listed": 35,
+     "correct": 20
+    },
+    "OTKC": {
+     "real": 22,
+     "listed": 35,
+     "correct": 20
+    }
+   },
+   "no_reconcile": {
+    "listed": 35,
+    "correct": 20
+   },
+   "traffic_only_extra": 15,
+   "flows": 809,
+   "spans": 0,
+   "traffic_records": 35,
+   "probes": 60,
+   "spec_operations": 0,
+   "single_source_entries": 35,
+   "merged": 35,
+   "scan_endpoints_match": true
+  },
+  "petclinic": {
+   "by_source": {
+    "O": {
+     "real": 16,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 16,
+     "listed": 28,
+     "correct": 14
+    },
+    "K": {
+     "real": 16,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 16,
+     "listed": 15,
+     "correct": 15
+    },
+    "TKC": {
+     "real": 16,
+     "listed": 15,
+     "correct": 15
+    },
+    "OKC": {
+     "real": 16,
+     "listed": 15,
+     "correct": 15
+    },
+    "OTC": {
+     "real": 16,
+     "listed": 28,
+     "correct": 15
+    },
+    "OTK": {
+     "real": 16,
+     "listed": 15,
+     "correct": 14
+    },
+    "OTKC": {
+     "real": 16,
+     "listed": 15,
+     "correct": 15
+    }
+   },
+   "no_reconcile": {
+    "listed": 16,
+    "correct": 15
+   },
+   "traffic_only_extra": 14,
+   "flows": 625,
+   "spans": 955,
+   "traffic_records": 28,
+   "probes": 70,
+   "spec_operations": 0,
+   "single_source_entries": 43,
+   "merged": 15,
+   "scan_endpoints_match": true
+  },
+  "piggymetrics": {
+   "by_source": {
+    "O": {
+     "real": 13,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 13,
+     "listed": 22,
+     "correct": 13
+    },
+    "K": {
+     "real": 13,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 13,
+     "listed": 0,
+     "correct": 0
+    },
+    "TKC": {
+     "real": 13,
+     "listed": 13,
+     "correct": 13
+    },
+    "OKC": {
+     "real": 13,
+     "listed": 0,
+     "correct": 0
+    },
+    "OTC": {
+     "real": 13,
+     "listed": 22,
+     "correct": 13
+    },
+    "OTK": {
+     "real": 13,
+     "listed": 13,
+     "correct": 13
+    },
+    "OTKC": {
+     "real": 13,
+     "listed": 13,
+     "correct": 13
+    }
+   },
+   "no_reconcile": {
+    "listed": 13,
+    "correct": 13
+   },
+   "traffic_only_extra": 9,
+   "flows": 660,
+   "spans": 0,
+   "traffic_records": 22,
+   "probes": 60,
+   "spec_operations": 0,
+   "single_source_entries": 22,
+   "merged": 13,
+   "scan_endpoints_match": true
+  },
+  "lakeside-mutual": {
+   "by_source": {
+    "O": {
+     "real": 38,
+     "listed": 37,
+     "correct": 37
+    },
+    "T": {
+     "real": 38,
+     "listed": 37,
+     "correct": 37
+    },
+    "K": {
+     "real": 38,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 38,
+     "listed": 0,
+     "correct": 0
+    },
+    "TKC": {
+     "real": 38,
+     "listed": 37,
+     "correct": 37
+    },
+    "OKC": {
+     "real": 38,
+     "listed": 37,
+     "correct": 37
+    },
+    "OTC": {
+     "real": 38,
+     "listed": 38,
+     "correct": 38
+    },
+    "OTK": {
+     "real": 38,
+     "listed": 38,
+     "correct": 38
+    },
+    "OTKC": {
+     "real": 38,
+     "listed": 38,
+     "correct": 38
+    }
+   },
+   "no_reconcile": {
+    "listed": 38,
+    "correct": 38
+   },
+   "traffic_only_extra": 0,
+   "flows": 997,
+   "spans": 0,
+   "traffic_records": 37,
+   "probes": 22,
+   "spec_operations": 37,
+   "single_source_entries": 74,
+   "merged": 38,
+   "scan_endpoints_match": true
+  },
+  "ftgo": {
+   "by_source": {
+    "O": {
+     "real": 14,
+     "listed": 4,
+     "correct": 4
+    },
+    "T": {
+     "real": 14,
+     "listed": 17,
+     "correct": 9
+    },
+    "K": {
+     "real": 14,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 14,
+     "listed": 0,
+     "correct": 0
+    },
+    "TKC": {
+     "real": 14,
+     "listed": 17,
+     "correct": 9
+    },
+    "OKC": {
+     "real": 14,
+     "listed": 4,
+     "correct": 4
+    },
+    "OTC": {
+     "real": 14,
+     "listed": 17,
+     "correct": 9
+    },
+    "OTK": {
+     "real": 14,
+     "listed": 17,
+     "correct": 9
+    },
+    "OTKC": {
+     "real": 14,
+     "listed": 17,
+     "correct": 9
+    }
+   },
+   "no_reconcile": {
+    "listed": 17,
+    "correct": 9
+   },
+   "traffic_only_extra": 8,
+   "flows": 365,
+   "spans": 0,
+   "traffic_records": 17,
+   "probes": 60,
+   "spec_operations": 4,
+   "single_source_entries": 21,
+   "merged": 17,
+   "scan_endpoints_match": true
+  },
+  "hotel-reservation": {
+   "by_source": {
+    "O": {
+     "real": 12,
+     "listed": 0,
+     "correct": 0
+    },
+    "T": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    },
+    "K": {
+     "real": 12,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    },
+    "TKC": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    },
+    "OKC": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    },
+    "OTC": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    },
+    "OTK": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    },
+    "OTKC": {
+     "real": 12,
+     "listed": 12,
+     "correct": 12
+    }
+   },
+   "no_reconcile": {
+    "listed": 12,
+    "correct": 12
+   },
+   "traffic_only_extra": 0,
+   "flows": 465,
+   "spans": 810,
+   "traffic_records": 12,
+   "probes": 80,
+   "spec_operations": 0,
+   "single_source_entries": 24,
+   "merged": 12,
+   "scan_endpoints_match": true
+  },
+  "bookinfo": {
+   "by_source": {
+    "O": {
+     "real": 13,
+     "listed": 4,
+     "correct": 0
+    },
+    "T": {
+     "real": 13,
+     "listed": 13,
+     "correct": 13
+    },
+    "K": {
+     "real": 13,
+     "listed": 0,
+     "correct": 0
+    },
+    "C": {
+     "real": 13,
+     "listed": 13,
+     "correct": 13
+    },
+    "TKC": {
+     "real": 13,
+     "listed": 13,
+     "correct": 13
+    },
+    "OKC": {
+     "real": 13,
+     "listed": 17,
+     "correct": 13
+    },
+    "OTC": {
+     "real": 13,
+     "listed": 17,
+     "correct": 13
+    },
+    "OTK": {
+     "real": 13,
+     "listed": 17,
+     "correct": 13
+    },
+    "OTKC": {
+     "real": 13,
+     "listed": 17,
+     "correct": 13
+    }
+   },
+   "no_reconcile": {
+    "listed": 17,
+    "correct": 13
+   },
+   "traffic_only_extra": 0,
+   "flows": 544,
+   "spans": 844,
+   "traffic_records": 13,
+   "probes": 40,
+   "spec_operations": 4,
+   "single_source_entries": 30,
+   "merged": 17,
+   "scan_endpoints_match": true
+  }
+ },
+ "dependencies": {
+  "online-boutique": {
+   "real": 14,
+   "listed": 16,
+   "correct": 14,
+   "missed": [],
+   "extra": [
+    [
+     "cartservice",
+     "redis-cart"
+    ],
+    [
+     "loadgenerator",
+     "frontend"
+    ]
+   ]
+  },
+  "bank-of-anthos": {
+   "real": 5,
+   "listed": 6,
+   "correct": 5,
+   "missed": [],
+   "extra": [
+    [
+     "loadgenerator",
+     "frontend"
+    ]
+   ]
+  },
+  "robot-shop": {
+   "real": 4,
+   "listed": 7,
+   "correct": 0,
+   "missed": [
+    [
+     "cart",
+     "catalogue"
+    ],
+    [
+     "payment",
+     "user"
+    ],
+    [
+     "ratings",
+     "catalogue"
+    ],
+    [
+     "shipping",
+     "cart"
+    ]
+   ],
+   "extra": [
+    [
+     "web",
+     "127"
+    ],
+    [
+     "web",
+     "cart"
+    ],
+    [
+     "web",
+     "catalogue"
+    ],
+    [
+     "web",
+     "payment"
+    ],
+    [
+     "web",
+     "ratings"
+    ],
+    [
+     "web",
+     "shipping"
+    ],
+    [
+     "web",
+     "user"
+    ]
+   ]
+  },
+  "acme-air": {
+   "real": 2,
+   "listed": 5,
+   "correct": 2,
+   "missed": [],
+   "extra": [
+    [
+     "acmeair-auth-service",
+     "acmeair-customer-service"
+    ],
+    [
+     "acmeair-booking-service",
+     "acmeair-auth-service"
+    ],
+    [
+     "acmeair-customer-service",
+     "acmeair-auth-service"
+    ]
+   ]
+  },
+  "petclinic": {
+   "real": 1,
+   "listed": 6,
+   "correct": 1,
+   "missed": [],
+   "extra": [
+    [
+     "api-gateway",
+     "customers-service"
+    ],
+    [
+     "api-gateway",
+     "genai-service"
+    ],
+    [
+     "api-gateway",
+     "vets-service"
+    ],
+    [
+     "api-gateway",
+     "visits-service"
+    ],
+    [
+     "genai-service",
+     "openai-api"
+    ]
+   ]
+  },
+  "piggymetrics": {
+   "real": 3,
+   "listed": 4,
+   "correct": 0,
+   "missed": [
+    [
+     "account-service",
+     "auth-service"
+    ],
+    [
+     "account-service",
+     "statistics-service"
+    ],
+    [
+     "notification-service",
+     "account-service"
+    ]
+   ],
+   "extra": [
+    [
+     "gateway",
+     "account-service"
+    ],
+    [
+     "gateway",
+     "auth-service"
+    ],
+    [
+     "gateway",
+     "notification-service"
+    ],
+    [
+     "gateway",
+     "statistics-service"
+    ]
+   ]
+  },
+  "lakeside-mutual": {
+   "real": 3,
+   "listed": 8,
+   "correct": 3,
+   "missed": [],
+   "extra": [
+    [
+     "customer-core",
+     "spring-boot-admin"
+    ],
+    [
+     "customer-management-backend",
+     "spring-boot-admin"
+    ],
+    [
+     "customer-self-service-backend",
+     "policy-management-backend"
+    ],
+    [
+     "customer-self-service-backend",
+     "spring-boot-admin"
+    ],
+    [
+     "policy-management-backend",
+     "spring-boot-admin"
+    ]
+   ]
+  },
+  "ftgo": {
+   "real": 0,
+   "listed": 17,
+   "correct": 0,
+   "missed": [],
+   "extra": [
+    [
+     "ftgo-api-gateway",
+     "ftgo-consumer-service"
+    ],
+    [
+     "ftgo-api-gateway",
+     "ftgo-order-history-service"
+    ],
+    [
+     "ftgo-api-gateway",
+     "ftgo-order-service"
+    ],
+    [
+     "ftgo-consumer-service",
+     "ftgo-kafka"
+    ],
+    [
+     "ftgo-consumer-service",
+     "ftgo-zookeeper"
+    ],
+    [
+     "ftgo-dynamodb-local-init",
+     "ftgo-dynamodb-local"
+    ],
+    [
+     "ftgo-kafka",
+     "ftgo-kafka"
+    ],
+    [
+     "ftgo-kafka",
+     "ftgo-zookeeper"
+    ],
+    [
+     "ftgo-kitchen-service",
+     "ftgo-kafka"
+    ],
+    [
+     "ftgo-kitchen-service",
+     "ftgo-zookeeper"
+    ],
+    [
+     "ftgo-order-history-service",
+     "ftgo-dynamodb-local"
+    ],
+    [
+     "ftgo-order-history-service",
+     "ftgo-kafka"
+    ],
+    [
+     "ftgo-order-history-service",
+     "ftgo-zookeeper"
+    ],
+    [
+     "ftgo-order-service",
+     "ftgo-kafka"
+    ],
+    [
+     "ftgo-order-service",
+     "ftgo-zookeeper"
+    ],
+    [
+     "ftgo-restaurant-service",
+     "ftgo-kafka"
+    ],
+    [
+     "ftgo-restaurant-service",
+     "ftgo-zookeeper"
+    ]
+   ]
+  },
+  "hotel-reservation": {
+   "real": 7,
+   "listed": 7,
+   "correct": 7,
+   "missed": [],
+   "extra": []
+  },
+  "bookinfo": {
+   "real": 4,
+   "listed": 4,
+   "correct": 4,
+   "missed": [],
+   "extra": []
+  }
+ },
+ "window": {
+  "points": [
+   0.05,
+   0.1,
+   0.2,
+   0.3,
+   0.5,
+   0.75,
+   1.0
+  ],
+  "curves": {
+   "online-boutique": {
+    "T": [
+     0.038461538461538464,
+     0.07692307692307693,
+     0.19230769230769232,
+     0.19230769230769232,
+     0.3076923076923077,
+     0.6923076923076923,
+     0.9615384615384616
+    ],
+    "OTK": [
+     0.038461538461538464,
+     0.07692307692307693,
+     0.19230769230769232,
+     0.19230769230769232,
+     0.3076923076923077,
+     0.6923076923076923,
+     0.9615384615384616
+    ]
+   },
+   "bank-of-anthos": {
+    "T": [
+     0.058823529411764705,
+     0.11764705882352941,
+     0.23529411764705882,
+     0.35294117647058826,
+     0.35294117647058826,
+     0.47058823529411764,
+     0.8823529411764706
+    ],
+    "OTK": [
+     0.058823529411764705,
+     0.11764705882352941,
+     0.23529411764705882,
+     0.35294117647058826,
+     0.35294117647058826,
+     0.47058823529411764,
+     0.8823529411764706
+    ]
+   },
+   "robot-shop": {
+    "T": [
+     0.0,
+     0.03333333333333333,
+     0.1,
+     0.26666666666666666,
+     0.4666666666666667,
+     0.7,
+     0.9666666666666667
+    ],
+    "OTK": [
+     0.03333333333333333,
+     0.03333333333333333,
+     0.13333333333333333,
+     0.26666666666666666,
+     0.4666666666666667,
+     0.7,
+     0.9666666666666667
+    ]
+   },
+   "acme-air": {
+    "T": [
+     0.0,
+     0.045454545454545456,
+     0.22727272727272727,
+     0.3181818181818182,
+     0.45454545454545453,
+     0.6363636363636364,
+     0.9090909090909091
+    ],
+    "OTK": [
+     0.0,
+     0.045454545454545456,
+     0.22727272727272727,
+     0.3181818181818182,
+     0.45454545454545453,
+     0.6363636363636364,
+     0.9090909090909091
+    ]
+   },
+   "petclinic": {
+    "T": [
+     0.0,
+     0.0625,
+     0.125,
+     0.1875,
+     0.5,
+     0.6875,
+     0.875
+    ],
+    "OTK": [
+     0.0625,
+     0.0625,
+     0.125,
+     0.1875,
+     0.5,
+     0.75,
+     0.875
+    ]
+   },
+   "piggymetrics": {
+    "T": [
+     0.07692307692307693,
+     0.23076923076923078,
+     0.3076923076923077,
+     0.3076923076923077,
+     0.46153846153846156,
+     0.7692307692307693,
+     1.0
+    ],
+    "OTK": [
+     0.07692307692307693,
+     0.23076923076923078,
+     0.3076923076923077,
+     0.3076923076923077,
+     0.46153846153846156,
+     0.7692307692307693,
+     1.0
+    ]
+   },
+   "lakeside-mutual": {
+    "T": [
+     0.05263157894736842,
+     0.10526315789473684,
+     0.15789473684210525,
+     0.2894736842105263,
+     0.4473684210526316,
+     0.6578947368421053,
+     0.9736842105263158
+    ],
+    "OTK": [
+     0.9736842105263158,
+     0.9736842105263158,
+     0.9736842105263158,
+     0.9736842105263158,
+     0.9736842105263158,
+     0.9736842105263158,
+     1.0
+    ]
+   },
+   "ftgo": {
+    "T": [
+     0.0,
+     0.0,
+     0.0,
+     0.07142857142857142,
+     0.21428571428571427,
+     0.42857142857142855,
+     0.6428571428571429
+    ],
+    "OTK": [
+     0.2857142857142857,
+     0.2857142857142857,
+     0.2857142857142857,
+     0.2857142857142857,
+     0.35714285714285715,
+     0.5714285714285714,
+     0.6428571428571429
+    ]
+   },
+   "hotel-reservation": {
+    "T": [
+     0.08333333333333333,
+     0.08333333333333333,
+     0.16666666666666666,
+     0.25,
+     0.5,
+     0.5,
+     1.0
+    ],
+    "OTK": [
+     0.08333333333333333,
+     0.08333333333333333,
+     0.16666666666666666,
+     0.25,
+     0.5,
+     0.5,
+     1.0
+    ]
+   },
+   "bookinfo": {
+    "T": [
+     0.23076923076923078,
+     0.38461538461538464,
+     0.46153846153846156,
+     0.5384615384615384,
+     0.6153846153846154,
+     0.7692307692307693,
+     1.0
+    ],
+    "OTK": [
+     0.23076923076923078,
+     0.38461538461538464,
+     0.46153846153846156,
+     0.5384615384615384,
+     0.6153846153846154,
+     0.7692307692307693,
+     1.0
+    ]
+   }
+  }
+ },
+ "zap": {
+  "online-boutique": {
+   "requests": 194,
+   "seconds": 6.3,
+   "alerts": 1,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 1
+   },
+   "ops_reached": 1,
+   "ops_real": 26,
+   "labels_found": 0,
+   "labels": 55,
+   "atg_labels_found": 43,
+   "atg_probes": 100,
+   "atg_ops": 25,
+   "gateway": "frontend"
+  },
+  "bank-of-anthos": {
+   "requests": 192,
+   "seconds": 4.1,
+   "alerts": 0,
+   "alert_types": {},
+   "ops_reached": 0,
+   "ops_real": 17,
+   "labels_found": 0,
+   "labels": 44,
+   "atg_labels_found": 22,
+   "atg_probes": 60,
+   "atg_ops": 15,
+   "gateway": "frontend"
+  },
+  "robot-shop": {
+   "requests": 192,
+   "seconds": 4.2,
+   "alerts": 0,
+   "alert_types": {},
+   "ops_reached": 0,
+   "ops_real": 30,
+   "labels_found": 0,
+   "labels": 76,
+   "atg_labels_found": 42,
+   "atg_probes": 70,
+   "atg_ops": 29,
+   "gateway": "web"
+  },
+  "acme-air": {
+   "requests": 22,
+   "seconds": 4.1,
+   "alerts": 0,
+   "alert_types": {},
+   "ops_reached": 0,
+   "ops_real": 22,
+   "labels_found": 0,
+   "labels": 79,
+   "atg_labels_found": 53,
+   "atg_probes": 60,
+   "atg_ops": 20,
+   "gateway": "ingress-nginx-controller"
+  },
+  "petclinic": {
+   "requests": 192,
+   "seconds": 4.2,
+   "alerts": 0,
+   "alert_types": {},
+   "ops_reached": 0,
+   "ops_real": 16,
+   "labels_found": 0,
+   "labels": 67,
+   "atg_labels_found": 54,
+   "atg_probes": 70,
+   "atg_ops": 15,
+   "gateway": "api-gateway"
+  },
+  "piggymetrics": {
+   "requests": 192,
+   "seconds": 4.1,
+   "alerts": 0,
+   "alert_types": {},
+   "ops_reached": 0,
+   "ops_real": 13,
+   "labels_found": 0,
+   "labels": 88,
+   "atg_labels_found": 62,
+   "atg_probes": 60,
+   "atg_ops": 13,
+   "gateway": "gateway"
+  },
+  "lakeside-mutual": {
+   "requests": 12240,
+   "seconds": 58.0,
+   "alerts": 114,
+   "alert_types": {
+    "Application Error Disclosure (CWE-550, Low)": 1,
+    "Information Disclosure - Debug Error Messages (CWE-1295, Low)": 1,
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 24,
+    "Format String Error (CWE-134, Medium)": 4,
+    "User Agent Fuzzer (CWE-0, Informational)": 84
+   },
+   "ops_reached": 37,
+   "ops_real": 38,
+   "labels_found": 0,
+   "labels": 80,
+   "atg_labels_found": 52,
+   "atg_probes": 22,
+   "atg_ops": 38,
+   "gateway": "customer-core"
+  },
+  "ftgo": {
+   "requests": 1538,
+   "seconds": 8.7,
+   "alerts": 28,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 4,
+    "User Agent Fuzzer (CWE-0, Informational)": 24
+   },
+   "ops_reached": 4,
+   "ops_real": 14,
+   "labels_found": 0,
+   "labels": 82,
+   "atg_labels_found": 46,
+   "atg_probes": 60,
+   "atg_ops": 9,
+   "gateway": "ftgo-api-gateway"
+  },
+  "hotel-reservation": {
+   "requests": 192,
+   "seconds": 4.2,
+   "alerts": 0,
+   "alert_types": {},
+   "ops_reached": 0,
+   "ops_real": 12,
+   "labels_found": 0,
+   "labels": 107,
+   "atg_labels_found": 68,
+   "atg_probes": 80,
+   "atg_ops": 12,
+   "gateway": "frontend"
+  },
+  "bookinfo": {
+   "requests": 1076,
+   "seconds": 12.6,
+   "alerts": 8,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 5,
+    "Format String Error (CWE-134, Medium)": 3
+   },
+   "ops_reached": 5,
+   "ops_real": 13,
+   "labels_found": 0,
+   "labels": 38,
+   "atg_labels_found": 24,
+   "atg_probes": 40,
+   "atg_ops": 13,
+   "gateway": "productpage"
+  }
+ },
+ "controls": {
+  "rows": {
+   "auth": {
+    "controls": 29,
+    "flagged": 0
+   },
+   "verify": {
+    "controls": 11,
+    "flagged": 0
+   },
+   "owner": {
+    "controls": 14,
+    "flagged": 1
+   }
+  },
+  "detail": [
+   [
+    "lakeside-mutual",
+    "owner",
+    "GET /customers/{customerId}",
+    [
+     "API1"
+    ]
+   ]
+  ]
+ },
+ "unmatched_by_category": {
+  "O2": 74,
+  "O1": 73,
+  "A1": 62,
+  "A9": 9,
+  "A4": 8,
+  "C5": 6,
+  "A2": 3,
+  "A6": 1
+ },
+ "overhead": {
+  "online-boutique": {
+   "n": 300,
+   "path": "/",
+   "direct_p50": 20.523072999992564,
+   "direct_p95": 57.500715999992735,
+   "sidecar_p50": 25.88815600000771,
+   "sidecar_p95": 70.79086299995652
+  },
+  "bank-of-anthos": {
+   "n": 300,
+   "path": "/home",
+   "direct_p50": 1.5738040000314868,
+   "direct_p95": 3.617144000031658,
+   "sidecar_p50": 6.093089999978929,
+   "sidecar_p95": 13.36580600002435
+  },
+  "robot-shop": {
+   "n": 300,
+   "path": "/api/user/users",
+   "direct_p50": 5.644020999966415,
+   "direct_p95": 13.21453799999972,
+   "sidecar_p50": 10.381927000025826,
+   "sidecar_p95": 23.884672999997747
+  },
+  "acme-air": {
+   "n": 300,
+   "path": "/auth/getJwk",
+   "direct_p50": 5.671907000078136,
+   "direct_p95": 11.013963000095828,
+   "sidecar_p50": 10.826499000017975,
+   "sidecar_p95": 18.726009999909365
+  },
+  "petclinic": {
+   "n": 300,
+   "path": "/api/vet/vets",
+   "direct_p50": 6.00666299999375,
+   "direct_p95": 12.892244999989089,
+   "sidecar_p50": 11.044698999967295,
+   "sidecar_p95": 20.09559199996147
+  },
+  "piggymetrics": {
+   "n": 300,
+   "path": "/accounts/current",
+   "direct_p50": 5.70561299991823,
+   "direct_p95": 11.330212000075335,
+   "sidecar_p50": 10.624885999959588,
+   "sidecar_p95": 21.635031999949206
+  },
+  "lakeside-mutual": {
+   "n": 300,
+   "path": "/",
+   "direct_p50": 1.737020000064149,
+   "direct_p95": 2.9336059999423014,
+   "sidecar_p50": 5.979293999985202,
+   "sidecar_p95": 9.946279000018876
+  },
+  "ftgo": {
+   "n": 300,
+   "path": "/orders",
+   "direct_p50": 5.629735999946206,
+   "direct_p95": 10.724343999982011,
+   "sidecar_p50": 10.485820999974749,
+   "sidecar_p95": 17.950596999980917
+  },
+  "hotel-reservation": {
+   "n": 300,
+   "path": "/user",
+   "direct_p50": 6.655850000015562,
+   "direct_p95": 14.904886000067563,
+   "sidecar_p50": 12.400979000062762,
+   "sidecar_p95": 23.13650200005668
+  },
+  "bookinfo": {
+   "n": 300,
+   "path": "/",
+   "direct_p50": 1.5875049999749535,
+   "direct_p95": 3.0212860000347064,
+   "sidecar_p50": 6.703270999992128,
+   "sidecar_p95": 10.39197599993713
+  }
+ },
+ "fixes": [
+  {
+   "system": "online-boutique",
+   "R_before": 714.54,
+   "findings_before": 97,
+   "applied": [
+    "harden:svc:adservice",
+    "harden:svc:cartservice",
+    "harden:svc:checkoutservice",
+    "harden:svc:currencyservice",
+    "harden:svc:emailservice",
+    "harden:svc:frontend",
+    "harden:svc:loadgenerator",
+    "harden:svc:paymentservice",
+    "harden:svc:productcatalogservice",
+    "harden:svc:recommendationservice",
+    "harden:svc:shippingservice",
+    "netpol:svc:adservice",
+    "netpol:svc:cartservice",
+    "netpol:svc:checkoutservice",
+    "netpol:svc:currencyservice",
+    "netpol:svc:emailservice",
+    "netpol:svc:frontend",
+    "netpol:svc:loadgenerator",
+    "netpol:svc:paymentservice",
+    "netpol:svc:productcatalogservice",
+    "netpol:svc:recommendationservice",
+    "netpol:svc:redis-cart",
+    "netpol:svc:shippingservice"
+   ],
+   "applied_by_kind": {
+    "netpol": 12,
+    "clusterip": 0,
+    "harden": 11
+   },
+   "R_predicted": 584.06,
+   "edits": [
+    "harden adservice (upstream/kubernetes-manifests/adservice.yaml)",
+    "harden cartservice (upstream/kubernetes-manifests/cartservice.yaml)",
+    "harden checkoutservice (upstream/kubernetes-manifests/checkoutservice.yaml)",
+    "harden currencyservice (upstream/kubernetes-manifests/currencyservice.yaml)",
+    "harden emailservice (upstream/kubernetes-manifests/emailservice.yaml)",
+    "harden frontend (upstream/kubernetes-manifests/frontend.yaml)",
+    "harden loadgenerator (upstream/kubernetes-manifests/loadgenerator.yaml)",
+    "harden paymentservice (upstream/kubernetes-manifests/paymentservice.yaml)",
+    "harden productcatalogservice (upstream/kubernetes-manifests/productcatalogservice.yaml)",
+    "harden recommendationservice (upstream/kubernetes-manifests/recommendationservice.yaml)",
+    "harden shippingservice (upstream/kubernetes-manifests/shippingservice.yaml)",
+    "netpol adservice",
+    "netpol cartservice",
+    "netpol checkoutservice",
+    "netpol currencyservice",
+    "netpol emailservice",
+    "netpol frontend",
+    "netpol loadgenerator",
+    "netpol paymentservice",
+    "netpol productcatalogservice",
+    "netpol recommendationservice",
+    "netpol redis-cart",
+    "netpol shippingservice"
+   ],
+   "R_measured": 584.06,
+   "findings_after": 74,
+   "paths_after": 70
+  },
+  {
+   "system": "bank-of-anthos",
+   "R_before": 316.55,
+   "findings_before": 45,
+   "applied": [
+    "harden:svc:accounts-db",
+    "harden:svc:ledger-db",
+    "netpol:svc:accounts-db",
+    "netpol:svc:balancereader",
+    "netpol:svc:contacts",
+    "netpol:svc:frontend",
+    "netpol:svc:ledger-db",
+    "netpol:svc:ledgerwriter",
+    "netpol:svc:loadgenerator",
+    "netpol:svc:transactionhistory",
+    "netpol:svc:userservice"
+   ],
+   "applied_by_kind": {
+    "netpol": 9,
+    "clusterip": 0,
+    "harden": 2
+   },
+   "R_predicted": 258.05,
+   "edits": [
+    "harden accounts-db (upstream/kubernetes-manifests/accounts-db.yaml)",
+    "harden ledger-db (upstream/kubernetes-manifests/ledger-db.yaml)",
+    "netpol accounts-db",
+    "netpol balancereader",
+    "netpol contacts",
+    "netpol frontend",
+    "netpol ledger-db",
+    "netpol ledgerwriter",
+    "netpol loadgenerator",
+    "netpol transactionhistory",
+    "netpol userservice"
+   ],
+   "R_measured": 258.05,
+   "findings_after": 34,
+   "paths_after": 28
+  },
+  {
+   "system": "robot-shop",
+   "R_before": 917.5,
+   "findings_before": 121,
+   "applied": [
+    "harden:svc:cart",
+    "harden:svc:catalogue",
+    "harden:svc:dispatch",
+    "harden:svc:mongodb",
+    "harden:svc:mysql",
+    "harden:svc:payment",
+    "harden:svc:rabbitmq",
+    "harden:svc:ratings",
+    "harden:svc:redis",
+    "harden:svc:shipping",
+    "harden:svc:user",
+    "harden:svc:web"
+   ],
+   "applied_by_kind": {
+    "netpol": 0,
+    "clusterip": 0,
+    "harden": 12
+   },
+   "R_predicted": 874.0,
+   "edits": [
+    "harden mongodb (upstream/docker-compose.yaml)",
+    "harden redis (upstream/docker-compose.yaml)",
+    "harden rabbitmq (upstream/docker-compose.yaml)",
+    "harden catalogue (upstream/docker-compose.yaml)",
+    "harden user (upstream/docker-compose.yaml)",
+    "harden cart (upstream/docker-compose.yaml)",
+    "harden mysql (upstream/docker-compose.yaml)",
+    "harden shipping (upstream/docker-compose.yaml)",
+    "harden ratings (upstream/docker-compose.yaml)",
+    "harden payment (upstream/docker-compose.yaml)",
+    "harden dispatch (upstream/docker-compose.yaml)",
+    "harden web (upstream/docker-compose.yaml)"
+   ],
+   "R_measured": 874.0,
+   "findings_after": 108,
+   "paths_after": 285
+  },
+  {
+   "system": "acme-air",
+   "R_before": 711.5,
+   "findings_before": 143,
+   "applied": [
+    "harden:svc:acmeair-auth-service",
+    "harden:svc:acmeair-booking-db",
+    "harden:svc:acmeair-booking-service",
+    "harden:svc:acmeair-customer-db",
+    "harden:svc:acmeair-customer-service",
+    "harden:svc:acmeair-flight-db",
+    "harden:svc:acmeair-flight-service",
+    "harden:svc:acmeair-main-service",
+    "netpol:svc:acmeair-auth-service",
+    "netpol:svc:acmeair-booking-db",
+    "netpol:svc:acmeair-booking-service",
+    "netpol:svc:acmeair-customer-db",
+    "netpol:svc:acmeair-customer-service",
+    "netpol:svc:acmeair-flight-db",
+    "netpol:svc:acmeair-flight-service",
+    "netpol:svc:acmeair-main-service"
+   ],
+   "applied_by_kind": {
+    "netpol": 8,
+    "clusterip": 0,
+    "harden": 8
+   },
+   "R_predicted": 527.0,
+   "edits": [
+    "harden acmeair-mainservice (upstream/mainservice/manifests/deploy-acmeair-mainservice-java.yaml)",
+    "harden acmeair-authservice (upstream/authservice/manifests/deploy-acmeair-authservice-java.yaml)",
+    "harden acmeair-bookingservice (upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml)",
+    "harden acmeair-booking-db (upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml)",
+    "harden acmeair-customerservice (upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml)",
+    "harden acmeair-customer-db (upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml)",
+    "harden acmeair-flightservice (upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml)",
+    "harden acmeair-flight-db (upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml)",
+    "netpol acmeair-auth-service",
+    "netpol acmeair-booking-db",
+    "netpol acmeair-booking-service",
+    "netpol acmeair-customer-db",
+    "netpol acmeair-customer-service",
+    "netpol acmeair-flight-db",
+    "netpol acmeair-flight-service",
+    "netpol acmeair-main-service"
+   ],
+   "R_measured": 527.0,
+   "findings_after": 114,
+   "paths_after": 70
+  },
+  {
+   "system": "petclinic",
+   "R_before": 850.0,
+   "findings_before": 88,
+   "applied": [
+    "clusterip:svc:admin-server",
+    "clusterip:svc:config-server",
+    "clusterip:svc:customers-service",
+    "clusterip:svc:discovery-server",
+    "clusterip:svc:genai-service",
+    "clusterip:svc:grafana-server",
+    "clusterip:svc:prometheus-server",
+    "clusterip:svc:tracing-server",
+    "clusterip:svc:vets-service",
+    "clusterip:svc:visits-service",
+    "harden:svc:admin-server",
+    "harden:svc:api-gateway",
+    "harden:svc:config-server",
+    "harden:svc:customers-service",
+    "harden:svc:discovery-server",
+    "harden:svc:genai-service",
+    "harden:svc:grafana-server",
+    "harden:svc:prometheus-server",
+    "harden:svc:tracing-server",
+    "harden:svc:vets-service",
+    "harden:svc:visits-service"
+   ],
+   "applied_by_kind": {
+    "netpol": 0,
+    "clusterip": 10,
+    "harden": 11
+   },
+   "R_predicted": 548.0,
+   "edits": [
+    "unpublish config-server (upstream/docker-compose.yml)",
+    "harden config-server (upstream/docker-compose.yml)",
+    "unpublish discovery-server (upstream/docker-compose.yml)",
+    "harden discovery-server (upstream/docker-compose.yml)",
+    "unpublish customers-service (upstream/docker-compose.yml)",
+    "harden customers-service (upstream/docker-compose.yml)",
+    "unpublish visits-service (upstream/docker-compose.yml)",
+    "harden visits-service (upstream/docker-compose.yml)",
+    "unpublish vets-service (upstream/docker-compose.yml)",
+    "harden vets-service (upstream/docker-compose.yml)",
+    "unpublish genai-service (upstream/docker-compose.yml)",
+    "harden genai-service (upstream/docker-compose.yml)",
+    "harden api-gateway (upstream/docker-compose.yml)",
+    "unpublish tracing-server (upstream/docker-compose.yml)",
+    "harden tracing-server (upstream/docker-compose.yml)",
+    "unpublish admin-server (upstream/docker-compose.yml)",
+    "harden admin-server (upstream/docker-compose.yml)",
+    "unpublish grafana-server (upstream/docker-compose.yml)",
+    "harden grafana-server (upstream/docker-compose.yml)",
+    "unpublish prometheus-server (upstream/docker-compose.yml)",
+    "harden prometheus-server (upstream/docker-compose.yml)"
+   ],
+   "R_measured": 542.0,
+   "findings_after": 58,
+   "paths_after": 142
+  },
+  {
+   "system": "piggymetrics",
+   "R_before": 773.5,
+   "findings_before": 114,
+   "applied": [
+    "clusterip:svc:monitoring",
+    "clusterip:svc:rabbitmq",
+    "clusterip:svc:registry",
+    "clusterip:svc:turbine-stream-service",
+    "harden:svc:account-mongodb",
+    "harden:svc:account-service",
+    "harden:svc:auth-mongodb",
+    "harden:svc:auth-service",
+    "harden:svc:config",
+    "harden:svc:gateway",
+    "harden:svc:monitoring",
+    "harden:svc:notification-mongodb",
+    "harden:svc:notification-service",
+    "harden:svc:rabbitmq",
+    "harden:svc:registry",
+    "harden:svc:statistics-mongodb",
+    "harden:svc:statistics-service",
+    "harden:svc:turbine-stream-service"
+   ],
+   "applied_by_kind": {
+    "netpol": 0,
+    "clusterip": 4,
+    "harden": 14
+   },
+   "R_predicted": 541.0,
+   "edits": [
+    "unpublish rabbitmq (upstream/docker-compose.yml)",
+    "harden rabbitmq (upstream/docker-compose.yml)",
+    "harden config (upstream/docker-compose.yml)",
+    "unpublish registry (upstream/docker-compose.yml)",
+    "harden registry (upstream/docker-compose.yml)",
+    "harden gateway (upstream/docker-compose.yml)",
+    "harden auth-service (upstream/docker-compose.yml)",
+    "harden auth-mongodb (upstream/docker-compose.yml)",
+    "harden account-service (upstream/docker-compose.yml)",
+    "harden account-mongodb (upstream/docker-compose.yml)",
+    "harden statistics-service (upstream/docker-compose.yml)",
+    "harden statistics-mongodb (upstream/docker-compose.yml)",
+    "harden notification-service (upstream/docker-compose.yml)",
+    "harden notification-mongodb (upstream/docker-compose.yml)",
+    "unpublish monitoring (upstream/docker-compose.yml)",
+    "harden monitoring (upstream/docker-compose.yml)",
+    "unpublish turbine-stream-service (upstream/docker-compose.yml)",
+    "harden turbine-stream-service (upstream/docker-compose.yml)"
+   ],
+   "R_measured": 538.0,
+   "findings_after": 78,
+   "paths_after": 169
+  },
+  {
+   "system": "lakeside-mutual",
+   "R_before": 793.5,
+   "findings_before": 118,
+   "applied": [
+    "clusterip:svc:customer-management-backend",
+    "clusterip:svc:customer-management-frontend",
+    "clusterip:svc:customer-self-service-backend",
+    "clusterip:svc:customer-self-service-frontend",
+    "clusterip:svc:policy-management-backend",
+    "clusterip:svc:policy-management-frontend",
+    "clusterip:svc:risk-management-server",
+    "clusterip:svc:spring-boot-admin",
+    "harden:svc:customer-core",
+    "harden:svc:customer-management-backend",
+    "harden:svc:customer-management-frontend",
+    "harden:svc:customer-self-service-backend",
+    "harden:svc:customer-self-service-frontend",
+    "harden:svc:policy-management-backend",
+    "harden:svc:policy-management-frontend",
+    "harden:svc:risk-management-server",
+    "harden:svc:spring-boot-admin",
+    "netpol:svc:customer-core",
+    "netpol:svc:customer-management-backend",
+    "netpol:svc:customer-management-frontend",
+    "netpol:svc:customer-self-service-backend",
+    "netpol:svc:customer-self-service-frontend",
+    "netpol:svc:policy-management-backend",
+    "netpol:svc:policy-management-frontend",
+    "netpol:svc:risk-management-server",
+    "netpol:svc:spring-boot-admin"
+   ],
+   "applied_by_kind": {
+    "netpol": 9,
+    "clusterip": 8,
+    "harden": 9
+   },
+   "R_predicted": 0.0,
+   "edits": [
+    "harden customer-core (upstream/kubernetes/manifests/customer-core.yaml)",
+    "harden customer-management-backend (upstream/kubernetes/manifests/customer-management-backend.yaml)",
+    "clusterip customer-management-backend (upstream/kubernetes/manifests/customer-management-backend.yaml)",
+    "harden customer-management-frontend (upstream/kubernetes/manifests/customer-management-frontend.yaml)",
+    "clusterip customer-management-frontend (upstream/kubernetes/manifests/customer-management-frontend.yaml)",
+    "harden customer-self-service-backend (upstream/kubernetes/manifests/customer-self-service-backend.yaml)",
+    "clusterip customer-self-service-backend (upstream/kubernetes/manifests/customer-self-service-backend.yaml)",
+    "harden customer-self-service-frontend (upstream/kubernetes/manifests/customer-self-service-frontend.yaml)",
+    "clusterip customer-self-service-frontend (upstream/kubernetes/manifests/customer-self-service-frontend.yaml)",
+    "harden policy-management-backend (upstream/kubernetes/manifests/policy-management-backend.yaml)",
+    "clusterip policy-management-backend (upstream/kubernetes/manifests/policy-management-backend.yaml)",
+    "clusterip policy-management-backend-queue (upstream/kubernetes/manifests/policy-management-backend.yaml)",
+    "harden policy-management-frontend (upstream/kubernetes/manifests/policy-management-frontend.yaml)",
+    "clusterip policy-management-frontend (upstream/kubernetes/manifests/policy-management-frontend.yaml)",
+    "harden risk-management-server (upstream/kubernetes/manifests/risk-management-server.yaml)",
+    "clusterip risk-management-server (upstream/kubernetes/manifests/risk-management-server.yaml)",
+    "harden spring-boot-admin (upstream/kubernetes/manifests/spring-boot-admin.yaml)",
+    "clusterip spring-boot-admin (upstream/kubernetes/manifests/spring-boot-admin.yaml)",
+    "netpol customer-core",
+    "netpol customer-management-backend",
+    "netpol customer-management-frontend",
+    "netpol customer-self-service-backend",
+    "netpol customer-self-service-frontend",
+    "netpol policy-management-backend",
+    "netpol policy-management-frontend",
+    "netpol risk-management-server",
+    "netpol spring-boot-admin"
+   ],
+   "R_measured": 0,
+   "findings_after": 75,
+   "paths_after": 0
+  },
+  {
+   "system": "ftgo",
+   "R_before": 338.0,
+   "findings_before": 98,
+   "applied": [
+    "harden:svc:ftgo-api-gateway",
+    "harden:svc:ftgo-consumer-service",
+    "harden:svc:ftgo-dynamodb-local",
+    "harden:svc:ftgo-dynamodb-local-init",
+    "harden:svc:ftgo-kafka",
+    "harden:svc:ftgo-kitchen-service",
+    "harden:svc:ftgo-mysql",
+    "harden:svc:ftgo-order-history-service",
+    "harden:svc:ftgo-order-service",
+    "harden:svc:ftgo-restaurant-service",
+    "harden:svc:ftgo-zookeeper",
+    "netpol:svc:ftgo-api-gateway",
+    "netpol:svc:ftgo-consumer-service",
+    "netpol:svc:ftgo-dynamodb-local",
+    "netpol:svc:ftgo-dynamodb-local-init",
+    "netpol:svc:ftgo-kafka",
+    "netpol:svc:ftgo-kitchen-service",
+    "netpol:svc:ftgo-mysql",
+    "netpol:svc:ftgo-order-history-service",
+    "netpol:svc:ftgo-order-service",
+    "netpol:svc:ftgo-restaurant-service",
+    "netpol:svc:ftgo-zookeeper"
+   ],
+   "applied_by_kind": {
+    "netpol": 11,
+    "clusterip": 0,
+    "harden": 11
+   },
+   "R_predicted": 0.0,
+   "edits": [
+    "harden ftgo-api-gateway (upstream/ftgo-api-gateway/src/deployment/kubernetes/ftgo-api-gateway.yml)",
+    "harden ftgo-order-service (upstream/ftgo-order-service/src/deployment/kubernetes/ftgo-order-service.yml)",
+    "harden ftgo-consumer-service (upstream/ftgo-consumer-service/src/deployment/kubernetes/ftgo-consumer-service.yml)",
+    "harden ftgo-kitchen-service (upstream/ftgo-kitchen-service/src/deployment/kubernetes/ftgo-kitchen-service.yml)",
+    "harden ftgo-restaurant-service (upstream/ftgo-restaurant-service/src/deployment/kubernetes/ftgo-restaurant-service.yml)",
+    "harden ftgo-order-history-service (upstream/ftgo-order-history-service/src/deployment/kubernetes/ftgo-order-history-service.yml)",
+    "harden ftgo-dynamodb-local (upstream/deployment/kubernetes/stateful-services/ftgo-dynamodb-local.yml)",
+    "harden ftgo-dynamodb-local-init (upstream/deployment/kubernetes/stateful-services/ftgo-dynamodb-local.yml)",
+    "harden ftgo-kafka (upstream/deployment/kubernetes/stateful-services/ftgo-kafka-deployment.yml)",
+    "harden ftgo-mysql (upstream/deployment/kubernetes/stateful-services/ftgo-mysql-deployment.yml)",
+    "harden ftgo-zookeeper (upstream/deployment/kubernetes/stateful-services/ftgo-zookeeper-deployment.yml)",
+    "netpol ftgo-api-gateway",
+    "netpol ftgo-consumer-service",
+    "netpol ftgo-dynamodb-local",
+    "netpol ftgo-dynamodb-local-init",
+    "netpol ftgo-kafka",
+    "netpol ftgo-kitchen-service",
+    "netpol ftgo-mysql",
+    "netpol ftgo-order-history-service",
+    "netpol ftgo-order-service",
+    "netpol ftgo-restaurant-service",
+    "netpol ftgo-zookeeper"
+   ],
+   "R_measured": 14.5,
+   "findings_after": 69,
+   "paths_after": 4
+  },
+  {
+   "system": "hotel-reservation",
+   "R_before": 331.0,
+   "findings_before": 113,
+   "applied": [
+    "harden:svc:consul",
+    "harden:svc:frontend",
+    "harden:svc:geo",
+    "harden:svc:jaeger",
+    "harden:svc:memcached-profile",
+    "harden:svc:memcached-rate",
+    "harden:svc:memcached-reserve",
+    "harden:svc:mongodb-geo",
+    "harden:svc:mongodb-profile",
+    "harden:svc:mongodb-rate",
+    "harden:svc:mongodb-recommendation",
+    "harden:svc:mongodb-reservation",
+    "harden:svc:mongodb-user",
+    "harden:svc:profile",
+    "harden:svc:rate",
+    "harden:svc:recommendation",
+    "harden:svc:reservation",
+    "harden:svc:search",
+    "harden:svc:user",
+    "netpol:svc:consul",
+    "netpol:svc:frontend",
+    "netpol:svc:geo",
+    "netpol:svc:jaeger",
+    "netpol:svc:memcached-profile",
+    "netpol:svc:memcached-rate",
+    "netpol:svc:memcached-reserve",
+    "netpol:svc:mongodb-geo",
+    "netpol:svc:mongodb-profile",
+    "netpol:svc:mongodb-rate",
+    "netpol:svc:mongodb-recommendation",
+    "netpol:svc:mongodb-reservation",
+    "netpol:svc:mongodb-user",
+    "netpol:svc:profile",
+    "netpol:svc:rate",
+    "netpol:svc:recommendation",
+    "netpol:svc:reservation",
+    "netpol:svc:search",
+    "netpol:svc:user"
+   ],
+   "applied_by_kind": {
+    "netpol": 19,
+    "clusterip": 0,
+    "harden": 19
+   },
+   "R_predicted": 0.0,
+   "edits": [
+    "harden consul (upstream/hotelReservation/kubernetes/consul/consul-deployment.yaml)",
+    "harden frontend (upstream/hotelReservation/kubernetes/frontend/frontend-deployment.yaml)",
+    "harden geo (upstream/hotelReservation/kubernetes/geo/geo-deployment.yaml)",
+    "harden mongodb-geo (upstream/hotelReservation/kubernetes/geo/mongodb-geo-deployment.yaml)",
+    "harden jaeger (upstream/hotelReservation/kubernetes/jaeger/jaeger-deployment.yaml)",
+    "harden memcached-profile (upstream/hotelReservation/kubernetes/profile/memcached-profile-deployment.yaml)",
+    "harden mongodb-profile (upstream/hotelReservation/kubernetes/profile/mongodb-profile-deployment.yaml)",
+    "harden profile (upstream/hotelReservation/kubernetes/profile/profile-deployment.yaml)",
+    "harden memcached-rate (upstream/hotelReservation/kubernetes/rate/memcached-rate-deployment.yaml)",
+    "harden mongodb-rate (upstream/hotelReservation/kubernetes/rate/mongodb-rate-deployment.yaml)",
+    "harden rate (upstream/hotelReservation/kubernetes/rate/rate-deployment.yaml)",
+    "harden mongodb-recommendation (upstream/hotelReservation/kubernetes/reccomend/mongodb-recommendation-deployment.yaml)",
+    "harden recommendation (upstream/hotelReservation/kubernetes/reccomend/recommendation-deployment.yaml)",
+    "harden memcached-reserve (upstream/hotelReservation/kubernetes/reserve/memcached-reservation-deployment.yaml)",
+    "harden mongodb-reservation (upstream/hotelReservation/kubernetes/reserve/mongodb-reservation-deployment.yaml)",
+    "harden reservation (upstream/hotelReservation/kubernetes/reserve/reservation-deployment.yaml)",
+    "harden search (upstream/hotelReservation/kubernetes/search/search-deployment.yaml)",
+    "harden mongodb-user (upstream/hotelReservation/kubernetes/user/mongodb-user-deployment.yaml)",
+    "harden user (upstream/hotelReservation/kubernetes/user/user-deployment.yaml)",
+    "netpol consul",
+    "netpol frontend",
+    "netpol geo",
+    "netpol jaeger",
+    "netpol memcached-profile",
+    "netpol memcached-rate",
+    "netpol memcached-reserve",
+    "netpol mongodb-geo",
+    "netpol mongodb-profile",
+    "netpol mongodb-rate",
+    "netpol mongodb-recommendation",
+    "netpol mongodb-reservation",
+    "netpol mongodb-user",
+    "netpol profile",
+    "netpol rate",
+    "netpol recommendation",
+    "netpol reservation",
+    "netpol search",
+    "netpol user"
+   ],
+   "R_measured": 0,
+   "findings_after": 62,
+   "paths_after": 0
+  },
+  {
+   "system": "bookinfo",
+   "R_before": 236.05,
+   "findings_before": 32,
+   "applied": [
+    "harden:svc:details",
+    "harden:svc:productpage",
+    "harden:svc:ratings",
+    "harden:svc:reviews",
+    "netpol:svc:details",
+    "netpol:svc:productpage",
+    "netpol:svc:ratings",
+    "netpol:svc:reviews"
+   ],
+   "applied_by_kind": {
+    "netpol": 4,
+    "clusterip": 0,
+    "harden": 4
+   },
+   "R_predicted": 201.4,
+   "edits": [
+    "harden details-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+    "harden ratings-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+    "harden reviews-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+    "harden productpage-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
+    "netpol details",
+    "netpol productpage",
+    "netpol ratings",
+    "netpol reviews"
+   ],
+   "R_measured": 201.4,
+   "findings_after": 24,
+   "paths_after": 25
+  }
+ ],
+ "stress": {
+  "base": "results/opensource/eval/base/online-boutique/v16/eujf.json",
+  "system": "online-boutique",
+  "time_limit_s": 300,
+  "cpus": 2,
+  "python": "3.13.18",
+  "size": [
+   {
+    "k": 1,
+    "d": 0,
+    "services": 12,
+    "endpoints": 25,
+    "nodes": 143,
+    "edges": 295,
+    "calls_edges": 21,
+    "findings": 97,
+    "attack_paths": 302,
+    "total_path_risk": 702.54,
+    "store_eujf_ms": 4.6,
+    "phase3_ms": 74.7,
+    "rule_engine_ms": 1.77,
+    "dependency_analyzer_ms": 0.1,
+    "threat_graph_ms": 36.39,
+    "attack_path_query_ms": 8.02,
+    "risk_propagation_ms": 8.22,
+    "mitigation_plan_ms": 3.4,
+    "phase4_ms": 11.0,
+    "export_ms": 16.3,
+    "total_ms": 128.8,
+    "dashboard_kb": 468,
+    "graphml_kb": 122,
+    "peak_rss_mb": 48.2
+   },
+   {
+    "k": 2,
+    "d": 0,
+    "services": 24,
+    "endpoints": 50,
+    "nodes": 277,
+    "edges": 588,
+    "calls_edges": 42,
+    "findings": 193,
+    "attack_paths": 604,
+    "total_path_risk": 1405.08,
+    "store_eujf_ms": 4.9,
+    "phase3_ms": 122.2,
+    "rule_engine_ms": 3.19,
+    "dependency_analyzer_ms": 0.18,
+    "threat_graph_ms": 30.26,
+    "attack_path_query_ms": 13.5,
+    "risk_propagation_ms": 9.77,
+    "mitigation_plan_ms": 11.61,
+    "phase4_ms": 19.3,
+    "export_ms": 30.1,
+    "total_ms": 194.3,
+    "dashboard_kb": 869,
+    "graphml_kb": 237,
+    "peak_rss_mb": 53.9
+   },
+   {
+    "k": 5,
+    "d": 0,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 1467,
+    "calls_edges": 105,
+    "findings": 481,
+    "attack_paths": 1510,
+    "total_path_risk": 3512.7,
+    "store_eujf_ms": 10.2,
+    "phase3_ms": 347.6,
+    "rule_engine_ms": 7.45,
+    "dependency_analyzer_ms": 0.61,
+    "threat_graph_ms": 76.54,
+    "attack_path_query_ms": 36.1,
+    "risk_propagation_ms": 35.99,
+    "mitigation_plan_ms": 62.05,
+    "phase4_ms": 42.6,
+    "export_ms": 67.3,
+    "total_ms": 486.7,
+    "dashboard_kb": 2077,
+    "graphml_kb": 583,
+    "peak_rss_mb": 70.4
+   },
+   {
+    "k": 10,
+    "d": 0,
+    "services": 120,
+    "endpoints": 250,
+    "nodes": 1349,
+    "edges": 2932,
+    "calls_edges": 210,
+    "findings": 961,
+    "attack_paths": 3020,
+    "total_path_risk": 7025.4,
+    "store_eujf_ms": 12.5,
+    "phase3_ms": 859.2,
+    "rule_engine_ms": 11.68,
+    "dependency_analyzer_ms": 0.51,
+    "threat_graph_ms": 152.83,
+    "attack_path_query_ms": 77.93,
+    "risk_propagation_ms": 42.5,
+    "mitigation_plan_ms": 267.51,
+    "phase4_ms": 75.6,
+    "export_ms": 106.3,
+    "total_ms": 1068.2,
+    "dashboard_kb": 4095,
+    "graphml_kb": 1161,
+    "peak_rss_mb": 98.0
+   },
+   {
+    "k": 20,
+    "d": 0,
+    "services": 240,
+    "endpoints": 500,
+    "nodes": 2689,
+    "edges": 5862,
+    "calls_edges": 420,
+    "findings": 1921,
+    "attack_paths": 6040,
+    "total_path_risk": 14050.8,
+    "store_eujf_ms": 27.4,
+    "phase3_ms": 2774.3,
+    "rule_engine_ms": 43.89,
+    "dependency_analyzer_ms": 1.4,
+    "threat_graph_ms": 216.54,
+    "attack_path_query_ms": 148.48,
+    "risk_propagation_ms": 92.8,
+    "mitigation_plan_ms": 1110.31,
+    "phase4_ms": 153.1,
+    "export_ms": 356.4,
+    "total_ms": 3330.9,
+    "dashboard_kb": 8178,
+    "graphml_kb": 2323,
+    "peak_rss_mb": 152.9
+   },
+   {
+    "k": 30,
+    "d": 0,
+    "services": 360,
+    "endpoints": 750,
+    "nodes": 4029,
+    "edges": 8792,
+    "calls_edges": 630,
+    "findings": 2881,
+    "attack_paths": 9060,
+    "total_path_risk": 21076.2,
+    "store_eujf_ms": 29.2,
+    "phase3_ms": 5562.1,
+    "rule_engine_ms": 56.27,
+    "dependency_analyzer_ms": 1.48,
+    "threat_graph_ms": 228.51,
+    "attack_path_query_ms": 230.22,
+    "risk_propagation_ms": 102.38,
+    "mitigation_plan_ms": 2101.77,
+    "phase4_ms": 203.6,
+    "export_ms": 563.9,
+    "total_ms": 6380.1,
+    "dashboard_kb": 12233,
+    "graphml_kb": 3486,
+    "peak_rss_mb": 207.5
+   },
+   {
+    "k": 50,
+    "d": 0,
+    "services": 600,
+    "endpoints": 1250,
+    "nodes": 6709,
+    "edges": 14652,
+    "calls_edges": 1050,
+    "findings": 4801,
+    "attack_paths": 15100,
+    "total_path_risk": 35127.0,
+    "store_eujf_ms": 43.0,
+    "phase3_ms": 16037.1,
+    "rule_engine_ms": 109.61,
+    "dependency_analyzer_ms": 2.99,
+    "threat_graph_ms": 457.34,
+    "attack_path_query_ms": 553.1,
+    "risk_propagation_ms": 194.25,
+    "mitigation_plan_ms": 5869.66,
+    "phase4_ms": 454.4,
+    "export_ms": 1559.0,
+    "total_ms": 18109.9,
+    "dashboard_kb": 20327,
+    "graphml_kb": 5816,
+    "peak_rss_mb": 316.9
+   },
+   {
+    "k": 100,
+    "d": 0,
+    "services": 1200,
+    "endpoints": 2500,
+    "nodes": 13409,
+    "edges": 29302,
+    "calls_edges": 2100,
+    "findings": 9601,
+    "attack_paths": 30200,
+    "total_path_risk": 70254.0,
+    "store_eujf_ms": 95.3,
+    "phase3_ms": 63962.4,
+    "rule_engine_ms": 520.64,
+    "dependency_analyzer_ms": 7.48,
+    "threat_graph_ms": 1157.25,
+    "attack_path_query_ms": 965.24,
+    "risk_propagation_ms": 476.66,
+    "mitigation_plan_ms": 24591.67,
+    "phase4_ms": 1239.9,
+    "export_ms": 4078.7,
+    "total_ms": 69401.0,
+    "dashboard_kb": 40789,
+    "graphml_kb": 11644,
+    "peak_rss_mb": 581.0
+   }
+  ],
+  "density": [
+   {
+    "k": 5,
+    "d": 0,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 1467,
+    "calls_edges": 105,
+    "findings": 481,
+    "attack_paths": 1510,
+    "total_path_risk": 3512.7,
+    "store_eujf_ms": 7.3,
+    "phase3_ms": 267.1,
+    "rule_engine_ms": 5.24,
+    "dependency_analyzer_ms": 0.42,
+    "threat_graph_ms": 54.79,
+    "attack_path_query_ms": 40.02,
+    "risk_propagation_ms": 25.26,
+    "mitigation_plan_ms": 44.05,
+    "phase4_ms": 35.1,
+    "export_ms": 54.4,
+    "total_ms": 379.7,
+    "dashboard_kb": 2077,
+    "graphml_kb": 583,
+    "peak_rss_mb": 70.5
+   },
+   {
+    "k": 5,
+    "d": 0.5,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 1582,
+    "calls_edges": 163,
+    "findings": 481,
+    "attack_paths": 4878,
+    "total_path_risk": 3514.59,
+    "store_eujf_ms": 10.8,
+    "phase3_ms": 906.5,
+    "rule_engine_ms": 7.83,
+    "dependency_analyzer_ms": 1.78,
+    "threat_graph_ms": 85.38,
+    "attack_path_query_ms": 194.16,
+    "risk_propagation_ms": 25.97,
+    "mitigation_plan_ms": 226.76,
+    "phase4_ms": 34.2,
+    "export_ms": 72.0,
+    "total_ms": 1044.7,
+    "dashboard_kb": 2135,
+    "graphml_kb": 608,
+    "peak_rss_mb": 84.4
+   },
+   {
+    "k": 5,
+    "d": 1,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 1701,
+    "calls_edges": 224,
+    "findings": 481,
+    "attack_paths": 9145,
+    "total_path_risk": 3520.45,
+    "store_eujf_ms": 7.3,
+    "phase3_ms": 3928.1,
+    "rule_engine_ms": 5.76,
+    "dependency_analyzer_ms": 2.22,
+    "threat_graph_ms": 74.52,
+    "attack_path_query_ms": 573.31,
+    "risk_propagation_ms": 22.15,
+    "mitigation_plan_ms": 2445.67,
+    "phase4_ms": 45.7,
+    "export_ms": 146.6,
+    "total_ms": 4146.1,
+    "dashboard_kb": 2208,
+    "graphml_kb": 634,
+    "peak_rss_mb": 121.6
+   },
+   {
+    "k": 5,
+    "d": 1.5,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 1810,
+    "calls_edges": 284,
+    "findings": 481,
+    "attack_paths": 14142,
+    "total_path_risk": 3526.86,
+    "store_eujf_ms": 7.8,
+    "phase3_ms": 7848.3,
+    "rule_engine_ms": 6.12,
+    "dependency_analyzer_ms": 2.77,
+    "threat_graph_ms": 72.98,
+    "attack_path_query_ms": 1608.57,
+    "risk_propagation_ms": 30.33,
+    "mitigation_plan_ms": 5095.66,
+    "phase4_ms": 36.9,
+    "export_ms": 142.4,
+    "total_ms": 8056.5,
+    "dashboard_kb": 2241,
+    "graphml_kb": 657,
+    "peak_rss_mb": 202.4
+   },
+   {
+    "k": 5,
+    "d": 2,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 1912,
+    "calls_edges": 345,
+    "findings": 481,
+    "attack_paths": 19260,
+    "total_path_risk": 3531.77,
+    "store_eujf_ms": 9.4,
+    "phase3_ms": 15301.4,
+    "rule_engine_ms": 5.29,
+    "dependency_analyzer_ms": 2.2,
+    "threat_graph_ms": 121.95,
+    "attack_path_query_ms": 5149.83,
+    "risk_propagation_ms": 101.04,
+    "mitigation_plan_ms": 8211.35,
+    "phase4_ms": 43.3,
+    "export_ms": 194.0,
+    "total_ms": 15568.0,
+    "dashboard_kb": 2266,
+    "graphml_kb": 678,
+    "peak_rss_mb": 415.2
+   },
+   {
+    "k": 5,
+    "d": 2.5,
+    "services": 60,
+    "endpoints": 125,
+    "nodes": 679,
+    "edges": 2016,
+    "calls_edges": 405,
+    "findings": 481,
+    "attack_paths": 21726,
+    "total_path_risk": 3531.77,
+    "store_eujf_ms": 6.9,
+    "phase3_ms": 26296.1,
+    "rule_engine_ms": 8.18,
+    "dependency_analyzer_ms": 3.3,
+    "threat_graph_ms": 83.53,
+    "attack_path_query_ms": 10489.04,
+    "risk_propagation_ms": 167.57,
+    "mitigation_plan_ms": 13620.62,
+    "phase4_ms": 32.7,
+    "export_ms": 244.7,
+    "total_ms": 26601.2,
+    "dashboard_kb": 2288,
+    "graphml_kb": 700,
+    "peak_rss_mb": 784.8
+   },
+   {
+    "k": 5,
+    "d": 3,
+    "services": 60,
+    "endpoints": 125,
+    "error": "tore)\n  File \"/home/claude/hiransangvantam-code/api-threat-graph/atg/analysis.py\", line 451, in analyze\n    raw = store.attack_paths(eujf[\"run_id\"])\n  File \"/home/claude/hiransangvantam-code/api-threat-graph/atg/graphstore.py\", line 141, in attack_paths\n    cur.execute(sql, (run_id, run_id, max_depth, run_id))\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.13/site-packages/psycopg/cursor.py\", line 117, in execute\n    raise ex.with_traceback(None)\npsycopg.errors.DiskFull: could not write to file \"base/pgsql_tmp/pgsql_tmp78.107\": No space left on device\n",
+    "wall_s": 9.1
+   }
+  ]
+ },
+ "zap_inventory": {
+  "online-boutique": {
+   "requests": 7062,
+   "seconds": 78.0,
+   "alerts": 49,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 25,
+    "User Agent Fuzzer (CWE-0, Informational)": 24
+   },
+   "ops_reached": 25,
+   "ops_real": 26,
+   "labels_found": 0,
+   "labels": 55,
+   "atg_labels_found": 43,
+   "atg_probes": 100,
+   "atg_ops": 25,
+   "gateway": "frontend"
+  },
+  "bank-of-anthos": {
+   "requests": 3854,
+   "seconds": 27.2,
+   "alerts": 8,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 5,
+    "Information Disclosure - Sensitive Information in URL (CWE-598, Informational)": 2,
+    "Authentication Request Identified (CWE--1, Informational)": 1
+   },
+   "ops_reached": 17,
+   "ops_real": 17,
+   "labels_found": 1,
+   "labels": 44,
+   "atg_labels_found": 22,
+   "atg_probes": 60,
+   "atg_ops": 15,
+   "gateway": "frontend"
+  },
+  "robot-shop": {
+   "requests": 9848,
+   "seconds": 59.2,
+   "alerts": 93,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 29,
+    "Format String Error (CWE-134, Medium)": 4,
+    "User Agent Fuzzer (CWE-0, Informational)": 60
+   },
+   "ops_reached": 29,
+   "ops_real": 30,
+   "labels_found": 0,
+   "labels": 76,
+   "atg_labels_found": 42,
+   "atg_probes": 70,
+   "atg_ops": 29,
+   "gateway": "web"
+  },
+  "acme-air": {
+   "requests": 6545,
+   "seconds": 39.2,
+   "alerts": 47,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 23,
+    "User Agent Fuzzer (CWE-0, Informational)": 24
+   },
+   "ops_reached": 20,
+   "ops_real": 22,
+   "labels_found": 0,
+   "labels": 79,
+   "atg_labels_found": 53,
+   "atg_probes": 60,
+   "atg_ops": 20,
+   "gateway": "ingress-nginx-controller"
+  },
+  "petclinic": {
+   "requests": 5885,
+   "seconds": 24.9,
+   "alerts": 89,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 15,
+    "Spring Actuator Information Leak (CWE-215, Medium)": 1,
+    "Hidden File Found (CWE-538, Medium)": 1,
+    "User Agent Fuzzer (CWE-0, Informational)": 72
+   },
+   "ops_reached": 15,
+   "ops_real": 16,
+   "labels_found": 1,
+   "labels": 67,
+   "atg_labels_found": 54,
+   "atg_probes": 70,
+   "atg_ops": 15,
+   "gateway": "api-gateway"
+  },
+  "piggymetrics": {
+   "requests": 3260,
+   "seconds": 14.3,
+   "alerts": 15,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 3,
+    "User Agent Fuzzer (CWE-0, Informational)": 12
+   },
+   "ops_reached": 13,
+   "ops_real": 13,
+   "labels_found": 0,
+   "labels": 88,
+   "atg_labels_found": 62,
+   "atg_probes": 60,
+   "atg_ops": 13,
+   "gateway": "gateway"
+  },
+  "lakeside-mutual": {
+   "requests": 9905,
+   "seconds": 47.7,
+   "alerts": 109,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 21,
+    "Format String Error (CWE-134, Medium)": 4,
+    "User Agent Fuzzer (CWE-0, Informational)": 84
+   },
+   "ops_reached": 38,
+   "ops_real": 38,
+   "labels_found": 0,
+   "labels": 80,
+   "atg_labels_found": 52,
+   "atg_probes": 22,
+   "atg_ops": 38,
+   "gateway": "customer-core"
+  },
+  "ftgo": {
+   "requests": 6604,
+   "seconds": 28.8,
+   "alerts": 125,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 17,
+    "User Agent Fuzzer (CWE-0, Informational)": 108
+   },
+   "ops_reached": 13,
+   "ops_real": 14,
+   "labels_found": 0,
+   "labels": 82,
+   "atg_labels_found": 46,
+   "atg_probes": 60,
+   "atg_ops": 9,
+   "gateway": "ftgo-api-gateway"
+  },
+  "hotel-reservation": {
+   "requests": 7101,
+   "seconds": 65.1,
+   "alerts": 41,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 12,
+    "Information Disclosure - Sensitive Information in URL (CWE-598, Informational)": 4,
+    "Authentication Request Identified (CWE--1, Informational)": 1,
+    "User Agent Fuzzer (CWE-0, Informational)": 24
+   },
+   "ops_reached": 12,
+   "ops_real": 12,
+   "labels_found": 2,
+   "labels": 107,
+   "atg_labels_found": 68,
+   "atg_probes": 80,
+   "atg_ops": 12,
+   "gateway": "frontend"
+  },
+  "bookinfo": {
+   "requests": 3817,
+   "seconds": 20.4,
+   "alerts": 17,
+   "alert_types": {
+    "X-Content-Type-Options Header Missing (CWE-693, Low)": 13,
+    "Format String Error (CWE-134, Medium)": 4
+   },
+   "ops_reached": 13,
+   "ops_real": 13,
+   "labels_found": 0,
+   "labels": 38,
+   "atg_labels_found": 24,
+   "atg_probes": 40,
+   "atg_ops": 13,
+   "gateway": "productpage"
+  }
+ }
+}

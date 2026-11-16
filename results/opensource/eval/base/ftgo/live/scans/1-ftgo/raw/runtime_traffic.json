@@ -1,0 +1,1036 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023317-eb5a08",
+  "collected_at": "2026-11-16T02:33:17+00:00",
+  "duration_ms": 7.1,
+  "inputs": [
+    "/work/scan-input/1-ftgo/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 365,
+    "flows_ignored": 1,
+    "endpoints": 17,
+    "services": 6,
+    "flows_by_capture_point": {
+      "east-west": 185,
+      "north-south": 180
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "POST",
+      "path_template": "/consumers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": {
+            "firstName": "string",
+            "lastName": "string"
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "consumerId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.36,
+        "max": 41.25
+      },
+      "example_paths": [
+        "/consumers"
+      ],
+      "first_seen": 1794796389.3766923,
+      "last_seen": 1794796390.9361794
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "GET",
+      "path_template": "/consumers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "consumerId": "integer",
+          "name": {
+            "firstName": "string",
+            "lastName": "string"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 6.49,
+        "max": 12.96
+      },
+      "example_paths": [
+        "/consumers/130",
+        "/consumers/106",
+        "/consumers/121"
+      ],
+      "first_seen": 1794796389.4194603,
+      "last_seen": 1794796390.9509048
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "GET",
+      "path_template": "/orders",
+      "path_params": [],
+      "query_params": [
+        "consumerId"
+      ],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orders": [
+            {
+              "orderId": "integer",
+              "consumerId": "integer",
+              "orderTotal": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.6,
+        "max": 14.72
+      },
+      "example_paths": [
+        "/orders"
+      ],
+      "first_seen": 1794796389.4745004,
+      "last_seen": 1794796390.9937987
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "POST",
+      "path_template": "/orders",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "consumerId": "integer",
+          "restaurantId": "integer",
+          "deliveryAddress": {
+            "street1": "string",
+            "city": "string"
+          },
+          "lineItems": [
+            {
+              "menuItemId": "integer",
+              "quantity": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.84,
+        "max": 15.22
+      },
+      "example_paths": [
+        "/orders"
+      ],
+      "first_seen": 1794796389.4394538,
+      "last_seen": 1794796390.9646266
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "POST",
+      "path_template": "/orders/{id}/cancel",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderId": "integer",
+          "state": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.84,
+        "max": 14.53
+      },
+      "example_paths": [
+        "/orders/120/cancel",
+        "/orders/135/cancel",
+        "/orders/126/cancel"
+      ],
+      "first_seen": 1794796389.4614353,
+      "last_seen": 1794796390.9718413
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "POST",
+      "path_template": "/orders/{id}/revise",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "revisedOrderLineItems": [
+            {
+              "menuItemId": "integer",
+              "quantity": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.2,
+        "max": 13.36
+      },
+      "example_paths": [
+        "/orders/134/revise",
+        "/orders/128/revise",
+        "/orders/129/revise"
+      ],
+      "first_seen": 1794796389.467872,
+      "last_seen": 1794796390.9790945
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "POST",
+      "path_template": "/restaurants",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "menu": {
+            "menuItems": [
+              {
+                "id": "integer",
+                "name": "string",
+                "price": "integer"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "restaurantId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.43,
+        "max": 13.11
+      },
+      "example_paths": [
+        "/restaurants"
+      ],
+      "first_seen": 1794796389.4906974,
+      "last_seen": 1794796391.0018027
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-api-gateway",
+      "method": "GET",
+      "path_template": "/restaurants/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "restaurantId": "integer",
+          "name": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.78,
+        "max": 17.14
+      },
+      "example_paths": [
+        "/restaurants/129",
+        "/restaurants/135",
+        "/restaurants/110"
+      ],
+      "first_seen": 1794796389.5001738,
+      "last_seen": 1794796391.0190933
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-consumer-service",
+      "method": "POST",
+      "path_template": "/consumers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ftgo-consumer-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": {
+            "firstName": "string",
+            "lastName": "string"
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "consumerId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.0,
+        "max": 5.99
+      },
+      "example_paths": [
+        "/consumers"
+      ],
+      "first_seen": 1794796389.4111753,
+      "last_seen": 1794796390.93799
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-consumer-service",
+      "method": "GET",
+      "path_template": "/consumers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-consumer-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "consumerId": "integer",
+          "name": {
+            "firstName": "string",
+            "lastName": "string"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 1.92,
+        "max": 6.67
+      },
+      "example_paths": [
+        "/consumers/130",
+        "/consumers/106",
+        "/consumers/121"
+      ],
+      "first_seen": 1794796389.4214945,
+      "last_seen": 1794796390.952582
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-kitchen-service",
+      "method": "POST",
+      "path_template": "/tickets/{id}/accept",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-kitchen-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 5,
+      "status_codes": {
+        "200": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "200": 5
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.48,
+        "max": 3.68
+      },
+      "example_paths": [
+        "/tickets/1001/accept"
+      ],
+      "first_seen": 1794796389.5154166,
+      "last_seen": 1794796390.809481
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-order-history-service",
+      "method": "GET",
+      "path_template": "/orders",
+      "path_params": [],
+      "query_params": [
+        "consumerId"
+      ],
+      "hosts": [
+        "ftgo-order-history-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orders": [
+            {
+              "orderId": "integer",
+              "consumerId": "integer",
+              "orderTotal": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.2,
+        "max": 6.29
+      },
+      "example_paths": [
+        "/orders"
+      ],
+      "first_seen": 1794796389.4779575,
+      "last_seen": 1794796390.9957683
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-order-service",
+      "method": "POST",
+      "path_template": "/orders",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ftgo-order-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "consumerId": "integer",
+          "restaurantId": "integer",
+          "deliveryAddress": {
+            "street1": "string",
+            "city": "string"
+          },
+          "lineItems": [
+            {
+              "menuItemId": "integer",
+              "quantity": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.35,
+        "max": 6.12
+      },
+      "example_paths": [
+        "/orders"
+      ],
+      "first_seen": 1794796389.443524,
+      "last_seen": 1794796390.966583
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-order-service",
+      "method": "POST",
+      "path_template": "/orders/{id}/cancel",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-order-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderId": "integer",
+          "state": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.9,
+        "max": 3.43
+      },
+      "example_paths": [
+        "/orders/120/cancel",
+        "/orders/135/cancel",
+        "/orders/126/cancel"
+      ],
+      "first_seen": 1794796389.4631639,
+      "last_seen": 1794796390.973637
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-order-service",
+      "method": "POST",
+      "path_template": "/orders/{id}/revise",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-order-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "revisedOrderLineItems": [
+            {
+              "menuItemId": "integer",
+              "quantity": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.01,
+        "max": 2.72
+      },
+      "example_paths": [
+        "/orders/134/revise",
+        "/orders/128/revise",
+        "/orders/129/revise"
+      ],
+      "first_seen": 1794796389.4696069,
+      "last_seen": 1794796390.9808502
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-restaurant-service",
+      "method": "POST",
+      "path_template": "/restaurants",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ftgo-restaurant-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "menu": {
+            "menuItems": [
+              {
+                "id": "integer",
+                "name": "string",
+                "price": "integer"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "restaurantId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.75,
+        "max": 7.34
+      },
+      "example_paths": [
+        "/restaurants"
+      ],
+      "first_seen": 1794796389.4939678,
+      "last_seen": 1794796391.0056367
+    },
+    {
+      "kind": "endpoint",
+      "service": "ftgo-restaurant-service",
+      "method": "GET",
+      "path_template": "/restaurants/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ftgo-restaurant-service:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "restaurantId": "integer",
+          "name": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.95,
+        "max": 11.78
+      },
+      "example_paths": [
+        "/restaurants/129",
+        "/restaurants/135",
+        "/restaurants/110"
+      ],
+      "first_seen": 1794796389.5020087,
+      "last_seen": 1794796391.020995
+    }
+  ]
+}

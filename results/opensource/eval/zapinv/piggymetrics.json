@@ -1,0 +1,201 @@
+{
+ "system": "piggymetrics",
+ "bases": [
+  "http://172.18.0.7:6000",
+  "http://172.18.0.8:5000",
+  "http://172.18.0.5:8080",
+  "http://172.18.0.6:8000",
+  "http://172.18.0.3:7000"
+ ],
+ "ips": {
+  "account-service": "172.18.0.7",
+  "auth-service": "172.18.0.8",
+  "monitoring": "172.18.0.5",
+  "notification-service": "172.18.0.6",
+  "statistics-service": "172.18.0.3"
+ },
+ "by_ip": {
+  "172.18.0.7": "account-service",
+  "172.18.0.8": "auth-service",
+  "172.18.0.5": "monitoring",
+  "172.18.0.6": "notification-service",
+  "172.18.0.3": "statistics-service"
+ },
+ "total_s": 14.3,
+ "messages": 3260,
+ "urls": [
+  "http://172.18.0.3:7000",
+  "http://172.18.0.3:7000/statistics",
+  "http://172.18.0.3:7000/statistics/1",
+  "http://172.18.0.3:7000/statistics/current",
+  "http://172.18.0.5:8080",
+  "http://172.18.0.5:8080/hystrix",
+  "http://172.18.0.6:8000",
+  "http://172.18.0.6:8000/notifications",
+  "http://172.18.0.6:8000/notifications/recipients",
+  "http://172.18.0.6:8000/notifications/recipients/current",
+  "http://172.18.0.7:6000",
+  "http://172.18.0.7:6000/accounts",
+  "http://172.18.0.7:6000/accounts/",
+  "http://172.18.0.7:6000/accounts/1",
+  "http://172.18.0.7:6000/accounts/current",
+  "http://172.18.0.8:5000",
+  "http://172.18.0.8:5000/uaa",
+  "http://172.18.0.8:5000/uaa/oauth",
+  "http://172.18.0.8:5000/uaa/oauth/token",
+  "http://172.18.0.8:5000/uaa/users",
+  "http://172.18.0.8:5000/uaa/users/current"
+ ],
+ "alerts": [
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.7:6000/accounts/",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.7:6000/accounts",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.8:5000/uaa/users",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8080/hystrix",
+   "param": "x-content-type-options"
+  }
+ ]
+}

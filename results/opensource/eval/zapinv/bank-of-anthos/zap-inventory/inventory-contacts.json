@@ -1,0 +1,29 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "contacts (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/contacts/{username}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,387 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "openapi",
+  "collector": "openapi-prober",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025055-08b389",
+  "collected_at": "2026-11-16T02:50:56+00:00",
+  "duration_ms": 270.0,
+  "inputs": [],
+  "stats": {
+    "specs": 0,
+    "services_with_spec": [],
+    "services_without_live_spec": [
+      "cart",
+      "catalogue",
+      "payment",
+      "ratings",
+      "shipping",
+      "user",
+      "web"
+    ],
+    "operations": 0,
+    "probes": 70
+  },
+  "warnings": [
+    "web: no live spec at any probed path",
+    "catalogue: no live spec at any probed path",
+    "user: no live spec at any probed path",
+    "cart: no live spec at any probed path",
+    "shipping: no live spec at any probed path",
+    "payment: no live spec at any probed path",
+    "ratings: no live spec at any probed path"
+  ],
+  "records": [],
+  "probe_log": [
+    {
+      "service": "web",
+      "url": "http://web:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "web",
+      "url": "http://web:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "catalogue",
+      "url": "http://catalogue:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "user",
+      "url": "http://user:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "cart",
+      "url": "http://cart:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "shipping",
+      "url": "http://shipping:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "payment",
+      "url": "http://payment:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/openapi",
+      "result": 404
+    },
+    {
+      "service": "ratings",
+      "url": "http://ratings:80/q/openapi",
+      "result": 404
+    }
+  ]
+}

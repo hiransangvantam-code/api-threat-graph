@@ -86,3 +86,22 @@ def test_networkpolicy_without_callers_admits_the_entry_point():
     f["evidence"] = ["callers seen in traces: details, reviews"]
     what, snip = stack_fix(f, istio)
     assert "app: details" in snip and "app: reviews" in snip and "ingressgateway" not in snip
+
+
+def test_networkpolicy_uses_real_labels_configured_callers_and_outside_users():
+    """v1.6, from the fix experiment on the open-source systems."""
+    from atg.hardening import stack_fix
+    eujf = {"edge_tls": [], "gateway_routes": [],
+            "services": [{"name": "frontend", "pod_labels": {"app": "frontend", "tier": "web"},
+                          "exposure": {"level": "internet", "via": ["Service frontend (LoadBalancer)"]}, "published": True},
+                         {"name": "booking", "pod_labels": {"name": "booking-deployment"}, "exposure": {"level": "internal", "via": []}},
+                         {"name": "booking-db", "pod_labels": {"name": "booking-db"}, "exposure": {"level": "internal", "via": []}},
+                         {"name": "cache", "pod_labels": {"name": "cache"}, "exposure": {"level": "internal", "via": []}}],
+            "dependencies": [{"from": "booking", "to": "booking-db", "evidence": "env"}]}
+    f = {"rule_id": "API8-NETPOL", "evidence": ["callers seen in traces: none"], "recommendation": ""}
+    _, snip = stack_fix({**f, "target": "svc:frontend"}, eujf)
+    assert "app: frontend" in snip and "ipBlock" in snip            # its users still get in
+    what, snip = stack_fix({**f, "target": "svc:booking-db"}, eujf)
+    assert "name: booking-db" in snip and "name: booking-deployment" in snip and "configuration" in what
+    what, snip = stack_fix({**f, "target": "svc:cache"}, eujf)
+    assert "ingress: []" in snip and "add the callers" in what

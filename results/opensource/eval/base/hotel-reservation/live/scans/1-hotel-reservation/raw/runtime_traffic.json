@@ -1,0 +1,670 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023405-7c1b63",
+  "collected_at": "2026-11-16T02:34:05+00:00",
+  "duration_ms": 8.5,
+  "inputs": [
+    "/work/scan-input/1-hotel-reservation/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 465,
+    "flows_ignored": 1,
+    "endpoints": 12,
+    "services": 8,
+    "flows_by_capture_point": {
+      "east-west": 345,
+      "north-south": 120
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/hotels",
+      "path_params": [],
+      "query_params": [
+        "inDate",
+        "lat",
+        "lon",
+        "outDate"
+      ],
+      "hosts": [
+        "frontend:5000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "type": "string",
+          "features": [
+            {
+              "id": "integer",
+              "properties": {
+                "name": "string"
+              }
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 30.93,
+        "max": 143.8
+      },
+      "example_paths": [
+        "/hotels"
+      ],
+      "first_seen": 1794796435.3217916,
+      "last_seen": 1794796438.1753507
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/recommendations",
+      "path_params": [],
+      "query_params": [
+        "lat",
+        "lon",
+        "require"
+      ],
+      "hosts": [
+        "frontend:5000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "features": [
+            {
+              "id": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 13.46,
+        "max": 51.99
+      },
+      "example_paths": [
+        "/recommendations"
+      ],
+      "first_seen": 1794796435.5440867,
+      "last_seen": 1794796438.211062
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "POST",
+      "path_template": "/reservation",
+      "path_params": [],
+      "query_params": [
+        "customerName",
+        "hotelId",
+        "inDate",
+        "number",
+        "outDate",
+        "password",
+        "username"
+      ],
+      "hosts": [
+        "frontend:5000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "message": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 14.54,
+        "max": 24.27
+      },
+      "example_paths": [
+        "/reservation"
+      ],
+      "first_seen": 1794796435.6061761,
+      "last_seen": 1794796438.2365937
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/user",
+      "path_params": [],
+      "query_params": [
+        "password",
+        "username"
+      ],
+      "hosts": [
+        "frontend:5000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "message": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.3,
+        "max": 22.58
+      },
+      "example_paths": [
+        "/user"
+      ],
+      "first_seen": 1794796435.580016,
+      "last_seen": 1794796438.2295597
+    },
+    {
+      "kind": "endpoint",
+      "service": "geo",
+      "method": "POST",
+      "path_template": "/geo.Geo/Nearby",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "geo:8083"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "hotelIds": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.78,
+        "max": 20.02
+      },
+      "example_paths": [
+        "/geo.Geo/Nearby"
+      ],
+      "first_seen": 1794796435.4083896,
+      "last_seen": 1794796438.1797497
+    },
+    {
+      "kind": "endpoint",
+      "service": "profile",
+      "method": "POST",
+      "path_template": "/profile.Profile/GetProfiles",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "profile:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 75,
+      "status_codes": {
+        "200": 75
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 75,
+        "status_codes_without_auth": {
+          "200": 75
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "hotels": [
+            {
+              "id": "string",
+              "name": "string",
+              "phoneNumber": "string",
+              "address": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.69,
+        "max": 26.54
+      },
+      "example_paths": [
+        "/profile.Profile/GetProfiles"
+      ],
+      "first_seen": 1794796435.4574246,
+      "last_seen": 1794796438.2166233
+    },
+    {
+      "kind": "endpoint",
+      "service": "rate",
+      "method": "POST",
+      "path_template": "/rate.Rate/GetRates",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "rate:8084"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "ratePlans": [
+            {
+              "hotelId": "string",
+              "roomType": {
+                "bookableRate": "integer"
+              }
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.78,
+        "max": 8.46
+      },
+      "example_paths": [
+        "/rate.Rate/GetRates"
+      ],
+      "first_seen": 1794796435.4225855,
+      "last_seen": 1794796438.1837614
+    },
+    {
+      "kind": "endpoint",
+      "service": "recommendation",
+      "method": "POST",
+      "path_template": "/recommendation.Recommendation/GetRecommendations",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "recommendation:8085"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "hotelIds": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.67,
+        "max": 8.04
+      },
+      "example_paths": [
+        "/recommendation.Recommendation/GetRecommendations"
+      ],
+      "first_seen": 1794796435.5496974,
+      "last_seen": 1794796438.2127738
+    },
+    {
+      "kind": "endpoint",
+      "service": "reservation",
+      "method": "POST",
+      "path_template": "/reservation.Reservation/CheckAvailability",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "reservation:8087"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "hotelId": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.64,
+        "max": 21.72
+      },
+      "example_paths": [
+        "/reservation.Reservation/CheckAvailability"
+      ],
+      "first_seen": 1794796435.4418845,
+      "last_seen": 1794796438.1903996
+    },
+    {
+      "kind": "endpoint",
+      "service": "reservation",
+      "method": "POST",
+      "path_template": "/reservation.Reservation/MakeReservation",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "reservation:8087"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "hotelId": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.86,
+        "max": 7.13
+      },
+      "example_paths": [
+        "/reservation.Reservation/MakeReservation"
+      ],
+      "first_seen": 1794796435.615608,
+      "last_seen": 1794796438.242085
+    },
+    {
+      "kind": "endpoint",
+      "service": "search",
+      "method": "POST",
+      "path_template": "/search.Search/Nearby",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "search:8082"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "hotelIds": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 14.86,
+        "max": 64.76
+      },
+      "example_paths": [
+        "/search.Search/Nearby"
+      ],
+      "first_seen": 1794796435.369405,
+      "last_seen": 1794796438.177444
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "POST",
+      "path_template": "/user.User/CheckUser",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "user:8086"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "correct": "boolean"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.69,
+        "max": 11.81
+      },
+      "example_paths": [
+        "/user.User/CheckUser"
+      ],
+      "first_seen": 1794796435.5865436,
+      "last_seen": 1794796438.2385955
+    }
+  ]
+}

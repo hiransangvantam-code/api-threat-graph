@@ -1,0 +1,652 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "callchain",
+  "collector": "opentelemetry",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023114-aa2abb",
+  "collected_at": "2026-11-16T02:31:14+00:00",
+  "duration_ms": 17.7,
+  "inputs": [
+    "/work/scan-input/1-petclinic/telemetry/spans.jsonl"
+  ],
+  "stats": {
+    "spans": 955,
+    "spans_ignored": 0,
+    "traces": 310,
+    "services": 7,
+    "edges": 6,
+    "distinct_call_chains": 15,
+    "max_chain_depth": 3
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "service",
+      "service": "admin-server",
+      "span_count": 5,
+      "served_operations": [
+        {
+          "operation": "GET /applications",
+          "count": 5,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "api-gateway",
+      "span_count": 600,
+      "served_operations": [
+        {
+          "operation": "GET /api/customer/**",
+          "count": 120,
+          "errors": 0
+        },
+        {
+          "operation": "GET /api/vet/**",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "GET /api/visit/**",
+          "count": 60,
+          "errors": 0
+        },
+        {
+          "operation": "POST /api/customer/**",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "POST /api/genai/**",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "POST /api/visit/**",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "PUT /api/customer/**",
+          "count": 30,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "config-server",
+      "span_count": 5,
+      "served_operations": [
+        {
+          "operation": "GET /{application}/{profile}",
+          "count": 5,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "customers-service",
+      "span_count": 195,
+      "served_operations": [
+        {
+          "operation": "GET /owners",
+          "count": 45,
+          "errors": 0
+        },
+        {
+          "operation": "GET /owners/{ownerId}",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "GET /owners/{ownerId}/pets/{petId}",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "GET /petTypes",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "POST /owners",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "POST /owners/{ownerId}/pets",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "PUT /owners/{ownerId}",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "PUT /owners/{ownerId}/pets/{petId}",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "genai-service",
+      "span_count": 45,
+      "served_operations": [
+        {
+          "operation": "POST /chatclient",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "vets-service",
+      "span_count": 30,
+      "served_operations": [
+        {
+          "operation": "GET /vets",
+          "count": 30,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "visits-service",
+      "span_count": 75,
+      "served_operations": [
+        {
+          "operation": "GET /owners/{ownerId}/pets/{petId}/visits",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "GET /pets/visits",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "POST /owners/{ownerId}/pets/{petId}/visits",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "customers-service",
+      "calls": 180,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "GET /owners",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.1
+        },
+        {
+          "operation": "GET /owners/{ownerId}",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.11
+        },
+        {
+          "operation": "GET /owners/{ownerId}/pets/{petId}",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.09
+        },
+        {
+          "operation": "GET /petTypes",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.08
+        },
+        {
+          "operation": "POST /owners",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.09
+        },
+        {
+          "operation": "POST /owners/{ownerId}/pets",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.1
+        },
+        {
+          "operation": "PUT /owners/{ownerId}",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.09
+        },
+        {
+          "operation": "PUT /owners/{ownerId}/pets/{petId}",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.09
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "genai-service",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /chatclient",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 8.32
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "vets-service",
+      "calls": 30,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "GET /vets",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.12
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "api-gateway",
+      "to": "visits-service",
+      "calls": 75,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "GET /owners/{ownerId}/pets/{petId}/visits",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.12
+        },
+        {
+          "operation": "GET /pets/visits",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.1
+        },
+        {
+          "operation": "POST /owners/{ownerId}/pets/{petId}/visits",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.14
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "genai-service",
+      "to": "customers-service",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "GET /owners",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "genai-service",
+      "to": "openai-api",
+      "calls": 15,
+      "evidence": [
+        "uninstrumented callee"
+      ],
+      "operations": [
+        {
+          "operation": "POST POST openai-api",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 2.2
+        }
+      ]
+    },
+    {
+      "kind": "entrypoint",
+      "service": "admin-server",
+      "operation": "GET /applications",
+      "traces": 5,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /api/customer/**",
+      "traces": 120,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /api/vet/**",
+      "traces": 30,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "GET /api/visit/**",
+      "traces": 60,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "POST /api/customer/**",
+      "traces": 30,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "POST /api/genai/**",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "POST /api/visit/**",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "api-gateway",
+      "operation": "PUT /api/customer/**",
+      "traces": 30,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "config-server",
+      "operation": "GET /{application}/{profile}",
+      "traces": 5,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "GET /owners/{ownerId}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "GET /owners"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "GET /petTypes"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "GET /owners/{ownerId}/pets/{petId}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/visit/**"
+        },
+        {
+          "depth": 1,
+          "service": "visits-service",
+          "operation": "GET /owners/{ownerId}/pets/{petId}/visits"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/visit/**"
+        },
+        {
+          "depth": 1,
+          "service": "visits-service",
+          "operation": "GET /pets/visits"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "GET /api/vet/**"
+        },
+        {
+          "depth": 1,
+          "service": "vets-service",
+          "operation": "GET /vets"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "POST /owners"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "PUT /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "PUT /owners/{ownerId}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "POST /owners/{ownerId}/pets"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "PUT /api/customer/**"
+        },
+        {
+          "depth": 1,
+          "service": "customers-service",
+          "operation": "PUT /owners/{ownerId}/pets/{petId}"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/visit/**"
+        },
+        {
+          "depth": 1,
+          "service": "visits-service",
+          "operation": "POST /owners/{ownerId}/pets/{petId}/visits"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 3,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "api-gateway",
+          "operation": "POST /api/genai/**"
+        },
+        {
+          "depth": 1,
+          "service": "genai-service",
+          "operation": "POST /chatclient"
+        },
+        {
+          "depth": 2,
+          "service": "customers-service",
+          "operation": "GET /owners"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 5,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "admin-server",
+          "operation": "GET /applications"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 5,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "config-server",
+          "operation": "GET /{application}/{profile}"
+        }
+      ]
+    }
+  ]
+}

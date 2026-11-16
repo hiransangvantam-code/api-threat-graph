@@ -1,0 +1,1371 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-022810-ce2337",
+  "collected_at": "2026-11-16T02:28:10+00:00",
+  "duration_ms": 185.2,
+  "inputs": [
+    "/target/upstream/kubernetes-manifests/adservice.yaml",
+    "/target/upstream/kubernetes-manifests/cartservice.yaml",
+    "/target/upstream/kubernetes-manifests/checkoutservice.yaml",
+    "/target/upstream/kubernetes-manifests/currencyservice.yaml",
+    "/target/upstream/kubernetes-manifests/emailservice.yaml",
+    "/target/upstream/kubernetes-manifests/frontend.yaml",
+    "/target/upstream/kubernetes-manifests/kustomization.yaml",
+    "/target/upstream/kubernetes-manifests/loadgenerator.yaml",
+    "/target/upstream/kubernetes-manifests/paymentservice.yaml",
+    "/target/upstream/kubernetes-manifests/productcatalogservice.yaml",
+    "/target/upstream/kubernetes-manifests/recommendationservice.yaml",
+    "/target/upstream/kubernetes-manifests/shippingservice.yaml",
+    "/target/upstream/istio-manifests/allow-egress-googleapis.yaml",
+    "/target/upstream/istio-manifests/frontend-gateway.yaml",
+    "/target/upstream/istio-manifests/frontend.yaml"
+  ],
+  "stats": {
+    "files": 15,
+    "workloads": 12,
+    "services": 12,
+    "ingress_paths": 0,
+    "gateway_routes": 2,
+    "network_policies": 0,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 0,
+    "internet_exposed_workloads": [
+      "frontend"
+    ],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [
+      "adservice",
+      "cartservice",
+      "checkoutservice",
+      "currencyservice",
+      "emailservice",
+      "frontend",
+      "loadgenerator",
+      "paymentservice",
+      "productcatalogservice",
+      "recommendationservice",
+      "redis-cart",
+      "shippingservice"
+    ],
+    "plaintext_env_with_sensitive_name": 0,
+    "ignored_kinds": {
+      "ServiceAccount": 11,
+      "Kustomization": 1,
+      "ServiceEntry": 2
+    }
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "adservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/adservice.yaml",
+      "labels": {
+        "app": "adservice"
+      },
+      "replicas": null,
+      "service_account": "adservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "adservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            9555
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "cartservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/cartservice.yaml",
+      "labels": {
+        "app": "cartservice"
+      },
+      "replicas": null,
+      "service_account": "cartservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "cartservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            7070
+          ],
+          "env": [
+            {
+              "name": "REDIS_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "redis-cart:6379",
+              "references_service": "redis-cart"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "redis-cart",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/cartservice.yaml",
+      "labels": {
+        "app": "redis-cart"
+      },
+      "replicas": null,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "redis",
+          "image": "redis:alpine",
+          "image_tag": "alpine",
+          "ports": [
+            6379
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "checkoutservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/checkoutservice.yaml",
+      "labels": {
+        "app": "checkoutservice"
+      },
+      "replicas": null,
+      "service_account": "checkoutservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "checkoutservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            5050
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "PRODUCT_CATALOG_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "productcatalogservice:3550",
+              "references_service": "productcatalogservice"
+            },
+            {
+              "name": "SHIPPING_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "shippingservice:50051",
+              "references_service": "shippingservice"
+            },
+            {
+              "name": "PAYMENT_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "paymentservice:50051",
+              "references_service": "paymentservice"
+            },
+            {
+              "name": "EMAIL_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "emailservice:5000",
+              "references_service": "emailservice"
+            },
+            {
+              "name": "CURRENCY_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "currencyservice:7000",
+              "references_service": "currencyservice"
+            },
+            {
+              "name": "CART_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "cartservice:7070",
+              "references_service": "cartservice"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "currencyservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/currencyservice.yaml",
+      "labels": {
+        "app": "currencyservice"
+      },
+      "replicas": null,
+      "service_account": "currencyservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "currencyservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            7000
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "DISABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "emailservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/emailservice.yaml",
+      "labels": {
+        "app": "emailservice"
+      },
+      "replicas": null,
+      "service_account": "emailservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "emailservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "DISABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "labels": {
+        "app": "frontend"
+      },
+      "replicas": null,
+      "service_account": "frontend",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "frontend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "PRODUCT_CATALOG_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "productcatalogservice:3550",
+              "references_service": "productcatalogservice"
+            },
+            {
+              "name": "CURRENCY_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "currencyservice:7000",
+              "references_service": "currencyservice"
+            },
+            {
+              "name": "CART_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "cartservice:7070",
+              "references_service": "cartservice"
+            },
+            {
+              "name": "RECOMMENDATION_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "recommendationservice:8080",
+              "references_service": "recommendationservice"
+            },
+            {
+              "name": "SHIPPING_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "shippingservice:50051",
+              "references_service": "shippingservice"
+            },
+            {
+              "name": "CHECKOUT_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "checkoutservice:5050",
+              "references_service": "checkoutservice"
+            },
+            {
+              "name": "AD_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "adservice:9555",
+              "references_service": "adservice"
+            },
+            {
+              "name": "SHOPPING_ASSISTANT_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "shoppingassistantservice:80"
+            },
+            {
+              "name": "ENABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "loadgenerator",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/loadgenerator.yaml",
+      "labels": {
+        "app": "loadgenerator"
+      },
+      "replicas": 1,
+      "service_account": "loadgenerator",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "main",
+          "image": "loadgenerator",
+          "image_tag": "latest(implicit)",
+          "ports": [],
+          "env": [
+            {
+              "name": "FRONTEND_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "frontend:80",
+              "references_service": "frontend"
+            },
+            {
+              "name": "USERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 2
+            },
+            {
+              "name": "RATE",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [
+        "busybox:1.38.0@sha256:dc2d74b28e4cf8984fa52af1f39bc7c3d9c73760b41a74d629f5d11b1ab28616"
+      ],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "paymentservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/paymentservice.yaml",
+      "labels": {
+        "app": "paymentservice"
+      },
+      "replicas": null,
+      "service_account": "paymentservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "paymentservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            50051
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "DISABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "productcatalogservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/productcatalogservice.yaml",
+      "labels": {
+        "app": "productcatalogservice"
+      },
+      "replicas": null,
+      "service_account": "productcatalogservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "productcatalogservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            3550
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "DISABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "recommendationservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/recommendationservice.yaml",
+      "labels": {
+        "app": "recommendationservice"
+      },
+      "replicas": null,
+      "service_account": "recommendationservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "recommendationservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "PRODUCT_CATALOG_SERVICE_ADDR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "productcatalogservice:3550",
+              "references_service": "productcatalogservice"
+            },
+            {
+              "name": "DISABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "shippingservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/shippingservice.yaml",
+      "labels": {
+        "app": "shippingservice"
+      },
+      "replicas": null,
+      "service_account": "shippingservice",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {
+        "fsGroup": 1000,
+        "runAsGroup": 1000,
+        "runAsNonRoot": true,
+        "runAsUser": 1000
+      },
+      "containers": [
+        {
+          "name": "server",
+          "image": "shippingservice",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            50051
+          ],
+          "env": [
+            {
+              "name": "PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "DISABLE_PROFILER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "readOnlyRootFilesystem": true,
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "service",
+      "name": "adservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/adservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "adservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 9555,
+          "targetPort": 9555
+        }
+      ],
+      "selects_workloads": [
+        "adservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "cartservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/cartservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "cartservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 7070,
+          "targetPort": 7070
+        }
+      ],
+      "selects_workloads": [
+        "cartservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "redis-cart",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/cartservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "redis-cart"
+      },
+      "ports": [
+        {
+          "name": "tcp-redis",
+          "port": 6379,
+          "targetPort": 6379
+        }
+      ],
+      "selects_workloads": [
+        "redis-cart"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "checkoutservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/checkoutservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "checkoutservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 5050,
+          "targetPort": 5050
+        }
+      ],
+      "selects_workloads": [
+        "checkoutservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "currencyservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/currencyservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "currencyservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 7000,
+          "targetPort": 7000
+        }
+      ],
+      "selects_workloads": [
+        "currencyservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "emailservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/emailservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "emailservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 5000,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "emailservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "frontend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 80,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "frontend-external",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "frontend"
+      },
+      "ports": [
+        {
+          "name": "http",
+          "port": 80,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "paymentservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/paymentservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "paymentservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 50051,
+          "targetPort": 50051
+        }
+      ],
+      "selects_workloads": [
+        "paymentservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "productcatalogservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/productcatalogservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "productcatalogservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 3550,
+          "targetPort": 3550
+        }
+      ],
+      "selects_workloads": [
+        "productcatalogservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "recommendationservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/recommendationservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "recommendationservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "recommendationservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "shippingservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes-manifests/shippingservice.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "shippingservice"
+      },
+      "ports": [
+        {
+          "name": "grpc",
+          "port": 50051,
+          "targetPort": 50051
+        }
+      ],
+      "selects_workloads": [
+        "shippingservice"
+      ]
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "istio",
+      "defined_in": "/target/upstream/istio-manifests/frontend-gateway.yaml (VirtualService frontend-ingress)",
+      "match_prefix": "/",
+      "upstream": "frontend",
+      "upstream_service": "frontend",
+      "strip_prefix": null,
+      "replace_with": null,
+      "auth": "unspecified",
+      "rate_limit": null,
+      "istio_gateways": [
+        "default/frontend-gateway"
+      ]
+    },
+    {
+      "kind": "gateway_route",
+      "gateway": "istio",
+      "defined_in": "/target/upstream/istio-manifests/frontend.yaml (VirtualService frontend)",
+      "match_prefix": "/",
+      "upstream": "frontend",
+      "upstream_service": "frontend",
+      "strip_prefix": null,
+      "replace_with": null,
+      "auth": "unspecified",
+      "rate_limit": null,
+      "istio_gateways": []
+    },
+    {
+      "kind": "exposure",
+      "workload": "frontend",
+      "level": "internet",
+      "via": [
+        "Service frontend-external type=LoadBalancer 80"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "adservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "cartservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "redis-cart",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "checkoutservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "currencyservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "emailservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "loadgenerator",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "paymentservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "productcatalogservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "recommendationservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "shippingservice",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "frontend-external",
+      "selector": {
+        "app": "frontend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes-manifests/frontend.yaml",
+      "workload": "frontend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "Istio Gateway",
+      "name": "frontend-gateway",
+      "selector": {
+        "istio": "ingressgateway"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/istio-manifests/frontend-gateway.yaml",
+      "workload": null
+    }
+  ]
+}

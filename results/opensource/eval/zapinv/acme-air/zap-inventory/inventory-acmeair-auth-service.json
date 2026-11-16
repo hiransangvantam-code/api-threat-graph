@@ -1,0 +1,50 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "acmeair-auth-service (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/auth/config/runtime": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  },
+  "/auth/getJwk": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  },
+  "/auth/login": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

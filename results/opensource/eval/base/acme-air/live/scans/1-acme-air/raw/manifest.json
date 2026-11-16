@@ -1,0 +1,117 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023033-0b0895",
+  "target": "Acme Air",
+  "started_at": "2026-11-16T02:30:33+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "49350905fcb7f3b44068f9bb327657838a626fc1304f642e596a2169be556488",
+      "records": 35,
+      "stats": {
+        "flows": 809,
+        "flows_ignored": 1,
+        "endpoints": 35,
+        "services": 6,
+        "flows_by_capture_point": {
+          "east-west": 439,
+          "north-south": 370
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 21.8
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "ff49495089c41fc6d61f0c053ea03eb0e7c7f3d00c3a8a3a9a731ac4a1f2009a",
+      "records": 0,
+      "stats": {
+        "specs": 0,
+        "services_with_spec": [],
+        "services_without_live_spec": [
+          "acmeair-auth-service",
+          "acmeair-booking-service",
+          "acmeair-customer-service",
+          "acmeair-flight-service",
+          "acmeair-main-service",
+          "ingress-nginx-controller"
+        ],
+        "operations": 0,
+        "probes": 60
+      },
+      "warnings": [
+        "ingress-nginx-controller: no live spec at any probed path",
+        "acmeair-main-service: no live spec at any probed path",
+        "acmeair-auth-service: no live spec at any probed path",
+        "acmeair-booking-service: no live spec at any probed path",
+        "acmeair-customer-service: no live spec at any probed path",
+        "acmeair-flight-service: no live spec at any probed path"
+      ],
+      "duration_ms": 271.3
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "d48d10ca6f84d4c7319e147959552a63c9eea34547077c346931d420cdc964d2",
+      "records": 29,
+      "stats": {
+        "files": 10,
+        "workloads": 8,
+        "services": 8,
+        "ingress_paths": 5,
+        "gateway_routes": 0,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [
+          "acmeair-authservice",
+          "acmeair-bookingservice",
+          "acmeair-customerservice",
+          "acmeair-flightservice",
+          "acmeair-mainservice"
+        ],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [
+          "acmeair-authservice",
+          "acmeair-booking-db",
+          "acmeair-bookingservice",
+          "acmeair-customer-db",
+          "acmeair-customerservice",
+          "acmeair-flight-db",
+          "acmeair-flightservice",
+          "acmeair-mainservice"
+        ],
+        "plaintext_env_with_sensitive_name": 7,
+        "ignored_kinds": {}
+      },
+      "warnings": [],
+      "duration_ms": 84.9
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "2b4bcbd9bd1f79637a3783eca90df775f8fe708c81811804a2ff986b22f4a3ab",
+      "records": 0,
+      "stats": {
+        "spans": 0,
+        "spans_ignored": 0,
+        "traces": 0,
+        "services": 0,
+        "edges": 0,
+        "distinct_call_chains": 0,
+        "max_chain_depth": 0
+      },
+      "warnings": [
+        "no spans found; is the OTel exporter writing to trace_paths?"
+      ],
+      "duration_ms": 0.1
+    }
+  },
+  "finished_at": "2026-11-16T02:30:33+00:00",
+  "total_duration_ms": 385.9
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025335-5c8f78",
+  "target": "Lakeside Mutual",
+  "started_at": "2026-11-16T02:53:35+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "ceb86d7b0affae9fbaa30461f99eb9481a31b65821a36614e413a5e0ea619992",
+      "records": 37,
+      "stats": {
+        "flows": 997,
+        "flows_ignored": 1,
+        "endpoints": 37,
+        "services": 5,
+        "flows_by_capture_point": {
+          "east-west": 997
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 19.0
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "7bf959c9ecd3847aeeb3eb1f48902074c76664bd263c223d0495885a02a5919f",
+      "records": 4,
+      "stats": {
+        "specs": 4,
+        "services_with_spec": [
+          "customer-core",
+          "customer-management-backend",
+          "customer-self-service-backend",
+          "policy-management-backend"
+        ],
+        "services_without_live_spec": [
+          "spring-boot-admin"
+        ],
+        "operations": 37,
+        "probes": 22
+      },
+      "warnings": [
+        "spring-boot-admin: no live spec at any probed path"
+      ],
+      "duration_ms": 94.5
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "2785c9d1212ca2b943c4464908cf85e03c7e14d0a4b55311074a165da674a338",
+      "records": 37,
+      "stats": {
+        "files": 11,
+        "workloads": 9,
+        "services": 10,
+        "ingress_paths": 0,
+        "gateway_routes": 0,
+        "network_policies": 9,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {}
+      },
+      "warnings": [],
+      "duration_ms": 91.1
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "8394f760431472c76a853662f0e81d7e108b5456f6a59150585bf148f8e7a834",
+      "records": 0,
+      "stats": {
+        "spans": 0,
+        "spans_ignored": 0,
+        "traces": 0,
+        "services": 0,
+        "edges": 0,
+        "distinct_call_chains": 0,
+        "max_chain_depth": 0
+      },
+      "warnings": [
+        "no spans found; is the OTel exporter writing to trace_paths?"
+      ],
+      "duration_ms": 0.1
+    }
+  },
+  "finished_at": "2026-11-16T02:53:35+00:00",
+  "total_duration_ms": 211.0
+}

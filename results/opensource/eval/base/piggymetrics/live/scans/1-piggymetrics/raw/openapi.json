@@ -1,0 +1,335 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "openapi",
+  "collector": "openapi-prober",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023157-e64b3b",
+  "collected_at": "2026-11-16T02:31:58+00:00",
+  "duration_ms": 150.7,
+  "inputs": [],
+  "stats": {
+    "specs": 0,
+    "services_with_spec": [],
+    "services_without_live_spec": [
+      "account-service",
+      "auth-service",
+      "gateway",
+      "monitoring",
+      "notification-service",
+      "statistics-service"
+    ],
+    "operations": 0,
+    "probes": 60
+  },
+  "warnings": [
+    "gateway: no live spec at any probed path",
+    "auth-service: no live spec at any probed path",
+    "account-service: no live spec at any probed path",
+    "statistics-service: no live spec at any probed path",
+    "notification-service: no live spec at any probed path",
+    "monitoring: no live spec at any probed path"
+  ],
+  "records": [],
+  "probe_log": [
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/openapi",
+      "result": 404
+    },
+    {
+      "service": "gateway",
+      "url": "http://gateway:4000/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/openapi",
+      "result": 404
+    },
+    {
+      "service": "auth-service",
+      "url": "http://auth-service:5000/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/openapi",
+      "result": 404
+    },
+    {
+      "service": "account-service",
+      "url": "http://account-service:6000/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/openapi",
+      "result": 404
+    },
+    {
+      "service": "statistics-service",
+      "url": "http://statistics-service:7000/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/openapi",
+      "result": 404
+    },
+    {
+      "service": "notification-service",
+      "url": "http://notification-service:8000/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "monitoring",
+      "url": "http://monitoring:8080/q/openapi",
+      "result": 404
+    }
+  ]
+}

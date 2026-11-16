@@ -1,0 +1,1958 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025447-6c8288",
+  "collected_at": "2026-11-16T02:54:48+00:00",
+  "duration_ms": 177.8,
+  "inputs": [
+    "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+    "/target/upstream/hotelReservation/kubernetes/consul/consul-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/consul/consul-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/frontend/frontend-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/frontend/frontend-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/geo/geo-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/geo/geo-persistent-volume.yaml",
+    "/target/upstream/hotelReservation/kubernetes/geo/geo-pvc.yaml",
+    "/target/upstream/hotelReservation/kubernetes/geo/geo-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/geo/mongodb-geo-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/geo/mongodb-geo-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/jaeger/jaeger-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/jaeger/jaeger-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/memcached-profile-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/memcached-profile-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/mongodb-profile-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/mongodb-profile-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/profile-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/profile-persistent-volume.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/profile-pvc.yaml",
+    "/target/upstream/hotelReservation/kubernetes/profile/profile-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/memcached-rate-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/memcached-rate-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/mongodb-rate-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/mongodb-rate-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/rate-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/rate-persistent-volume.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/rate-pvc.yaml",
+    "/target/upstream/hotelReservation/kubernetes/rate/rate-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reccomend/mongodb-recommendation-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reccomend/mongodb-recommendation-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reccomend/recommendation-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reccomend/recommendation-persistent-volume.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reccomend/recommendation-pvc.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reccomend/recommendation-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/memcached-reservation-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/memcached-reservation-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/mongodb-reservation-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/mongodb-reservation-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/reservation-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/reservation-persistent-volume.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/reservation-pvc.yaml",
+    "/target/upstream/hotelReservation/kubernetes/reserve/reservation-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/search/search-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/search/search-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/user/mongodb-user-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/user/mongodb-user-service.yaml",
+    "/target/upstream/hotelReservation/kubernetes/user/user-deployment.yaml",
+    "/target/upstream/hotelReservation/kubernetes/user/user-persistent-volume.yaml",
+    "/target/upstream/hotelReservation/kubernetes/user/user-pvc.yaml",
+    "/target/upstream/hotelReservation/kubernetes/user/user-service.yaml"
+  ],
+  "stats": {
+    "files": 51,
+    "workloads": 19,
+    "services": 19,
+    "ingress_paths": 0,
+    "gateway_routes": 0,
+    "network_policies": 19,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 0,
+    "internet_exposed_workloads": [],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [],
+    "plaintext_env_with_sensitive_name": 0,
+    "ignored_kinds": {
+      "PersistentVolume": 6,
+      "PersistentVolumeClaim": 6
+    }
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "consul",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/consul/consul-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "consul"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "consul",
+          "image": "hashicorp/consul:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8300,
+            8400,
+            8500,
+            53
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "consul"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/frontend/frontend-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "frontend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-frontend",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            5000
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "frontend"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "geo",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/geo/geo-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "geo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-geo",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8083
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "geo"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "mongodb-geo",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/geo/mongodb-geo-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "mongodb-geo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-geo-mongo",
+          "image": "mongo:4.4.6",
+          "image_tag": "4.4.6",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "mongodb-geo"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "jaeger",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/jaeger/jaeger-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "jaeger"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-jaeger",
+          "image": "jaegertracing/all-in-one:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            14269,
+            5778,
+            14268,
+            14267,
+            16686,
+            5775,
+            6831,
+            6832
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "jaeger"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "memcached-profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/profile/memcached-profile-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "memcached-profile"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-profile-mmc",
+          "image": "memcached:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            11211
+          ],
+          "env": [
+            {
+              "name": "MEMCACHED_CACHE_SIZE",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 3
+            },
+            {
+              "name": "MEMCACHED_THREADS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "memcached-profile"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "mongodb-profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/profile/mongodb-profile-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "mongodb-profile"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-profile-mongo",
+          "image": "mongo:4.4.6",
+          "image_tag": "4.4.6",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "mongodb-profile"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/profile/profile-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "profile"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-profile",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8081
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "profile"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "memcached-rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/rate/memcached-rate-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "memcached-rate"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-rate-mmc",
+          "image": "memcached:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            11211
+          ],
+          "env": [
+            {
+              "name": "MEMCACHED_CACHE_SIZE",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 3
+            },
+            {
+              "name": "MEMCACHED_THREADS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "memcached-rate"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "mongodb-rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/rate/mongodb-rate-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "mongodb-rate"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-rate-mongo",
+          "image": "mongo:4.4.6",
+          "image_tag": "4.4.6",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "mongodb-rate"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/rate/rate-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "rate"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-rate",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8084
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "rate"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "mongodb-recommendation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reccomend/mongodb-recommendation-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "mongodb-recommendation"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-recommendation-mongo",
+          "image": "mongo:4.4.6",
+          "image_tag": "4.4.6",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "mongodb-recommendation"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "recommendation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reccomend/recommendation-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "recommendation"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-recommendation",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8085
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "recommendation"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "memcached-reserve",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reserve/memcached-reservation-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "memcached-reserve"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-reservation-mmc",
+          "image": "memcached:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            11211
+          ],
+          "env": [
+            {
+              "name": "MEMCACHED_CACHE_SIZE",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 3
+            },
+            {
+              "name": "MEMCACHED_THREADS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "memcached-reserve"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "mongodb-reservation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reserve/mongodb-reservation-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "mongodb-reservation"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-reservation-mongo",
+          "image": "mongo:4.4.6",
+          "image_tag": "4.4.6",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "mongodb-reservation"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "reservation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reserve/reservation-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "reservation"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-reservation",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8087
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "reservation"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "search",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/search/search-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "search"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-search",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8082
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "search"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "mongodb-user",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/user/mongodb-user-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "mongodb-user"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-user-mongo",
+          "image": "mongo:4.4.6",
+          "image_tag": "4.4.6",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "mongodb-user"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "user",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/user/user-deployment.yaml",
+      "labels": {
+        "io.kompose.service": "user"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "hotel-reserv-user",
+          "image": "deathstarbench/hotel-reservation:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8086
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": true
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "user"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "consul",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/consul/consul-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "consul"
+      },
+      "ports": [
+        {
+          "name": "8300",
+          "port": 8300,
+          "targetPort": 8300
+        },
+        {
+          "name": "8400",
+          "port": 8400,
+          "targetPort": 8400
+        },
+        {
+          "name": "8500",
+          "port": 8500,
+          "targetPort": 8500
+        },
+        {
+          "name": "8600",
+          "port": 8600,
+          "targetPort": 53,
+          "protocol": "UDP"
+        }
+      ],
+      "selects_workloads": [
+        "consul"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/frontend/frontend-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "frontend"
+      },
+      "ports": [
+        {
+          "name": "5000",
+          "port": 5000,
+          "targetPort": 5000
+        }
+      ],
+      "selects_workloads": [
+        "frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "geo",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/geo/geo-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "geo"
+      },
+      "ports": [
+        {
+          "name": "8083",
+          "port": 8083,
+          "targetPort": 8083
+        }
+      ],
+      "selects_workloads": [
+        "geo"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "mongodb-geo",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/geo/mongodb-geo-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "mongodb-geo"
+      },
+      "ports": [
+        {
+          "name": "mongodb-geo",
+          "port": 27017,
+          "targetPort": 27017
+        }
+      ],
+      "selects_workloads": [
+        "mongodb-geo"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "jaeger",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/jaeger/jaeger-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "jaeger"
+      },
+      "ports": [
+        {
+          "name": "14269",
+          "port": 14269,
+          "targetPort": 14269
+        },
+        {
+          "name": "5778",
+          "port": 5778,
+          "targetPort": 5778
+        },
+        {
+          "name": "14268",
+          "port": 14268,
+          "targetPort": 14268
+        },
+        {
+          "name": "14267",
+          "port": 14267,
+          "targetPort": 14267
+        },
+        {
+          "name": "16686",
+          "port": 16686,
+          "targetPort": 16686
+        },
+        {
+          "name": "5775",
+          "port": 5775,
+          "targetPort": 5775,
+          "protocol": "UDP"
+        },
+        {
+          "name": "6831",
+          "port": 6831,
+          "targetPort": 6831,
+          "protocol": "UDP"
+        },
+        {
+          "name": "6832",
+          "port": 6832,
+          "targetPort": 6832,
+          "protocol": "UDP"
+        }
+      ],
+      "selects_workloads": [
+        "jaeger"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "memcached-profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/profile/memcached-profile-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "memcached-profile"
+      },
+      "ports": [
+        {
+          "name": "memcached-profile",
+          "port": 11211,
+          "targetPort": 11211
+        }
+      ],
+      "selects_workloads": [
+        "memcached-profile"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "mongodb-profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/profile/mongodb-profile-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "mongodb-profile"
+      },
+      "ports": [
+        {
+          "name": "mongodb-profile",
+          "port": 27017,
+          "targetPort": 27017
+        }
+      ],
+      "selects_workloads": [
+        "mongodb-profile"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/profile/profile-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "profile"
+      },
+      "ports": [
+        {
+          "name": "8081",
+          "port": 8081,
+          "targetPort": 8081
+        }
+      ],
+      "selects_workloads": [
+        "profile"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "memcached-rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/rate/memcached-rate-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "memcached-rate"
+      },
+      "ports": [
+        {
+          "name": "memcached-rate",
+          "port": 11211,
+          "targetPort": 11211
+        }
+      ],
+      "selects_workloads": [
+        "memcached-rate"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "mongodb-rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/rate/mongodb-rate-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "mongodb-rate"
+      },
+      "ports": [
+        {
+          "name": "mongodb-rate",
+          "port": 27017,
+          "targetPort": 27017
+        }
+      ],
+      "selects_workloads": [
+        "mongodb-rate"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/rate/rate-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "rate"
+      },
+      "ports": [
+        {
+          "name": "8084",
+          "port": 8084,
+          "targetPort": 8084
+        }
+      ],
+      "selects_workloads": [
+        "rate"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "mongodb-recommendation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reccomend/mongodb-recommendation-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "mongodb-recommendation"
+      },
+      "ports": [
+        {
+          "name": "mongodb-recommendation",
+          "port": 27017,
+          "targetPort": 27017
+        }
+      ],
+      "selects_workloads": [
+        "mongodb-recommendation"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "recommendation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reccomend/recommendation-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "recommendation"
+      },
+      "ports": [
+        {
+          "name": "8085",
+          "port": 8085,
+          "targetPort": 8085
+        }
+      ],
+      "selects_workloads": [
+        "recommendation"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "memcached-reserve",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reserve/memcached-reservation-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "memcached-reserve"
+      },
+      "ports": [
+        {
+          "name": "memcached-reserve",
+          "port": 11211,
+          "targetPort": 11211
+        }
+      ],
+      "selects_workloads": [
+        "memcached-reserve"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "mongodb-reservation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reserve/mongodb-reservation-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "mongodb-reservation"
+      },
+      "ports": [
+        {
+          "name": "mongodb-reservation",
+          "port": 27017,
+          "targetPort": 27017
+        }
+      ],
+      "selects_workloads": [
+        "mongodb-reservation"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "reservation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/reserve/reservation-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "reservation"
+      },
+      "ports": [
+        {
+          "name": "8087",
+          "port": 8087,
+          "targetPort": 8087
+        }
+      ],
+      "selects_workloads": [
+        "reservation"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "search",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/search/search-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "search"
+      },
+      "ports": [
+        {
+          "name": "8082",
+          "port": 8082,
+          "targetPort": 8082
+        }
+      ],
+      "selects_workloads": [
+        "search"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "mongodb-user",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/user/mongodb-user-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "mongodb-user"
+      },
+      "ports": [
+        {
+          "name": "mongodb-user",
+          "port": 27017,
+          "targetPort": 27017
+        }
+      ],
+      "selects_workloads": [
+        "mongodb-user"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "user",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/user/user-service.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "io.kompose.service": "user"
+      },
+      "ports": [
+        {
+          "name": "8086",
+          "port": 8086,
+          "targetPort": 8086
+        }
+      ],
+      "selects_workloads": [
+        "user"
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "consul",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "consul"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "frontend"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "geo",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "geo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "search"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "jaeger",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "jaeger"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "memcached-profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "memcached-profile"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "memcached-rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "memcached-rate"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "memcached-reserve",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "memcached-reserve"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "mongodb-geo",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "mongodb-geo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "mongodb-profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "mongodb-profile"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "mongodb-rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "mongodb-rate"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "mongodb-recommendation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "mongodb-recommendation"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "mongodb-reservation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "mongodb-reservation"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "mongodb-user",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "mongodb-user"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "profile",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "profile"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "rate",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "rate"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "search"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "recommendation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "recommendation"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "reservation",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "reservation"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "search",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "search"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "user",
+      "namespace": "default",
+      "defined_in": "/target/upstream/hotelReservation/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "io.kompose.service": "user"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "io.kompose.service": "frontend"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "consul",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "frontend",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "geo",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "mongodb-geo",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "jaeger",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "memcached-profile",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "mongodb-profile",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "profile",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "memcached-rate",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "mongodb-rate",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "rate",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "mongodb-recommendation",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "recommendation",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "memcached-reserve",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "mongodb-reservation",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "reservation",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "search",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "mongodb-user",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "user",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    }
+  ]
+}

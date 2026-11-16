@@ -1,0 +1,124 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023157-e64b3b",
+  "target": "PiggyMetrics",
+  "started_at": "2026-11-16T02:31:57+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "eca8c6bd34ccc71c0b58db2fbc5dfb81d29abf156e680bb2cb8e312457a9fcfc",
+      "records": 22,
+      "stats": {
+        "flows": 660,
+        "flows_ignored": 1,
+        "endpoints": 22,
+        "services": 6,
+        "flows_by_capture_point": {
+          "east-west": 368,
+          "north-south": 292
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 13.9
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "fff3a9c90f640626553991ac83dc7b179ca364cc255c0465fa5a57ee835d6ffc",
+      "records": 0,
+      "stats": {
+        "specs": 0,
+        "services_with_spec": [],
+        "services_without_live_spec": [
+          "account-service",
+          "auth-service",
+          "gateway",
+          "monitoring",
+          "notification-service",
+          "statistics-service"
+        ],
+        "operations": 0,
+        "probes": 60
+      },
+      "warnings": [
+        "gateway: no live spec at any probed path",
+        "auth-service: no live spec at any probed path",
+        "account-service: no live spec at any probed path",
+        "statistics-service: no live spec at any probed path",
+        "notification-service: no live spec at any probed path",
+        "monitoring: no live spec at any probed path"
+      ],
+      "duration_ms": 150.7
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "95eb565437ffbc07374705e9d89a8e063238c6be6aba6d31fcce701016a0c25f",
+      "records": 37,
+      "stats": {
+        "files": 0,
+        "workloads": 14,
+        "services": 0,
+        "ingress_paths": 0,
+        "gateway_routes": 4,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [
+          "gateway"
+        ],
+        "node_exposed_workloads": [
+          "monitoring",
+          "rabbitmq",
+          "registry",
+          "turbine-stream-service"
+        ],
+        "workloads_without_network_policy": [
+          "account-mongodb",
+          "account-service",
+          "auth-mongodb",
+          "auth-service",
+          "config",
+          "gateway",
+          "monitoring",
+          "notification-mongodb",
+          "notification-service",
+          "rabbitmq",
+          "registry",
+          "statistics-mongodb",
+          "statistics-service",
+          "turbine-stream-service"
+        ],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {}
+      },
+      "warnings": [],
+      "duration_ms": 18.6
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "35a43d7435a6a265e8f7f6e07e50b552f26a8d601d6c8c504e8b0dca2753b8bb",
+      "records": 0,
+      "stats": {
+        "spans": 0,
+        "spans_ignored": 0,
+        "traces": 0,
+        "services": 0,
+        "edges": 0,
+        "distinct_call_chains": 0,
+        "max_chain_depth": 0
+      },
+      "warnings": [
+        "no spans found; is the OTel exporter writing to trace_paths?"
+      ],
+      "duration_ms": 0.2
+    }
+  },
+  "finished_at": "2026-11-16T02:31:58+00:00",
+  "total_duration_ms": 190.0
+}

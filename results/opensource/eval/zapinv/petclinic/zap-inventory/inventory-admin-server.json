@@ -1,0 +1,18 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "admin-server (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/applications": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  }
+ }
+}

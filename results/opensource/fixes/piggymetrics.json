@@ -1,0 +1,51 @@
+{
+ "system": "piggymetrics",
+ "R_before": 773.5,
+ "findings_before": 114,
+ "applied": [
+  "clusterip:svc:monitoring",
+  "clusterip:svc:rabbitmq",
+  "clusterip:svc:registry",
+  "clusterip:svc:turbine-stream-service",
+  "harden:svc:account-mongodb",
+  "harden:svc:account-service",
+  "harden:svc:auth-mongodb",
+  "harden:svc:auth-service",
+  "harden:svc:config",
+  "harden:svc:gateway",
+  "harden:svc:monitoring",
+  "harden:svc:notification-mongodb",
+  "harden:svc:notification-service",
+  "harden:svc:rabbitmq",
+  "harden:svc:registry",
+  "harden:svc:statistics-mongodb",
+  "harden:svc:statistics-service",
+  "harden:svc:turbine-stream-service"
+ ],
+ "applied_by_kind": {
+  "netpol": 0,
+  "clusterip": 4,
+  "harden": 14
+ },
+ "R_predicted": 541.0,
+ "edits": [
+  "unpublish rabbitmq (upstream/docker-compose.yml)",
+  "harden rabbitmq (upstream/docker-compose.yml)",
+  "harden config (upstream/docker-compose.yml)",
+  "unpublish registry (upstream/docker-compose.yml)",
+  "harden registry (upstream/docker-compose.yml)",
+  "harden gateway (upstream/docker-compose.yml)",
+  "harden auth-service (upstream/docker-compose.yml)",
+  "harden auth-mongodb (upstream/docker-compose.yml)",
+  "harden account-service (upstream/docker-compose.yml)",
+  "harden account-mongodb (upstream/docker-compose.yml)",
+  "harden statistics-service (upstream/docker-compose.yml)",
+  "harden statistics-mongodb (upstream/docker-compose.yml)",
+  "harden notification-service (upstream/docker-compose.yml)",
+  "harden notification-mongodb (upstream/docker-compose.yml)",
+  "unpublish monitoring (upstream/docker-compose.yml)",
+  "harden monitoring (upstream/docker-compose.yml)",
+  "unpublish turbine-stream-service (upstream/docker-compose.yml)",
+  "harden turbine-stream-service (upstream/docker-compose.yml)"
+ ]
+}

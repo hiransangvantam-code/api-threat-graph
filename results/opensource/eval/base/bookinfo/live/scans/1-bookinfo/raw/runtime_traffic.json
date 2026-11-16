@@ -1,0 +1,761 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023447-9012ad",
+  "collected_at": "2026-11-16T02:34:47+00:00",
+  "duration_ms": 17.6,
+  "inputs": [
+    "/work/scan-input/1-bookinfo/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 544,
+    "flows_ignored": 1,
+    "endpoints": 13,
+    "services": 4,
+    "flows_by_capture_point": {
+      "north-south": 240,
+      "east-west": 304
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "details",
+      "method": "GET",
+      "path_template": "/details/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "details:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 90,
+      "status_codes": {
+        "200": 90
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 90,
+        "status_codes_without_auth": {
+          "200": 90
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "author": "string",
+          "year": "integer",
+          "type": "string",
+          "pages": "integer",
+          "publisher": "string",
+          "language": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.44,
+        "max": 10.98
+      },
+      "example_paths": [
+        "/details/0",
+        "/details/128",
+        "/details/114"
+      ],
+      "first_seen": 1794796477.7428942,
+      "last_seen": 1794796480.580284
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "page": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.39,
+        "max": 15.35
+      },
+      "example_paths": [
+        "/"
+      ],
+      "first_seen": 1794796477.706205,
+      "last_seen": 1794796480.4738147
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/api/v1/products",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "title": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.44,
+        "max": 5.47
+      },
+      "example_paths": [
+        "/api/v1/products"
+      ],
+      "first_seen": 1794796477.8672478,
+      "last_seen": 1794796480.568341
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/api/v1/products/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "author": "string",
+          "isbn_10": "string:phone"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.12,
+        "max": 24.96
+      },
+      "example_paths": [
+        "/api/v1/products/128",
+        "/api/v1/products/114",
+        "/api/v1/products/112"
+      ],
+      "first_seen": 1794796477.873669,
+      "last_seen": 1794796480.578153
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/api/v1/products/{id}/ratings",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "ratings": {
+            "Reviewer1": "integer"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 7.88,
+        "max": 14.17
+      },
+      "example_paths": [
+        "/api/v1/products/121/ratings",
+        "/api/v1/products/119/ratings",
+        "/api/v1/products/103/ratings"
+      ],
+      "first_seen": 1794796477.9151657,
+      "last_seen": 1794796480.6180434
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/api/v1/products/{id}/reviews",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "reviews": [
+            {
+              "reviewer": "string",
+              "text": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 13.23,
+        "max": 46.17
+      },
+      "example_paths": [
+        "/api/v1/products/118/reviews",
+        "/api/v1/products/111/reviews",
+        "/api/v1/products/117/reviews"
+      ],
+      "first_seen": 1794796477.8895237,
+      "last_seen": 1794796480.5960839
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/index.html",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "page": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.27,
+        "max": 7.29
+      },
+      "example_paths": [
+        "/index.html"
+      ],
+      "first_seen": 1794796477.7105622,
+      "last_seen": 1794796480.4770854
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "POST",
+      "path_template": "/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "passwd": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.48,
+        "max": 6.19
+      },
+      "example_paths": [
+        "/login"
+      ],
+      "first_seen": 1794796477.7150753,
+      "last_seen": 1794796480.482925
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/logout",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.23,
+        "max": 7.7
+      },
+      "example_paths": [
+        "/logout"
+      ],
+      "first_seen": 1794796477.7188163,
+      "last_seen": 1794796480.4890757
+    },
+    {
+      "kind": "endpoint",
+      "service": "productpage",
+      "method": "GET",
+      "path_template": "/productpage",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productpage:9080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 60,
+      "status_codes": {
+        "200": 60
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 60,
+        "status_codes_without_auth": {
+          "200": 60
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "product": {
+            "id": "integer",
+            "title": "string"
+          },
+          "reviews": [
+            {
+              "reviewer": "string",
+              "text": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 18.48,
+        "max": 87.56
+      },
+      "example_paths": [
+        "/productpage"
+      ],
+      "first_seen": 1794796477.7223928,
+      "last_seen": 1794796480.5478845
+    },
+    {
+      "kind": "endpoint",
+      "service": "ratings",
+      "method": "GET",
+      "path_template": "/ratings/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ratings:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 120,
+      "status_codes": {
+        "200": 120
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 120,
+        "status_codes_without_auth": {
+          "200": 120
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "ratings": {
+            "Reviewer1": "integer",
+            "Reviewer2": "integer"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 2.49,
+        "max": 37.13
+      },
+      "example_paths": [
+        "/ratings/0",
+        "/ratings/118",
+        "/ratings/111"
+      ],
+      "first_seen": 1794796477.800112,
+      "last_seen": 1794796480.6209893
+    },
+    {
+      "kind": "endpoint",
+      "service": "ratings",
+      "method": "POST",
+      "path_template": "/ratings/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ratings:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 4,
+      "status_codes": {
+        "200": 4
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "200": 4
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "Reviewer1": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.12,
+        "max": 3.83
+      },
+      "example_paths": [
+        "/ratings/0"
+      ],
+      "first_seen": 1794796477.939641,
+      "last_seen": 1794796480.3092005
+    },
+    {
+      "kind": "endpoint",
+      "service": "reviews",
+      "method": "GET",
+      "path_template": "/reviews/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "reviews:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 90,
+      "status_codes": {
+        "200": 90
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 90,
+        "status_codes_without_auth": {
+          "200": 90
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "reviews": [
+            {
+              "reviewer": "string",
+              "text": "string",
+              "rating": {
+                "stars": "integer"
+              }
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 7.92,
+        "max": 48.18
+      },
+      "example_paths": [
+        "/reviews/0",
+        "/reviews/118",
+        "/reviews/111"
+      ],
+      "first_seen": 1794796477.758806,
+      "last_seen": 1794796480.5978038
+    }
+  ]
+}

@@ -1,0 +1,944 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023743-6831cc",
+  "collected_at": "2026-11-16T02:37:44+00:00",
+  "duration_ms": 49.3,
+  "inputs": [
+    "/target/upstream/kubernetes/docker-compose.yml",
+    "/target/upstream/kubernetes/manifests/customer-core.yaml",
+    "/target/upstream/kubernetes/manifests/customer-management-backend.yaml",
+    "/target/upstream/kubernetes/manifests/customer-management-frontend.yaml",
+    "/target/upstream/kubernetes/manifests/customer-self-service-backend.yaml",
+    "/target/upstream/kubernetes/manifests/customer-self-service-frontend.yaml",
+    "/target/upstream/kubernetes/manifests/policy-management-backend.yaml",
+    "/target/upstream/kubernetes/manifests/policy-management-frontend.yaml",
+    "/target/upstream/kubernetes/manifests/risk-management-server.yaml",
+    "/target/upstream/kubernetes/manifests/spring-boot-admin.yaml"
+  ],
+  "stats": {
+    "files": 10,
+    "workloads": 9,
+    "services": 10,
+    "ingress_paths": 0,
+    "gateway_routes": 0,
+    "network_policies": 0,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 0,
+    "internet_exposed_workloads": [
+      "customer-management-backend",
+      "customer-management-frontend",
+      "customer-self-service-backend",
+      "customer-self-service-frontend",
+      "policy-management-backend",
+      "policy-management-frontend",
+      "risk-management-server",
+      "spring-boot-admin"
+    ],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [
+      "customer-core",
+      "customer-management-backend",
+      "customer-management-frontend",
+      "customer-self-service-backend",
+      "customer-self-service-frontend",
+      "policy-management-backend",
+      "policy-management-frontend",
+      "risk-management-server",
+      "spring-boot-admin"
+    ],
+    "plaintext_env_with_sensitive_name": 0,
+    "ignored_kinds": {}
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "customer-core",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-core.yaml",
+      "labels": {
+        "app": "customer-core"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "customer-core",
+          "image": "gcr.io/lakeside-mutual-2020/customer-core",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8110
+          ],
+          "env": [
+            {
+              "name": "SPRING_BOOT_ADMIN_CLIENT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://spring-boot-admin:9000",
+              "references_service": "spring-boot-admin"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "customer-management-backend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-management-backend.yaml",
+      "labels": {
+        "app": "customer-management-backend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "customer-management-backend",
+          "image": "gcr.io/lakeside-mutual-2020/customer-management-backend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8100
+          ],
+          "env": [
+            {
+              "name": "CUSTOMERCORE_BASEURL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://customer-core:8110",
+              "references_service": "customer-core"
+            },
+            {
+              "name": "SPRING_BOOT_ADMIN_CLIENT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://spring-boot-admin:9000",
+              "references_service": "spring-boot-admin"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "customer-management-frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-management-frontend.yaml",
+      "labels": {
+        "app": "customer-management-frontend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "customer-management-frontend",
+          "image": "gcr.io/lakeside-mutual-2020/customer-management-frontend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            80
+          ],
+          "env": [
+            {
+              "name": "REACT_APP_CUSTOMER_SELF_SERVICE_BACKEND",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://34.65.192.94:8080"
+            },
+            {
+              "name": "REACT_APP_CUSTOMER_MANAGEMENT_BACKEND",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://34.65.192.94:8100"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "customer-self-service-backend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-self-service-backend.yaml",
+      "labels": {
+        "app": "customer-self-service-backend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "customer-self-service-backend",
+          "image": "gcr.io/lakeside-mutual-2020/customer-self-service-backend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "CUSTOMERCORE_BASEURL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://customer-core:8110",
+              "references_service": "customer-core"
+            },
+            {
+              "name": "POLICYMANAGEMENT_TCPBROKERBINDADDRESS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "tcp://policy-management-backend:61616",
+              "references_service": "policy-management-backend"
+            },
+            {
+              "name": "SPRING_BOOT_ADMIN_CLIENT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://spring-boot-admin:9000",
+              "references_service": "spring-boot-admin"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "customer-self-service-frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-self-service-frontend.yaml",
+      "labels": {
+        "app": "customer-self-service-frontend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "customer-self-service-frontend",
+          "image": "gcr.io/lakeside-mutual-2020/customer-self-service-frontend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            80
+          ],
+          "env": [
+            {
+              "name": "REACT_APP_CUSTOMER_MANAGEMENT_BACKEND",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://34.65.192.94:8100"
+            },
+            {
+              "name": "REACT_APP_CUSTOMER_SELF_SERVICE_BACKEND",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://34.65.192.94:8080"
+            },
+            {
+              "name": "REACT_APP_POLICY_MANAGEMENT_BACKEND",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://34.65.192.94:8090"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "policy-management-backend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-backend.yaml",
+      "labels": {
+        "app": "policy-management-backend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "policy-management-backend",
+          "image": "gcr.io/lakeside-mutual-2020/policy-management-backend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            8090,
+            61613,
+            61616
+          ],
+          "env": [
+            {
+              "name": "CUSTOMERCORE_BASEURL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://customer-core:8110",
+              "references_service": "customer-core"
+            },
+            {
+              "name": "SPRING_BOOT_ADMIN_CLIENT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://spring-boot-admin:9000",
+              "references_service": "spring-boot-admin"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "policy-management-frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-frontend.yaml",
+      "labels": {
+        "app": "policy-management-frontend"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "policy-management-frontend",
+          "image": "gcr.io/lakeside-mutual-2020/policy-management-frontend",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            80
+          ],
+          "env": [
+            {
+              "name": "VUE_APP_POLICY_MANAGEMENT_BACKEND",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://34.65.192.94:8090"
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "risk-management-server",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/risk-management-server.yaml",
+      "labels": {
+        "app": "risk-management-server"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "risk-management-server",
+          "image": "gcr.io/lakeside-mutual-2020/risk-management-server",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            50051
+          ],
+          "env": [
+            {
+              "name": "ACTIVEMQ_HOST",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 31
+            },
+            {
+              "name": "ACTIVEMQ_PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            }
+          ],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "spring-boot-admin",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/spring-boot-admin.yaml",
+      "labels": {
+        "app": "spring-boot-admin"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "spring-boot-admin",
+          "image": "gcr.io/lakeside-mutual-2020/spring-boot-admin",
+          "image_tag": "latest(implicit)",
+          "ports": [
+            9000
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {},
+          "resources": {
+            "limits": false,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "service",
+      "name": "customer-core",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-core.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "app": "customer-core"
+      },
+      "ports": [
+        {
+          "name": "8110",
+          "port": 8110,
+          "targetPort": 8110
+        }
+      ],
+      "selects_workloads": [
+        "customer-core"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "customer-management-backend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-management-backend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "customer-management-backend"
+      },
+      "ports": [
+        {
+          "name": "8100",
+          "port": 8100,
+          "targetPort": 8100
+        }
+      ],
+      "selects_workloads": [
+        "customer-management-backend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "customer-management-frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-management-frontend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "customer-management-frontend"
+      },
+      "ports": [
+        {
+          "name": "3020",
+          "port": 3020,
+          "targetPort": 80
+        }
+      ],
+      "selects_workloads": [
+        "customer-management-frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "customer-self-service-backend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-self-service-backend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "customer-self-service-backend"
+      },
+      "ports": [
+        {
+          "name": "8080",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "customer-self-service-backend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "customer-self-service-frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-self-service-frontend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "customer-self-service-frontend"
+      },
+      "ports": [
+        {
+          "name": "3000",
+          "port": 3000,
+          "targetPort": 80
+        }
+      ],
+      "selects_workloads": [
+        "customer-self-service-frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "policy-management-backend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-backend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "policy-management-backend"
+      },
+      "ports": [
+        {
+          "name": "8090",
+          "port": 8090,
+          "targetPort": 8090
+        }
+      ],
+      "selects_workloads": [
+        "policy-management-backend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "policy-management-backend-queue",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-backend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "policy-management-backend"
+      },
+      "ports": [
+        {
+          "name": "61613",
+          "port": 61613,
+          "targetPort": 61613
+        },
+        {
+          "name": "61616",
+          "port": 61616,
+          "targetPort": 61616
+        }
+      ],
+      "selects_workloads": [
+        "policy-management-backend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "policy-management-frontend",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-frontend.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "policy-management-frontend"
+      },
+      "ports": [
+        {
+          "name": "3010",
+          "port": 3010,
+          "targetPort": 80
+        }
+      ],
+      "selects_workloads": [
+        "policy-management-frontend"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "risk-management-server",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/risk-management-server.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "risk-management-server"
+      },
+      "ports": [
+        {
+          "name": "50051",
+          "port": 50051,
+          "targetPort": 50051
+        }
+      ],
+      "selects_workloads": [
+        "risk-management-server"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "spring-boot-admin",
+      "namespace": "default",
+      "defined_in": "/target/upstream/kubernetes/manifests/spring-boot-admin.yaml",
+      "type": "LoadBalancer",
+      "selector": {
+        "app": "spring-boot-admin"
+      },
+      "ports": [
+        {
+          "name": "9000",
+          "port": 9000,
+          "targetPort": 9000
+        }
+      ],
+      "selects_workloads": [
+        "spring-boot-admin"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "customer-management-backend",
+      "level": "internet",
+      "via": [
+        "Service customer-management-backend type=LoadBalancer 8100"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "customer-management-frontend",
+      "level": "internet",
+      "via": [
+        "Service customer-management-frontend type=LoadBalancer 3020"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "customer-self-service-backend",
+      "level": "internet",
+      "via": [
+        "Service customer-self-service-backend type=LoadBalancer 8080"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "customer-self-service-frontend",
+      "level": "internet",
+      "via": [
+        "Service customer-self-service-frontend type=LoadBalancer 3000"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "policy-management-backend",
+      "level": "internet",
+      "via": [
+        "Service policy-management-backend type=LoadBalancer 8090"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "policy-management-backend",
+      "level": "internet",
+      "via": [
+        "Service policy-management-backend-queue type=LoadBalancer 61613,61616"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "policy-management-frontend",
+      "level": "internet",
+      "via": [
+        "Service policy-management-frontend type=LoadBalancer 3010"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "risk-management-server",
+      "level": "internet",
+      "via": [
+        "Service risk-management-server type=LoadBalancer 50051"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "spring-boot-admin",
+      "level": "internet",
+      "via": [
+        "Service spring-boot-admin type=LoadBalancer 9000"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "customer-core",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "customer-management-backend",
+      "selector": {
+        "app": "customer-management-backend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-management-backend.yaml",
+      "workload": "customer-management-backend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "customer-management-frontend",
+      "selector": {
+        "app": "customer-management-frontend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-management-frontend.yaml",
+      "workload": "customer-management-frontend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "customer-self-service-backend",
+      "selector": {
+        "app": "customer-self-service-backend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-self-service-backend.yaml",
+      "workload": "customer-self-service-backend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "customer-self-service-frontend",
+      "selector": {
+        "app": "customer-self-service-frontend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/customer-self-service-frontend.yaml",
+      "workload": "customer-self-service-frontend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "policy-management-backend",
+      "selector": {
+        "app": "policy-management-backend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-backend.yaml",
+      "workload": "policy-management-backend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "policy-management-backend-queue",
+      "selector": {
+        "app": "policy-management-backend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-backend.yaml",
+      "workload": "policy-management-backend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "policy-management-frontend",
+      "selector": {
+        "app": "policy-management-frontend"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/policy-management-frontend.yaml",
+      "workload": "policy-management-frontend"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "risk-management-server",
+      "selector": {
+        "app": "risk-management-server"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/risk-management-server.yaml",
+      "workload": "risk-management-server"
+    },
+    {
+      "kind": "edge_tls",
+      "source": "LoadBalancer Service",
+      "name": "spring-boot-admin",
+      "selector": {
+        "app": "spring-boot-admin"
+      },
+      "tls": false,
+      "defined_in": "/target/upstream/kubernetes/manifests/spring-boot-admin.yaml",
+      "workload": "spring-boot-admin"
+    }
+  ]
+}

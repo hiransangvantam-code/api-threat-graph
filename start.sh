@@ -1,9 +1,10 @@
 #!/bin/sh
 # Start both Dockers and run the review (macOS / Linux):
-#   sh start.sh            ShopLite, scanned before and after its fixes
-#   sh start.sh paynow     one of the ten test companies in companies/ (see companies/README.md)
-#   sh start.sh bookinfo   one of the ten open-source systems in opensource/, with stand-in services
-#                          (see opensource/README.md; real images: sh real.sh <name>)
+#   sh start.sh            Bank of Anthos, one of the ten open-source systems (stand-in services)
+#   sh start.sh bookinfo   any of the ten open-source systems in opensource/ (see opensource/README.md;
+#                          real images: sh real.sh <name>)
+#   sh start.sh shoplite   ShopLite, the development testbed, scanned before and after its fixes
+#   sh start.sh paynow     one of the generated test companies in companies/ (development tests)
 #   company Docker: ShopLite (target/docker-compose.yml) or companies/<name>/docker-compose.yml
 #   ATG Docker:     our platform (docker-compose.yml), attached to the company's network
 cd "$(dirname "$0")" || exit 1
@@ -30,8 +31,8 @@ wait_page() {
   echo "Opened $URL"
 }
 
-if [ -n "$1" ]; then
-  CO="$1"
+if [ "${1:-bank-of-anthos}" != shoplite ]; then
+  CO="${1:-bank-of-anthos}"
   F=companies
   [ ! -f "companies/$CO/atg.env" ] && [ -f "opensource/$CO/atg.env" ] && F=opensource
   if [ ! -f "$F/$CO/atg.env" ]; then

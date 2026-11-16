@@ -1,0 +1,37 @@
+{
+ "system": "bank-of-anthos",
+ "R_before": 316.55,
+ "findings_before": 45,
+ "applied": [
+  "harden:svc:accounts-db",
+  "harden:svc:ledger-db",
+  "netpol:svc:accounts-db",
+  "netpol:svc:balancereader",
+  "netpol:svc:contacts",
+  "netpol:svc:frontend",
+  "netpol:svc:ledger-db",
+  "netpol:svc:ledgerwriter",
+  "netpol:svc:loadgenerator",
+  "netpol:svc:transactionhistory",
+  "netpol:svc:userservice"
+ ],
+ "applied_by_kind": {
+  "netpol": 9,
+  "clusterip": 0,
+  "harden": 2
+ },
+ "R_predicted": 258.05,
+ "edits": [
+  "harden accounts-db (upstream/kubernetes-manifests/accounts-db.yaml)",
+  "harden ledger-db (upstream/kubernetes-manifests/ledger-db.yaml)",
+  "netpol accounts-db",
+  "netpol balancereader",
+  "netpol contacts",
+  "netpol frontend",
+  "netpol ledger-db",
+  "netpol ledgerwriter",
+  "netpol loadgenerator",
+  "netpol transactionhistory",
+  "netpol userservice"
+ ]
+}

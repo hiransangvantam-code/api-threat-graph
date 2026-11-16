@@ -1,0 +1,39 @@
+{
+ "system": "robot-shop",
+ "R_before": 917.5,
+ "findings_before": 121,
+ "applied": [
+  "harden:svc:cart",
+  "harden:svc:catalogue",
+  "harden:svc:dispatch",
+  "harden:svc:mongodb",
+  "harden:svc:mysql",
+  "harden:svc:payment",
+  "harden:svc:rabbitmq",
+  "harden:svc:ratings",
+  "harden:svc:redis",
+  "harden:svc:shipping",
+  "harden:svc:user",
+  "harden:svc:web"
+ ],
+ "applied_by_kind": {
+  "netpol": 0,
+  "clusterip": 0,
+  "harden": 12
+ },
+ "R_predicted": 874.0,
+ "edits": [
+  "harden mongodb (upstream/docker-compose.yaml)",
+  "harden redis (upstream/docker-compose.yaml)",
+  "harden rabbitmq (upstream/docker-compose.yaml)",
+  "harden catalogue (upstream/docker-compose.yaml)",
+  "harden user (upstream/docker-compose.yaml)",
+  "harden cart (upstream/docker-compose.yaml)",
+  "harden mysql (upstream/docker-compose.yaml)",
+  "harden shipping (upstream/docker-compose.yaml)",
+  "harden ratings (upstream/docker-compose.yaml)",
+  "harden payment (upstream/docker-compose.yaml)",
+  "harden dispatch (upstream/docker-compose.yaml)",
+  "harden web (upstream/docker-compose.yaml)"
+ ]
+}

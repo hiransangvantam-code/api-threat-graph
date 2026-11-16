@@ -1,0 +1,18 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "monitoring (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/hystrix": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  }
+ }
+}

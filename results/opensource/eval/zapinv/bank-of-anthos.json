@@ -1,0 +1,135 @@
+{
+ "system": "bank-of-anthos",
+ "bases": [
+  "http://172.18.0.7:8080",
+  "http://172.18.0.6:8080",
+  "http://172.18.0.4:8080",
+  "http://172.18.0.5:8080",
+  "http://172.18.0.3:8080",
+  "http://172.18.0.2:8080"
+ ],
+ "ips": {
+  "balancereader": "172.18.0.7",
+  "contacts": "172.18.0.6",
+  "frontend": "172.18.0.4",
+  "ledgerwriter": "172.18.0.5",
+  "transactionhistory": "172.18.0.3",
+  "userservice": "172.18.0.2"
+ },
+ "by_ip": {
+  "172.18.0.7": "balancereader",
+  "172.18.0.6": "contacts",
+  "172.18.0.4": "frontend",
+  "172.18.0.5": "ledgerwriter",
+  "172.18.0.3": "transactionhistory",
+  "172.18.0.2": "userservice"
+ },
+ "total_s": 27.2,
+ "messages": 3854,
+ "urls": [
+  "http://172.18.0.2:8080",
+  "http://172.18.0.2:8080/login?password=1&username=1",
+  "http://172.18.0.2:8080/users",
+  "http://172.18.0.3:8080",
+  "http://172.18.0.3:8080/transactions",
+  "http://172.18.0.3:8080/transactions/1",
+  "http://172.18.0.4:8080",
+  "http://172.18.0.4:8080/consent",
+  "http://172.18.0.4:8080/deposit",
+  "http://172.18.0.4:8080/home",
+  "http://172.18.0.4:8080/login",
+  "http://172.18.0.4:8080/logout",
+  "http://172.18.0.4:8080/payment",
+  "http://172.18.0.4:8080/signup",
+  "http://172.18.0.5:8080",
+  "http://172.18.0.5:8080/transactions",
+  "http://172.18.0.6:8080",
+  "http://172.18.0.6:8080/contacts",
+  "http://172.18.0.6:8080/contacts/1",
+  "http://172.18.0.7:8080",
+  "http://172.18.0.7:8080/balances",
+  "http://172.18.0.7:8080/balances/1"
+ ],
+ "alerts": [
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:8080/consent",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:8080/login",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.4:8080/signup",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.4:8080/signup",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10024",
+   "alert": "Information Disclosure - Sensitive Information in URL",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "598",
+   "method": "GET",
+   "url": "http://172.18.0.2:8080/login?password=1&username=1",
+   "param": "password"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.2:8080/users",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10024",
+   "alert": "Information Disclosure - Sensitive Information in URL",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "598",
+   "method": "GET",
+   "url": "http://172.18.0.2:8080/login?password=1&username=1",
+   "param": "username"
+  },
+  {
+   "pluginId": "10111",
+   "alert": "Authentication Request Identified",
+   "risk": "Informational",
+   "confidence": "High",
+   "cweid": "-1",
+   "method": "GET",
+   "url": "http://172.18.0.2:8080/login?password=1&username=1",
+   "param": "username"
+  }
+ ]
+}

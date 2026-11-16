@@ -509,6 +509,8 @@ def normalize(raw_dir: str | Path, reconcile: bool = True) -> dict:
             "name": name,
             "role": "gateway" if name == gateway else "service",
             "in_manifests": bool(w),
+            "workload": (w or {}).get("name"),
+            "pod_labels": (w or {}).get("labels") or {},
             "image": containers[0]["image"] if containers else None,
             "exposure": {"level": level, "via": [" -> ".join(x["via"]) for x in exposure.get(name, []) if x["level"] != "internal"]},
             "node_port": any(x["level"] == "node" for x in exposure.get(name, [])),

@@ -1,0 +1,2187 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023743-6831cc",
+  "collected_at": "2026-11-16T02:37:43+00:00",
+  "duration_ms": 28.1,
+  "inputs": [
+    "/work/scan-input/1-lakeside-mutual/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 997,
+    "flows_ignored": 1,
+    "endpoints": 37,
+    "services": 5,
+    "flows_by_capture_point": {
+      "east-west": 997
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "customer-core",
+      "method": "GET",
+      "path_template": "/cities/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-core:8110"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.25,
+        "max": 16.84
+      },
+      "example_paths": [
+        "/cities/128",
+        "/cities/104",
+        "/cities/109"
+      ],
+      "first_seen": 1794796652.818657,
+      "last_seen": 1794796656.8639262
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-core",
+      "method": "GET",
+      "path_template": "/customers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-core:8110"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 60,
+      "status_codes": {
+        "401": 60
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 60,
+        "status_codes_without_auth": {
+          "401": 60
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.01,
+        "max": 11.56
+      },
+      "example_paths": [
+        "/customers"
+      ],
+      "first_seen": 1794796652.9854321,
+      "last_seen": 1794796657.0342607
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-core",
+      "method": "POST",
+      "path_template": "/customers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-core:8110"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.08,
+        "max": 4.0
+      },
+      "example_paths": [
+        "/customers"
+      ],
+      "first_seen": 1794796652.922109,
+      "last_seen": 1794796656.9317236
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-core",
+      "method": "GET",
+      "path_template": "/customers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-core:8110"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 97,
+      "status_codes": {
+        "200": 37,
+        "401": 60
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 37,
+        "authorization_header_missing": 60,
+        "status_codes_without_auth": {
+          "401": 60
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customers": [
+            {
+              "customerId": "integer",
+              "email": "string",
+              "birthday": "string"
+            }
+          ],
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.97,
+        "max": 5.57
+      },
+      "example_paths": [
+        "/customers/1050",
+        "/customers/1089",
+        "/customers/132"
+      ],
+      "first_seen": 1794796652.8912349,
+      "last_seen": 1794796657.0563068
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-core",
+      "method": "PUT",
+      "path_template": "/customers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-core:8110"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.99,
+        "max": 4.39
+      },
+      "example_paths": [
+        "/customers/132",
+        "/customers/129",
+        "/customers/109"
+      ],
+      "first_seen": 1794796653.0332065,
+      "last_seen": 1794796656.9905837
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-core",
+      "method": "PUT",
+      "path_template": "/customers/{id}/address",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-core:8110"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "streetAddress": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.18,
+        "max": 8.03
+      },
+      "example_paths": [
+        "/customers/1084/address",
+        "/customers/1045/address",
+        "/customers/1029/address"
+      ],
+      "first_seen": 1794796652.8776698,
+      "last_seen": 1794796656.90222
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-management-backend",
+      "method": "GET",
+      "path_template": "/customers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-management-backend:8100"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customers": [
+            {
+              "customerId": "integer",
+              "firstname": "string",
+              "lastname": "string",
+              "email": "string",
+              "phoneNumber": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.75,
+        "max": 54.4
+      },
+      "example_paths": [
+        "/customers"
+      ],
+      "first_seen": 1794796652.946337,
+      "last_seen": 1794796656.9635663
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-management-backend",
+      "method": "GET",
+      "path_template": "/customers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-management-backend:8100"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer",
+          "email": "string",
+          "phoneNumber": "string",
+          "streetAddress": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.28,
+        "max": 12.52
+      },
+      "example_paths": [
+        "/customers/132",
+        "/customers/134",
+        "/customers/136"
+      ],
+      "first_seen": 1794796653.0137725,
+      "last_seen": 1794796656.9824471
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-management-backend",
+      "method": "PUT",
+      "path_template": "/customers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-management-backend:8100"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "firstname": "string",
+          "lastname": "string",
+          "phoneNumber": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.7,
+        "max": 10.35
+      },
+      "example_paths": [
+        "/customers/132",
+        "/customers/129",
+        "/customers/109"
+      ],
+      "first_seen": 1794796653.0309026,
+      "last_seen": 1794796656.9886327
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-management-backend",
+      "method": "GET",
+      "path_template": "/interaction-logs/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-management-backend:8100"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer",
+          "interactions": [
+            {
+              "content": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.06,
+        "max": 6.37
+      },
+      "example_paths": [
+        "/interaction-logs/127",
+        "/interaction-logs/136",
+        "/interaction-logs/102"
+      ],
+      "first_seen": 1794796653.0465357,
+      "last_seen": 1794796657.006019
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-management-backend",
+      "method": "PATCH",
+      "path_template": "/interaction-logs/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-management-backend:8100"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "lastAcknowledgedInteractionId": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.09,
+        "max": 2.77
+      },
+      "example_paths": [
+        "/interaction-logs/131",
+        "/interaction-logs/115",
+        "/interaction-logs/117"
+      ],
+      "first_seen": 1794796653.0550117,
+      "last_seen": 1794796657.009686
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-management-backend",
+      "method": "GET",
+      "path_template": "/notifications",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-management-backend:8100"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "customerId": "integer",
+            "username": "string",
+            "count": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.06,
+        "max": 4.26
+      },
+      "example_paths": [
+        "/notifications"
+      ],
+      "first_seen": 1794796653.03933,
+      "last_seen": 1794796656.999058
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "POST",
+      "path_template": "/auth",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 27,
+      "status_codes": {
+        "200": 12,
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 27,
+        "status_codes_without_auth": {
+          "200": 12,
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string",
+          "role": "string",
+          "access_token": "string",
+          "token_type": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.32,
+        "max": 5.87
+      },
+      "example_paths": [
+        "/auth"
+      ],
+      "first_seen": 1794796652.761876,
+      "last_seen": 1794796657.1409147
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "POST",
+      "path_template": "/auth/signup",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.19,
+        "max": 7.26
+      },
+      "example_paths": [
+        "/auth/signup"
+      ],
+      "first_seen": 1794796652.7480135,
+      "last_seen": 1794796656.8470407
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "GET",
+      "path_template": "/cities/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "cities": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.98,
+        "max": 36.54
+      },
+      "example_paths": [
+        "/cities/128",
+        "/cities/104",
+        "/cities/109"
+      ],
+      "first_seen": 1794796652.7893422,
+      "last_seen": 1794796656.8619168
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "POST",
+      "path_template": "/customers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 19,
+      "status_codes": {
+        "200": 15,
+        "401": 4
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "401": 4
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "firstname": "string",
+          "lastname": "string",
+          "birthday": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.89,
+        "max": 12.19
+      },
+      "example_paths": [
+        "/customers"
+      ],
+      "first_seen": 1794796652.91771,
+      "last_seen": 1794796656.9297006
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "GET",
+      "path_template": "/customers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 40,
+      "status_codes": {
+        "200": 37,
+        "401": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 37,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer",
+          "firstname": "string",
+          "lastname": "string",
+          "email": "string",
+          "birthday": "string",
+          "streetAddress": "string",
+          "phoneNumber": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.56,
+        "max": 13.01
+      },
+      "example_paths": [
+        "/customers/1050",
+        "/customers/1089",
+        "/customers/1088"
+      ],
+      "first_seen": 1794796652.8888557,
+      "last_seen": 1794796656.9227712
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "PUT",
+      "path_template": "/customers/{id}/address",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 26,
+      "status_codes": {
+        "200": 15,
+        "401": 3,
+        "403": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 23,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "streetAddress": "string",
+          "postalCode": "string",
+          "city": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "streetAddress": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.63,
+        "max": 14.68
+      },
+      "example_paths": [
+        "/customers/1084/address",
+        "/customers/1045/address",
+        "/customers/1029/address"
+      ],
+      "first_seen": 1794796652.8747072,
+      "last_seen": 1794796656.9113657
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "GET",
+      "path_template": "/customers/{id}/insurance-quote-requests",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 42,
+      "status_codes": {
+        "200": 30,
+        "401": 5,
+        "403": 7
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 37,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.02,
+        "max": 6.59
+      },
+      "example_paths": [
+        "/customers/1065/insurance-quote-requests",
+        "/customers/1090/insurance-quote-requests",
+        "/customers/1081/insurance-quote-requests"
+      ],
+      "first_seen": 1794796652.9302418,
+      "last_seen": 1794796656.951659
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "GET",
+      "path_template": "/insurance-quote-requests",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 35,
+      "status_codes": {
+        "200": 30,
+        "401": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "statusHistory": [
+              {
+                "status": "string"
+              }
+            ]
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.13,
+        "max": 7.43
+      },
+      "example_paths": [
+        "/insurance-quote-requests"
+      ],
+      "first_seen": 1794796652.8324344,
+      "last_seen": 1794796656.872044
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "POST",
+      "path_template": "/insurance-quote-requests",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 16,
+      "status_codes": {
+        "200": 15,
+        "401": 1
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 1,
+        "status_codes_without_auth": {
+          "401": 1
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerInfo": {
+            "customerId": "integer"
+          },
+          "insuranceOptions": {
+            "insuranceType": "string"
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.39,
+        "max": 3.43
+      },
+      "example_paths": [
+        "/insurance-quote-requests"
+      ],
+      "first_seen": 1794796652.8658113,
+      "last_seen": 1794796656.88835
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "GET",
+      "path_template": "/insurance-quote-requests/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 42,
+      "status_codes": {
+        "200": 30,
+        "401": 2,
+        "403": 10
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 40,
+        "authorization_header_missing": 2,
+        "status_codes_without_auth": {
+          "401": 2
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "customerInfo": {
+            "customerId": "string"
+          },
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.21,
+        "max": 4.03
+      },
+      "example_paths": [
+        "/insurance-quote-requests/1060",
+        "/insurance-quote-requests/1071",
+        "/insurance-quote-requests/1029"
+      ],
+      "first_seen": 1794796652.852428,
+      "last_seen": 1794796656.8831794
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "PATCH",
+      "path_template": "/insurance-quote-requests/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 29,
+      "status_codes": {
+        "200": 15,
+        "401": 6,
+        "403": 8
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 23,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.33,
+        "max": 3.31
+      },
+      "example_paths": [
+        "/insurance-quote-requests/1020",
+        "/insurance-quote-requests/1040",
+        "/insurance-quote-requests/1094"
+      ],
+      "first_seen": 1794796652.870285,
+      "last_seen": 1794796656.8962915
+    },
+    {
+      "kind": "endpoint",
+      "service": "customer-self-service-backend",
+      "method": "GET",
+      "path_template": "/user",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customer-self-service-backend:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 35,
+      "status_codes": {
+        "200": 30,
+        "401": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string",
+          "customerId": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.03,
+        "max": 5.85
+      },
+      "example_paths": [
+        "/user"
+      ],
+      "first_seen": 1794796652.773314,
+      "last_seen": 1794796656.8584583
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/customers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customers": [
+            {
+              "customerId": "integer",
+              "email": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.74,
+        "max": 39.73
+      },
+      "example_paths": [
+        "/customers"
+      ],
+      "first_seen": 1794796653.0609865,
+      "last_seen": 1794796657.0283608
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/customers/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer",
+          "email": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.7,
+        "max": 11.53
+      },
+      "example_paths": [
+        "/customers/140",
+        "/customers/135",
+        "/customers/106"
+      ],
+      "first_seen": 1794796653.1117566,
+      "last_seen": 1794796657.048446
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/customers/{id}/policies",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "policyId": "integer",
+            "policyType": "string",
+            "insurancePremium": {
+              "amount": "integer"
+            }
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 1.84,
+        "max": 5.04
+      },
+      "example_paths": [
+        "/customers/105/policies",
+        "/customers/117/policies",
+        "/customers/128/policies"
+      ],
+      "first_seen": 1794796653.1291015,
+      "last_seen": 1794796657.068209
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/insurance-quote-requests",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "customerInfo": {
+              "customerId": "string"
+            }
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 1.94,
+        "max": 46.52
+      },
+      "example_paths": [
+        "/insurance-quote-requests"
+      ],
+      "first_seen": 1794796653.1379383,
+      "last_seen": 1794796657.0761712
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/insurance-quote-requests/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "customerInfo": {
+            "customerId": "string"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 1.96,
+        "max": 2.93
+      },
+      "example_paths": [
+        "/insurance-quote-requests/110",
+        "/insurance-quote-requests/118",
+        "/insurance-quote-requests/116"
+      ],
+      "first_seen": 1794796653.146264,
+      "last_seen": 1794796657.0837038
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "PATCH",
+      "path_template": "/insurance-quote-requests/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "insuranceQuote": {
+            "insurancePremium": {
+              "amount": "integer"
+            }
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.98,
+        "max": 3.08
+      },
+      "example_paths": [
+        "/insurance-quote-requests/130",
+        "/insurance-quote-requests/117",
+        "/insurance-quote-requests/134"
+      ],
+      "first_seen": 1794796653.1548948,
+      "last_seen": 1794796657.0881047
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/policies",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "policyId": "integer",
+            "customerId": "string",
+            "insurancePremium": {
+              "amount": "integer"
+            }
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 1.96,
+        "max": 5.18
+      },
+      "example_paths": [
+        "/policies"
+      ],
+      "first_seen": 1794796653.1744335,
+      "last_seen": 1794796657.1319778
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "POST",
+      "path_template": "/policies",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "customerId": "integer",
+          "policyType": "string",
+          "insurancePremium": {
+            "amount": "integer"
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "policyId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.0,
+        "max": 15.03
+      },
+      "example_paths": [
+        "/policies"
+      ],
+      "first_seen": 1794796653.1629035,
+      "last_seen": 1794796657.1012661
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "DELETE",
+      "path_template": "/policies/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "policyId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.0,
+        "max": 3.32
+      },
+      "example_paths": [
+        "/policies/114",
+        "/policies/121",
+        "/policies/113"
+      ],
+      "first_seen": 1794796653.1706102,
+      "last_seen": 1794796657.1244824
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "GET",
+      "path_template": "/policies/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "policyId": "integer",
+          "customerId": "string",
+          "insurancePremium": {
+            "amount": "integer"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 2.02,
+        "max": 5.02
+      },
+      "example_paths": [
+        "/policies/140",
+        "/policies/133",
+        "/policies/135"
+      ],
+      "first_seen": 1794796653.1817665,
+      "last_seen": 1794796657.1378725
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "PUT",
+      "path_template": "/policies/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "policyType": "string",
+          "insurancePremium": {
+            "amount": "integer"
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "policyId": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.88,
+        "max": 3.39
+      },
+      "example_paths": [
+        "/policies/132",
+        "/policies/111",
+        "/policies/126"
+      ],
+      "first_seen": 1794796653.1669254,
+      "last_seen": 1794796657.1191285
+    },
+    {
+      "kind": "endpoint",
+      "service": "policy-management-backend",
+      "method": "POST",
+      "path_template": "/riskfactor/compute",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "policy-management-backend:8090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "birthday": "string",
+          "postalCode": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "riskFactor": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.91,
+        "max": 2.79
+      },
+      "example_paths": [
+        "/riskfactor/compute"
+      ],
+      "first_seen": 1794796653.158924,
+      "last_seen": 1794796657.0926433
+    },
+    {
+      "kind": "endpoint",
+      "service": "spring-boot-admin",
+      "method": "GET",
+      "path_template": "/applications",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "spring-boot-admin:9000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 4,
+      "status_codes": {
+        "200": 4
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "200": 4
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "name": "string",
+            "status": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.3,
+        "max": 3.44
+      },
+      "example_paths": [
+        "/applications"
+      ],
+      "first_seen": 1794796653.1945548,
+      "last_seen": 1794796656.5496073
+    }
+  ]
+}

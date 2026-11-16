@@ -1,0 +1,1058 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025136-ca9f36",
+  "collected_at": "2026-11-16T02:51:37+00:00",
+  "duration_ms": 108.5,
+  "inputs": [
+    "/target/upstream/mainservice/manifests/acmeair-mainservice-ingress.yaml",
+    "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+    "/target/upstream/mainservice/manifests/deploy-acmeair-mainservice-java.yaml",
+    "/target/upstream/authservice/manifests/acmeair-authservice-ingress.yaml",
+    "/target/upstream/authservice/manifests/deploy-acmeair-authservice-java.yaml",
+    "/target/upstream/bookingservice/manifests/acmeair-bookingservice-ingress.yaml",
+    "/target/upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml",
+    "/target/upstream/customerservice/manifests/acmeair-customerservice-ingress.yaml",
+    "/target/upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml",
+    "/target/upstream/flightservice/manifests/acmeair-flightservice-ingress.yaml",
+    "/target/upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml"
+  ],
+  "stats": {
+    "files": 11,
+    "workloads": 8,
+    "services": 8,
+    "ingress_paths": 5,
+    "gateway_routes": 0,
+    "network_policies": 8,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 0,
+    "internet_exposed_workloads": [
+      "acmeair-authservice",
+      "acmeair-bookingservice",
+      "acmeair-customerservice",
+      "acmeair-flightservice",
+      "acmeair-mainservice"
+    ],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [],
+    "plaintext_env_with_sensitive_name": 7,
+    "ignored_kinds": {}
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-mainservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/deploy-acmeair-mainservice-java.yaml",
+      "labels": {
+        "name": "acmeair-main-deployment"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-mainservice-java",
+          "image": "acmeair-mainservice-java:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            9080,
+            9443
+          ],
+          "env": [
+            {
+              "name": "USERNAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 8
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-main-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-authservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/authservice/manifests/deploy-acmeair-authservice-java.yaml",
+      "labels": {
+        "name": "acmeair-auth-deployment"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-authservice-java",
+          "image": "acmeair-authservice-java:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            9080,
+            9443
+          ],
+          "env": [
+            {
+              "name": "USERNAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 8
+            },
+            {
+              "name": "ACMEAIR_STACKAA_CUSTOMER_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://acmeair-customer-service:9080/customer",
+              "references_service": "acmeair-customer-service"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-auth-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-bookingservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml",
+      "labels": {
+        "name": "acmeair-booking-deployment"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-bookingservice-java",
+          "image": "acmeair-bookingservice-java:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            9080,
+            9443
+          ],
+          "env": [
+            {
+              "name": "USERNAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 8
+            },
+            {
+              "name": "MONGO_HOST",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 18
+            },
+            {
+              "name": "ACMEAIR_STACKAA_AUTH_URL",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value": "http://acmeair-auth-service:9080/auth",
+              "references_service": "acmeair-auth-service"
+            },
+            {
+              "name": "ACMEAIR_STACKAA_CUSTOMER_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://acmeair-customer-service:9080/customer",
+              "references_service": "acmeair-customer-service"
+            },
+            {
+              "name": "ACMEAIR_STACKAA_FLIGHT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://acmeair-flight-service:9080/flight",
+              "references_service": "acmeair-flight-service"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-booking-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-booking-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml",
+      "labels": {
+        "name": "acmeair-booking-db"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-booking-db",
+          "image": "docker.io/library/mongo:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-booking-db"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-customerservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml",
+      "labels": {
+        "name": "acmeair-customer-deployment"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-customerservice-java",
+          "image": "acmeair-customerservice-java:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            9080,
+            9443
+          ],
+          "env": [
+            {
+              "name": "USERNAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 8
+            },
+            {
+              "name": "MONGO_HOST",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 19
+            },
+            {
+              "name": "SECURE_SERVICE_CALLS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            },
+            {
+              "name": "ACMEAIR_STACKAA_AUTH_URL",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value": "http://acmeair-auth-service:9080/auth",
+              "references_service": "acmeair-auth-service"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-customer-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-customer-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml",
+      "labels": {
+        "name": "acmeair-customer-db"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-customer-db",
+          "image": "docker.io/library/mongo:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-customer-db"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-flightservice",
+      "namespace": "default",
+      "defined_in": "/target/upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml",
+      "labels": {
+        "name": "acmeair-flight-deployment"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-flightservice-java",
+          "image": "acmeair-flightservice-java:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            9080,
+            9443
+          ],
+          "env": [
+            {
+              "name": "USERNAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 5
+            },
+            {
+              "name": "PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 8
+            },
+            {
+              "name": "MONGO_HOST",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 17
+            },
+            {
+              "name": "SECURE_SERVICE_CALLS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-flight-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "acmeair-flight-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml",
+      "labels": {
+        "name": "acmeair-flight-db"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "acmeair-flight-db",
+          "image": "docker.io/library/mongo:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            27017
+          ],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "acmeair-flight-db"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-main-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/deploy-acmeair-mainservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-main-deployment"
+      },
+      "ports": [
+        {
+          "port": 9080
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-mainservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-auth-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/authservice/manifests/deploy-acmeair-authservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-auth-deployment"
+      },
+      "ports": [
+        {
+          "port": 9080
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-authservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-booking-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-booking-deployment"
+      },
+      "ports": [
+        {
+          "port": 9080
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-bookingservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-booking-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-booking-db"
+      },
+      "ports": [
+        {
+          "name": "27017",
+          "port": 27017,
+          "targetPort": 27017,
+          "protocol": "TCP"
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-booking-db"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-customer-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-customer-deployment"
+      },
+      "ports": [
+        {
+          "port": 9080
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-customerservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-customer-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-customer-db"
+      },
+      "ports": [
+        {
+          "name": "27017",
+          "port": 27017,
+          "targetPort": 27017,
+          "protocol": "TCP"
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-customer-db"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-flight-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-flight-deployment"
+      },
+      "ports": [
+        {
+          "port": 9080
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-flightservice"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "acmeair-flight-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml",
+      "type": "ClusterIP",
+      "selector": {
+        "name": "acmeair-flight-db"
+      },
+      "ports": [
+        {
+          "name": "27017",
+          "port": 27017,
+          "targetPort": 27017,
+          "protocol": "TCP"
+        }
+      ],
+      "selects_workloads": [
+        "acmeair-flight-db"
+      ]
+    },
+    {
+      "kind": "ingress",
+      "name": "acmeair-main-ingress",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/acmeair-mainservice-ingress.yaml",
+      "host": "*",
+      "path": "/acmeair",
+      "tls": false,
+      "backend_service": "acmeair-main-service",
+      "backend_port": 9080,
+      "annotations": [
+        "ingress.kubernetes.io/connection-proxy-header",
+        "ingress.kubernetes.io/ssl-redirect",
+        "nginx.ingress.kubernetes.io/connection-proxy-header",
+        "nginx.ingress.kubernetes.io/ssl-redirect"
+      ],
+      "rate_limit": null
+    },
+    {
+      "kind": "ingress",
+      "name": "acmeair-auth-ingress",
+      "namespace": "default",
+      "defined_in": "/target/upstream/authservice/manifests/acmeair-authservice-ingress.yaml",
+      "host": "*",
+      "path": "/auth",
+      "tls": false,
+      "backend_service": "acmeair-auth-service",
+      "backend_port": 9080,
+      "annotations": [
+        "ingress.kubernetes.io/connection-proxy-header",
+        "ingress.kubernetes.io/ssl-redirect",
+        "nginx.ingress.kubernetes.io/connection-proxy-header",
+        "nginx.ingress.kubernetes.io/ssl-redirect"
+      ],
+      "rate_limit": null
+    },
+    {
+      "kind": "ingress",
+      "name": "acmeair-booking-ingress",
+      "namespace": "default",
+      "defined_in": "/target/upstream/bookingservice/manifests/acmeair-bookingservice-ingress.yaml",
+      "host": "*",
+      "path": "/booking",
+      "tls": false,
+      "backend_service": "acmeair-booking-service",
+      "backend_port": 9080,
+      "annotations": [
+        "ingress.kubernetes.io/connection-proxy-header",
+        "ingress.kubernetes.io/ssl-redirect",
+        "nginx.ingress.kubernetes.io/connection-proxy-header",
+        "nginx.ingress.kubernetes.io/ssl-redirect"
+      ],
+      "rate_limit": null
+    },
+    {
+      "kind": "ingress",
+      "name": "acmeair-customer-ingress",
+      "namespace": "default",
+      "defined_in": "/target/upstream/customerservice/manifests/acmeair-customerservice-ingress.yaml",
+      "host": "*",
+      "path": "/customer",
+      "tls": false,
+      "backend_service": "acmeair-customer-service",
+      "backend_port": 9080,
+      "annotations": [
+        "ingress.kubernetes.io/connection-proxy-header",
+        "ingress.kubernetes.io/ssl-redirect",
+        "nginx.ingress.kubernetes.io/connection-proxy-header",
+        "nginx.ingress.kubernetes.io/ssl-redirect"
+      ],
+      "rate_limit": null
+    },
+    {
+      "kind": "ingress",
+      "name": "acmeair-flight-ingress",
+      "namespace": "default",
+      "defined_in": "/target/upstream/flightservice/manifests/acmeair-flightservice-ingress.yaml",
+      "host": "*",
+      "path": "/flight",
+      "tls": false,
+      "backend_service": "acmeair-flight-service",
+      "backend_port": 9080,
+      "annotations": [
+        "ingress.kubernetes.io/connection-proxy-header",
+        "ingress.kubernetes.io/ssl-redirect",
+        "nginx.ingress.kubernetes.io/connection-proxy-header",
+        "nginx.ingress.kubernetes.io/ssl-redirect"
+      ],
+      "rate_limit": null
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-auth-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-auth-deployment"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "name": "acmeair-booking-deployment"
+          }
+        },
+        {
+          "podSelector": {
+            "name": "acmeair-customer-deployment"
+          }
+        },
+        {
+          "namespaceSelector": {
+            "kubernetes.io/metadata.name": "ingress-nginx"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-booking-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-booking-db"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-booking-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-booking-deployment"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "namespaceSelector": {
+            "kubernetes.io/metadata.name": "ingress-nginx"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-customer-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-customer-db"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-customer-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-customer-deployment"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "name": "acmeair-auth-deployment"
+          }
+        },
+        {
+          "podSelector": {
+            "name": "acmeair-booking-deployment"
+          }
+        },
+        {
+          "namespaceSelector": {
+            "kubernetes.io/metadata.name": "ingress-nginx"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-flight-db",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-flight-db"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-flight-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-flight-deployment"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "name": "acmeair-booking-deployment"
+          }
+        },
+        {
+          "namespaceSelector": {
+            "kubernetes.io/metadata.name": "ingress-nginx"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "acmeair-main-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/mainservice/manifests/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "name": "acmeair-main-deployment"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "namespaceSelector": {
+            "kubernetes.io/metadata.name": "ingress-nginx"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-mainservice",
+      "level": "internet",
+      "via": [
+        "Ingress acmeair-main-ingress */acmeair",
+        "Service acmeair-main-service"
+      ],
+      "tls": false
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-authservice",
+      "level": "internet",
+      "via": [
+        "Ingress acmeair-auth-ingress */auth",
+        "Service acmeair-auth-service"
+      ],
+      "tls": false
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-bookingservice",
+      "level": "internet",
+      "via": [
+        "Ingress acmeair-booking-ingress */booking",
+        "Service acmeair-booking-service"
+      ],
+      "tls": false
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-customerservice",
+      "level": "internet",
+      "via": [
+        "Ingress acmeair-customer-ingress */customer",
+        "Service acmeair-customer-service"
+      ],
+      "tls": false
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-flightservice",
+      "level": "internet",
+      "via": [
+        "Ingress acmeair-flight-ingress */flight",
+        "Service acmeair-flight-service"
+      ],
+      "tls": false
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-booking-db",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-customer-db",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "acmeair-flight-db",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    }
+  ]
+}

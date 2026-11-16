@@ -1,0 +1,1303 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025256-66c053",
+  "collected_at": "2026-11-16T02:52:56+00:00",
+  "duration_ms": 18.9,
+  "inputs": [
+    "/work/scan-input/1-piggymetrics/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 660,
+    "flows_ignored": 1,
+    "endpoints": 22,
+    "services": 6,
+    "flows_by_capture_point": {
+      "east-west": 368,
+      "north-south": 292
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "account-service",
+      "method": "POST",
+      "path_template": "/accounts/",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "account-service:6000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.65,
+        "max": 14.72
+      },
+      "example_paths": [
+        "/accounts/"
+      ],
+      "first_seen": 1794797565.1795783,
+      "last_seen": 1794797569.058596
+    },
+    {
+      "kind": "endpoint",
+      "service": "account-service",
+      "method": "GET",
+      "path_template": "/accounts/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "account-service:6000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 48,
+      "status_codes": {
+        "200": 45,
+        "401": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 45,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "saving": {
+            "amount": "integer"
+          },
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.38,
+        "max": 16.16
+      },
+      "example_paths": [
+        "/accounts/current"
+      ],
+      "first_seen": 1794797565.0426383,
+      "last_seen": 1794797568.9888313
+    },
+    {
+      "kind": "endpoint",
+      "service": "account-service",
+      "method": "PUT",
+      "path_template": "/accounts/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "account-service:6000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 36,
+      "status_codes": {
+        "200": 30,
+        "401": 6
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "incomes": [
+            {
+              "title": "string",
+              "amount": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.38,
+        "max": 46.43
+      },
+      "example_paths": [
+        "/accounts/current"
+      ],
+      "first_seen": 1794797565.112316,
+      "last_seen": 1794797569.0454738
+    },
+    {
+      "kind": "endpoint",
+      "service": "account-service",
+      "method": "GET",
+      "path_template": "/accounts/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "account-service:6000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 58,
+      "status_codes": {
+        "200": 31,
+        "401": 6,
+        "403": 21
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 52,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "incomes": [
+            {
+              "title": "string",
+              "amount": "integer"
+            }
+          ],
+          "expenses": [
+            {
+              "title": "string",
+              "amount": "integer"
+            }
+          ],
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.48,
+        "max": 10.24
+      },
+      "example_paths": [
+        "/accounts/1002",
+        "/accounts/1067",
+        "/accounts/1060"
+      ],
+      "first_seen": 1794797564.9245346,
+      "last_seen": 1794797569.1312475
+    },
+    {
+      "kind": "endpoint",
+      "service": "auth-service",
+      "method": "POST",
+      "path_template": "/uaa/oauth/token",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "auth-service:5000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 27,
+      "status_codes": {
+        "200": 12,
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 27,
+        "status_codes_without_auth": {
+          "200": 12,
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "password": "string",
+          "grant_type": "string",
+          "scope": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string",
+          "role": "string",
+          "access_token": "string",
+          "token_type": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.96,
+        "max": 10.78
+      },
+      "example_paths": [
+        "/uaa/oauth/token"
+      ],
+      "first_seen": 1794797564.883043,
+      "last_seen": 1794797569.1417124
+    },
+    {
+      "kind": "endpoint",
+      "service": "auth-service",
+      "method": "POST",
+      "path_template": "/uaa/users",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "auth-service:5000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.52,
+        "max": 4.35
+      },
+      "example_paths": [
+        "/uaa/users"
+      ],
+      "first_seen": 1794797565.184194,
+      "last_seen": 1794797569.0613139
+    },
+    {
+      "kind": "endpoint",
+      "service": "auth-service",
+      "method": "GET",
+      "path_template": "/uaa/users/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "auth-service:5000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 12,
+      "status_codes": {
+        "200": 12
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 12,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string",
+          "role": "string",
+          "active": "boolean"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.83,
+        "max": 6.17
+      },
+      "example_paths": [
+        "/uaa/users/current"
+      ],
+      "first_seen": 1794797564.9133368,
+      "last_seen": 1794797565.834282
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "POST",
+      "path_template": "/accounts/",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 13.07,
+        "max": 21.85
+      },
+      "example_paths": [
+        "/accounts/"
+      ],
+      "first_seen": 1794797565.1764152,
+      "last_seen": 1794797569.0558577
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "GET",
+      "path_template": "/accounts/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 48,
+      "status_codes": {
+        "200": 45,
+        "401": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 45,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "saving": {
+            "amount": "integer"
+          },
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.78,
+        "max": 26.32
+      },
+      "example_paths": [
+        "/accounts/current"
+      ],
+      "first_seen": 1794797565.0292213,
+      "last_seen": 1794797568.9866035
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "PUT",
+      "path_template": "/accounts/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 36,
+      "status_codes": {
+        "200": 30,
+        "401": 6
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "incomes": [
+            {
+              "title": "string",
+              "amount": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 14.09,
+        "max": 54.51
+      },
+      "example_paths": [
+        "/accounts/current"
+      ],
+      "first_seen": 1794797565.107166,
+      "last_seen": 1794797569.0427277
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "GET",
+      "path_template": "/accounts/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 43,
+      "status_codes": {
+        "200": 30,
+        "401": 6,
+        "403": 7
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 37,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "incomes": [
+            {
+              "title": "string",
+              "amount": "integer"
+            }
+          ],
+          "expenses": [
+            {
+              "title": "string",
+              "amount": "integer"
+            }
+          ],
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.27,
+        "max": 36.46
+      },
+      "example_paths": [
+        "/accounts/1002",
+        "/accounts/1067",
+        "/accounts/1060"
+      ],
+      "first_seen": 1794797564.90633,
+      "last_seen": 1794797568.940754
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "GET",
+      "path_template": "/notifications/recipients/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 35,
+      "status_codes": {
+        "200": 30,
+        "401": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "accountName": "string",
+          "email": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.49,
+        "max": 17.93
+      },
+      "example_paths": [
+        "/notifications/recipients/current"
+      ],
+      "first_seen": 1794797565.3376338,
+      "last_seen": 1794797569.1181397
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "PUT",
+      "path_template": "/notifications/recipients/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string",
+          "scheduledNotifications": {
+            "REMIND": {
+              "active": "boolean"
+            }
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 13.38,
+        "max": 71.67
+      },
+      "example_paths": [
+        "/notifications/recipients/current"
+      ],
+      "first_seen": 1794797565.3835616,
+      "last_seen": 1794797569.1266663
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "GET",
+      "path_template": "/statistics/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 32,
+      "status_codes": {
+        "200": 30,
+        "401": 2
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 2,
+        "status_codes_without_auth": {
+          "401": 2
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "date": "string:datetime",
+            "amount": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 10.89,
+        "max": 57.73
+      },
+      "example_paths": [
+        "/statistics/current"
+      ],
+      "first_seen": 1794797565.206804,
+      "last_seen": 1794797569.0822508
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "GET",
+      "path_template": "/statistics/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 41,
+      "status_codes": {
+        "200": 30,
+        "401": 6,
+        "403": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 35,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "account": "string",
+            "amount": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 8.0,
+        "max": 29.29
+      },
+      "example_paths": [
+        "/statistics/1048",
+        "/statistics/1081",
+        "/statistics/1069"
+      ],
+      "first_seen": 1794797565.294725,
+      "last_seen": 1794797569.101864
+    },
+    {
+      "kind": "endpoint",
+      "service": "gateway",
+      "method": "POST",
+      "path_template": "/uaa/oauth/token",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "gateway:4000"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 27,
+      "status_codes": {
+        "200": 12,
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 27,
+        "status_codes_without_auth": {
+          "200": 12,
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "username": "string",
+          "password": "string",
+          "grant_type": "string",
+          "scope": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string",
+          "role": "string",
+          "access_token": "string",
+          "token_type": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.06,
+        "max": 149.24
+      },
+      "example_paths": [
+        "/uaa/oauth/token"
+      ],
+      "first_seen": 1794797564.7527514,
+      "last_seen": 1794797569.1394713
+    },
+    {
+      "kind": "endpoint",
+      "service": "monitoring",
+      "method": "GET",
+      "path_template": "/hystrix",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "monitoring:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 4,
+      "status_codes": {
+        "200": 4
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "200": 4
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "page": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.25,
+        "max": 10.1
+      },
+      "example_paths": [
+        "/hystrix"
+      ],
+      "first_seen": 1794797565.4742675,
+      "last_seen": 1794797568.625146
+    },
+    {
+      "kind": "endpoint",
+      "service": "notification-service",
+      "method": "GET",
+      "path_template": "/notifications/recipients/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "notification-service:8000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 35,
+      "status_codes": {
+        "200": 30,
+        "401": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "accountName": "string",
+          "email": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.58,
+        "max": 7.9
+      },
+      "example_paths": [
+        "/notifications/recipients/current"
+      ],
+      "first_seen": 1794797565.3447182,
+      "last_seen": 1794797569.1202285
+    },
+    {
+      "kind": "endpoint",
+      "service": "notification-service",
+      "method": "PUT",
+      "path_template": "/notifications/recipients/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "notification-service:8000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string",
+          "scheduledNotifications": {
+            "REMIND": {
+              "active": "boolean"
+            }
+          }
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.48,
+        "max": 58.14
+      },
+      "example_paths": [
+        "/notifications/recipients/current"
+      ],
+      "first_seen": 1794797565.3922777,
+      "last_seen": 1794797569.1288724
+    },
+    {
+      "kind": "endpoint",
+      "service": "statistics-service",
+      "method": "GET",
+      "path_template": "/statistics/current",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "statistics-service:7000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 32,
+      "status_codes": {
+        "200": 30,
+        "401": 2
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 2,
+        "status_codes_without_auth": {
+          "401": 2
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "date": "string:datetime",
+            "amount": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 5.09,
+        "max": 51.91
+      },
+      "example_paths": [
+        "/statistics/current"
+      ],
+      "first_seen": 1794797565.2219586,
+      "last_seen": 1794797569.0846689
+    },
+    {
+      "kind": "endpoint",
+      "service": "statistics-service",
+      "method": "GET",
+      "path_template": "/statistics/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "statistics-service:7000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 41,
+      "status_codes": {
+        "200": 30,
+        "401": 6,
+        "403": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 35,
+        "authorization_header_missing": 6,
+        "status_codes_without_auth": {
+          "401": 6
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "account": "string",
+            "amount": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.46,
+        "max": 17.05
+      },
+      "example_paths": [
+        "/statistics/1048",
+        "/statistics/1081",
+        "/statistics/1069"
+      ],
+      "first_seen": 1794797565.3023262,
+      "last_seen": 1794797569.1039562
+    },
+    {
+      "kind": "endpoint",
+      "service": "statistics-service",
+      "method": "PUT",
+      "path_template": "/statistics/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "statistics-service:7000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.77,
+        "max": 14.13
+      },
+      "example_paths": [
+        "/statistics/1"
+      ],
+      "first_seen": 1794797565.1507225,
+      "last_seen": 1794797569.0303712
+    }
+  ]
+}

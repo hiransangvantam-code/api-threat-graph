@@ -1,0 +1,55 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "productcatalogservice (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/hipstershop.ProductCatalogService/GetProduct": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/hipstershop.ProductCatalogService/ListProducts": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

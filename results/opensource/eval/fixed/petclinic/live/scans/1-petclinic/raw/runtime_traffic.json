@@ -1,0 +1,1678 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025216-baca67",
+  "collected_at": "2026-11-16T02:52:16+00:00",
+  "duration_ms": 18.3,
+  "inputs": [
+    "/work/scan-input/1-petclinic/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 625,
+    "flows_ignored": 1,
+    "endpoints": 28,
+    "services": 7,
+    "flows_by_capture_point": {
+      "east-west": 325,
+      "north-south": 300
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "admin-server",
+      "method": "GET",
+      "path_template": "/applications",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "admin-server:9090"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 5,
+      "status_codes": {
+        "200": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "200": 5
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "name": "string",
+            "status": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.72,
+        "max": 4.26
+      },
+      "example_paths": [
+        "/applications"
+      ],
+      "first_seen": 1794797526.0619059,
+      "last_seen": 1794797528.9684436
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/customer/owners",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "firstName": "string",
+            "lastName": "string",
+            "address": "string",
+            "telephone": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 8.2,
+        "max": 30.48
+      },
+      "example_paths": [
+        "/api/customer/owners"
+      ],
+      "first_seen": 1794797525.7631094,
+      "last_seen": 1794797529.3445446
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/customer/owners",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "firstName": "string",
+          "lastName": "string",
+          "address": "string",
+          "city": "string",
+          "telephone": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 9.73,
+        "max": 101.25
+      },
+      "example_paths": [
+        "/api/customer/owners"
+      ],
+      "first_seen": 1794797525.6207278,
+      "last_seen": 1794797529.2758415
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/customer/owners/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "firstName": "string",
+          "lastName": "string",
+          "address": "string",
+          "city": "string",
+          "telephone": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.8,
+        "max": 18.77
+      },
+      "example_paths": [
+        "/api/customer/owners/130",
+        "/api/customer/owners/106",
+        "/api/customer/owners/110"
+      ],
+      "first_seen": 1794797525.7244747,
+      "last_seen": 1794797529.3212583
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "PUT",
+      "path_template": "/api/customer/owners/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "firstName": "string",
+          "lastName": "string",
+          "address": "string",
+          "city": "string",
+          "telephone": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.3,
+        "max": 16.72
+      },
+      "example_paths": [
+        "/api/customer/owners/120",
+        "/api/customer/owners/124",
+        "/api/customer/owners/140"
+      ],
+      "first_seen": 1794797525.809434,
+      "last_seen": 1794797529.3529778
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/customer/owners/{id}/pets",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "birthDate": "string:datetime",
+          "typeId": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 10.12,
+        "max": 24.07
+      },
+      "example_paths": [
+        "/api/customer/owners/101/pets",
+        "/api/customer/owners/131/pets",
+        "/api/customer/owners/103/pets"
+      ],
+      "first_seen": 1794797525.8478715,
+      "last_seen": 1794797529.401835
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/customer/owners/{id}/pets/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "name": "string",
+          "owner": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.71,
+        "max": 54.09
+      },
+      "example_paths": [
+        "/api/customer/owners/114/pets/129",
+        "/api/customer/owners/135/pets/106",
+        "/api/customer/owners/138/pets/101"
+      ],
+      "first_seen": 1794797525.8742828,
+      "last_seen": 1794797529.46852
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "PUT",
+      "path_template": "/api/customer/owners/{id}/pets/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "birthDate": "string:datetime",
+          "typeId": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.14,
+        "max": 25.01
+      },
+      "example_paths": [
+        "/api/customer/owners/131/pets/135",
+        "/api/customer/owners/100/pets/134",
+        "/api/customer/owners/113/pets/103"
+      ],
+      "first_seen": 1794797525.8657246,
+      "last_seen": 1794797529.4345515
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/customer/petTypes",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 7.75,
+        "max": 22.39
+      },
+      "example_paths": [
+        "/api/customer/petTypes"
+      ],
+      "first_seen": 1794797525.8223052,
+      "last_seen": 1794797529.3751504
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/genai/chatclient",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "message": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "answer": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 20.11,
+        "max": 51.79
+      },
+      "example_paths": [
+        "/api/genai/chatclient"
+      ],
+      "first_seen": 1794797526.0063446,
+      "last_seen": 1794797529.5427718
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/vet/vets",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "firstName": "string",
+            "lastName": "string",
+            "specialties": [
+              "string"
+            ]
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 7.79,
+        "max": 15.21
+      },
+      "example_paths": [
+        "/api/vet/vets"
+      ],
+      "first_seen": 1794797525.9749634,
+      "last_seen": 1794797529.534549
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/visit/owners/{id}/pets/{id}/visits",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "date": "string:datetime",
+            "description": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 7.39,
+        "max": 15.55
+      },
+      "example_paths": [
+        "/api/visit/owners/118/pets/137/visits",
+        "/api/visit/owners/130/pets/115/visits",
+        "/api/visit/owners/115/pets/117/visits"
+      ],
+      "first_seen": 1794797525.9297397,
+      "last_seen": 1794797529.5072722
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "POST",
+      "path_template": "/api/visit/owners/{id}/pets/{id}/visits",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "date": "string:datetime",
+          "description": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.79,
+        "max": 25.96
+      },
+      "example_paths": [
+        "/api/visit/owners/121/pets/132/visits",
+        "/api/visit/owners/105/pets/101/visits",
+        "/api/visit/owners/137/pets/113/visits"
+      ],
+      "first_seen": 1794797525.9007087,
+      "last_seen": 1794797529.4818954
+    },
+    {
+      "kind": "endpoint",
+      "service": "api-gateway",
+      "method": "GET",
+      "path_template": "/api/visit/pets/visits",
+      "path_params": [],
+      "query_params": [
+        "petId"
+      ],
+      "hosts": [
+        "api-gateway:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "items": [
+            {
+              "id": "integer",
+              "petId": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.94,
+        "max": 15.25
+      },
+      "example_paths": [
+        "/api/visit/pets/visits"
+      ],
+      "first_seen": 1794797525.9574578,
+      "last_seen": 1794797529.5208762
+    },
+    {
+      "kind": "endpoint",
+      "service": "config-server",
+      "method": "GET",
+      "path_template": "/customers-service/docker",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "config-server:8888"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 5,
+      "status_codes": {
+        "200": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "200": 5
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "propertySources": [
+            {
+              "name": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 4.35,
+        "max": 6.3
+      },
+      "example_paths": [
+        "/customers-service/docker"
+      ],
+      "first_seen": 1794797526.0699778,
+      "last_seen": 1794797528.9748116
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "GET",
+      "path_template": "/owners",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "firstName": "string",
+            "lastName": "string",
+            "address": "string",
+            "telephone": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.52,
+        "max": 8.17
+      },
+      "example_paths": [
+        "/owners"
+      ],
+      "first_seen": 1794797525.7652752,
+      "last_seen": 1794797529.5824351
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "POST",
+      "path_template": "/owners",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "firstName": "string",
+          "lastName": "string",
+          "address": "string",
+          "city": "string",
+          "telephone": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.0,
+        "max": 18.38
+      },
+      "example_paths": [
+        "/owners"
+      ],
+      "first_seen": 1794797525.6965947,
+      "last_seen": 1794797529.2932472
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "GET",
+      "path_template": "/owners/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "firstName": "string",
+          "lastName": "string",
+          "address": "string",
+          "city": "string",
+          "telephone": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.63,
+        "max": 9.64
+      },
+      "example_paths": [
+        "/owners/130",
+        "/owners/106",
+        "/owners/110"
+      ],
+      "first_seen": 1794797525.7326357,
+      "last_seen": 1794797529.323118
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "PUT",
+      "path_template": "/owners/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "firstName": "string",
+          "lastName": "string",
+          "address": "string",
+          "city": "string",
+          "telephone": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.38,
+        "max": 4.59
+      },
+      "example_paths": [
+        "/owners/120",
+        "/owners/124",
+        "/owners/140"
+      ],
+      "first_seen": 1794797525.814271,
+      "last_seen": 1794797529.355152
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "POST",
+      "path_template": "/owners/{id}/pets",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "birthDate": "string:datetime",
+          "typeId": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.2,
+        "max": 13.38
+      },
+      "example_paths": [
+        "/owners/101/pets",
+        "/owners/131/pets",
+        "/owners/103/pets"
+      ],
+      "first_seen": 1794797525.8508043,
+      "last_seen": 1794797529.4042687
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "GET",
+      "path_template": "/owners/{id}/pets/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "name": "string",
+          "owner": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.49,
+        "max": 6.32
+      },
+      "example_paths": [
+        "/owners/114/pets/129",
+        "/owners/135/pets/106",
+        "/owners/138/pets/101"
+      ],
+      "first_seen": 1794797525.8765802,
+      "last_seen": 1794797529.4707444
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "PUT",
+      "path_template": "/owners/{id}/pets/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "birthDate": "string:datetime",
+          "typeId": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.9,
+        "max": 14.95
+      },
+      "example_paths": [
+        "/owners/131/pets/135",
+        "/owners/100/pets/134",
+        "/owners/113/pets/103"
+      ],
+      "first_seen": 1794797525.8682148,
+      "last_seen": 1794797529.4381347
+    },
+    {
+      "kind": "endpoint",
+      "service": "customers-service",
+      "method": "GET",
+      "path_template": "/petTypes",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "customers-service:8081"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.46,
+        "max": 6.91
+      },
+      "example_paths": [
+        "/petTypes"
+      ],
+      "first_seen": 1794797525.82636,
+      "last_seen": 1794797529.3768716
+    },
+    {
+      "kind": "endpoint",
+      "service": "genai-service",
+      "method": "POST",
+      "path_template": "/chatclient",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "genai-service:8084"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "message": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "answer": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 12.2,
+        "max": 42.98
+      },
+      "example_paths": [
+        "/chatclient"
+      ],
+      "first_seen": 1794797526.0117536,
+      "last_seen": 1794797529.57926
+    },
+    {
+      "kind": "endpoint",
+      "service": "vets-service",
+      "method": "GET",
+      "path_template": "/vets",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "vets-service:8083"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "firstName": "string",
+            "lastName": "string",
+            "specialties": [
+              "string"
+            ]
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.58,
+        "max": 6.04
+      },
+      "example_paths": [
+        "/vets"
+      ],
+      "first_seen": 1794797525.982125,
+      "last_seen": 1794797529.53635
+    },
+    {
+      "kind": "endpoint",
+      "service": "visits-service",
+      "method": "GET",
+      "path_template": "/owners/{id}/pets/{id}/visits",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "visits-service:8082"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "id": "integer",
+            "date": "string:datetime",
+            "description": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.5,
+        "max": 10.21
+      },
+      "example_paths": [
+        "/owners/118/pets/137/visits",
+        "/owners/130/pets/115/visits",
+        "/owners/115/pets/117/visits"
+      ],
+      "first_seen": 1794797525.9322062,
+      "last_seen": 1794797529.508964
+    },
+    {
+      "kind": "endpoint",
+      "service": "visits-service",
+      "method": "POST",
+      "path_template": "/owners/{id}/pets/{id}/visits",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "visits-service:8082"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "201": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "201": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "date": "string:datetime",
+          "description": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.41,
+        "max": 17.93
+      },
+      "example_paths": [
+        "/owners/121/pets/132/visits",
+        "/owners/105/pets/101/visits",
+        "/owners/137/pets/113/visits"
+      ],
+      "first_seen": 1794797525.9104464,
+      "last_seen": 1794797529.4849102
+    },
+    {
+      "kind": "endpoint",
+      "service": "visits-service",
+      "method": "GET",
+      "path_template": "/pets/visits",
+      "path_params": [],
+      "query_params": [
+        "petId"
+      ],
+      "hosts": [
+        "visits-service:8082"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "items": [
+            {
+              "id": "integer",
+              "petId": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.31,
+        "max": 4.36
+      },
+      "example_paths": [
+        "/pets/visits"
+      ],
+      "first_seen": 1794797525.9599223,
+      "last_seen": 1794797529.5237901
+    }
+  ]
+}

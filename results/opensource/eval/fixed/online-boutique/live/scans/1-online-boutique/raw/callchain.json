@@ -1,0 +1,801 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "callchain",
+  "collector": "opentelemetry",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-024933-06f8a2",
+  "collected_at": "2026-11-16T02:49:33+00:00",
+  "duration_ms": 17.2,
+  "inputs": [
+    "/work/scan-input/1-online-boutique/telemetry/spans.jsonl"
+  ],
+  "stats": {
+    "spans": 1395,
+    "spans_ignored": 0,
+    "traces": 255,
+    "services": 10,
+    "edges": 14,
+    "distinct_call_chains": 11,
+    "max_chain_depth": 3
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "service",
+      "service": "adservice",
+      "span_count": 45,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.AdService/GetAds",
+          "count": 45,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "cartservice",
+      "span_count": 150,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.CartService/AddItem",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "POST /hipstershop.CartService/EmptyCart",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "POST /hipstershop.CartService/GetCart",
+          "count": 90,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "checkoutservice",
+      "span_count": 135,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.CheckoutService/PlaceOrder",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "currencyservice",
+      "span_count": 60,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.CurrencyService/Convert",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "POST /hipstershop.CurrencyService/GetSupportedCurrencies",
+          "count": 45,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "emailservice",
+      "span_count": 15,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.EmailService/SendOrderConfirmation",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "frontend",
+      "span_count": 660,
+      "served_operations": [
+        {
+          "operation": "GET /",
+          "count": 45,
+          "errors": 0
+        },
+        {
+          "operation": "GET /assistant",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "GET /cart",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "GET /logout",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "GET /product-meta/{ids}",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "GET /product/{id}",
+          "count": 45,
+          "errors": 0
+        },
+        {
+          "operation": "POST /bot",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "POST /cart",
+          "count": 30,
+          "errors": 0
+        },
+        {
+          "operation": "POST /cart/checkout",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "POST /cart/empty",
+          "count": 15,
+          "errors": 0
+        },
+        {
+          "operation": "POST /setCurrency",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "paymentservice",
+      "span_count": 15,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.PaymentService/Charge",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "productcatalogservice",
+      "span_count": 165,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.ProductCatalogService/GetProduct",
+          "count": 75,
+          "errors": 0
+        },
+        {
+          "operation": "POST /hipstershop.ProductCatalogService/ListProducts",
+          "count": 90,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "recommendationservice",
+      "span_count": 90,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.RecommendationService/ListRecommendations",
+          "count": 45,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "service": "shippingservice",
+      "span_count": 60,
+      "served_operations": [
+        {
+          "operation": "POST /hipstershop.ShippingService/GetQuote",
+          "count": 45,
+          "errors": 0
+        },
+        {
+          "operation": "POST /hipstershop.ShippingService/ShipOrder",
+          "count": 15,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "checkoutservice",
+      "to": "cartservice",
+      "calls": 30,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.CartService/EmptyCart",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.1
+        },
+        {
+          "operation": "POST /hipstershop.CartService/GetCart",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.09
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "checkoutservice",
+      "to": "currencyservice",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.CurrencyService/Convert",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "checkoutservice",
+      "to": "emailservice",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.EmailService/SendOrderConfirmation",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "checkoutservice",
+      "to": "paymentservice",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.PaymentService/Charge",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "checkoutservice",
+      "to": "productcatalogservice",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.ProductCatalogService/GetProduct",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.1
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "checkoutservice",
+      "to": "shippingservice",
+      "calls": 30,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.ShippingService/GetQuote",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.11
+        },
+        {
+          "operation": "POST /hipstershop.ShippingService/ShipOrder",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "adservice",
+      "calls": 45,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.AdService/GetAds",
+          "count": 45,
+          "errors": 0,
+          "p50_ms": 0.12
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "cartservice",
+      "calls": 120,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.CartService/AddItem",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.09
+        },
+        {
+          "operation": "POST /hipstershop.CartService/EmptyCart",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 0.08
+        },
+        {
+          "operation": "POST /hipstershop.CartService/GetCart",
+          "count": 75,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "checkoutservice",
+      "calls": 15,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.CheckoutService/PlaceOrder",
+          "count": 15,
+          "errors": 0,
+          "p50_ms": 51.76
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "currencyservice",
+      "calls": 45,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.CurrencyService/GetSupportedCurrencies",
+          "count": 45,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "productcatalogservice",
+      "calls": 105,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.ProductCatalogService/GetProduct",
+          "count": 60,
+          "errors": 0,
+          "p50_ms": 0.1
+        },
+        {
+          "operation": "POST /hipstershop.ProductCatalogService/ListProducts",
+          "count": 45,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "recommendationservice",
+      "calls": 45,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.RecommendationService/ListRecommendations",
+          "count": 45,
+          "errors": 0,
+          "p50_ms": 5.1
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "frontend",
+      "to": "shippingservice",
+      "calls": 30,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.ShippingService/GetQuote",
+          "count": 30,
+          "errors": 0,
+          "p50_ms": 0.11
+        }
+      ]
+    },
+    {
+      "kind": "edge",
+      "from": "recommendationservice",
+      "to": "productcatalogservice",
+      "calls": 45,
+      "evidence": [
+        "client->server span"
+      ],
+      "operations": [
+        {
+          "operation": "POST /hipstershop.ProductCatalogService/ListProducts",
+          "count": 45,
+          "errors": 0,
+          "p50_ms": 0.09
+        }
+      ]
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "GET /",
+      "traces": 45,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "GET /assistant",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "GET /cart",
+      "traces": 30,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "GET /logout",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "GET /product-meta/{ids}",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "GET /product/{id}",
+      "traces": 45,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "POST /bot",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "POST /cart",
+      "traces": 30,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "POST /cart/checkout",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "POST /cart/empty",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "entrypoint",
+      "service": "frontend",
+      "operation": "POST /setCurrency",
+      "traces": 15,
+      "note": "trace starts here"
+    },
+    {
+      "kind": "call_chain",
+      "traces": 45,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "GET /"
+        },
+        {
+          "depth": 1,
+          "service": "currencyservice",
+          "operation": "POST /hipstershop.CurrencyService/GetSupportedCurrencies"
+        },
+        {
+          "depth": 1,
+          "service": "productcatalogservice",
+          "operation": "POST /hipstershop.ProductCatalogService/ListProducts"
+        },
+        {
+          "depth": 1,
+          "service": "cartservice",
+          "operation": "POST /hipstershop.CartService/GetCart"
+        },
+        {
+          "depth": 1,
+          "service": "adservice",
+          "operation": "POST /hipstershop.AdService/GetAds"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 45,
+      "depth": 3,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "GET /product/{id}"
+        },
+        {
+          "depth": 1,
+          "service": "productcatalogservice",
+          "operation": "POST /hipstershop.ProductCatalogService/GetProduct"
+        },
+        {
+          "depth": 1,
+          "service": "recommendationservice",
+          "operation": "POST /hipstershop.RecommendationService/ListRecommendations"
+        },
+        {
+          "depth": 2,
+          "service": "productcatalogservice",
+          "operation": "POST /hipstershop.ProductCatalogService/ListProducts"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "GET /cart"
+        },
+        {
+          "depth": 1,
+          "service": "cartservice",
+          "operation": "POST /hipstershop.CartService/GetCart"
+        },
+        {
+          "depth": 1,
+          "service": "shippingservice",
+          "operation": "POST /hipstershop.ShippingService/GetQuote"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 30,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "POST /cart"
+        },
+        {
+          "depth": 1,
+          "service": "cartservice",
+          "operation": "POST /hipstershop.CartService/AddItem"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "POST /cart/empty"
+        },
+        {
+          "depth": 1,
+          "service": "cartservice",
+          "operation": "POST /hipstershop.CartService/EmptyCart"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "POST /setCurrency"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "GET /logout"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 3,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "POST /cart/checkout"
+        },
+        {
+          "depth": 1,
+          "service": "checkoutservice",
+          "operation": "POST /hipstershop.CheckoutService/PlaceOrder"
+        },
+        {
+          "depth": 2,
+          "service": "cartservice",
+          "operation": "POST /hipstershop.CartService/GetCart"
+        },
+        {
+          "depth": 2,
+          "service": "productcatalogservice",
+          "operation": "POST /hipstershop.ProductCatalogService/GetProduct"
+        },
+        {
+          "depth": 2,
+          "service": "currencyservice",
+          "operation": "POST /hipstershop.CurrencyService/Convert"
+        },
+        {
+          "depth": 2,
+          "service": "shippingservice",
+          "operation": "POST /hipstershop.ShippingService/GetQuote"
+        },
+        {
+          "depth": 2,
+          "service": "paymentservice",
+          "operation": "POST /hipstershop.PaymentService/Charge"
+        },
+        {
+          "depth": 2,
+          "service": "shippingservice",
+          "operation": "POST /hipstershop.ShippingService/ShipOrder"
+        },
+        {
+          "depth": 2,
+          "service": "cartservice",
+          "operation": "POST /hipstershop.CartService/EmptyCart"
+        },
+        {
+          "depth": 2,
+          "service": "emailservice",
+          "operation": "POST /hipstershop.EmailService/SendOrderConfirmation"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 2,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "GET /product-meta/{ids}"
+        },
+        {
+          "depth": 1,
+          "service": "productcatalogservice",
+          "operation": "POST /hipstershop.ProductCatalogService/GetProduct"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "GET /assistant"
+        }
+      ]
+    },
+    {
+      "kind": "call_chain",
+      "traces": 15,
+      "depth": 1,
+      "hops": [
+        {
+          "depth": 0,
+          "service": "frontend",
+          "operation": "POST /bot"
+        }
+      ]
+    }
+  ]
+}

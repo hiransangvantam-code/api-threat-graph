@@ -1,0 +1,47 @@
+{
+ "system": "acme-air",
+ "R_before": 711.5,
+ "findings_before": 143,
+ "applied": [
+  "harden:svc:acmeair-auth-service",
+  "harden:svc:acmeair-booking-db",
+  "harden:svc:acmeair-booking-service",
+  "harden:svc:acmeair-customer-db",
+  "harden:svc:acmeair-customer-service",
+  "harden:svc:acmeair-flight-db",
+  "harden:svc:acmeair-flight-service",
+  "harden:svc:acmeair-main-service",
+  "netpol:svc:acmeair-auth-service",
+  "netpol:svc:acmeair-booking-db",
+  "netpol:svc:acmeair-booking-service",
+  "netpol:svc:acmeair-customer-db",
+  "netpol:svc:acmeair-customer-service",
+  "netpol:svc:acmeair-flight-db",
+  "netpol:svc:acmeair-flight-service",
+  "netpol:svc:acmeair-main-service"
+ ],
+ "applied_by_kind": {
+  "netpol": 8,
+  "clusterip": 0,
+  "harden": 8
+ },
+ "R_predicted": 527.0,
+ "edits": [
+  "harden acmeair-mainservice (upstream/mainservice/manifests/deploy-acmeair-mainservice-java.yaml)",
+  "harden acmeair-authservice (upstream/authservice/manifests/deploy-acmeair-authservice-java.yaml)",
+  "harden acmeair-bookingservice (upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml)",
+  "harden acmeair-booking-db (upstream/bookingservice/manifests/deploy-acmeair-bookingservice-java.yaml)",
+  "harden acmeair-customerservice (upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml)",
+  "harden acmeair-customer-db (upstream/customerservice/manifests/deploy-acmeair-customerservice-java.yaml)",
+  "harden acmeair-flightservice (upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml)",
+  "harden acmeair-flight-db (upstream/flightservice/manifests/deploy-acmeair-flightservice-java.yaml)",
+  "netpol acmeair-auth-service",
+  "netpol acmeair-booking-db",
+  "netpol acmeair-booking-service",
+  "netpol acmeair-customer-db",
+  "netpol acmeair-customer-service",
+  "netpol acmeair-flight-db",
+  "netpol acmeair-flight-service",
+  "netpol acmeair-main-service"
+ ]
+}

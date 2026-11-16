@@ -142,19 +142,47 @@ def stack_fix(f: dict, eujf: dict) -> tuple[str, str | None]:
         return ("Rate-limit the login" + (f" in {GATEWAY_AUTH[gw][0]}" if gw in GATEWAY_AUTH else " at the Ingress")
                 + " and lock an account out after repeated failures.", GATEWAY_RATE.get(gw, GATEWAY_RATE[None]))
     if rid == "API8-NETPOL":
-        allowed = next((x.split(":", 1)[1].strip() for x in f["evidence"] if x.startswith("callers seen in traces")), "")
-        allowed = [a.strip() for a in allowed.split(",") if a.strip() and not a.startswith("none")]
+        traced = next((x.split(":", 1)[1].strip() for x in f["evidence"] if x.startswith("callers seen in traces")), "")
+        traced = [a.strip() for a in traced.split(",") if a.strip() and not a.startswith("none")]
         istio = gw == "istio" or any(x.get("source") == "Istio Gateway" for x in eujf.get("edge_tls", []))
         entry = ("    - namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: istio-system}}\n"
                  "      podSelector: {matchLabels: {istio: ingressgateway}}") if istio else \
                 "    - namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: ingress-nginx}}"
-        peers = "\n".join(f"    - podSelector: {{matchLabels: {{app: {a}}}}}" for a in allowed) or entry
         svc = f["target"].split(":", 1)[1]
-        who = ", ".join(allowed) or ("the Istio ingress gateway" if istio else "the ingress controller")
-        return (f"Allow only the callers the traces show ({who})." if allowed else
-                f"No internal caller was seen: allow only the entry point ({who}).",
-                f"apiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata: {{name: {svc}}}\nspec:\n"
-                f"  podSelector: {{matchLabels: {{app: {svc}}}}}\n  policyTypes: [Ingress]\n  ingress:\n  - from:\n{peers}")
+        # v1.6, from the fix experiment on the open-source systems (results/opensource/fixes):
+        #  - callers come from traces, else from the configuration (gateway routes, connection settings),
+        #    so an untraced database still lets in the service that uses it
+        #  - an entry service keeps its outside traffic (Bank of Anthos' frontend let in only the load
+        #    generator, which would have cut off its users)
+        #  - the selectors use the pod labels the workloads really have (Acme Air labels pods name: ...)
+        allowed = traced or sorted({d["from"] for d in eujf.get("dependencies", []) if d.get("to") == svc and d.get("from") != svc})
+        s_rec = next((x for x in eujf.get("services", []) if x["name"] == svc), {}) or {}
+        # the front door: exposed to the internet, or the gateway / edge service an Istio Gateway or
+        # Ingress sends traffic to (Bookinfo's productpage sits behind an Istio Gateway)
+        front = svc in (eujf.get("gateway"), eujf.get("edge"))
+        public = (s_rec.get("exposure") or {}).get("level") == "internet" or front or (not s_rec and not allowed)
+        lb = s_rec.get("published") or any("LoadBalancer" in v or "NodePort" in v for v in (s_rec.get("exposure") or {}).get("via", []))
+        outside = []
+        if public:
+            outside.append("    - ipBlock: {cidr: 0.0.0.0/0, except: [10.0.0.0/8]}   # its users from outside; put the cluster's pod range in except"
+                           if lb and not istio else entry)
+
+        def sel(name: str) -> str:
+            lab = next((x.get("pod_labels") for x in eujf.get("services", []) if x["name"] == name), None) or {}
+            lab = {"app": lab["app"]} if "app" in lab else lab or {"app": name}
+            return "{" + ", ".join(f"{k}: {v}" for k, v in lab.items()) + "}"
+        peers = [f"    - podSelector: {{matchLabels: {sel(a)}}}" for a in allowed] + outside
+        head = (f"apiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata: {{name: {svc}}}\nspec:\n"
+                f"  podSelector: {{matchLabels: {sel(svc)}}}\n  policyTypes: [Ingress]\n")
+        outside_who = ["its outside users" if lb and not istio else ("the Istio ingress gateway" if istio else "the ingress controller")] if public else []
+        if not peers:
+            return ("No caller was seen in traces or in the configuration: the policy below denies everything; "
+                    "add the callers you know before applying it.",
+                    head + "  ingress: []      # deny all until the callers are listed")
+        how = "the traces show" if traced else "the configuration names (no traces)"
+        return (f"Allow only the callers {how} ({', '.join(allowed + outside_who)})." if allowed else
+                f"Allow only the entry point ({', '.join(outside_who)}).",
+                head + "  ingress:\n  - from:\n" + "\n".join(peers))
     if rid in K8S_FIX:
         return f["recommendation"], K8S_FIX[rid]
     return CODE_FIX.get(rid, f["recommendation"]), code_snippet(f, eujf)

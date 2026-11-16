@@ -1,0 +1,1946 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023033-0b0895",
+  "collected_at": "2026-11-16T02:30:33+00:00",
+  "duration_ms": 21.8,
+  "inputs": [
+    "/work/scan-input/1-acme-air/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 809,
+    "flows_ignored": 1,
+    "endpoints": 35,
+    "services": 6,
+    "flows_by_capture_point": {
+      "east-west": 439,
+      "north-south": 370
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "acmeair-auth-service",
+      "method": "GET",
+      "path_template": "/auth/config/runtime",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-auth-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "runtime": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.04,
+        "max": 2.58
+      },
+      "example_paths": [
+        "/auth/config/runtime"
+      ],
+      "first_seen": 1794796222.8402424,
+      "last_seen": 1794796226.2411084
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-auth-service",
+      "method": "GET",
+      "path_template": "/auth/getJwk",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-auth-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "keys": [
+            {
+              "kty": "string",
+              "kid": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.4,
+        "max": 15.64
+      },
+      "example_paths": [
+        "/auth/getJwk"
+      ],
+      "first_seen": 1794796222.8310268,
+      "last_seen": 1794796226.2351804
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-auth-service",
+      "method": "POST",
+      "path_template": "/auth/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-auth-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 27,
+      "status_codes": {
+        "200": 12,
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 27,
+        "status_codes_without_auth": {
+          "200": 12,
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "login": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string",
+          "role": "string",
+          "access_token": "string",
+          "token_type": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.47,
+        "max": 43.71
+      },
+      "example_paths": [
+        "/auth/login"
+      ],
+      "first_seen": 1794796222.8468466,
+      "last_seen": 1794796226.4142058
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "POST",
+      "path_template": "/booking/bookflights",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 33,
+      "status_codes": {
+        "200": 30,
+        "401": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "userid": "string",
+          "toFlightId": "integer",
+          "retFlightId": "integer",
+          "oneWayFlight": "boolean"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "bookingId": "integer",
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 11.06,
+        "max": 36.6
+      },
+      "example_paths": [
+        "/booking/bookflights"
+      ],
+      "first_seen": 1794796222.8593543,
+      "last_seen": 1794796226.2616708
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "GET",
+      "path_template": "/booking/byuser/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 44,
+      "status_codes": {
+        "200": 30,
+        "401": 5,
+        "403": 9
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 39,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "bookingId": "integer",
+            "customerId": "string",
+            "flightId": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 1.9,
+        "max": 9.43
+      },
+      "example_paths": [
+        "/booking/byuser/1003",
+        "/booking/byuser/1060",
+        "/booking/byuser/1080"
+      ],
+      "first_seen": 1794796222.9313846,
+      "last_seen": 1794796226.2891061
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "POST",
+      "path_template": "/booking/cancelbooking",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 20,
+      "status_codes": {
+        "200": 15,
+        "401": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "userid": "string",
+          "number": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.96,
+        "max": 4.35
+      },
+      "example_paths": [
+        "/booking/cancelbooking"
+      ],
+      "first_seen": 1794796222.9540973,
+      "last_seen": 1794796226.3007255
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "GET",
+      "path_template": "/booking/config/countBookings",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.72,
+        "max": 6.25
+      },
+      "example_paths": [
+        "/booking/config/countBookings"
+      ],
+      "first_seen": 1794796222.9619625,
+      "last_seen": 1794796226.306771
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "GET",
+      "path_template": "/booking/config/runtime",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "runtime": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.74,
+        "max": 4.5
+      },
+      "example_paths": [
+        "/booking/config/runtime"
+      ],
+      "first_seen": 1794796222.9693115,
+      "last_seen": 1794796226.3125448
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "GET",
+      "path_template": "/booking/loader/load",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 3,
+      "status_codes": {
+        "200": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "200": 3
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "loaded": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.0,
+        "max": 4.55
+      },
+      "example_paths": [
+        "/booking/loader/load"
+      ],
+      "first_seen": 1794796223.132026,
+      "last_seen": 1794796225.5533102
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-booking-service",
+      "method": "GET",
+      "path_template": "/booking/rewards/flightsuccesses",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-booking-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.84,
+        "max": 2.88
+      },
+      "example_paths": [
+        "/booking/rewards/flightsuccesses"
+      ],
+      "first_seen": 1794796222.9776921,
+      "last_seen": 1794796226.3183515
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-customer-service",
+      "method": "GET",
+      "path_template": "/customer/byid/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "acmeair-customer-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 41,
+      "status_codes": {
+        "200": 30,
+        "401": 4,
+        "403": 7
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 37,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "401": 4
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "_id": "string",
+          "status": "string",
+          "total_miles": "integer",
+          "phoneNumber": "string",
+          "address": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.05,
+        "max": 6.2
+      },
+      "example_paths": [
+        "/customer/byid/1048",
+        "/customer/byid/1081",
+        "/customer/byid/1040"
+      ],
+      "first_seen": 1794796222.9943616,
+      "last_seen": 1794796226.3378997
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-customer-service",
+      "method": "POST",
+      "path_template": "/customer/byid/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "acmeair-customer-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 25,
+      "status_codes": {
+        "200": 15,
+        "401": 4,
+        "403": 6
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 21,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "401": 4
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "phoneNumber": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.27,
+        "max": 6.38
+      },
+      "example_paths": [
+        "/customer/byid/1084",
+        "/customer/byid/1036",
+        "/customer/byid/1070"
+      ],
+      "first_seen": 1794796223.0337105,
+      "last_seen": 1794796226.3565779
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-customer-service",
+      "method": "GET",
+      "path_template": "/customer/config/countCustomers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-customer-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.17,
+        "max": 4.7
+      },
+      "example_paths": [
+        "/customer/config/countCustomers"
+      ],
+      "first_seen": 1794796223.0597343,
+      "last_seen": 1794796226.3642192
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-customer-service",
+      "method": "POST",
+      "path_template": "/customer/internal/updateCustomerTotalMiles/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "acmeair-customer-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total_miles": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.21,
+        "max": 5.8
+      },
+      "example_paths": [
+        "/customer/internal/updateCustomerTotalMiles/1"
+      ],
+      "first_seen": 1794796222.8891048,
+      "last_seen": 1794796226.2673974
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-customer-service",
+      "method": "GET",
+      "path_template": "/customer/loader/load",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-customer-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 3,
+      "status_codes": {
+        "200": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "200": 3
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "loaded": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.19,
+        "max": 3.95
+      },
+      "example_paths": [
+        "/customer/loader/load"
+      ],
+      "first_seen": 1794796223.139887,
+      "last_seen": 1794796225.5565748
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-flight-service",
+      "method": "GET",
+      "path_template": "/flight/config/countFlights",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-flight-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.86,
+        "max": 3.8
+      },
+      "example_paths": [
+        "/flight/config/countFlights"
+      ],
+      "first_seen": 1794796223.1081946,
+      "last_seen": 1794796226.4054253
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-flight-service",
+      "method": "POST",
+      "path_template": "/flight/getrewardmiles",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-flight-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 0,
+        "status_codes_without_auth": {},
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "miles": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.16,
+        "max": 7.97
+      },
+      "example_paths": [
+        "/flight/getrewardmiles"
+      ],
+      "first_seen": 1794796222.8824062,
+      "last_seen": 1794796226.2638404
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-flight-service",
+      "method": "GET",
+      "path_template": "/flight/loader/load",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-flight-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 3,
+      "status_codes": {
+        "200": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "200": 3
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "loaded": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.06,
+        "max": 3.89
+      },
+      "example_paths": [
+        "/flight/loader/load"
+      ],
+      "first_seen": 1794796223.147296,
+      "last_seen": 1794796225.5604005
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-flight-service",
+      "method": "POST",
+      "path_template": "/flight/queryflights",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-flight-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "fromAirport": "string",
+          "toAirport": "string",
+          "fromDate": "string:datetime",
+          "oneWay": "boolean"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "tripFlights": [
+            {
+              "flightsOptions": [
+                {
+                  "flightId": "integer"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.4,
+        "max": 7.99
+      },
+      "example_paths": [
+        "/flight/queryflights"
+      ],
+      "first_seen": 1794796223.07432,
+      "last_seen": 1794796226.390904
+    },
+    {
+      "kind": "endpoint",
+      "service": "acmeair-main-service",
+      "method": "GET",
+      "path_template": "/acmeair",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "acmeair-main-service:9080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "page": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.21,
+        "max": 3.77
+      },
+      "example_paths": [
+        "/acmeair"
+      ],
+      "first_seen": 1794796222.8117616,
+      "last_seen": 1794796226.228779
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/acmeair",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "page": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.54,
+        "max": 28.44
+      },
+      "example_paths": [
+        "/acmeair"
+      ],
+      "first_seen": 1794796222.7896352,
+      "last_seen": 1794796226.2270017
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/auth/config/runtime",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "runtime": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.24,
+        "max": 7.03
+      },
+      "example_paths": [
+        "/auth/config/runtime"
+      ],
+      "first_seen": 1794796222.83839,
+      "last_seen": 1794796226.2393625
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/auth/getJwk",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "keys": [
+            {
+              "kty": "string",
+              "kid": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.84,
+        "max": 25.9
+      },
+      "example_paths": [
+        "/auth/getJwk"
+      ],
+      "first_seen": 1794796222.8268907,
+      "last_seen": 1794796226.2336216
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "POST",
+      "path_template": "/auth/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 27,
+      "status_codes": {
+        "200": 12,
+        "401": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 27,
+        "status_codes_without_auth": {
+          "200": 12,
+          "401": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "login": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user": "string",
+          "role": "string",
+          "access_token": "string",
+          "token_type": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.71,
+        "max": 48.7
+      },
+      "example_paths": [
+        "/auth/login"
+      ],
+      "first_seen": 1794796222.8449924,
+      "last_seen": 1794796226.411593
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "POST",
+      "path_template": "/booking/bookflights",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 33,
+      "status_codes": {
+        "200": 30,
+        "401": 3
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 30,
+        "authorization_header_missing": 3,
+        "status_codes_without_auth": {
+          "401": 3
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "userid": "string",
+          "toFlightId": "integer",
+          "retFlightId": "integer",
+          "oneWayFlight": "boolean"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "bookingId": "integer",
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 15.85,
+        "max": 45.77
+      },
+      "example_paths": [
+        "/booking/bookflights"
+      ],
+      "first_seen": 1794796222.8558402,
+      "last_seen": 1794796226.2599852
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/booking/byuser/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 44,
+      "status_codes": {
+        "200": 30,
+        "401": 5,
+        "403": 9
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 39,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "bookingId": "integer",
+            "customerId": "string",
+            "flightId": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 5.96,
+        "max": 15.95
+      },
+      "example_paths": [
+        "/booking/byuser/1003",
+        "/booking/byuser/1060",
+        "/booking/byuser/1080"
+      ],
+      "first_seen": 1794796222.929267,
+      "last_seen": 1794796226.2872713
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "POST",
+      "path_template": "/booking/cancelbooking",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 20,
+      "status_codes": {
+        "200": 15,
+        "401": 5
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 15,
+        "authorization_header_missing": 5,
+        "status_codes_without_auth": {
+          "401": 5
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "userid": "string",
+          "number": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.59,
+        "max": 10.23
+      },
+      "example_paths": [
+        "/booking/cancelbooking"
+      ],
+      "first_seen": 1794796222.9519894,
+      "last_seen": 1794796226.2991796
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/booking/config/countBookings",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.35,
+        "max": 10.6
+      },
+      "example_paths": [
+        "/booking/config/countBookings"
+      ],
+      "first_seen": 1794796222.9599445,
+      "last_seen": 1794796226.3053324
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/booking/config/runtime",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "runtime": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.45,
+        "max": 13.47
+      },
+      "example_paths": [
+        "/booking/config/runtime"
+      ],
+      "first_seen": 1794796222.967327,
+      "last_seen": 1794796226.3108628
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/booking/rewards/flightsuccesses",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.83,
+        "max": 10.09
+      },
+      "example_paths": [
+        "/booking/rewards/flightsuccesses"
+      ],
+      "first_seen": 1794796222.974905,
+      "last_seen": 1794796226.3165529
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/customer/byid/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 41,
+      "status_codes": {
+        "200": 30,
+        "401": 4,
+        "403": 7
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 37,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "401": 4
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "_id": "string",
+          "status": "string",
+          "total_miles": "integer",
+          "phoneNumber": "string",
+          "address": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.21,
+        "max": 19.6
+      },
+      "example_paths": [
+        "/customer/byid/1048",
+        "/customer/byid/1081",
+        "/customer/byid/1040"
+      ],
+      "first_seen": 1794796222.9908004,
+      "last_seen": 1794796226.3361049
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "POST",
+      "path_template": "/customer/byid/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 25,
+      "status_codes": {
+        "200": 15,
+        "401": 4,
+        "403": 6
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 21,
+        "authorization_header_missing": 4,
+        "status_codes_without_auth": {
+          "401": 4
+        },
+        "schemes": [
+          "Bearer"
+        ],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "phoneNumber": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string",
+          "error": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.13,
+        "max": 12.96
+      },
+      "example_paths": [
+        "/customer/byid/1084",
+        "/customer/byid/1036",
+        "/customer/byid/1070"
+      ],
+      "first_seen": 1794796223.0298076,
+      "last_seen": 1794796226.355156
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/customer/config/countCustomers",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.44,
+        "max": 10.63
+      },
+      "example_paths": [
+        "/customer/config/countCustomers"
+      ],
+      "first_seen": 1794796223.05678,
+      "last_seen": 1794796226.3625166
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "GET",
+      "path_template": "/flight/config/countFlights",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.56,
+        "max": 9.21
+      },
+      "example_paths": [
+        "/flight/config/countFlights"
+      ],
+      "first_seen": 1794796223.1062984,
+      "last_seen": 1794796226.4031813
+    },
+    {
+      "kind": "endpoint",
+      "service": "ingress-nginx-controller",
+      "method": "POST",
+      "path_template": "/flight/queryflights",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "ingress-nginx-controller:80"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "fromAirport": "string",
+          "toAirport": "string",
+          "fromDate": "string:datetime",
+          "oneWay": "boolean"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "tripFlights": [
+            {
+              "flightsOptions": [
+                {
+                  "flightId": "integer"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 7.01,
+        "max": 16.18
+      },
+      "example_paths": [
+        "/flight/queryflights"
+      ],
+      "first_seen": 1794796223.0686045,
+      "last_seen": 1794796226.3890066
+    }
+  ]
+}

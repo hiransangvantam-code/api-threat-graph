@@ -1,0 +1,476 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "openapi",
+  "collector": "openapi-prober",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023317-eb5a08",
+  "collected_at": "2026-11-16T02:33:18+00:00",
+  "duration_ms": 313.5,
+  "inputs": [
+    "/target/upstream/ftgo-consumer-service-api-spec/src/main/resources/ftgo-consumer-service-swagger.json",
+    "/target/upstream/ftgo-restaurant-service-api-spec/src/main/resources/ftgo-restaurant-service-api-spec/web/ftgo-restaurant-service-swagger.json"
+  ],
+  "stats": {
+    "specs": 2,
+    "services_with_spec": [
+      "ftgo-consumer-service",
+      "ftgo-restaurant-service"
+    ],
+    "services_without_live_spec": [
+      "ftgo-api-gateway",
+      "ftgo-consumer-service",
+      "ftgo-kitchen-service",
+      "ftgo-order-history-service",
+      "ftgo-order-service",
+      "ftgo-restaurant-service"
+    ],
+    "operations": 4,
+    "probes": 60
+  },
+  "warnings": [
+    "ftgo-api-gateway: no live spec at any probed path",
+    "ftgo-consumer-service: no live spec at any probed path",
+    "ftgo-order-service: no live spec at any probed path",
+    "ftgo-order-history-service: no live spec at any probed path",
+    "ftgo-kitchen-service: no live spec at any probed path",
+    "ftgo-restaurant-service: no live spec at any probed path"
+  ],
+  "records": [
+    {
+      "kind": "spec",
+      "service": "ftgo-consumer-service",
+      "origin": "file",
+      "location": "/target/upstream/ftgo-consumer-service-api-spec/src/main/resources/ftgo-consumer-service-swagger.json",
+      "spec_version": "2.0",
+      "title": "Api Documentation",
+      "api_version": "1.0",
+      "servers": [
+        "http://localhost:8081/"
+      ],
+      "security_schemes": {},
+      "global_security": null,
+      "operation_count": 2,
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/consumers",
+          "operation_id": "createUsingPOST",
+          "summary": "create",
+          "tags": [
+            "consumer-controller"
+          ],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "name": "object?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/consumers/{consumerId}",
+          "operation_id": "getUsingGET",
+          "summary": "get",
+          "tags": [
+            "consumer-controller"
+          ],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "consumerId",
+              "in": "path",
+              "required": true,
+              "type": "integer:int64"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "ftgo-restaurant-service",
+      "origin": "file",
+      "location": "/target/upstream/ftgo-restaurant-service-api-spec/src/main/resources/ftgo-restaurant-service-api-spec/web/ftgo-restaurant-service-swagger.json",
+      "spec_version": "2.0",
+      "title": "Api Documentation",
+      "api_version": "1.0",
+      "servers": [
+        "http://localhost:8084/"
+      ],
+      "security_schemes": {},
+      "global_security": null,
+      "operation_count": 2,
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/restaurants",
+          "operation_id": "createUsingPOST",
+          "summary": "create",
+          "tags": [
+            "restaurant-controller"
+          ],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": true,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "address": "object?",
+              "menu": "object?",
+              "name": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/restaurants/{restaurantId}",
+          "operation_id": "getUsingGET",
+          "summary": "get",
+          "tags": [
+            "restaurant-controller"
+          ],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "restaurantId",
+              "in": "path",
+              "required": true,
+              "type": "integer:int64"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        }
+      ]
+    }
+  ],
+  "probe_log": [
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-api-gateway",
+      "url": "http://ftgo-api-gateway:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-consumer-service",
+      "url": "http://ftgo-consumer-service:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-service",
+      "url": "http://ftgo-order-service:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-order-history-service",
+      "url": "http://ftgo-order-history-service:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-kitchen-service",
+      "url": "http://ftgo-kitchen-service:8080/q/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/api-docs",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/openapi",
+      "result": 404
+    },
+    {
+      "service": "ftgo-restaurant-service",
+      "url": "http://ftgo-restaurant-service:8080/q/openapi",
+      "result": 404
+    }
+  ]
+}

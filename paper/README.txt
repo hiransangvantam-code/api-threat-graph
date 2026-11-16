@@ -10,19 +10,20 @@ Build
   pdflatex main.tex
   pdflatex main.tex      (second run resolves figure, table and reference numbers)
 
-Overleaf: upload this ZIP as a new project; the compiler is pdfLaTeX and the main file is main.tex.
+Overleaf: upload this folder (or the ZIP) as a new project; the compiler is pdfLaTeX and the main file is main.tex.
 
-Where the figures come from
-  fig_oss_groups.png, fig_oss_reach.png, fig_oss_plans.png
-      drawn by bench/oss_figures.py in the project repository from the saved benchmark runs
-      (BENCH-Windows.bat / bench.sh produce the same charts in results/opensource/figures/)
-  fig_discovery.png, fig_curve.png, fig_stress.png
-      drawn from results/tables.md and results/stress/ in the repository
-  fig_threatgraph.png, fig_fixcard.png
-      screenshots of ATG's threat graph page and hardening report for ShopLite
+Where the figures come from (all from runs on the ten open-source systems)
+  fig_oss_groups.png, fig_oss_reach.png
+      bench/oss_figures.py (BENCH-Windows.bat / bench.sh draw the same charts in results/opensource/figures/)
+  fig_window.png, fig_fixes.png, fig_stress_oss.png, fig_oss_plans.png
+      bench/oss_report.py, from results/opensource/eval/ (results/opensource/eval/figures/)
+  fig_threatgraph_boa.png, fig_fixcard_boa.png
+      screenshots of ATG's threat graph page and hardening report for Bank of Anthos
   fig_architecture.png
       the system architecture diagram
 
 Word version
   make_docx.py builds main.docx from main.tex and main.aux (run pdflatex first; needs pandoc):
     python3 make_docx.py
+Section V alone, as pages and one picture per figure and table
+  python3 make_eval.py

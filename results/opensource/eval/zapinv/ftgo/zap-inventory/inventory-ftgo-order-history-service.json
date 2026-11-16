@@ -1,0 +1,28 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ftgo-order-history-service (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/orders": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "consumerId",
+      "in": "query",
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

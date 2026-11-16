@@ -1,0 +1,1132 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "openapi",
+  "collector": "openapi-prober",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025335-5c8f78",
+  "collected_at": "2026-11-16T02:53:35+00:00",
+  "duration_ms": 94.5,
+  "inputs": [
+    "http://customer-core:8110/v3/api-docs",
+    "http://customer-self-service-backend:8080/v3/api-docs",
+    "http://customer-management-backend:8100/v3/api-docs",
+    "http://policy-management-backend:8090/v3/api-docs"
+  ],
+  "stats": {
+    "specs": 4,
+    "services_with_spec": [
+      "customer-core",
+      "customer-management-backend",
+      "customer-self-service-backend",
+      "policy-management-backend"
+    ],
+    "services_without_live_spec": [
+      "spring-boot-admin"
+    ],
+    "operations": 37,
+    "probes": 22
+  },
+  "warnings": [
+    "spring-boot-admin: no live spec at any probed path"
+  ],
+  "records": [
+    {
+      "kind": "spec",
+      "service": "customer-core",
+      "origin": "live",
+      "location": "http://customer-core:8110/v3/api-docs",
+      "spec_version": "3.0.1",
+      "title": "customer-core API",
+      "api_version": "v1",
+      "servers": [
+        "http://customer-core:8110"
+      ],
+      "security_schemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        },
+        "apiKey": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Authorization"
+        }
+      },
+      "global_security": null,
+      "operation_count": 7,
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/customers",
+          "operation_id": "get_customers",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "POST",
+          "path": "/customers",
+          "operation_id": "post_customers",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{ids}",
+          "operation_id": "get_customers_ids",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "ids",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "PUT",
+          "path": "/customers/{customerId}",
+          "operation_id": "put_customers_customerId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "PUT",
+          "path": "/customers/{customerId}/address",
+          "operation_id": "put_customers_customerId_address",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/cities/{postalCode}",
+          "operation_id": "get_cities_postalCode",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "postalCode",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/getCustomers/{ids}",
+          "operation_id": "get_getCustomers_ids",
+          "summary": null,
+          "tags": [],
+          "deprecated": true,
+          "parameters": [
+            {
+              "name": "ids",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "apiKey": []
+            }
+          ],
+          "auth_declared": "required"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "customer-self-service-backend",
+      "origin": "live",
+      "location": "http://customer-self-service-backend:8080/v3/api-docs",
+      "spec_version": "3.0.1",
+      "title": "customer-self-service-backend API",
+      "api_version": "v1",
+      "servers": [
+        "http://customer-self-service-backend:8080"
+      ],
+      "security_schemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        },
+        "apiKey": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Authorization"
+        }
+      },
+      "global_security": null,
+      "operation_count": 12,
+      "operations": [
+        {
+          "method": "POST",
+          "path": "/auth",
+          "operation_id": "post_auth",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/auth/signup",
+          "operation_id": "post_auth_signup",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "email": "string?",
+              "password": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/user",
+          "operation_id": "get_user",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/cities/{postalCode}",
+          "operation_id": "get_cities_postalCode",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "postalCode",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/insurance-quote-requests",
+          "operation_id": "get_insurance_quote_requests",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "POST",
+          "path": "/insurance-quote-requests",
+          "operation_id": "post_insurance_quote_requests",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "customerInfo": "object?",
+              "insuranceOptions": "object?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/insurance-quote-requests/{insuranceQuoteRequestId}",
+          "operation_id": "get_insurance_quote_requests_insuranceQuoteRequestId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "insuranceQuoteRequestId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "PATCH",
+          "path": "/insurance-quote-requests/{id}",
+          "operation_id": "patch_insurance_quote_requests_id",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "status": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "PUT",
+          "path": "/customers/{customerId}/address",
+          "operation_id": "put_customers_customerId_address",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "streetAddress": "string?",
+              "postalCode": "string?",
+              "city": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{customerId}",
+          "operation_id": "get_customers_customerId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "POST",
+          "path": "/customers",
+          "operation_id": "post_customers",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "firstname": "string?",
+              "lastname": "string?",
+              "birthday": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{customerId}/insurance-quote-requests",
+          "operation_id": "get_customers_customerId_insurance_quote_requests",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "auth_declared": "required"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "customer-management-backend",
+      "origin": "live",
+      "location": "http://customer-management-backend:8100/v3/api-docs",
+      "spec_version": "3.0.1",
+      "title": "customer-management-backend API",
+      "api_version": "v1",
+      "servers": [
+        "http://customer-management-backend:8100"
+      ],
+      "security_schemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        },
+        "apiKey": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Authorization"
+        }
+      },
+      "global_security": null,
+      "operation_count": 6,
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/customers",
+          "operation_id": "get_customers",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{customerId}",
+          "operation_id": "get_customers_customerId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "PUT",
+          "path": "/customers/{customerId}",
+          "operation_id": "put_customers_customerId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "firstname": "string?",
+              "lastname": "string?",
+              "phoneNumber": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/notifications",
+          "operation_id": "get_notifications",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/interaction-logs/{customerId}",
+          "operation_id": "get_interaction_logs_customerId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "PATCH",
+          "path": "/interaction-logs/{customerId}",
+          "operation_id": "patch_interaction_logs_customerId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "lastAcknowledgedInteractionId": "integer?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        }
+      ]
+    },
+    {
+      "kind": "spec",
+      "service": "policy-management-backend",
+      "origin": "live",
+      "location": "http://policy-management-backend:8090/v3/api-docs",
+      "spec_version": "3.0.1",
+      "title": "policy-management-backend API",
+      "api_version": "v1",
+      "servers": [
+        "http://policy-management-backend:8090"
+      ],
+      "security_schemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        },
+        "apiKey": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Authorization"
+        }
+      },
+      "global_security": null,
+      "operation_count": 12,
+      "operations": [
+        {
+          "method": "GET",
+          "path": "/customers",
+          "operation_id": "get_customers",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{customerIdDto}",
+          "operation_id": "get_customers_customerIdDto",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerIdDto",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{customerIdDto}/policies",
+          "operation_id": "get_customers_customerIdDto_policies",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "customerIdDto",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/insurance-quote-requests",
+          "operation_id": "get_insurance_quote_requests",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/insurance-quote-requests/{id}",
+          "operation_id": "get_insurance_quote_requests_id",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "PATCH",
+          "path": "/insurance-quote-requests/{id}",
+          "operation_id": "patch_insurance_quote_requests_id",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "status": "string?",
+              "insuranceQuote": "object?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/riskfactor/compute",
+          "operation_id": "post_riskfactor_compute",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "birthday": "string?",
+              "postalCode": "string?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/policies",
+          "operation_id": "get_policies",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/policies",
+          "operation_id": "post_policies",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "customerId": "integer?",
+              "policyType": "string?",
+              "insurancePremium": "object?"
+            }
+          },
+          "responses": [
+            "201"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/policies/{policyId}",
+          "operation_id": "get_policies_policyId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "policyId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "PUT",
+          "path": "/policies/{policyId}",
+          "operation_id": "put_policies_policyId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "policyId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": {
+            "required": false,
+            "content_types": [
+              "application/json"
+            ],
+            "fields": {
+              "policyType": "string?",
+              "insurancePremium": "object?"
+            }
+          },
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        },
+        {
+          "method": "DELETE",
+          "path": "/policies/{policyId}",
+          "operation_id": "delete_policies_policyId",
+          "summary": null,
+          "tags": [],
+          "deprecated": false,
+          "parameters": [
+            {
+              "name": "policyId",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "request_body": null,
+          "responses": [
+            "200"
+          ],
+          "security": null,
+          "auth_declared": "none"
+        }
+      ]
+    }
+  ],
+  "probe_log": [
+    {
+      "service": "customer-core",
+      "url": "http://customer-core:8110/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "customer-core",
+      "url": "http://customer-core:8110/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "customer-core",
+      "url": "http://customer-core:8110/v3/api-docs",
+      "result": "spec"
+    },
+    {
+      "service": "customer-self-service-backend",
+      "url": "http://customer-self-service-backend:8080/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "customer-self-service-backend",
+      "url": "http://customer-self-service-backend:8080/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "customer-self-service-backend",
+      "url": "http://customer-self-service-backend:8080/v3/api-docs",
+      "result": "spec"
+    },
+    {
+      "service": "customer-management-backend",
+      "url": "http://customer-management-backend:8100/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "customer-management-backend",
+      "url": "http://customer-management-backend:8100/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "customer-management-backend",
+      "url": "http://customer-management-backend:8100/v3/api-docs",
+      "result": "spec"
+    },
+    {
+      "service": "policy-management-backend",
+      "url": "http://policy-management-backend:8090/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "policy-management-backend",
+      "url": "http://policy-management-backend:8090/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "policy-management-backend",
+      "url": "http://policy-management-backend:8090/v3/api-docs",
+      "result": "spec"
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/openapi.yaml",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/v3/api-docs",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/v2/api-docs",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/api-docs",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/swagger/v1/swagger.json",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/api/openapi.json",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/openapi",
+      "result": 404
+    },
+    {
+      "service": "spring-boot-admin",
+      "url": "http://spring-boot-admin:9000/q/openapi",
+      "result": 404
+    }
+  ]
+}

@@ -196,9 +196,15 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
     for s in eujf["services"]:
         node(s["id"], "API", s["name"], role=s["role"], exposure=s["exposure"]["level"],
              network_policy=s["network_policy"]["present"])
-        if s["role"] == "gateway" and s["exposure"]["level"] == "internet":
-            edge("actor:internet", s["id"], "REACHES", via="Ingress")
-        if s["node_port"]:
+        # the internet reaches every service published to it (v1.6: before, only a gateway behind an
+        # Ingress or a NodePort did, so an edge service on a LoadBalancer, as in Online Boutique and
+        # Bank of Anthos, had no path from the internet; found by the fix experiment), and the edge
+        # service an Istio Gateway or Ingress installed outside the manifests sends traffic to
+        front_door = s["name"] == eujf.get("edge") and any(
+            x.get("source") in ("Istio Gateway", "Ingress") and not x.get("workload") for x in eujf.get("edge_tls", []))
+        if s["exposure"]["level"] == "internet" or front_door:
+            edge("actor:internet", s["id"], "REACHES", via=(s["exposure"]["via"] or ["Istio Gateway / Ingress"])[0])
+        elif s["node_port"]:
             edge("actor:internet", s["id"], "REACHES", via="NodePort")
         if s["in_manifests"] and not s["network_policy"]["present"]:
             edge("actor:in-cluster", s["id"], "REACHES", via="no NetworkPolicy")

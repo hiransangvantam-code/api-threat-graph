@@ -1,0 +1,1185 @@
+{
+ "system": "piggymetrics",
+ "tag": "base",
+ "users": "PiggyMetrics: 296 requests in 3.7 s, 12 sessions; status codes: 200 x241, 401 x43, 403 x12",
+ "startup_s": 13.8,
+ "scan_wall_s": 7.5,
+ "scan_log": [
+  "[scan] piggymetrics: waiting until the sidecar and the Collector are quiet",
+  "[scan] new since the last scan: 661 HTTP flows from the sidecar, 0 span batches from the Collector (529 KB cleared from their memory)",
+  "[ok]   runtime_traffic    22 records      13.9 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             0 records     150.7 ms  -> /work/raw/openapi.json",
+  "! gateway: no live spec at any probed path",
+  "! auth-service: no live spec at any probed path",
+  "! account-service: no live spec at any probed path",
+  "! statistics-service: no live spec at any probed path",
+  "! notification-service: no live spec at any probed path",
+  "! monitoring: no live spec at any probed path",
+  "[ok]   infrastructure     37 records      18.6 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain           0 records       0.2 ms  -> /work/raw/callchain.json",
+  "! no spans found; is the OTel exporter writing to trace_paths?",
+  "[ok]   13 endpoints in 14 services (13 shadow)  -> /work/eujf.json",
+  "[ok]   114 findings (critical 5, high 23, medium 37, low 49), 253 attack paths, path risk 773.5",
+  "[ok]   dashboard -> /work/dashboard.html",
+  "[scan] piggymetrics: 13 APIs, 114 findings, 253 attack paths, path risk 773.5",
+  "[scan] threat graph exported to output/site/exports/1-piggymetrics/ (GraphML, JSON, SARIF, SVG)"
+ ],
+ "run_id": "20261116-023157-e64b3b",
+ "summary": {
+  "findings": 114,
+  "by_severity": {
+   "critical": 5,
+   "high": 23,
+   "medium": 37,
+   "low": 49
+  },
+  "attack_paths": 253,
+  "critical_paths": 28,
+  "total_path_risk": 773.5,
+  "endpoints": 13,
+  "shadow_endpoints": 13,
+  "services": 14,
+  "rules_evaluated": 27,
+  "rules_fired": 14,
+  "label": "piggymetrics"
+ },
+ "eujf_summary": {
+  "services": 14,
+  "endpoints": 13,
+  "inventory": {
+   "shadow": 13
+  },
+  "confidence": {
+   "HIGH": 0,
+   "MEDIUM": 13,
+   "ZOMBIE": 0
+  },
+  "public_endpoints": 12,
+  "endpoints_with_sensitive_data": 5,
+  "dependencies": 4,
+  "reconciled_traffic_paths": 0
+ },
+ "gateway": "gateway",
+ "endpoints": [
+  {
+   "id": "ep:account-service:POST:/accounts/",
+   "service": "account-service",
+   "method": "POST",
+   "path": "/accounts/",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/accounts/"
+   ]
+  },
+  {
+   "id": "ep:account-service:GET:/accounts/current",
+   "service": "account-service",
+   "method": "GET",
+   "path": "/accounts/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/accounts/current"
+   ]
+  },
+  {
+   "id": "ep:account-service:PUT:/accounts/current",
+   "service": "account-service",
+   "method": "PUT",
+   "path": "/accounts/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/accounts/current"
+   ]
+  },
+  {
+   "id": "ep:account-service:GET:/accounts/{}",
+   "service": "account-service",
+   "method": "GET",
+   "path": "/accounts/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/accounts/{id}"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/uaa/oauth/token",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/uaa/oauth/token",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/uaa/oauth/token"
+   ]
+  },
+  {
+   "id": "ep:auth-service:POST:/uaa/users",
+   "service": "auth-service",
+   "method": "POST",
+   "path": "/uaa/users",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/uaa/users"
+   ]
+  },
+  {
+   "id": "ep:auth-service:GET:/uaa/users/current",
+   "service": "auth-service",
+   "method": "GET",
+   "path": "/uaa/users/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/uaa/users/current"
+   ]
+  },
+  {
+   "id": "ep:monitoring:GET:/hystrix",
+   "service": "monitoring",
+   "method": "GET",
+   "path": "/hystrix",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": []
+  },
+  {
+   "id": "ep:notification-service:GET:/notifications/recipients/current",
+   "service": "notification-service",
+   "method": "GET",
+   "path": "/notifications/recipients/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/notifications/recipients/current"
+   ]
+  },
+  {
+   "id": "ep:notification-service:PUT:/notifications/recipients/current",
+   "service": "notification-service",
+   "method": "PUT",
+   "path": "/notifications/recipients/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/notifications/recipients/current"
+   ]
+  },
+  {
+   "id": "ep:statistics-service:GET:/statistics/current",
+   "service": "statistics-service",
+   "method": "GET",
+   "path": "/statistics/current",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/statistics/current"
+   ]
+  },
+  {
+   "id": "ep:statistics-service:GET:/statistics/{}",
+   "service": "statistics-service",
+   "method": "GET",
+   "path": "/statistics/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "public_traffic",
+    "traffic"
+   ],
+   "public_paths": [
+    "/statistics/{id}"
+   ]
+  },
+  {
+   "id": "ep:statistics-service:PUT:/statistics/{}",
+   "service": "statistics-service",
+   "method": "PUT",
+   "path": "/statistics/{id}",
+   "inventory": "shadow",
+   "seen_in": [
+    "traffic"
+   ],
+   "public_paths": [
+    "/statistics/{id}"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "rule": "API3",
+   "target": "ep:account-service:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (account-service) returns a list with financial fields",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API3",
+   "target": "ep:statistics-service:GET:/statistics/current",
+   "detail": "GET /statistics/current (statistics-service) returns a list with financial fields",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API3",
+   "target": "ep:statistics-service:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (statistics-service) returns a list with financial fields",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:account-service:POST:/accounts/",
+   "detail": "POST /accounts/ (account-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "TS-01",
+   "target": "ep:auth-service:POST:/uaa/users",
+   "detail": "POST /uaa/users (auth-service) returned 2xx to 15 request(s) without a token",
+   "severity": "critical",
+   "score": 20
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:GET:/accounts/current",
+   "detail": "GET /accounts/current (account-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (account-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:notification-service:GET:/notifications/recipients/current",
+   "detail": "GET /notifications/recipients/current (notification-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:statistics-service:GET:/statistics/current",
+   "detail": "GET /statistics/current (statistics-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:statistics-service:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (statistics-service) is served but in no spec",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:gateway",
+   "detail": "route /accounts/** -> account-service has auth: unspecified",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:gateway",
+   "detail": "route /notifications/** -> notification-service has auth: unspecified",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:gateway",
+   "detail": "route /statistics/** -> statistics-service has auth: unspecified",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-02",
+   "target": "svc:gateway",
+   "detail": "route /uaa/** -> auth-service has auth: unspecified",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "TS-07",
+   "target": "ep:auth-service:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (auth-service): 15 failed logins, no 429 seen",
+   "severity": "high",
+   "score": 16
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:monitoring",
+   "detail": "monitoring is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:registry",
+   "detail": "registry is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API8-NODEPORT",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service is published on every node",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:monitoring:GET:/hystrix",
+   "detail": "GET /hystrix (monitoring) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:auth-service:GET:/uaa/users/current",
+   "detail": "GET /uaa/users/current (auth-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:POST:/accounts/",
+   "detail": "POST /accounts/ (account-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:auth-service:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (auth-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:auth-service:POST:/uaa/users",
+   "detail": "POST /uaa/users (auth-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:account-service:PUT:/accounts/current",
+   "detail": "PUT /accounts/current (account-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:notification-service:PUT:/notifications/recipients/current",
+   "detail": "PUT /notifications/recipients/current (notification-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API9-SHADOW",
+   "target": "ep:statistics-service:PUT:/statistics/{}",
+   "detail": "PUT /statistics/{id} (statistics-service) is served but in no spec",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "TS-05",
+   "target": "svc:gateway",
+   "detail": "published port (docker compose) gateway serves the API over plain HTTP",
+   "severity": "high",
+   "score": 12
+  },
+  {
+   "rule": "API4",
+   "target": "svc:gateway",
+   "detail": "gateway has no resource limits and is reachable from internet",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:gateway",
+   "detail": "gateway does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 9
+  },
+  {
+   "rule": "API4",
+   "target": "svc:monitoring",
+   "detail": "monitoring has no resource limits and is reachable from node",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API4",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq has no resource limits and is reachable from node",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API4",
+   "target": "svc:registry",
+   "detail": "registry has no resource limits and is reachable from node",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API4",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service has no resource limits and is reachable from node",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:account-mongodb",
+   "detail": "account-mongodb accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:account-service",
+   "detail": "account-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:auth-mongodb",
+   "detail": "auth-mongodb accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:auth-service",
+   "detail": "auth-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:config",
+   "detail": "config accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:gateway",
+   "detail": "gateway accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:monitoring",
+   "detail": "monitoring accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:notification-mongodb",
+   "detail": "notification-mongodb accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:notification-service",
+   "detail": "notification-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:registry",
+   "detail": "registry accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:statistics-mongodb",
+   "detail": "statistics-mongodb accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:statistics-service",
+   "detail": "statistics-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-NETPOL",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service accepts traffic from any pod",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:monitoring",
+   "detail": "monitoring does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:registry",
+   "detail": "registry does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service does not set runAsNonRoot",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:account-mongodb",
+   "detail": "account-mongodb uses image sqshq/piggymetrics-mongodb",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:account-service",
+   "detail": "account-service uses image sqshq/piggymetrics-account-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:auth-mongodb",
+   "detail": "auth-mongodb uses image sqshq/piggymetrics-mongodb",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:auth-service",
+   "detail": "auth-service uses image sqshq/piggymetrics-auth-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:config",
+   "detail": "config uses image sqshq/piggymetrics-config",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:gateway",
+   "detail": "gateway uses image sqshq/piggymetrics-gateway",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:monitoring",
+   "detail": "monitoring uses image sqshq/piggymetrics-monitoring",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:notification-mongodb",
+   "detail": "notification-mongodb uses image sqshq/piggymetrics-mongodb",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:notification-service",
+   "detail": "notification-service uses image sqshq/piggymetrics-notification-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:registry",
+   "detail": "registry uses image sqshq/piggymetrics-registry",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:statistics-mongodb",
+   "detail": "statistics-mongodb uses image sqshq/piggymetrics-mongodb",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:statistics-service",
+   "detail": "statistics-service uses image sqshq/piggymetrics-statistics-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API8-TAG",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service uses image sqshq/piggymetrics-turbine-stream-service",
+   "severity": "medium",
+   "score": 6
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:account-mongodb",
+   "detail": "account-mongodb: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:account-service",
+   "detail": "account-service: no live spec; 0 of 4 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:auth-mongodb",
+   "detail": "auth-mongodb: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:auth-service",
+   "detail": "auth-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:config",
+   "detail": "config: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:monitoring",
+   "detail": "monitoring: no live spec; 0 of 1 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:notification-mongodb",
+   "detail": "notification-mongodb: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:notification-service",
+   "detail": "notification-service: no live spec; 0 of 2 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:registry",
+   "detail": "registry: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:statistics-mongodb",
+   "detail": "statistics-mongodb: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:statistics-service",
+   "detail": "statistics-service: no live spec; 0 of 3 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API9-NOSPEC",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service: no live spec; 0 of 0 endpoints documented anywhere",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:account-mongodb",
+   "detail": "account-mongodb is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:account-service",
+   "detail": "account-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:auth-mongodb",
+   "detail": "auth-mongodb is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:auth-service",
+   "detail": "auth-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:config",
+   "detail": "config is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:gateway",
+   "detail": "gateway is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:monitoring",
+   "detail": "monitoring is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:notification-mongodb",
+   "detail": "notification-mongodb is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:notification-service",
+   "detail": "notification-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:rabbitmq",
+   "detail": "rabbitmq is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:registry",
+   "detail": "registry is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:statistics-mongodb",
+   "detail": "statistics-mongodb is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:statistics-service",
+   "detail": "statistics-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-02",
+   "target": "svc:turbine-stream-service",
+   "detail": "turbine-stream-service is deployed but emitted no spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:GET:/accounts/current",
+   "detail": "GET /accounts/current (account-service): 48 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:GET:/accounts/{}",
+   "detail": "GET /accounts/{id} (account-service): 58 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:monitoring:GET:/hystrix",
+   "detail": "GET /hystrix (monitoring): 4 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:notification-service:GET:/notifications/recipients/current",
+   "detail": "GET /notifications/recipients/current (notification-service): 35 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:statistics-service:GET:/statistics/current",
+   "detail": "GET /statistics/current (statistics-service): 32 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:statistics-service:GET:/statistics/{}",
+   "detail": "GET /statistics/{id} (statistics-service): 41 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:auth-service:GET:/uaa/users/current",
+   "detail": "GET /uaa/users/current (auth-service): 12 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:POST:/accounts/",
+   "detail": "POST /accounts/ (account-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:auth-service:POST:/uaa/oauth/token",
+   "detail": "POST /uaa/oauth/token (auth-service): 27 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:auth-service:POST:/uaa/users",
+   "detail": "POST /uaa/users (auth-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:account-service:PUT:/accounts/current",
+   "detail": "PUT /accounts/current (account-service): 36 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:notification-service:PUT:/notifications/recipients/current",
+   "detail": "PUT /notifications/recipients/current (notification-service): 15 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "LT-03",
+   "target": "ep:statistics-service:PUT:/statistics/{}",
+   "detail": "PUT /statistics/{id} (statistics-service): 30 requests, 0 spans",
+   "severity": "low",
+   "score": 4
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:account-mongodb",
+   "detail": "account-mongodb does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:account-service",
+   "detail": "account-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:auth-mongodb",
+   "detail": "auth-mongodb does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:auth-service",
+   "detail": "auth-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:config",
+   "detail": "config does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:notification-mongodb",
+   "detail": "notification-mongodb does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:notification-service",
+   "detail": "notification-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:statistics-mongodb",
+   "detail": "statistics-mongodb does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  },
+  {
+   "rule": "API8-ROOT",
+   "target": "svc:statistics-service",
+   "detail": "statistics-service does not set runAsNonRoot",
+   "severity": "low",
+   "score": 3
+  }
+ ],
+ "routes": [
+  {
+   "match_prefix": "/accounts",
+   "upstream_service": "account-service",
+   "auth": "unspecified",
+   "gateway": "zuul",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/notifications",
+   "upstream_service": "notification-service",
+   "auth": "unspecified",
+   "gateway": "zuul",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/statistics",
+   "upstream_service": "statistics-service",
+   "auth": "unspecified",
+   "gateway": "zuul",
+   "strip_prefix": null,
+   "replace_with": null
+  },
+  {
+   "match_prefix": "/uaa",
+   "upstream_service": "auth-service",
+   "auth": "unspecified",
+   "gateway": "zuul",
+   "strip_prefix": null,
+   "replace_with": null
+  }
+ ],
+ "services": [
+  {
+   "name": "account-mongodb",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "account-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "auth-mongodb",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "auth-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "config",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "gateway",
+   "role": "gateway",
+   "exposure": "internet"
+  },
+  {
+   "name": "monitoring",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "notification-mongodb",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "notification-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "rabbitmq",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "registry",
+   "role": "service",
+   "exposure": "node"
+  },
+  {
+   "name": "statistics-mongodb",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "statistics-service",
+   "role": "service",
+   "exposure": "internal"
+  },
+  {
+   "name": "turbine-stream-service",
+   "role": "service",
+   "exposure": "node"
+  }
+ ],
+ "overhead": {
+  "n": 300,
+  "path": "/accounts/current",
+  "direct_p50": 5.70561299991823,
+  "direct_p95": 11.330212000075335,
+  "sidecar_p50": 10.624885999959588,
+  "sidecar_p95": 21.635031999949206
+ },
+ "zap": {
+  "bases": [
+   "http://172.18.0.6:4000"
+  ],
+  "ips": {
+   "account-service": "172.18.0.3",
+   "auth-service": "172.18.0.4",
+   "gateway": "172.18.0.6",
+   "monitoring": "172.18.0.5",
+   "notification-service": "172.18.0.7",
+   "statistics-service": "172.18.0.8"
+  },
+  "by_ip": {
+   "172.18.0.3": "account-service",
+   "172.18.0.4": "auth-service",
+   "172.18.0.6": "gateway",
+   "172.18.0.5": "monitoring",
+   "172.18.0.7": "notification-service",
+   "172.18.0.8": "statistics-service"
+  },
+  "total_s": 4.1,
+  "messages": 192,
+  "urls": [
+   "http://172.18.0.6:4000",
+   "http://172.18.0.6:4000/",
+   "http://172.18.0.6:4000/robots.txt",
+   "http://172.18.0.6:4000/sitemap.xml"
+  ],
+  "alerts": []
+ }
+}

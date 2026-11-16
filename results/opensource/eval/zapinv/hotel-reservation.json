@@ -1,0 +1,476 @@
+{
+ "system": "hotel-reservation",
+ "bases": [
+  "http://172.18.0.9:5000",
+  "http://172.18.0.4:8083",
+  "http://172.18.0.5:8081",
+  "http://172.18.0.3:8084",
+  "http://172.18.0.7:8085",
+  "http://172.18.0.6:8087",
+  "http://172.18.0.8:8082",
+  "http://172.18.0.2:8086"
+ ],
+ "ips": {
+  "frontend": "172.18.0.9",
+  "geo": "172.18.0.4",
+  "profile": "172.18.0.5",
+  "rate": "172.18.0.3",
+  "recommendation": "172.18.0.7",
+  "reservation": "172.18.0.6",
+  "search": "172.18.0.8",
+  "user": "172.18.0.2"
+ },
+ "by_ip": {
+  "172.18.0.9": "frontend",
+  "172.18.0.4": "geo",
+  "172.18.0.5": "profile",
+  "172.18.0.3": "rate",
+  "172.18.0.7": "recommendation",
+  "172.18.0.6": "reservation",
+  "172.18.0.8": "search",
+  "172.18.0.2": "user"
+ },
+ "total_s": 65.1,
+ "messages": 7101,
+ "urls": [
+  "http://172.18.0.2:8086",
+  "http://172.18.0.2:8086/user.User",
+  "http://172.18.0.2:8086/user.User/CheckUser",
+  "http://172.18.0.3:8084",
+  "http://172.18.0.3:8084/rate.Rate",
+  "http://172.18.0.3:8084/rate.Rate/GetRates",
+  "http://172.18.0.4:8083",
+  "http://172.18.0.4:8083/geo.Geo",
+  "http://172.18.0.4:8083/geo.Geo/Nearby",
+  "http://172.18.0.5:8081",
+  "http://172.18.0.5:8081/profile.Profile",
+  "http://172.18.0.5:8081/profile.Profile/GetProfiles",
+  "http://172.18.0.6:8087",
+  "http://172.18.0.6:8087/reservation.Reservation",
+  "http://172.18.0.6:8087/reservation.Reservation/CheckAvailability",
+  "http://172.18.0.6:8087/reservation.Reservation/MakeReservation",
+  "http://172.18.0.7:8085",
+  "http://172.18.0.7:8085/recommendation.Recommendation",
+  "http://172.18.0.7:8085/recommendation.Recommendation/GetRecommendations",
+  "http://172.18.0.8:8082",
+  "http://172.18.0.8:8082/search.Search",
+  "http://172.18.0.8:8082/search.Search/Nearby",
+  "http://172.18.0.9:5000",
+  "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+  "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+  "http://172.18.0.9:5000/reservation?customerName=1&hotelId=1&inDate=1&number=1&outDate=1&password=1&username=1",
+  "http://172.18.0.9:5000/user?password=1&username=1"
+ ],
+ "alerts": [
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10024",
+   "alert": "Information Disclosure - Sensitive Information in URL",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "598",
+   "method": "POST",
+   "url": "http://172.18.0.9:5000/reservation?customerName=1&hotelId=1&inDate=1&number=1&outDate=1&password=1&username=1",
+   "param": "password"
+  },
+  {
+   "pluginId": "10024",
+   "alert": "Information Disclosure - Sensitive Information in URL",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "598",
+   "method": "POST",
+   "url": "http://172.18.0.9:5000/reservation?customerName=1&hotelId=1&inDate=1&number=1&outDate=1&password=1&username=1",
+   "param": "username"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.9:5000/reservation?customerName=1&hotelId=1&inDate=1&number=1&outDate=1&password=1&username=1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10024",
+   "alert": "Information Disclosure - Sensitive Information in URL",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "598",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/user?password=1&username=1",
+   "param": "password"
+  },
+  {
+   "pluginId": "10024",
+   "alert": "Information Disclosure - Sensitive Information in URL",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "598",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/user?password=1&username=1",
+   "param": "username"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/user?password=1&username=1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10111",
+   "alert": "Authentication Request Identified",
+   "risk": "Informational",
+   "confidence": "Low",
+   "cweid": "-1",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/user?password=1&username=1",
+   "param": "username"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/recommendations?lat=1&lon=1&require=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.9:5000/hotels?inDate=1&lat=1&lon=1&outDate=1",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.4:8083/geo.Geo/Nearby",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.5:8081/profile.Profile/GetProfiles",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.3:8084/rate.Rate/GetRates",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.7:8085/recommendation.Recommendation/GetRecommendations",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.6:8087/reservation.Reservation/CheckAvailability",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.6:8087/reservation.Reservation/MakeReservation",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.8:8082/search.Search/Nearby",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.2:8086/user.User/CheckUser",
+   "param": "x-content-type-options"
+  }
+ ]
+}

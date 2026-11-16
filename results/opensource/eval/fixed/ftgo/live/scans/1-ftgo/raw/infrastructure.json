@@ -1,0 +1,1493 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "infrastructure",
+  "collector": "k8s-manifest-parser",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-025410-f9227d",
+  "collected_at": "2026-11-16T02:54:10+00:00",
+  "duration_ms": 135.6,
+  "inputs": [
+    "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+    "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/ftgo-api-gateway.yml",
+    "/target/upstream/ftgo-order-service/src/deployment/kubernetes/ftgo-order-service.yml",
+    "/target/upstream/ftgo-consumer-service/src/deployment/kubernetes/ftgo-consumer-service.yml",
+    "/target/upstream/ftgo-kitchen-service/src/deployment/kubernetes/ftgo-kitchen-service.yml",
+    "/target/upstream/ftgo-restaurant-service/src/deployment/kubernetes/ftgo-restaurant-service.yml",
+    "/target/upstream/ftgo-order-history-service/src/deployment/kubernetes/ftgo-order-history-service.yml",
+    "/target/upstream/deployment/kubernetes/stateful-services/ftgo-db-secret.yml",
+    "/target/upstream/deployment/kubernetes/stateful-services/ftgo-dynamodb-local.yml",
+    "/target/upstream/deployment/kubernetes/stateful-services/ftgo-kafka-deployment.yml",
+    "/target/upstream/deployment/kubernetes/stateful-services/ftgo-mysql-deployment.yml",
+    "/target/upstream/deployment/kubernetes/stateful-services/ftgo-zookeeper-deployment.yml"
+  ],
+  "stats": {
+    "files": 12,
+    "workloads": 11,
+    "services": 10,
+    "ingress_paths": 0,
+    "gateway_routes": 0,
+    "network_policies": 11,
+    "mtls_policies": 0,
+    "rate_limited_routes": 0,
+    "secrets": 1,
+    "internet_exposed_workloads": [],
+    "node_exposed_workloads": [],
+    "workloads_without_network_policy": [
+      "ftgo-dynamodb-local-init"
+    ],
+    "plaintext_env_with_sensitive_name": 5,
+    "ignored_kinds": {}
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ftgo-api-gateway",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/ftgo-api-gateway.yml",
+      "labels": {
+        "svc": "ftgo-api-gateway",
+        "application": "ftgo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-api-gateway",
+          "image": "msapatterns/ftgo-api-gateway:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "JAVA_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 25
+            },
+            {
+              "name": "ORDER_DESTINATIONS_ORDERSERVICEURL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://ftgo-order-service:8080",
+              "references_service": "ftgo-order-service"
+            },
+            {
+              "name": "ORDER_DESTINATIONS_ORDERHISTORYSERVICEURL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://ftgo-order-history-service:8080",
+              "references_service": "ftgo-order-history-service"
+            },
+            {
+              "name": "CONSUMER_DESTINATIONS_CONSUMERSERVICEURL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://ftgo-consumer-service:8080",
+              "references_service": "ftgo-consumer-service"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-api-gateway"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ftgo-order-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-order-service/src/deployment/kubernetes/ftgo-order-service.yml",
+      "labels": {
+        "svc": "ftgo-order-service",
+        "application": "ftgo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-order-service",
+          "image": "msapatterns/ftgo-order-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "JAVA_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 25
+            },
+            {
+              "name": "SPRING_DATASOURCE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "jdbc:mysql://ftgo-mysql/eventuate"
+            },
+            {
+              "name": "SPRING_DATASOURCE_USERNAME",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": false
+            },
+            {
+              "name": "SPRING_DATASOURCE_PASSWORD",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": true
+            },
+            {
+              "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 21
+            },
+            {
+              "name": "EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-kafka:9092",
+              "references_service": "ftgo-kafka"
+            },
+            {
+              "name": "EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-zookeeper:2181",
+              "references_service": "ftgo-zookeeper"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-order-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ftgo-consumer-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-consumer-service/src/deployment/kubernetes/ftgo-consumer-service.yml",
+      "labels": {
+        "svc": "ftgo-consumer-service",
+        "application": "ftgo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-consumer-service",
+          "image": "msapatterns/ftgo-consumer-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "JAVA_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 34
+            },
+            {
+              "name": "SPRING_DATASOURCE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "jdbc:mysql://ftgo-mysql/ftgo_consumer_service"
+            },
+            {
+              "name": "SPRING_DATASOURCE_USERNAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 26
+            },
+            {
+              "name": "SPRING_DATASOURCE_PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 30
+            },
+            {
+              "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 21
+            },
+            {
+              "name": "EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-kafka:9092",
+              "references_service": "ftgo-kafka"
+            },
+            {
+              "name": "EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-zookeeper:2181",
+              "references_service": "ftgo-zookeeper"
+            },
+            {
+              "name": "EVENTUATE_DATABASE_SCHEMA",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 21
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-consumer-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ftgo-kitchen-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-kitchen-service/src/deployment/kubernetes/ftgo-kitchen-service.yml",
+      "labels": {
+        "svc": "ftgo-kitchen-service",
+        "application": "ftgo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-kitchen-service",
+          "image": "msapatterns/ftgo-kitchen-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "JAVA_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 25
+            },
+            {
+              "name": "SPRING_DATASOURCE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "jdbc:mysql://ftgo-mysql/eventuate"
+            },
+            {
+              "name": "SPRING_DATASOURCE_USERNAME",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": false
+            },
+            {
+              "name": "SPRING_DATASOURCE_PASSWORD",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": true
+            },
+            {
+              "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 21
+            },
+            {
+              "name": "EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-kafka:9092",
+              "references_service": "ftgo-kafka"
+            },
+            {
+              "name": "EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-zookeeper:2181",
+              "references_service": "ftgo-zookeeper"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-kitchen-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ftgo-restaurant-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-restaurant-service/src/deployment/kubernetes/ftgo-restaurant-service.yml",
+      "labels": {
+        "svc": "ftgo-restaurant-service",
+        "application": "ftgo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-restaurant-service",
+          "image": "msapatterns/ftgo-restaurant-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "JAVA_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 25
+            },
+            {
+              "name": "SPRING_DATASOURCE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "jdbc:mysql://ftgo-mysql/eventuate"
+            },
+            {
+              "name": "SPRING_DATASOURCE_USERNAME",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": false
+            },
+            {
+              "name": "SPRING_DATASOURCE_PASSWORD",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": true
+            },
+            {
+              "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 21
+            },
+            {
+              "name": "EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-kafka:9092",
+              "references_service": "ftgo-kafka"
+            },
+            {
+              "name": "EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-zookeeper:2181",
+              "references_service": "ftgo-zookeeper"
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-restaurant-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Deployment",
+      "name": "ftgo-order-history-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-order-history-service/src/deployment/kubernetes/ftgo-order-history-service.yml",
+      "labels": {
+        "svc": "ftgo-order-history-service",
+        "application": "ftgo"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-order-history-service",
+          "image": "msapatterns/ftgo-order-history-service:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            8080
+          ],
+          "env": [
+            {
+              "name": "JAVA_OPTS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 25
+            },
+            {
+              "name": "SPRING_DATASOURCE_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "jdbc:mysql://ftgo-mysql/eventuate"
+            },
+            {
+              "name": "SPRING_DATASOURCE_USERNAME",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": false
+            },
+            {
+              "name": "SPRING_DATASOURCE_PASSWORD",
+              "source": "secretRef",
+              "ref": "ftgo-db-secret",
+              "sensitive_name": true
+            },
+            {
+              "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 21
+            },
+            {
+              "name": "EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-kafka:9092",
+              "references_service": "ftgo-kafka"
+            },
+            {
+              "name": "EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-zookeeper:2181",
+              "references_service": "ftgo-zookeeper"
+            },
+            {
+              "name": "AWS_DYNAMODB_ENDPOINT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://ftgo-dynamodb-local:8000",
+              "references_service": "ftgo-dynamodb-local"
+            },
+            {
+              "name": "AWS_ACCESS_KEY_ID",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 6
+            },
+            {
+              "name": "AWS_SECRET_ACCESS_KEY",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 10
+            },
+            {
+              "name": "AWS_REGION",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 9
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-order-history-service"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "StatefulSet",
+      "name": "ftgo-dynamodb-local",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-dynamodb-local.yml",
+      "labels": {
+        "svc": "ftgo-dynamodb-local"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-dynamodb-local",
+          "image": "cnadiminti/dynamodb-local:2017-04-22_beta",
+          "image_tag": "2017-04-22_beta",
+          "ports": [],
+          "env": [],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": true,
+            "readinessProbe": true
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-dynamodb-local"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "Job",
+      "name": "ftgo-dynamodb-local-init",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-dynamodb-local.yml",
+      "labels": {},
+      "replicas": null,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-dynamodb-local-init",
+          "image": "msapatterns/dynamodblocal-init:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [],
+          "env": [
+            {
+              "name": "AWS_DYNAMODB_ENDPOINT_URL",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "http://ftgo-dynamodb-local:8000",
+              "references_service": "ftgo-dynamodb-local"
+            },
+            {
+              "name": "AWS_ACCESS_KEY_ID",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 6
+            },
+            {
+              "name": "AWS_SECRET_ACCESS_KEY",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 10
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": []
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "StatefulSet",
+      "name": "ftgo-kafka",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-kafka-deployment.yml",
+      "labels": {
+        "role": "ftgo-kafka"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-kafka",
+          "image": "confluentinc/cp-kafka:5.2.4",
+          "image_tag": "5.2.4",
+          "ports": [
+            9092
+          ],
+          "env": [
+            {
+              "name": "KAFKA_ADVERTISED_LISTENERS",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "PLAINTEXT://ftgo-kafka:9092",
+              "references_service": "ftgo-kafka"
+            },
+            {
+              "name": "KAFKA_ZOOKEEPER_CONNECT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value": "ftgo-zookeeper:2181",
+              "references_service": "ftgo-zookeeper"
+            },
+            {
+              "name": "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 1
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-kafka"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "StatefulSet",
+      "name": "ftgo-mysql",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-mysql-deployment.yml",
+      "labels": {
+        "role": "ftgo-mysql"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-mysql",
+          "image": "msapatterns/mysql:1.0.0",
+          "image_tag": "1.0.0",
+          "ports": [
+            3306
+          ],
+          "env": [
+            {
+              "name": "MYSQL_ROOT_PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 12
+            },
+            {
+              "name": "MYSQL_USER",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 9
+            },
+            {
+              "name": "MYSQL_PASSWORD",
+              "source": "plaintext",
+              "sensitive_name": true,
+              "value_length": 7
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-mysql"
+      ]
+    },
+    {
+      "kind": "workload",
+      "workload_kind": "StatefulSet",
+      "name": "ftgo-zookeeper",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-zookeeper-deployment.yml",
+      "labels": {
+        "role": "ftgo-zookeeper"
+      },
+      "replicas": 1,
+      "service_account": "default",
+      "automount_service_account_token": true,
+      "host_network": false,
+      "pod_security_context": {},
+      "containers": [
+        {
+          "name": "ftgo-zookeeper",
+          "image": "confluentinc/cp-zookeeper:5.2.4",
+          "image_tag": "5.2.4",
+          "ports": [
+            2181
+          ],
+          "env": [
+            {
+              "name": "ZOOKEEPER_CLIENT_PORT",
+              "source": "plaintext",
+              "sensitive_name": false,
+              "value_length": 4
+            }
+          ],
+          "env_from": [],
+          "security_context": {
+            "privileged": false,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "allowPrivilegeEscalation": false
+          },
+          "resources": {
+            "limits": true,
+            "requests": false
+          },
+          "probes": {
+            "livenessProbe": false,
+            "readinessProbe": false
+          }
+        }
+      ],
+      "init_containers": [],
+      "mesh": null,
+      "mtls": {
+        "enforced": false,
+        "via": []
+      },
+      "network_policies": [
+        "ftgo-zookeeper"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-api-gateway",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/ftgo-api-gateway.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-api-gateway"
+      },
+      "ports": [
+        {
+          "port": 80,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-api-gateway"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-order-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-order-service/src/deployment/kubernetes/ftgo-order-service.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-order-service"
+      },
+      "ports": [
+        {
+          "name": "httpport",
+          "port": 8080,
+          "targetPort": 8080
+        },
+        {
+          "name": "metricsport",
+          "port": 8081,
+          "targetPort": 8080,
+          "protocol": "TCP"
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-order-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-consumer-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-consumer-service/src/deployment/kubernetes/ftgo-consumer-service.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-consumer-service"
+      },
+      "ports": [
+        {
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-consumer-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-kitchen-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-kitchen-service/src/deployment/kubernetes/ftgo-kitchen-service.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-kitchen-service"
+      },
+      "ports": [
+        {
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-kitchen-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-restaurant-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-restaurant-service/src/deployment/kubernetes/ftgo-restaurant-service.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-restaurant-service"
+      },
+      "ports": [
+        {
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-restaurant-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-order-history-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-order-history-service/src/deployment/kubernetes/ftgo-order-history-service.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-order-history-service"
+      },
+      "ports": [
+        {
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-order-history-service"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-dynamodb-local",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-dynamodb-local.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "svc": "ftgo-dynamodb-local"
+      },
+      "ports": [
+        {
+          "port": 8000,
+          "targetPort": 8000
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-dynamodb-local"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-kafka",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-kafka-deployment.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "role": "ftgo-kafka"
+      },
+      "ports": [
+        {
+          "port": 9092,
+          "targetPort": 9092
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-kafka"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-mysql",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-mysql-deployment.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "role": "ftgo-mysql"
+      },
+      "ports": [
+        {
+          "port": 3306,
+          "targetPort": 3306
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-mysql"
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "ftgo-zookeeper",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-zookeeper-deployment.yml",
+      "type": "ClusterIP",
+      "selector": {
+        "role": "ftgo-zookeeper"
+      },
+      "ports": [
+        {
+          "port": 2181,
+          "targetPort": 2181
+        }
+      ],
+      "selects_workloads": [
+        "ftgo-zookeeper"
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-api-gateway",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-api-gateway",
+        "application": "ftgo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-consumer-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-consumer-service",
+        "application": "ftgo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "svc": "ftgo-api-gateway",
+            "application": "ftgo"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-dynamodb-local",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-dynamodb-local"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "app": "ftgo-dynamodb-local-init"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-order-history-service",
+            "application": "ftgo"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-dynamodb-local-init",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "app": "ftgo-dynamodb-local-init"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-kafka",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "role": "ftgo-kafka"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "svc": "ftgo-consumer-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "role": "ftgo-kafka"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-kitchen-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-order-history-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-order-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-restaurant-service",
+            "application": "ftgo"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-kitchen-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-kitchen-service",
+        "application": "ftgo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-mysql",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "role": "ftgo-mysql"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-order-history-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-order-history-service",
+        "application": "ftgo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "svc": "ftgo-api-gateway",
+            "application": "ftgo"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-order-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-order-service",
+        "application": "ftgo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "svc": "ftgo-api-gateway",
+            "application": "ftgo"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-restaurant-service",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "svc": "ftgo-restaurant-service",
+        "application": "ftgo"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": []
+    },
+    {
+      "kind": "network_policy",
+      "name": "ftgo-zookeeper",
+      "namespace": "default",
+      "defined_in": "/target/upstream/ftgo-api-gateway/src/deployment/kubernetes/atg-fix-networkpolicies.yaml",
+      "pod_selector": {
+        "role": "ftgo-zookeeper"
+      },
+      "policy_types": [
+        "Ingress"
+      ],
+      "ingress_from": [
+        {
+          "podSelector": {
+            "svc": "ftgo-consumer-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "role": "ftgo-kafka"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-kitchen-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-order-history-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-order-service",
+            "application": "ftgo"
+          }
+        },
+        {
+          "podSelector": {
+            "svc": "ftgo-restaurant-service",
+            "application": "ftgo"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "secret",
+      "name": "ftgo-db-secret",
+      "namespace": "default",
+      "defined_in": "/target/upstream/deployment/kubernetes/stateful-services/ftgo-db-secret.yml",
+      "type": "Opaque",
+      "keys": [
+        "password",
+        "username"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-api-gateway",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-order-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-consumer-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-kitchen-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-restaurant-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-order-history-service",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-dynamodb-local",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-dynamodb-local-init",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-kafka",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-mysql",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    },
+    {
+      "kind": "exposure",
+      "workload": "ftgo-zookeeper",
+      "level": "internal",
+      "via": [
+        "cluster network only"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-023317-eb5a08",
+  "target": "FTGO",
+  "started_at": "2026-11-16T02:33:17+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "0b285cbe2698a94785d3183a5892e57516c5f9c479112480f132dfcab839a0ac",
+      "records": 17,
+      "stats": {
+        "flows": 365,
+        "flows_ignored": 1,
+        "endpoints": 17,
+        "services": 6,
+        "flows_by_capture_point": {
+          "east-west": 185,
+          "north-south": 180
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 7.1
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "011ade5817ee1663429ff3cd65d25c35a007303aefd14312848d8dfd75a9e90c",
+      "records": 2,
+      "stats": {
+        "specs": 2,
+        "services_with_spec": [
+          "ftgo-consumer-service",
+          "ftgo-restaurant-service"
+        ],
+        "services_without_live_spec": [
+          "ftgo-api-gateway",
+          "ftgo-consumer-service",
+          "ftgo-kitchen-service",
+          "ftgo-order-history-service",
+          "ftgo-order-service",
+          "ftgo-restaurant-service"
+        ],
+        "operations": 4,
+        "probes": 60
+      },
+      "warnings": [
+        "ftgo-api-gateway: no live spec at any probed path",
+        "ftgo-consumer-service: no live spec at any probed path",
+        "ftgo-order-service: no live spec at any probed path",
+        "ftgo-order-history-service: no live spec at any probed path",
+        "ftgo-kitchen-service: no live spec at any probed path",
+        "ftgo-restaurant-service: no live spec at any probed path"
+      ],
+      "duration_ms": 313.5
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "6d33ab8a7c7157f658c9939ef964855c40684a6935549d9a73e90e3a6330c4fc",
+      "records": 33,
+      "stats": {
+        "files": 11,
+        "workloads": 11,
+        "services": 10,
+        "ingress_paths": 0,
+        "gateway_routes": 0,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 1,
+        "internet_exposed_workloads": [],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [
+          "ftgo-api-gateway",
+          "ftgo-consumer-service",
+          "ftgo-dynamodb-local",
+          "ftgo-dynamodb-local-init",
+          "ftgo-kafka",
+          "ftgo-kitchen-service",
+          "ftgo-mysql",
+          "ftgo-order-history-service",
+          "ftgo-order-service",
+          "ftgo-restaurant-service",
+          "ftgo-zookeeper"
+        ],
+        "plaintext_env_with_sensitive_name": 5,
+        "ignored_kinds": {}
+      },
+      "warnings": [],
+      "duration_ms": 96.5
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "2085787739b53cfb89b9d9a6d4f0c9e16b641568b663300763871173d13c5cfc",
+      "records": 0,
+      "stats": {
+        "spans": 0,
+        "spans_ignored": 0,
+        "traces": 0,
+        "services": 0,
+        "edges": 0,
+        "distinct_call_chains": 0,
+        "max_chain_depth": 0
+      },
+      "warnings": [
+        "no spans found; is the OTel exporter writing to trace_paths?"
+      ],
+      "duration_ms": 0.2
+    }
+  },
+  "finished_at": "2026-11-16T02:33:18+00:00",
+  "total_duration_ms": 421.4
+}

@@ -1,0 +1,121 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-022950-75fc43",
+  "target": "Stan's Robot Shop",
+  "started_at": "2026-11-16T02:29:50+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "89fccb8faee2dd41b867296cf80f7a2078dbca5251f46169cd0a85886052c0bb",
+      "records": 55,
+      "stats": {
+        "flows": 1515,
+        "flows_ignored": 1,
+        "endpoints": 55,
+        "services": 7,
+        "flows_by_capture_point": {
+          "east-west": 825,
+          "north-south": 690
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 53.0
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "99b233506ba486b2a1ce51f37bd68ea4f2b22abe0ba484fa51945af2c8908065",
+      "records": 0,
+      "stats": {
+        "specs": 0,
+        "services_with_spec": [],
+        "services_without_live_spec": [
+          "cart",
+          "catalogue",
+          "payment",
+          "ratings",
+          "shipping",
+          "user",
+          "web"
+        ],
+        "operations": 0,
+        "probes": 70
+      },
+      "warnings": [
+        "web: no live spec at any probed path",
+        "catalogue: no live spec at any probed path",
+        "user: no live spec at any probed path",
+        "cart: no live spec at any probed path",
+        "shipping: no live spec at any probed path",
+        "payment: no live spec at any probed path",
+        "ratings: no live spec at any probed path"
+      ],
+      "duration_ms": 198.0
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "d26408be1af6ea2c12b6620d559406961a9fcc16fa47d21c200c6d663c5bd8c0",
+      "records": 32,
+      "stats": {
+        "files": 0,
+        "workloads": 12,
+        "services": 0,
+        "ingress_paths": 0,
+        "gateway_routes": 7,
+        "network_policies": 0,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [
+          "web"
+        ],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [
+          "cart",
+          "catalogue",
+          "dispatch",
+          "mongodb",
+          "mysql",
+          "payment",
+          "rabbitmq",
+          "ratings",
+          "redis",
+          "shipping",
+          "user",
+          "web"
+        ],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {}
+      },
+      "warnings": [
+        "gateway route \\.php$ points at '127', which no manifest defines"
+      ],
+      "duration_ms": 76.7
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "172699243fa6c289abaf0378c2fea72aa023a57da6fd4dddf9fb2c62413bd971",
+      "records": 0,
+      "stats": {
+        "spans": 0,
+        "spans_ignored": 0,
+        "traces": 0,
+        "services": 0,
+        "edges": 0,
+        "distinct_call_chains": 0,
+        "max_chain_depth": 0
+      },
+      "warnings": [
+        "no spans found; is the OTel exporter writing to trace_paths?"
+      ],
+      "duration_ms": 0.2
+    }
+  },
+  "finished_at": "2026-11-16T02:29:51+00:00",
+  "total_duration_ms": 340.4
+}

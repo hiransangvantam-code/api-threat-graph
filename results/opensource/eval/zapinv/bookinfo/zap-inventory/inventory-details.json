@@ -1,0 +1,29 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "details (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/details/{id}": {
+   "get": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "example": "1"
+      }
+     }
+    ]
+   }
+  }
+ }
+}

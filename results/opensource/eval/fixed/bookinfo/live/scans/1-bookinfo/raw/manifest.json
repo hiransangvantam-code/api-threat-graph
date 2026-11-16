@@ -1,0 +1,100 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-030744-4d6622",
+  "target": "Istio Bookinfo",
+  "started_at": "2026-11-16T03:07:44+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "450911b3858998fe24517b4c6fe65f0bde0e1e444759c7fbf6e4cea59c58e038",
+      "records": 13,
+      "stats": {
+        "flows": 544,
+        "flows_ignored": 1,
+        "endpoints": 13,
+        "services": 4,
+        "flows_by_capture_point": {
+          "north-south": 240,
+          "east-west": 304
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 13.6
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "789072bf5840d289463cbd0d7f025af4b94244cbb11d380e18fedbc99b87591c",
+      "records": 1,
+      "stats": {
+        "specs": 1,
+        "services_with_spec": [
+          "productpage"
+        ],
+        "services_without_live_spec": [
+          "details",
+          "productpage",
+          "ratings",
+          "reviews"
+        ],
+        "operations": 4,
+        "probes": 40
+      },
+      "warnings": [
+        "productpage: no live spec at any probed path",
+        "details: no live spec at any probed path",
+        "reviews: no live spec at any probed path",
+        "ratings: no live spec at any probed path"
+      ],
+      "duration_ms": 147.7
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "76a7e1a360cd96dd01af20dd4915acc6afaee27a1dc17b6bbbd1ce86041b012a",
+      "records": 26,
+      "stats": {
+        "files": 2,
+        "workloads": 6,
+        "services": 4,
+        "ingress_paths": 0,
+        "gateway_routes": 5,
+        "network_policies": 4,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {
+          "ServiceAccount": 4
+        }
+      },
+      "warnings": [],
+      "duration_ms": 60.6
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "0597a9164a155814f0a3dd90de89f1e935c93197bd451df2e32bb84086d46efb",
+      "records": 28,
+      "stats": {
+        "spans": 844,
+        "spans_ignored": 0,
+        "traces": 244,
+        "services": 4,
+        "edges": 4,
+        "distinct_call_chains": 10,
+        "max_chain_depth": 3
+      },
+      "warnings": [],
+      "duration_ms": 19.0
+    }
+  },
+  "finished_at": "2026-11-16T03:07:45+00:00",
+  "total_duration_ms": 245.5
+}

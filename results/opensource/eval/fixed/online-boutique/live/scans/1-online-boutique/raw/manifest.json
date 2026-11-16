@@ -1,0 +1,114 @@
+{
+  "schema": "atg.raw/v1",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-024933-06f8a2",
+  "target": "Online Boutique",
+  "started_at": "2026-11-16T02:49:33+00:00",
+  "sources": {
+    "runtime_traffic": {
+      "status": "ok",
+      "file": "/work/raw/runtime_traffic.json",
+      "sha256": "7c8e4464fc9519aa36b57758a704b9b3d3bc51257cc46d1e4af13c0bdeca92eb",
+      "records": 25,
+      "stats": {
+        "flows": 825,
+        "flows_ignored": 1,
+        "endpoints": 25,
+        "services": 10,
+        "flows_by_capture_point": {
+          "east-west": 570,
+          "north-south": 255
+        },
+        "unmapped_hosts": []
+      },
+      "warnings": [],
+      "duration_ms": 25.8
+    },
+    "openapi": {
+      "status": "ok",
+      "file": "/work/raw/openapi.json",
+      "sha256": "30b4dee7fa0d838fa92e777df4b3405475a7650b4f37603f7d68b7b3eadc44da",
+      "records": 0,
+      "stats": {
+        "specs": 0,
+        "services_with_spec": [],
+        "services_without_live_spec": [
+          "adservice",
+          "cartservice",
+          "checkoutservice",
+          "currencyservice",
+          "emailservice",
+          "frontend",
+          "paymentservice",
+          "productcatalogservice",
+          "recommendationservice",
+          "shippingservice"
+        ],
+        "operations": 0,
+        "probes": 100
+      },
+      "warnings": [
+        "frontend: no live spec at any probed path",
+        "cartservice: no live spec at any probed path",
+        "productcatalogservice: no live spec at any probed path",
+        "currencyservice: no live spec at any probed path",
+        "recommendationservice: no live spec at any probed path",
+        "shippingservice: no live spec at any probed path",
+        "paymentservice: no live spec at any probed path",
+        "emailservice: no live spec at any probed path",
+        "checkoutservice: no live spec at any probed path",
+        "adservice: no live spec at any probed path"
+      ],
+      "duration_ms": 516.1
+    },
+    "infrastructure": {
+      "status": "ok",
+      "file": "/work/raw/infrastructure.json",
+      "sha256": "1a01c6e943655de50876c2e53c516e3ad000ee11055343b9dfe978815323576b",
+      "records": 52,
+      "stats": {
+        "files": 16,
+        "workloads": 12,
+        "services": 12,
+        "ingress_paths": 0,
+        "gateway_routes": 2,
+        "network_policies": 12,
+        "mtls_policies": 0,
+        "rate_limited_routes": 0,
+        "secrets": 0,
+        "internet_exposed_workloads": [
+          "frontend"
+        ],
+        "node_exposed_workloads": [],
+        "workloads_without_network_policy": [],
+        "plaintext_env_with_sensitive_name": 0,
+        "ignored_kinds": {
+          "ServiceAccount": 11,
+          "Kustomization": 1,
+          "ServiceEntry": 2
+        }
+      },
+      "warnings": [],
+      "duration_ms": 89.7
+    },
+    "callchain": {
+      "status": "ok",
+      "file": "/work/raw/callchain.json",
+      "sha256": "7ac82119f3a212e11d681e61f2d03187cd82bc22f403c3456660b6233c2fab60",
+      "records": 46,
+      "stats": {
+        "spans": 1395,
+        "spans_ignored": 0,
+        "traces": 255,
+        "services": 10,
+        "edges": 14,
+        "distinct_call_chains": 11,
+        "max_chain_depth": 3
+      },
+      "warnings": [],
+      "duration_ms": 17.2
+    }
+  },
+  "finished_at": "2026-11-16T02:49:33+00:00",
+  "total_duration_ms": 655.3
+}

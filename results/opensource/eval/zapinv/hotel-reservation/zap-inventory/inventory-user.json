@@ -1,0 +1,32 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "user (ATG inventory)",
+  "version": "1"
+ },
+ "paths": {
+  "/user.User/CheckUser": {
+   "post": {
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "value": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

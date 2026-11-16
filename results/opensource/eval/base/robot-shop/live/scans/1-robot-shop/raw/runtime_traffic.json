@@ -1,0 +1,3152 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-022950-75fc43",
+  "collected_at": "2026-11-16T02:29:50+00:00",
+  "duration_ms": 53.0,
+  "inputs": [
+    "/work/scan-input/1-robot-shop/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 1515,
+    "flows_ignored": 1,
+    "endpoints": 55,
+    "services": 7,
+    "flows_by_capture_point": {
+      "east-west": 825,
+      "north-south": 690
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "cart",
+      "method": "GET",
+      "path_template": "/add/{id}/{id}/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 3,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "cart:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer",
+          "items": [
+            {
+              "sku": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.88,
+        "max": 37.7
+      },
+      "example_paths": [
+        "/add/134/135/114",
+        "/add/129/117/135",
+        "/add/138/131/108"
+      ],
+      "first_seen": 1794796176.3344674,
+      "last_seen": 1794796183.7399213
+    },
+    {
+      "kind": "endpoint",
+      "service": "cart",
+      "method": "DELETE",
+      "path_template": "/cart/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "cart:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.97,
+        "max": 21.75
+      },
+      "example_paths": [
+        "/cart/139",
+        "/cart/138",
+        "/cart/136"
+      ],
+      "first_seen": 1794796176.3185966,
+      "last_seen": 1794796183.7077365
+    },
+    {
+      "kind": "endpoint",
+      "service": "cart",
+      "method": "GET",
+      "path_template": "/cart/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "cart:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer",
+          "items": [
+            {
+              "sku": "string",
+              "qty": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.19,
+        "max": 10.0
+      },
+      "example_paths": [
+        "/cart/128",
+        "/cart/133",
+        "/cart/101"
+      ],
+      "first_seen": 1794796176.2910473,
+      "last_seen": 1794796183.6951733
+    },
+    {
+      "kind": "endpoint",
+      "service": "cart",
+      "method": "GET",
+      "path_template": "/rename/{id}/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "cart:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.22,
+        "max": 4.0
+      },
+      "example_paths": [
+        "/rename/110/132",
+        "/rename/121/121",
+        "/rename/137/108"
+      ],
+      "first_seen": 1794796176.3265893,
+      "last_seen": 1794796183.717123
+    },
+    {
+      "kind": "endpoint",
+      "service": "cart",
+      "method": "POST",
+      "path_template": "/shipping/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "cart:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.17,
+        "max": 6.49
+      },
+      "example_paths": [
+        "/shipping/116",
+        "/shipping/118",
+        "/shipping/106"
+      ],
+      "first_seen": 1794796176.5161147,
+      "last_seen": 1794796183.8988407
+    },
+    {
+      "kind": "endpoint",
+      "service": "cart",
+      "method": "GET",
+      "path_template": "/update/{id}/{id}/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 3,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "cart:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.88,
+        "max": 4.66
+      },
+      "example_paths": [
+        "/update/132/108/133",
+        "/update/121/107/139",
+        "/update/133/120/132"
+      ],
+      "first_seen": 1794796176.3912604,
+      "last_seen": 1794796183.752527
+    },
+    {
+      "kind": "endpoint",
+      "service": "catalogue",
+      "method": "GET",
+      "path_template": "/categories",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "catalogue:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          "string"
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.21,
+        "max": 18.71
+      },
+      "example_paths": [
+        "/categories"
+      ],
+      "first_seen": 1794796176.1939368,
+      "last_seen": 1794796183.5960615
+    },
+    {
+      "kind": "endpoint",
+      "service": "catalogue",
+      "method": "GET",
+      "path_template": "/product/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "catalogue:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 90,
+      "status_codes": {
+        "200": 90
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 90,
+        "status_codes_without_auth": {
+          "200": 90
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "sku": "integer",
+          "name": "string",
+          "price": "integer",
+          "instock": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.13,
+        "max": 36.68
+      },
+      "example_paths": [
+        "/product/124",
+        "/product/117",
+        "/product/120"
+      ],
+      "first_seen": 1794796176.1473606,
+      "last_seen": 1794796183.9684553
+    },
+    {
+      "kind": "endpoint",
+      "service": "catalogue",
+      "method": "GET",
+      "path_template": "/products",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "catalogue:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "sku": "string",
+            "name": "string",
+            "price": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.3,
+        "max": 7.87
+      },
+      "example_paths": [
+        "/products"
+      ],
+      "first_seen": 1794796176.1115355,
+      "last_seen": 1794796183.5361216
+    },
+    {
+      "kind": "endpoint",
+      "service": "catalogue",
+      "method": "GET",
+      "path_template": "/products/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "catalogue:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "sku": "string",
+            "category": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.0,
+        "max": 13.92
+      },
+      "example_paths": [
+        "/products/134",
+        "/products/127",
+        "/products/126"
+      ],
+      "first_seen": 1794796176.1763895,
+      "last_seen": 1794796183.5794084
+    },
+    {
+      "kind": "endpoint",
+      "service": "catalogue",
+      "method": "GET",
+      "path_template": "/search/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "catalogue:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "sku": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.19,
+        "max": 9.28
+      },
+      "example_paths": [
+        "/search/129",
+        "/search/112",
+        "/search/104"
+      ],
+      "first_seen": 1794796176.2105355,
+      "last_seen": 1794796183.605065
+    },
+    {
+      "kind": "endpoint",
+      "service": "payment",
+      "method": "POST",
+      "path_template": "/pay/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "payment:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer",
+          "items": [
+            {
+              "sku": "string",
+              "qty": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderid": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 14.2,
+        "max": 47.89
+      },
+      "example_paths": [
+        "/pay/126",
+        "/pay/116",
+        "/pay/120"
+      ],
+      "first_seen": 1794796176.5548024,
+      "last_seen": 1794796183.9462175
+    },
+    {
+      "kind": "endpoint",
+      "service": "ratings",
+      "method": "GET",
+      "path_template": "/api/fetch/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ratings:80"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "avg_rating": "integer",
+          "rating_count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.26,
+        "max": 5.07
+      },
+      "example_paths": [
+        "/api/fetch/102",
+        "/api/fetch/132",
+        "/api/fetch/112"
+      ],
+      "first_seen": 1794796176.654905,
+      "last_seen": 1794796183.985311
+    },
+    {
+      "kind": "endpoint",
+      "service": "ratings",
+      "method": "PUT",
+      "path_template": "/api/rate/{id}/{id}",
+      "path_params": [
+        {
+          "position": 3,
+          "kind": "int"
+        },
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "ratings:80"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.42,
+        "max": 30.84
+      },
+      "example_paths": [
+        "/api/rate/101/114",
+        "/api/rate/116/111",
+        "/api/rate/110/120"
+      ],
+      "first_seen": 1794796176.6177235,
+      "last_seen": 1794796183.9661705
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/calc/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "distance": "integer",
+          "cost": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.98,
+        "max": 7.5
+      },
+      "example_paths": [
+        "/calc/117",
+        "/calc/118",
+        "/calc/106"
+      ],
+      "first_seen": 1794796176.4735637,
+      "last_seen": 1794796183.8782928
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/cities/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "uuid": "integer",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.13,
+        "max": 9.16
+      },
+      "example_paths": [
+        "/cities/129",
+        "/cities/140",
+        "/cities/118"
+      ],
+      "first_seen": 1794796176.4401011,
+      "last_seen": 1794796183.8333504
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/codes",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "code": "string",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.23,
+        "max": 5.58
+      },
+      "example_paths": [
+        "/codes"
+      ],
+      "first_seen": 1794796176.4225934,
+      "last_seen": 1794796183.8099976
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "POST",
+      "path_template": "/confirm/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.8,
+        "max": 34.0
+      },
+      "example_paths": [
+        "/confirm/116",
+        "/confirm/118",
+        "/confirm/106"
+      ],
+      "first_seen": 1794796176.4884818,
+      "last_seen": 1794796183.8974311
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/count",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.23,
+        "max": 6.73
+      },
+      "example_paths": [
+        "/count"
+      ],
+      "first_seen": 1794796176.401675,
+      "last_seen": 1794796183.788818
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/free",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "memory_mb": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.75,
+        "max": 2.21
+      },
+      "example_paths": [
+        "/free"
+      ],
+      "first_seen": 1794796176.5473452,
+      "last_seen": 1794796183.9114738
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/match/{id}/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        },
+        {
+          "position": 3,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "uuid": "integer",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.07,
+        "max": 4.23
+      },
+      "example_paths": [
+        "/match/135/116",
+        "/match/101/128",
+        "/match/115/137"
+      ],
+      "first_seen": 1794796176.4571044,
+      "last_seen": 1794796183.863182
+    },
+    {
+      "kind": "endpoint",
+      "service": "shipping",
+      "method": "GET",
+      "path_template": "/memory",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "shipping:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "memory_mb": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 1.66,
+        "max": 3.52
+      },
+      "example_paths": [
+        "/memory"
+      ],
+      "first_seen": 1794796176.5412395,
+      "last_seen": 1794796183.9067392
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "GET",
+      "path_template": "/check/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.16,
+        "max": 11.96
+      },
+      "example_paths": [
+        "/check/126",
+        "/check/116",
+        "/check/120"
+      ],
+      "first_seen": 1794796176.5778353,
+      "last_seen": 1794796183.9496384
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "GET",
+      "path_template": "/history/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "history": [
+            {
+              "orderid": "integer",
+              "total": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 1.9,
+        "max": 14.03
+      },
+      "example_paths": [
+        "/history/115",
+        "/history/111",
+        "/history/127"
+      ],
+      "first_seen": 1794796176.272796,
+      "last_seen": 1794796183.6716635
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "POST",
+      "path_template": "/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "email": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.25,
+        "max": 9.92
+      },
+      "example_paths": [
+        "/login"
+      ],
+      "first_seen": 1794796176.2474914,
+      "last_seen": 1794796183.645921
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "POST",
+      "path_template": "/order/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.29,
+        "max": 22.98
+      },
+      "example_paths": [
+        "/order/126",
+        "/order/116",
+        "/order/120"
+      ],
+      "first_seen": 1794796176.5829818,
+      "last_seen": 1794796183.95531
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "POST",
+      "path_template": "/register",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "password": "string",
+          "email": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.28,
+        "max": 10.37
+      },
+      "example_paths": [
+        "/register"
+      ],
+      "first_seen": 1794796176.2639344,
+      "last_seen": 1794796183.6545591
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "GET",
+      "path_template": "/uniqueid",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "uuid": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.27,
+        "max": 7.25
+      },
+      "example_paths": [
+        "/uniqueid"
+      ],
+      "first_seen": 1794796176.2212434,
+      "last_seen": 1794796183.6207879
+    },
+    {
+      "kind": "endpoint",
+      "service": "user",
+      "method": "GET",
+      "path_template": "/users",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "user:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "name": "string",
+            "email": "string",
+            "password": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 2.23,
+        "max": 9.13
+      },
+      "example_paths": [
+        "/users"
+      ],
+      "first_seen": 1794796176.2394521,
+      "last_seen": 1794796183.6282246
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/cart/add/{id}/{id}/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 5,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer",
+          "items": [
+            {
+              "sku": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 11.14,
+        "max": 42.01
+      },
+      "example_paths": [
+        "/api/cart/add/134/135/114",
+        "/api/cart/add/129/117/135",
+        "/api/cart/add/138/131/108"
+      ],
+      "first_seen": 1794796176.3323708,
+      "last_seen": 1794796183.7379851
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "DELETE",
+      "path_template": "/api/cart/cart/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.81,
+        "max": 29.31
+      },
+      "example_paths": [
+        "/api/cart/cart/139",
+        "/api/cart/cart/138",
+        "/api/cart/cart/136"
+      ],
+      "first_seen": 1794796176.3162615,
+      "last_seen": 1794796183.7058167
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/cart/cart/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer",
+          "items": [
+            {
+              "sku": "string",
+              "qty": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.95,
+        "max": 16.64
+      },
+      "example_paths": [
+        "/api/cart/cart/128",
+        "/api/cart/cart/133",
+        "/api/cart/cart/101"
+      ],
+      "first_seen": 1794796176.2867863,
+      "last_seen": 1794796183.6932552
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/cart/rename/{id}/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 5,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.1,
+        "max": 10.11
+      },
+      "example_paths": [
+        "/api/cart/rename/110/132",
+        "/api/cart/rename/121/121",
+        "/api/cart/rename/137/108"
+      ],
+      "first_seen": 1794796176.324377,
+      "last_seen": 1794796183.7151465
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/cart/update/{id}/{id}/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 5,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.39,
+        "max": 12.44
+      },
+      "example_paths": [
+        "/api/cart/update/132/108/133",
+        "/api/cart/update/121/107/139",
+        "/api/cart/update/133/120/132"
+      ],
+      "first_seen": 1794796176.3889852,
+      "last_seen": 1794796183.7503211
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/catalogue/categories",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          "string"
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.61,
+        "max": 31.92
+      },
+      "example_paths": [
+        "/api/catalogue/categories"
+      ],
+      "first_seen": 1794796176.1917903,
+      "last_seen": 1794796183.5938609
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/catalogue/product/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "sku": "integer",
+          "name": "string",
+          "price": "integer",
+          "instock": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.3,
+        "max": 51.03
+      },
+      "example_paths": [
+        "/api/catalogue/product/124",
+        "/api/catalogue/product/117",
+        "/api/catalogue/product/120"
+      ],
+      "first_seen": 1794796176.1451638,
+      "last_seen": 1794796183.557923
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/catalogue/products",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "sku": "string",
+            "name": "string",
+            "price": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.67,
+        "max": 47.04
+      },
+      "example_paths": [
+        "/api/catalogue/products"
+      ],
+      "first_seen": 1794796176.076179,
+      "last_seen": 1794796183.5340846
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/catalogue/products/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "sku": "string",
+            "category": "integer"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.38,
+        "max": 28.58
+      },
+      "example_paths": [
+        "/api/catalogue/products/134",
+        "/api/catalogue/products/127",
+        "/api/catalogue/products/126"
+      ],
+      "first_seen": 1794796176.1741664,
+      "last_seen": 1794796183.577503
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/catalogue/search/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "sku": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 7.78,
+        "max": 15.71
+      },
+      "example_paths": [
+        "/api/catalogue/search/129",
+        "/api/catalogue/search/112",
+        "/api/catalogue/search/104"
+      ],
+      "first_seen": 1794796176.208182,
+      "last_seen": 1794796183.602522
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "POST",
+      "path_template": "/api/payment/pay/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer",
+          "items": [
+            {
+              "sku": "string",
+              "qty": "integer"
+            }
+          ]
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "orderid": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 18.93,
+        "max": 91.52
+      },
+      "example_paths": [
+        "/api/payment/pay/126",
+        "/api/payment/pay/116",
+        "/api/payment/pay/120"
+      ],
+      "first_seen": 1794796176.5511756,
+      "last_seen": 1794796183.9444346
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/ratings/api/fetch/{id}",
+      "path_params": [
+        {
+          "position": 5,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "avg_rating": "integer",
+          "rating_count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.71,
+        "max": 15.83
+      },
+      "example_paths": [
+        "/api/ratings/api/fetch/102",
+        "/api/ratings/api/fetch/132",
+        "/api/ratings/api/fetch/112"
+      ],
+      "first_seen": 1794796176.6527178,
+      "last_seen": 1794796183.9837239
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "PUT",
+      "path_template": "/api/ratings/api/rate/{id}/{id}",
+      "path_params": [
+        {
+          "position": 5,
+          "kind": "int"
+        },
+        {
+          "position": 6,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 13.02,
+        "max": 37.72
+      },
+      "example_paths": [
+        "/api/ratings/api/rate/101/114",
+        "/api/ratings/api/rate/116/111",
+        "/api/ratings/api/rate/110/120"
+      ],
+      "first_seen": 1794796176.6132104,
+      "last_seen": 1794796183.9642508
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/calc/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "distance": "integer",
+          "cost": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.21,
+        "max": 16.4
+      },
+      "example_paths": [
+        "/api/shipping/calc/117",
+        "/api/shipping/calc/118",
+        "/api/shipping/calc/106"
+      ],
+      "first_seen": 1794796176.4713824,
+      "last_seen": 1794796183.8762128
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/cities/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "uuid": "integer",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.99,
+        "max": 16.0
+      },
+      "example_paths": [
+        "/api/shipping/cities/129",
+        "/api/shipping/cities/140",
+        "/api/shipping/cities/118"
+      ],
+      "first_seen": 1794796176.4378526,
+      "last_seen": 1794796183.8311574
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/codes",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "code": "string",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.77,
+        "max": 22.15
+      },
+      "example_paths": [
+        "/api/shipping/codes"
+      ],
+      "first_seen": 1794796176.4198022,
+      "last_seen": 1794796183.8078048
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "POST",
+      "path_template": "/api/shipping/confirm/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "total": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 11.13,
+        "max": 37.89
+      },
+      "example_paths": [
+        "/api/shipping/confirm/116",
+        "/api/shipping/confirm/118",
+        "/api/shipping/confirm/106"
+      ],
+      "first_seen": 1794796176.4866073,
+      "last_seen": 1794796183.895509
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/count",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "count": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.35,
+        "max": 22.24
+      },
+      "example_paths": [
+        "/api/shipping/count"
+      ],
+      "first_seen": 1794796176.3973353,
+      "last_seen": 1794796183.7867496
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/free",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "memory_mb": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.46,
+        "max": 7.36
+      },
+      "example_paths": [
+        "/api/shipping/free"
+      ],
+      "first_seen": 1794796176.5459325,
+      "last_seen": 1794796183.9102829
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/match/{id}/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        },
+        {
+          "position": 5,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "uuid": "integer",
+            "name": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.74,
+        "max": 23.92
+      },
+      "example_paths": [
+        "/api/shipping/match/135/116",
+        "/api/shipping/match/101/128",
+        "/api/shipping/match/115/137"
+      ],
+      "first_seen": 1794796176.4549553,
+      "last_seen": 1794796183.8592582
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/shipping/memory",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "memory_mb": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 5.47,
+        "max": 9.39
+      },
+      "example_paths": [
+        "/api/shipping/memory"
+      ],
+      "first_seen": 1794796176.539134,
+      "last_seen": 1794796183.9054182
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/user/history/{id}",
+      "path_params": [
+        {
+          "position": 4,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "history": [
+            {
+              "orderid": "integer",
+              "total": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 6.55,
+        "max": 35.86
+      },
+      "example_paths": [
+        "/api/user/history/115",
+        "/api/user/history/111",
+        "/api/user/history/127"
+      ],
+      "first_seen": 1794796176.270384,
+      "last_seen": 1794796183.6695173
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "POST",
+      "path_template": "/api/user/login",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "password": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "email": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.35,
+        "max": 17.85
+      },
+      "example_paths": [
+        "/api/user/login"
+      ],
+      "first_seen": 1794796176.2452226,
+      "last_seen": 1794796183.6435392
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "POST",
+      "path_template": "/api/user/register",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "name": "string",
+          "password": "string",
+          "email": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.91,
+        "max": 14.61
+      },
+      "example_paths": [
+        "/api/user/register"
+      ],
+      "first_seen": 1794796176.2617521,
+      "last_seen": 1794796183.6522653
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/user/uniqueid",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "uuid": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 6.6,
+        "max": 24.33
+      },
+      "example_paths": [
+        "/api/user/uniqueid"
+      ],
+      "first_seen": 1794796176.2165766,
+      "last_seen": 1794796183.6188126
+    },
+    {
+      "kind": "endpoint",
+      "service": "web",
+      "method": "GET",
+      "path_template": "/api/user/users",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "web:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": [
+          {
+            "name": "string",
+            "email": "string",
+            "password": "string"
+          }
+        ]
+      },
+      "latency_ms": {
+        "p50": 6.95,
+        "max": 26.78
+      },
+      "example_paths": [
+        "/api/user/users"
+      ],
+      "first_seen": 1794796176.2373097,
+      "last_seen": 1794796183.6261814
+    }
+  ]
+}

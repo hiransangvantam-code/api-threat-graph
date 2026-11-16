@@ -1,0 +1,1158 @@
+{
+ "system": "lakeside-mutual",
+ "bases": [
+  "http://172.18.0.4:8110",
+  "http://172.18.0.3:8100",
+  "http://172.18.0.6:8080",
+  "http://172.18.0.5:8090",
+  "http://172.18.0.2:9000"
+ ],
+ "ips": {
+  "customer-core": "172.18.0.4",
+  "customer-management-backend": "172.18.0.3",
+  "customer-self-service-backend": "172.18.0.6",
+  "policy-management-backend": "172.18.0.5",
+  "spring-boot-admin": "172.18.0.2"
+ },
+ "by_ip": {
+  "172.18.0.4": "customer-core",
+  "172.18.0.3": "customer-management-backend",
+  "172.18.0.6": "customer-self-service-backend",
+  "172.18.0.5": "policy-management-backend",
+  "172.18.0.2": "spring-boot-admin"
+ },
+ "total_s": 47.7,
+ "messages": 9905,
+ "urls": [
+  "http://172.18.0.2:9000",
+  "http://172.18.0.2:9000/applications",
+  "http://172.18.0.3:8100",
+  "http://172.18.0.3:8100/customers",
+  "http://172.18.0.3:8100/customers/1",
+  "http://172.18.0.3:8100/interaction-logs",
+  "http://172.18.0.3:8100/interaction-logs/1",
+  "http://172.18.0.3:8100/notifications",
+  "http://172.18.0.4:8110",
+  "http://172.18.0.4:8110/cities",
+  "http://172.18.0.4:8110/cities/1",
+  "http://172.18.0.4:8110/customers",
+  "http://172.18.0.4:8110/customers/1",
+  "http://172.18.0.4:8110/customers/1/address",
+  "http://172.18.0.4:8110/getCustomers",
+  "http://172.18.0.4:8110/getCustomers/1",
+  "http://172.18.0.5:8090",
+  "http://172.18.0.5:8090/customers",
+  "http://172.18.0.5:8090/customers/1",
+  "http://172.18.0.5:8090/customers/1/policies",
+  "http://172.18.0.5:8090/insurance-quote-requests",
+  "http://172.18.0.5:8090/insurance-quote-requests/1",
+  "http://172.18.0.5:8090/policies",
+  "http://172.18.0.5:8090/policies/1",
+  "http://172.18.0.5:8090/riskfactor",
+  "http://172.18.0.5:8090/riskfactor/compute",
+  "http://172.18.0.6:8080",
+  "http://172.18.0.6:8080/auth",
+  "http://172.18.0.6:8080/auth/signup",
+  "http://172.18.0.6:8080/cities",
+  "http://172.18.0.6:8080/cities/1",
+  "http://172.18.0.6:8080/customers",
+  "http://172.18.0.6:8080/customers/1",
+  "http://172.18.0.6:8080/customers/1/address",
+  "http://172.18.0.6:8080/customers/1/insurance-quote-requests",
+  "http://172.18.0.6:8080/insurance-quote-requests",
+  "http://172.18.0.6:8080/insurance-quote-requests/1",
+  "http://172.18.0.6:8080/user"
+ ],
+ "alerts": [
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/interaction-logs/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "PUT",
+   "url": "http://172.18.0.3:8100/customers/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "PATCH",
+   "url": "http://172.18.0.3:8100/interaction-logs/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "PUT",
+   "url": "http://172.18.0.3:8100/customers/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "param": "\u00abcustomerId\u00bb"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "param": "\u00abcustomerId\u00bb"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.3:8100/notifications",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.6:8080/cities/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.6:8080/auth/signup",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.6:8080/cities/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "param": "\u00abpostalCode\u00bb"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "PATCH",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "PUT",
+   "url": "http://172.18.0.5:8090/policies/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/riskfactor/compute",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "DELETE",
+   "url": "http://172.18.0.5:8090/policies/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "30002",
+   "alert": "Format String Error",
+   "risk": "Medium",
+   "confidence": "Medium",
+   "cweid": "134",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "param": "\u00abcustomerIdDto\u00bb"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "POST",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/customers/1/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/policies",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10104",
+   "alert": "User Agent Fuzzer",
+   "risk": "Informational",
+   "confidence": "Medium",
+   "cweid": "0",
+   "method": "GET",
+   "url": "http://172.18.0.5:8090/insurance-quote-requests",
+   "param": "Header User-Agent"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
+   "url": "http://172.18.0.2:9000/applications",
+   "param": "x-content-type-options"
+  }
+ ]
+}

@@ -164,3 +164,26 @@ internal calls through the sidecar, so ATG sees them only where the system sends
   not the decimals.
 - **Commercial tools were not run** (cost and accounts); `docs/TOOLS_COMPARISON.md` compares them from
   their documentation only.
+
+## Version 1.6: the full evaluation on the ten systems
+
+The report's Section V uses only these ten systems. Besides the tool comparison above it measures, with
+`bench/oss_eval.py`, `bench/oss_fixes.py`, `bench/oss_stress.py` and `bench/oss_report.py`
+(results in `results/opensource/eval/`):
+
+- discovery by source: API documents alone 41/201 operations, traffic 187/201 (precision 72%), traces 80/201,
+  all four 189/201 (precision 88%); without the deployment and gateway files precision falls to 72%
+- the sidecar's added latency: 4.2-5.7 ms per request (median)
+- OWASP ZAP on the same running systems: 47/201 operations reached and 0/716 labels as an outside tester;
+  195/201 and 4/716 when given ATG's inventory (63,881 requests); ATG sent 622 read-only requests
+- ATG's configuration fixes applied to copies of the real deployment files and rescanned: 41% of the
+  attack-path risk removed, equal to the planner's prediction on 7 systems and within 1.1% on 2
+- stress test cloned from Online Boutique: 1,200 workloads and 30,200 paths in 64 s; out of 4 GB PostgreSQL
+  temporary space at 3 random calls per operation (60 workloads)
+- negative controls from the systems' code: 1 false alarm on 54
+
+The fix experiment found faults in ATG, fixed in 1.6: the internet actor did not reach services published
+through a LoadBalancer or an Istio Gateway (attack paths and risk change; findings do not), and the
+NetworkPolicy advice used `app:` instead of the pods' own labels, cut an entry service off from its users,
+gave untraced services no callers and treated the service behind an Istio Gateway as internal.
+`bench/oss_rescore.py` recomputes Phases 2-3 with 1.6 on the saved Phase 1 output of every scan.

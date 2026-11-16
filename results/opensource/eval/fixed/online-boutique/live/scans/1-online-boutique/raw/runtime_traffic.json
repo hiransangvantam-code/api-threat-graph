@@ -1,0 +1,1334 @@
+{
+  "schema": "atg.raw/v1",
+  "source": "runtime_traffic",
+  "collector": "mitmproxy",
+  "extractor_version": "0.1.0",
+  "run_id": "20261116-024933-06f8a2",
+  "collected_at": "2026-11-16T02:49:33+00:00",
+  "duration_ms": 25.8,
+  "inputs": [
+    "/work/scan-input/1-online-boutique/capture/flows.jsonl"
+  ],
+  "stats": {
+    "flows": 825,
+    "flows_ignored": 1,
+    "endpoints": 25,
+    "services": 10,
+    "flows_by_capture_point": {
+      "east-west": 570,
+      "north-south": 255
+    },
+    "unmapped_hosts": []
+  },
+  "warnings": [],
+  "records": [
+    {
+      "kind": "endpoint",
+      "service": "adservice",
+      "method": "POST",
+      "path_template": "/hipstershop.AdService/GetAds",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "adservice:9555"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "ads": [
+            {
+              "redirect_url": "string",
+              "text": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.96,
+        "max": 8.19
+      },
+      "example_paths": [
+        "/hipstershop.AdService/GetAds"
+      ],
+      "first_seen": 1794797358.2155151,
+      "last_seen": 1794797363.7448463
+    },
+    {
+      "kind": "endpoint",
+      "service": "cartservice",
+      "method": "POST",
+      "path_template": "/hipstershop.CartService/AddItem",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "cartservice:7070"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.41,
+        "max": 8.12
+      },
+      "example_paths": [
+        "/hipstershop.CartService/AddItem"
+      ],
+      "first_seen": 1794797358.435951,
+      "last_seen": 1794797363.8463085
+    },
+    {
+      "kind": "endpoint",
+      "service": "cartservice",
+      "method": "POST",
+      "path_template": "/hipstershop.CartService/EmptyCart",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "cartservice:7070"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.42,
+        "max": 12.77
+      },
+      "example_paths": [
+        "/hipstershop.CartService/EmptyCart"
+      ],
+      "first_seen": 1794797358.4633267,
+      "last_seen": 1794797363.910273
+    },
+    {
+      "kind": "endpoint",
+      "service": "cartservice",
+      "method": "POST",
+      "path_template": "/hipstershop.CartService/GetCart",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "cartservice:7070"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 90,
+      "status_codes": {
+        "200": 90
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 90,
+        "status_codes_without_auth": {
+          "200": 90
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "user_id": "string",
+          "items": [
+            {
+              "product_id": "string",
+              "quantity": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.55,
+        "max": 16.92
+      },
+      "example_paths": [
+        "/hipstershop.CartService/GetCart"
+      ],
+      "first_seen": 1794797358.2076898,
+      "last_seen": 1794797363.8755224
+    },
+    {
+      "kind": "endpoint",
+      "service": "checkoutservice",
+      "method": "POST",
+      "path_template": "/hipstershop.CheckoutService/PlaceOrder",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "checkoutservice:5050"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "order": {
+            "order_id": "integer",
+            "shipping_cost": "integer"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 54.6,
+        "max": 236.22
+      },
+      "example_paths": [
+        "/hipstershop.CheckoutService/PlaceOrder"
+      ],
+      "first_seen": 1794797358.4939592,
+      "last_seen": 1794797363.8727903
+    },
+    {
+      "kind": "endpoint",
+      "service": "currencyservice",
+      "method": "POST",
+      "path_template": "/hipstershop.CurrencyService/Convert",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "currencyservice:7000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "currency_code": "string",
+          "units": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.81,
+        "max": 9.98
+      },
+      "example_paths": [
+        "/hipstershop.CurrencyService/Convert"
+      ],
+      "first_seen": 1794797358.5562925,
+      "last_seen": 1794797363.8859174
+    },
+    {
+      "kind": "endpoint",
+      "service": "currencyservice",
+      "method": "POST",
+      "path_template": "/hipstershop.CurrencyService/GetSupportedCurrencies",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "currencyservice:7000"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "currency_codes": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.89,
+        "max": 7.77
+      },
+      "example_paths": [
+        "/hipstershop.CurrencyService/GetSupportedCurrencies"
+      ],
+      "first_seen": 1794797358.1869779,
+      "last_seen": 1794797363.7295043
+    },
+    {
+      "kind": "endpoint",
+      "service": "emailservice",
+      "method": "POST",
+      "path_template": "/hipstershop.EmailService/SendOrderConfirmation",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "emailservice:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.81,
+        "max": 144.53
+      },
+      "example_paths": [
+        "/hipstershop.EmailService/SendOrderConfirmation"
+      ],
+      "first_seen": 1794797358.7021317,
+      "last_seen": 1794797363.9145246
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "products": [
+            {
+              "id": "string",
+              "name": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 28.79,
+        "max": 103.43
+      },
+      "example_paths": [
+        "/"
+      ],
+      "first_seen": 1794797358.1648474,
+      "last_seen": 1794797363.726791
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/assistant",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "page": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.42,
+        "max": 6.24
+      },
+      "example_paths": [
+        "/assistant"
+      ],
+      "first_seen": 1794797358.73938,
+      "last_seen": 1794797363.9357293
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "POST",
+      "path_template": "/bot",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "message": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "message": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.39,
+        "max": 5.63
+      },
+      "example_paths": [
+        "/bot"
+      ],
+      "first_seen": 1794797358.7460465,
+      "last_seen": 1794797363.9408023
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/cart",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "items": [
+            {
+              "product_id": "string",
+              "quantity": "integer"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 12.6,
+        "max": 30.27
+      },
+      "example_paths": [
+        "/cart"
+      ],
+      "first_seen": 1794797358.3764343,
+      "last_seen": 1794797363.8223896
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "POST",
+      "path_template": "/cart",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 30,
+      "status_codes": {
+        "200": 30
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 30,
+        "status_codes_without_auth": {
+          "200": 30
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "product_id": "string",
+          "quantity": "integer"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 8.09,
+        "max": 55.62
+      },
+      "example_paths": [
+        "/cart"
+      ],
+      "first_seen": 1794797358.4246182,
+      "last_seen": 1794797363.8438618
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "POST",
+      "path_template": "/cart/checkout",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "email": "string",
+          "street_address": "string",
+          "zip_code": "string",
+          "city": "string",
+          "state": "string",
+          "country": "string",
+          "credit_card_number": "string",
+          "credit_card_expiration_month": "integer",
+          "credit_card_expiration_year": "integer",
+          "credit_card_cvv": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "order_id": "integer",
+          "shipping_tracking_id": "string",
+          "total_paid": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 60.69,
+        "max": 246.78
+      },
+      "example_paths": [
+        "/cart/checkout"
+      ],
+      "first_seen": 1794797358.4874666,
+      "last_seen": 1794797363.8701458
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "POST",
+      "path_template": "/cart/empty",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 7.37,
+        "max": 20.79
+      },
+      "example_paths": [
+        "/cart/empty"
+      ],
+      "first_seen": 1794797358.4573402,
+      "last_seen": 1794797363.8535342
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/logout",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "status": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.2,
+        "max": 20.46
+      },
+      "example_paths": [
+        "/logout"
+      ],
+      "first_seen": 1794797358.4847214,
+      "last_seen": 1794797363.866174
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/product-meta/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "name": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 9.5,
+        "max": 24.0
+      },
+      "example_paths": [
+        "/product-meta/121",
+        "/product-meta/131",
+        "/product-meta/114"
+      ],
+      "first_seen": 1794797358.7263112,
+      "last_seen": 1794797363.9264286
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "GET",
+      "path_template": "/product/{id}",
+      "path_params": [
+        {
+          "position": 2,
+          "kind": "int"
+        }
+      ],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "integer",
+          "name": "string",
+          "price_usd": "integer"
+        }
+      },
+      "latency_ms": {
+        "p50": 17.73,
+        "max": 59.58
+      },
+      "example_paths": [
+        "/product/124",
+        "/product/117",
+        "/product/120"
+      ],
+      "first_seen": 1794797358.2673805,
+      "last_seen": 1794797363.787488
+    },
+    {
+      "kind": "endpoint",
+      "service": "frontend",
+      "method": "POST",
+      "path_template": "/setCurrency",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "frontend:8080"
+      ],
+      "capture_points": [
+        "north-south"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "currency_code": "string"
+        }
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "currency": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.68,
+        "max": 11.66
+      },
+      "example_paths": [
+        "/setCurrency"
+      ],
+      "first_seen": 1794797358.4799788,
+      "last_seen": 1794797363.8617926
+    },
+    {
+      "kind": "endpoint",
+      "service": "paymentservice",
+      "method": "POST",
+      "path_template": "/hipstershop.PaymentService/Charge",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "paymentservice:50051"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "transaction_id": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.41,
+        "max": 10.27
+      },
+      "example_paths": [
+        "/hipstershop.PaymentService/Charge"
+      ],
+      "first_seen": 1794797358.6604948,
+      "last_seen": 1794797363.8996193
+    },
+    {
+      "kind": "endpoint",
+      "service": "productcatalogservice",
+      "method": "POST",
+      "path_template": "/hipstershop.ProductCatalogService/GetProduct",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productcatalogservice:3550"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 75,
+      "status_codes": {
+        "200": 75
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 75,
+        "status_codes_without_auth": {
+          "200": 75
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "id": "string",
+          "name": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 2.45,
+        "max": 12.64
+      },
+      "example_paths": [
+        "/hipstershop.ProductCatalogService/GetProduct"
+      ],
+      "first_seen": 1794797358.2712677,
+      "last_seen": 1794797363.9288507
+    },
+    {
+      "kind": "endpoint",
+      "service": "productcatalogservice",
+      "method": "POST",
+      "path_template": "/hipstershop.ProductCatalogService/ListProducts",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "productcatalogservice:3550"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 90,
+      "status_codes": {
+        "200": 90
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 90,
+        "status_codes_without_auth": {
+          "200": 90
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "products": [
+            {
+              "id": "string",
+              "name": "string"
+            }
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 2.44,
+        "max": 13.56
+      },
+      "example_paths": [
+        "/hipstershop.ProductCatalogService/ListProducts"
+      ],
+      "first_seen": 1794797358.2002292,
+      "last_seen": 1794797363.7992282
+    },
+    {
+      "kind": "endpoint",
+      "service": "recommendationservice",
+      "method": "POST",
+      "path_template": "/hipstershop.RecommendationService/ListRecommendations",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "recommendationservice:8080"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "product_ids": [
+            "string"
+          ]
+        }
+      },
+      "latency_ms": {
+        "p50": 7.4,
+        "max": 45.93
+      },
+      "example_paths": [
+        "/hipstershop.RecommendationService/ListRecommendations"
+      ],
+      "first_seen": 1794797358.2776296,
+      "last_seen": 1794797363.796832
+    },
+    {
+      "kind": "endpoint",
+      "service": "shippingservice",
+      "method": "POST",
+      "path_template": "/hipstershop.ShippingService/GetQuote",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "shippingservice:50051"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 45,
+      "status_codes": {
+        "200": 45
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 45,
+        "status_codes_without_auth": {
+          "200": 45
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "cost_usd": {
+            "currency_code": "string",
+            "units": "integer"
+          }
+        }
+      },
+      "latency_ms": {
+        "p50": 2.6,
+        "max": 41.33
+      },
+      "example_paths": [
+        "/hipstershop.ShippingService/GetQuote"
+      ],
+      "first_seen": 1794797358.3898027,
+      "last_seen": 1794797363.8919196
+    },
+    {
+      "kind": "endpoint",
+      "service": "shippingservice",
+      "method": "POST",
+      "path_template": "/hipstershop.ShippingService/ShipOrder",
+      "path_params": [],
+      "query_params": [],
+      "hosts": [
+        "shippingservice:50051"
+      ],
+      "capture_points": [
+        "east-west"
+      ],
+      "hits": 15,
+      "status_codes": {
+        "200": 15
+      },
+      "transport_errors": 0,
+      "auth": {
+        "authorization_header_seen": 0,
+        "authorization_header_missing": 15,
+        "status_codes_without_auth": {
+          "200": 15
+        },
+        "schemes": [],
+        "cookie_names": []
+      },
+      "request": {
+        "content_types": [],
+        "body_shape": null
+      },
+      "response": {
+        "content_types": [
+          "application/json"
+        ],
+        "body_shape": {
+          "tracking_id": "string"
+        }
+      },
+      "latency_ms": {
+        "p50": 3.71,
+        "max": 7.63
+      },
+      "example_paths": [
+        "/hipstershop.ShippingService/ShipOrder"
+      ],
+      "first_seen": 1794797358.6791017,
+      "last_seen": 1794797363.904424
+    }
+  ]
+}

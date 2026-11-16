@@ -1,14 +1,24 @@
 {
  "company": "lakeside-mutual",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
- "scan_s": 0.2,
+ "scan_s": 0.4,
  "timings": {
-  "phase1_ms": 185.9736569999768,
-  "phase2_ms": 3.472476000069946,
-  "phase3_ms": 37.58607000008851,
-  "phase4_ms": 8.738791000041601
+  "phase1_ms": 301.62229699999443,
+  "phase2_ms": 6.056315999899198,
+  "phase3_ms": 43.49625199995444,
+  "phase4_ms": 7.141844999978275,
+  "resources": {
+   "cpu_s": 0.291,
+   "user_s": 0.55,
+   "sys_s": 0.07,
+   "read_mb": 4.01,
+   "write_mb": 3.24,
+   "peak_mb": 57.0
+  }
  },
- "run_id": "20261115-223845-cc4d65",
+ "flows": 998,
+ "span_batches": 0,
+ "run_id": "20261116-071711-1921e9",
  "summary": {
   "findings": 118,
   "by_severity": {
@@ -17,9 +27,9 @@
    "medium": 40,
    "low": 52
   },
-  "attack_paths": 118,
-  "critical_paths": 0,
-  "total_path_risk": 414.5,
+  "attack_paths": 223,
+  "critical_paths": 26,
+  "total_path_risk": 793.5,
   "endpoints": 38,
   "shadow_endpoints": 1,
   "services": 9,

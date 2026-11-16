@@ -1,14 +1,14 @@
 {
   "schema": "atg.raw/v1",
   "extractor_version": "0.1.0",
-  "run_id": "20261116-030744-4d6622",
+  "run_id": "20261116-083005-d1dcf2",
   "target": "Istio Bookinfo",
-  "started_at": "2026-11-16T03:07:44+00:00",
+  "started_at": "2026-11-16T08:30:05+00:00",
   "sources": {
     "runtime_traffic": {
       "status": "ok",
       "file": "/work/raw/runtime_traffic.json",
-      "sha256": "450911b3858998fe24517b4c6fe65f0bde0e1e444759c7fbf6e4cea59c58e038",
+      "sha256": "b67062bd10dc47885a24277c0ebf7b854b2a1d1438b1e8b3113d8d737784b8d2",
       "records": 13,
       "stats": {
         "flows": 544,
@@ -22,12 +22,12 @@
         "unmapped_hosts": []
       },
       "warnings": [],
-      "duration_ms": 13.6
+      "duration_ms": 15.0
     },
     "openapi": {
       "status": "ok",
       "file": "/work/raw/openapi.json",
-      "sha256": "789072bf5840d289463cbd0d7f025af4b94244cbb11d380e18fedbc99b87591c",
+      "sha256": "38be2282a84d9f3a51d9e2f8483bdfee89f69631e8505558aecbc43755f4fb06",
       "records": 1,
       "stats": {
         "specs": 1,
@@ -49,12 +49,12 @@
         "reviews: no live spec at any probed path",
         "ratings: no live spec at any probed path"
       ],
-      "duration_ms": 147.7
+      "duration_ms": 126.8
     },
     "infrastructure": {
       "status": "ok",
       "file": "/work/raw/infrastructure.json",
-      "sha256": "76a7e1a360cd96dd01af20dd4915acc6afaee27a1dc17b6bbbd1ce86041b012a",
+      "sha256": "6483adda52f0af39f5e0c5f8401501dbffd7200387d696f16ba2bf23a9e61533",
       "records": 26,
       "stats": {
         "files": 2,
@@ -75,12 +75,12 @@
         }
       },
       "warnings": [],
-      "duration_ms": 60.6
+      "duration_ms": 56.9
     },
     "callchain": {
       "status": "ok",
       "file": "/work/raw/callchain.json",
-      "sha256": "0597a9164a155814f0a3dd90de89f1e935c93197bd451df2e32bb84086d46efb",
+      "sha256": "62fd652d3e53d6f21c9142e129eb97c6f813f9aee15e7c8a932f53c354e9ea9c",
       "records": 28,
       "stats": {
         "spans": 844,
@@ -92,9 +92,9 @@
         "max_chain_depth": 3
       },
       "warnings": [],
-      "duration_ms": 19.0
+      "duration_ms": 15.8
     }
   },
-  "finished_at": "2026-11-16T03:07:45+00:00",
-  "total_duration_ms": 245.5
+  "finished_at": "2026-11-16T08:30:06+00:00",
+  "total_duration_ms": 219.3
 }

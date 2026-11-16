@@ -162,6 +162,46 @@
    "svc:acmeair-main-service"
   ],
   [
+   "C7",
+   "svc:acmeair-auth-service"
+  ],
+  [
+   "C7",
+   "svc:acmeair-booking-service"
+  ],
+  [
+   "C7",
+   "svc:acmeair-customer-service"
+  ],
+  [
+   "C7",
+   "svc:acmeair-flight-service"
+  ],
+  [
+   "C7",
+   "svc:acmeair-main-service"
+  ],
+  [
+   "C8",
+   "svc:acmeair-auth-service"
+  ],
+  [
+   "C8",
+   "svc:acmeair-booking-service"
+  ],
+  [
+   "C8",
+   "svc:acmeair-customer-service"
+  ],
+  [
+   "C8",
+   "svc:acmeair-flight-service"
+  ],
+  [
+   "C8",
+   "svc:acmeair-main-service"
+  ],
+  [
    "C9",
    "svc:acmeair-auth-service"
   ],
@@ -220,17 +260,50 @@
  },
  "seconds": 0.12,
  "findings": 162,
+ "cpu_s": 0.13,
+ "user_s": 0.11,
+ "sys_s": 0.01,
+ "cores": 1.02,
+ "peak_mb": 36.3,
+ "avg_mb": 28.0,
+ "read_mb": 0.012,
+ "write_mb": 0.089,
+ "processes": 1,
+ "names": {
+  "tlsSettingsMissing": "Ingress does not have TLS configured",
+  "deploymentMissingReplicas": "Only one replica is scheduled",
+  "metadataAndInstanceMismatched": "Label app.kubernetes.io/instance must match metadata.name",
+  "missingPodDisruptionBudget": "Should have a PodDisruptionBudget",
+  "automountServiceAccountToken": "The ServiceAccount will be automounted",
+  "missingNetworkPolicy": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+  "priorityClassNotSet": "Priority class should be set",
+  "topologySpreadConstraint": "Pod should be configured with a valid topology spread constraint",
+  "cpuLimitsMissing": "CPU limits should be set",
+  "cpuRequestsMissing": "CPU requests should be set",
+  "insecureCapabilities": "Container should not have insecure capabilities",
+  "linuxHardening": "Use one of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities to restrict containers using unwanted privileges",
+  "livenessProbeMissing": "Liveness probe should be configured",
+  "memoryLimitsMissing": "Memory limits should be set",
+  "memoryRequestsMissing": "Memory requests should be set",
+  "notReadOnlyRootFilesystem": "Filesystem should be read only",
+  "privilegeEscalationAllowed": "Privilege escalation should not be allowed",
+  "pullPolicyNotAlways": "Image pull policy should be \"Always\"",
+  "readinessProbeMissing": "Readiness probe should be configured",
+  "runAsRootAllowed": "Should not be allowed to run as root",
+  "sensitiveContainerEnvVar": "The container sets potentially sensitive environment variables",
+  "tagNotSpecified": "Image tag should be specified"
+ },
  "score": {
   "labels": 79,
-  "found": 48,
-  "reported": 48,
-  "confirmed": 48,
+  "found": 58,
+  "reported": 58,
+  "confirmed": 58,
   "by_group": {
    "Configuration": {
     "labels": 58,
-    "found": 48,
-    "reported": 48,
-    "confirmed": 48
+    "found": 58,
+    "reported": 58,
+    "confirmed": 58
    },
    "API behaviour": {
     "labels": 11,
@@ -284,11 +357,11 @@
    },
    "C7": {
     "labels": 5,
-    "found": 0
+    "found": 5
    },
    "C8": {
     "labels": 5,
-    "found": 0
+    "found": 5
    },
    "C9": {
     "labels": 8,
@@ -349,46 +422,6 @@
     "ep:acmeair-auth-service:POST:/auth/login"
    ],
    [
-    "C7",
-    "svc:acmeair-auth-service"
-   ],
-   [
-    "C7",
-    "svc:acmeair-booking-service"
-   ],
-   [
-    "C7",
-    "svc:acmeair-customer-service"
-   ],
-   [
-    "C7",
-    "svc:acmeair-flight-service"
-   ],
-   [
-    "C7",
-    "svc:acmeair-main-service"
-   ],
-   [
-    "C8",
-    "svc:acmeair-auth-service"
-   ],
-   [
-    "C8",
-    "svc:acmeair-booking-service"
-   ],
-   [
-    "C8",
-    "svc:acmeair-customer-service"
-   ],
-   [
-    "C8",
-    "svc:acmeair-flight-service"
-   ],
-   [
-    "C8",
-    "svc:acmeair-main-service"
-   ],
-   [
     "O1",
     "svc:acmeair-auth-service"
    ],
@@ -431,8 +464,8 @@
   ],
   "unconfirmed": [],
   "in_reach": {
-   "labels": 48,
-   "found": 48
+   "labels": 58,
+   "found": 58
   }
  }
 }

@@ -25,6 +25,7 @@ import argparse
 import glob
 import io
 import json
+import os
 import re
 import statistics
 import subprocess
@@ -250,6 +251,102 @@ def run_zap_inventory(sid: str, tag: str) -> dict:
     return res
 
 
+# ---------------------------------------------------------------- ZAP's computing resources
+def _tree(root: int) -> list[int]:
+    kids = {}
+    for d in Path("/proc").iterdir():
+        if d.name.isdigit():
+            try:
+                ppid = int((d / "stat").read_bytes().rsplit(b")", 1)[1].split()[1])
+            except (OSError, IndexError, ValueError):
+                continue
+            kids.setdefault(ppid, []).append(int(d.name))
+    out, todo = [], [root]
+    while todo:
+        p = todo.pop()
+        out.append(p)
+        todo += kids.get(p, [])
+    return out
+
+
+def tree_usage(root: int) -> dict:
+    """A process tree's counters now: CPU seconds used so far in user and in system mode (including children it
+    has waited for), resident memory (MB), bytes read and written through read/write calls, processes, threads."""
+    tick, page = os.sysconf("SC_CLK_TCK"), os.sysconf("SC_PAGE_SIZE")
+    out = {"user": 0.0, "sys": 0.0, "mem": 0.0, "rchar": 0, "wchar": 0, "procs": 0, "threads": 0}
+    for p in _tree(root):
+        try:
+            f = Path(f"/proc/{p}/stat").read_bytes().rsplit(b")", 1)[1].split()
+            out["user"] += (int(f[11]) + int(f[13])) / tick      # utime + cutime
+            out["sys"] += (int(f[12]) + int(f[14])) / tick       # stime + cstime
+            out["threads"] += int(f[17])
+            out["mem"] += int(Path(f"/proc/{p}/statm").read_text().split()[1]) * page / 2**20
+            io = dict(line.split(": ") for line in Path(f"/proc/{p}/io").read_text().splitlines())
+            out["rchar"] += int(io["rchar"])
+            out["wchar"] += int(io["wchar"])
+            out["procs"] += 1
+        except (OSError, IndexError, ValueError, KeyError):
+            continue
+    out["cpu"] = out["user"] + out["sys"]
+    return out
+
+
+def run_zap_usage(sid: str, zap_home: Path) -> dict:
+    """ZAP as an outside tester (run_zap), started fresh for this system, with its CPU time and peak memory.
+    The system and ATG's sidecar run (the services' east-west calls go through it); ATG does not scan."""
+    import threading
+    import compare_zap as cz
+    env = read_env(sid, "opensource")
+    cfg_dir = ROOT / "opensource" / sid
+    comp = ["docker", "compose", "-f", f"opensource/{sid}/docker-compose.yml"]
+    sh(["docker", "compose", "down", "-v", "--remove-orphans"], env, check=False, capture=True)
+    sh(comp + ["up", "-d", "--build", "--wait"], env, capture=True)
+    sh(["docker", "compose", "up", "-d", "--build", "--wait"], env, capture=True)
+    proc = None
+    try:
+        t0 = time.perf_counter()
+        proc = cz.start_zap(zap_home, Path("/var/tmp/zap-work") / sid)
+        start_s = time.perf_counter() - t0
+        u0 = tree_usage(proc.pid)
+        mems, threads = [u0["mem"]], [u0["threads"]]
+        done = threading.Event()
+
+        def sample():
+            while not done.wait(0.5):
+                u = tree_usage(proc.pid)
+                mems.append(u["mem"])
+                threads.append(u["threads"])
+        th = threading.Thread(target=sample, daemon=True)
+        th.start()
+        res = run_zap(sid, env, comp, cfg_dir, OUT / "base" / sid)
+        done.set()
+        th.join()
+        u1 = tree_usage(proc.pid)
+        mems.append(u1["mem"])
+        res["usage"] = {"cpu_s": round(u1["cpu"] - u0["cpu"], 2), "user_s": round(u1["user"] - u0["user"], 2),
+                        "sys_s": round(u1["sys"] - u0["sys"], 2),
+                        "cores": round((u1["cpu"] - u0["cpu"]) / res["total_s"], 2) if res["total_s"] else None,
+                        "peak_mb": round(max(mems), 1), "avg_mb": round(sum(mems) / len(mems), 1),
+                        "read_mb": round((u1["rchar"] - u0["rchar"]) / 2**20, 1),
+                        "write_mb": round((u1["wchar"] - u0["wchar"]) / 2**20, 1),
+                        "threads": max(threads), "processes": u1["procs"],
+                        "startup_s": round(start_s, 1), "startup_cpu_s": round(u0["cpu"], 2)}
+    finally:
+        if proc:
+            try:
+                cz.zap("core/action/shutdown")
+                proc.wait(60)
+            except Exception:
+                proc.kill()
+        sh(["docker", "compose", "down", "-v", "--remove-orphans"], env, check=False, capture=True)
+        sh(comp + ["--profile", "users", "down", "-v", "--remove-orphans"], env, check=False, capture=True)
+    (OUT / "zapusage").mkdir(parents=True, exist_ok=True)
+    (OUT / "zapusage" / f"{sid}.json").write_text(json.dumps({"system": sid, "zap": res}, indent=1), encoding="utf-8")
+    print(f"   zap: {res['messages']} requests, {res['total_s']} s, {len(res['alerts'])} alerts, "
+          f"CPU {res['usage']['cpu_s']} s, peak {res['usage']['peak_mb']} MB", flush=True)
+    return res
+
+
 # ---------------------------------------------------------------- one system
 def run_system(sid: str, tag: str, cfg_root: Path | None, do_zap: bool, do_overhead: bool) -> dict:
     env = read_env(sid, "opensource")
@@ -299,7 +396,18 @@ def main() -> int:
     ap.add_argument("--no-zap", action="store_true")
     ap.add_argument("--no-overhead", action="store_true")
     ap.add_argument("--zap-inventory", action="store_true", help="only ZAP, given ATG's inventory (needs --zap and a base run)")
+    ap.add_argument("--zap-usage", action="store_true",
+                    help="only ZAP as an outside tester, restarted per system, with its CPU time and peak memory "
+                         "(needs --zap and a base run); writes results/opensource/eval/zapusage/")
     a = ap.parse_args()
+    if a.zap_usage:
+        for sid in a.systems:
+            print(f"== {sid}", flush=True)
+            try:
+                run_zap_usage(sid, a.zap)
+            except Exception as exc:
+                print(f"   FAILED: {exc}"[:2000], flush=True)
+        return 0
     (OUT / a.tag).mkdir(parents=True, exist_ok=True)
     proc = None
     if a.zap and not a.no_zap:

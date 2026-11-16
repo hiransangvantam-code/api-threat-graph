@@ -4,10 +4,22 @@
  "raw": {
   "B311": 1
  },
- "seconds": 0.67,
+ "seconds": 0.84,
  "findings": 1,
  "covered": 2,
  "services": 10,
+ "cpu_s": 0.65,
+ "user_s": 0.6,
+ "sys_s": 0.06,
+ "cores": 0.78,
+ "peak_mb": 31.2,
+ "avg_mb": 24.1,
+ "read_mb": 9.287,
+ "write_mb": 0.028,
+ "processes": 2,
+ "names": {
+  "B311": "blacklist"
+ },
  "score": {
   "labels": 55,
   "found": 0,

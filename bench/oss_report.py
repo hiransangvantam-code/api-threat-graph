@@ -212,16 +212,14 @@ def zap(tag: str = "base") -> dict:
                 if svc:
                     pairs.add((c, sc.norm("svc:" + svc, al)))
         s = sc.score(sid, pairs)
-        atg = json.loads((ROOT / "results" / "opensource" / "atg-v1.5" / "scores.json").read_text())
-        atg_s = next(x for x in atg if x["system"] == sid)
+        atg_s = atg_scores()[sid]
         raw = raw_dir(sid)
         probes = json.loads((raw / "openapi.json").read_text())["stats"].get("probes", 0)
         real_ops = len({sc.norm(o[3], al) for o in ops})
         out[sid] = {"requests": z["messages"], "seconds": z["total_s"], "alerts": len(z["alerts"]),
                     "alert_types": Counter(f"{a['alert']} (CWE-{a['cweid']}, {a['risk']})" for a in z["alerts"]),
                     "ops_reached": len(reached), "ops_real": real_ops, "labels_found": s["found"], "labels": s["labels"],
-                    "atg_labels_found": atg_s["found"], "atg_probes": probes,
-                    "atg_ops": atg_s["endpoints"]["correct"], "gateway": gw_svc}
+                    "atg_labels_found": atg_s["found"], "atg_probes": probes, "gateway": gw_svc}
     return out
 
 
@@ -270,12 +268,25 @@ def controls() -> dict:
     return {"rows": {k: {"controls": v[0], "flagged": v[1]} for k, v in rows.items()}, "detail": detail}
 
 
+def atg_scores() -> dict:
+    """ATG's score per system, from the same runs and scoring as the tool comparison (DEMO-ALL's
+    results/opensource/atg-laptop/, scored by bench/compare_tools.py against the current labels)."""
+    if not _ATG:
+        import compare_tools as ct
+        runs = ct.load("laptop")["atg"]
+        for sid, r in runs.items():
+            _ATG[sid] = sc.score(sid, r["pairs"])
+    return _ATG
+
+
+_ATG: dict = {}
+
+
 def unmatched() -> dict:
-    """ATG reports that match no label, by rule (precision analysis)."""
-    s = json.loads((ROOT / "results" / "opensource" / "atg-v1.5" / "scores.json").read_text())
+    """ATG reports that match no label, by kind (precision analysis)."""
     c = Counter()
-    for x in s:
-        for cat, tgt in x["unconfirmed"]:
+    for s in atg_scores().values():
+        for cat, tgt in s["unconfirmed"]:
             c[cat] += 1
     return dict(c.most_common())
 
@@ -392,6 +403,9 @@ def main() -> int:
             zi[sid] = f
     if zi:
         summary["zap_inventory"] = zap(tag="zapinv")
+    for part in ("zap", "zap_inventory"):        # operations ATG listed correctly (all four sources, Section V-A)
+        for sid, z in (summary.get(part) or {}).items():
+            z["atg_ops"] = summary["discovery"][sid]["by_source"]["OTKC"]["correct"]
     (EVAL / "summary.json").write_text(json.dumps(summary, indent=1, default=lambda o: dict(o)), encoding="utf-8")
     figures(json.loads((EVAL / "summary.json").read_text()))
     print("wrote", (EVAL / "summary.json").relative_to(ROOT))

@@ -19,7 +19,15 @@ AUX = (HERE / "main.aux").read_text(encoding="utf-8")
 labels = {m.group(1): re.sub(r"\\mbox\s*\{([^}]*)\}", r"\1", m.group(2))
           for m in re.finditer(r"\\newlabel\{([^}]+)\}\{\{((?:[^{}]|\{[^{}]*\})*)\}", AUX)}
 cites = {m.group(1): m.group(2) for m in re.finditer(r"\\bibcite\{([^}]+)\}\{([^}]+)\}", AUX)}
-ROMAN = {"IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10, "XI": 11}
+def _roman(n):
+    out = ""
+    for v, r in ((10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")):
+        while n >= v:
+            out, n = out + r, n - v
+    return out
+
+
+ROMAN = {_roman(n): n for n in range(1, 40)}
 
 preamble = TEX.split(r"\begin{document}")[0]
 sec = TEX[TEX.index(r"\section{Evaluation}"):TEX.index(r"\section{Discussion and Threats to Validity}")]

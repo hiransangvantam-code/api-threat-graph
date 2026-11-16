@@ -18,8 +18,8 @@
   "172.18.0.5": "ratings",
   "172.18.0.2": "reviews"
  },
- "total_s": 20.4,
- "messages": 3817,
+ "total_s": 25.1,
+ "messages": 3083,
  "urls": [
   "http://172.18.0.2:9080",
   "http://172.18.0.2:9080/reviews",
@@ -39,10 +39,6 @@
   "http://172.18.0.4:9080/login",
   "http://172.18.0.4:9080/logout",
   "http://172.18.0.4:9080/productpage",
-  "http://172.18.0.4:9080/products",
-  "http://172.18.0.4:9080/products/1",
-  "http://172.18.0.4:9080/products/1/ratings",
-  "http://172.18.0.4:9080/products/1/reviews",
   "http://172.18.0.5:9080",
   "http://172.18.0.5:9080/ratings",
   "http://172.18.0.5:9080/ratings/1"
@@ -85,6 +81,16 @@
    "confidence": "Medium",
    "cweid": "693",
    "method": "GET",
+   "url": "http://172.18.0.4:9080/api/v1/products/1",
+   "param": "x-content-type-options"
+  },
+  {
+   "pluginId": "10021",
+   "alert": "X-Content-Type-Options Header Missing",
+   "risk": "Low",
+   "confidence": "Medium",
+   "cweid": "693",
+   "method": "GET",
    "url": "http://172.18.0.4:9080/api/v1/products/1/ratings",
    "param": "x-content-type-options"
   },
@@ -95,7 +101,7 @@
    "confidence": "Medium",
    "cweid": "693",
    "method": "GET",
-   "url": "http://172.18.0.4:9080/api/v1/products/1",
+   "url": "http://172.18.0.4:9080/api/v1/products/1/reviews",
    "param": "x-content-type-options"
   },
   {
@@ -125,16 +131,6 @@
    "confidence": "Medium",
    "cweid": "693",
    "method": "GET",
-   "url": "http://172.18.0.4:9080/api/v1/products/1/reviews",
-   "param": "x-content-type-options"
-  },
-  {
-   "pluginId": "10021",
-   "alert": "X-Content-Type-Options Header Missing",
-   "risk": "Low",
-   "confidence": "Medium",
-   "cweid": "693",
-   "method": "GET",
    "url": "http://172.18.0.4:9080/logout",
    "param": "x-content-type-options"
   },
@@ -155,7 +151,7 @@
    "confidence": "Medium",
    "cweid": "134",
    "method": "GET",
-   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/ratings",
    "param": "\u00abproduct_id\u00bb"
   },
   {
@@ -165,7 +161,7 @@
    "confidence": "Medium",
    "cweid": "134",
    "method": "GET",
-   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/ratings",
+   "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
    "param": "\u00abproduct_id\u00bb"
   },
   {
@@ -184,7 +180,7 @@
    "risk": "Low",
    "confidence": "Medium",
    "cweid": "693",
-   "method": "POST",
+   "method": "GET",
    "url": "http://172.18.0.5:9080/ratings/1",
    "param": "x-content-type-options"
   },
@@ -194,7 +190,7 @@
    "risk": "Low",
    "confidence": "Medium",
    "cweid": "693",
-   "method": "GET",
+   "method": "POST",
    "url": "http://172.18.0.5:9080/ratings/1",
    "param": "x-content-type-options"
   },

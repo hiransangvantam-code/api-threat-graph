@@ -1,27 +1,37 @@
 {
  "company": "bookinfo",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
- "scan_s": 0.3,
+ "scan_s": 0.2,
  "timings": {
-  "phase1_ms": 228.23830400011502,
-  "phase2_ms": 5.399143999966327,
-  "phase3_ms": 33.692531000042436,
-  "phase4_ms": 7.66764099989814
+  "phase1_ms": 202.4402280000004,
+  "phase2_ms": 2.939346999994541,
+  "phase3_ms": 20.524464999994052,
+  "phase4_ms": 3.4503299999926185,
+  "resources": {
+   "cpu_s": 0.26,
+   "user_s": 0.51,
+   "sys_s": 0.05,
+   "read_mb": 3.56,
+   "write_mb": 1.2,
+   "peak_mb": 51.4
+  }
  },
- "run_id": "20261115-224011-ba73be",
+ "flows": 545,
+ "span_batches": 4,
+ "run_id": "20261116-082721-acbd8d",
  "summary": {
-  "findings": 32,
+  "findings": 28,
   "by_severity": {
    "critical": 1,
-   "high": 11,
+   "high": 7,
    "medium": 9,
    "low": 11
   },
-  "attack_paths": 58,
-  "critical_paths": 0,
-  "total_path_risk": 126.5,
-  "endpoints": 17,
-  "shadow_endpoints": 13,
+  "attack_paths": 79,
+  "critical_paths": 7,
+  "total_path_risk": 184.05,
+  "endpoints": 13,
+  "shadow_endpoints": 9,
   "services": 4,
   "rules_evaluated": 27,
   "rules_fired": 8,
@@ -29,17 +39,17 @@
  },
  "eujf_summary": {
   "services": 4,
-  "endpoints": 17,
+  "endpoints": 13,
   "inventory": {
-   "shadow": 13,
-   "dormant": 4
+   "shadow": 9,
+   "documented": 4
   },
   "confidence": {
-   "HIGH": 0,
-   "MEDIUM": 13,
-   "ZOMBIE": 4
+   "HIGH": 4,
+   "MEDIUM": 9,
+   "ZOMBIE": 0
   },
-  "public_endpoints": 13,
+  "public_endpoints": 9,
   "endpoints_with_sensitive_data": 1,
   "dependencies": 4,
   "reconciled_traffic_paths": 0
@@ -77,8 +87,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -91,8 +102,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -105,8 +117,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}/ratings",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -119,8 +132,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}/reviews",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -185,58 +199,6 @@
    ]
   },
   {
-   "id": "ep:productpage:GET:/products",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}/ratings",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}/ratings",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}/ratings"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}/reviews",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}/reviews",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}/reviews"
-   ]
-  },
-  {
    "id": "ep:ratings:GET:/ratings/{}",
    "service": "ratings",
    "method": "GET",
@@ -283,36 +245,8 @@
   },
   {
    "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}",
-   "detail": "GET /api/v1/products/{product_id} (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 16
-  },
-  {
-   "rule": "API9-SHADOW",
    "target": "ep:productpage:GET:/",
    "detail": "GET / (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products",
-   "detail": "GET /api/v1/products (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}/ratings",
-   "detail": "GET /api/v1/products/{product_id}/ratings (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}/reviews",
-   "detail": "GET /api/v1/products/{product_id}/reviews (productpage) is served but in no spec",
    "severity": "high",
    "score": 12
   },
@@ -431,7 +365,7 @@
   {
    "rule": "API9-NOSPEC",
    "target": "svc:productpage",
-   "detail": "productpage: no live spec; 4 of 13 endpoints documented anywhere",
+   "detail": "productpage: no live spec; 4 of 9 endpoints documented anywhere",
    "severity": "low",
    "score": 4
   },

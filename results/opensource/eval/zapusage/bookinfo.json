@@ -1,0 +1,130 @@
+{
+ "system": "bookinfo",
+ "zap": {
+  "bases": [
+   "http://172.18.0.4:9080"
+  ],
+  "ips": {
+   "details": "172.18.0.3",
+   "productpage": "172.18.0.4",
+   "ratings": "172.18.0.5",
+   "reviews": "172.18.0.2"
+  },
+  "by_ip": {
+   "172.18.0.3": "details",
+   "172.18.0.4": "productpage",
+   "172.18.0.5": "ratings",
+   "172.18.0.2": "reviews"
+  },
+  "total_s": 15.1,
+  "messages": 1073,
+  "urls": [
+   "http://172.18.0.4:9080",
+   "http://172.18.0.4:9080/",
+   "http://172.18.0.4:9080/api",
+   "http://172.18.0.4:9080/api/v1",
+   "http://172.18.0.4:9080/api/v1/products",
+   "http://172.18.0.4:9080/api/v1/products/10",
+   "http://172.18.0.4:9080/api/v1/products/10/ratings",
+   "http://172.18.0.4:9080/api/v1/products/10/reviews",
+   "http://172.18.0.4:9080/robots.txt",
+   "http://172.18.0.4:9080/sitemap.xml"
+  ],
+  "alerts": [
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products/10",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products/10/reviews",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products/10/ratings",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "30002",
+    "alert": "Format String Error",
+    "risk": "Medium",
+    "confidence": "Medium",
+    "cweid": "134",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+    "param": "\u00abid\u00bb"
+   },
+   {
+    "pluginId": "30002",
+    "alert": "Format String Error",
+    "risk": "Medium",
+    "confidence": "Medium",
+    "cweid": "134",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/ratings",
+    "param": "\u00abid\u00bb"
+   },
+   {
+    "pluginId": "30002",
+    "alert": "Format String Error",
+    "risk": "Medium",
+    "confidence": "Medium",
+    "cweid": "134",
+    "method": "GET",
+    "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/reviews",
+    "param": "\u00abid\u00bb"
+   }
+  ],
+  "usage": {
+   "cpu_s": 10.04,
+   "user_s": 9.57,
+   "sys_s": 0.47,
+   "cores": 0.66,
+   "peak_mb": 470.5,
+   "avg_mb": 459.8,
+   "read_mb": 3.8,
+   "write_mb": 0.4,
+   "threads": 64,
+   "processes": 1,
+   "startup_s": 8.2,
+   "startup_cpu_s": 10.79
+  }
+ }
+}

@@ -2,13 +2,24 @@
  "company": "acme-air",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
  "scan_s": 0.3,
+ "scan_s": 0.4,
  "timings": {
-  "phase1_ms": 229.02866699996594,
-  "phase2_ms": 3.0005729997810704,
-  "phase3_ms": 31.185721999918314,
-  "phase4_ms": 10.881853999990199
+  "phase1_ms": 385.3646669999762,
+  "phase2_ms": 7.182456999998976,
+  "phase3_ms": 41.58918699999958,
+  "phase4_ms": 11.14628300001641,
+  "resources": {
+   "cpu_s": 0.335,
+   "user_s": 0.61,
+   "sys_s": 0.07,
+   "read_mb": 3.82,
+   "write_mb": 3.49,
+   "peak_mb": 58.1
+  }
  },
- "run_id": "20261115-223716-7712e4",
+ "flows": 810,
+ "span_batches": 0,
+ "run_id": "20261116-071935-0f7f04",
  "summary": {
   "findings": 143,
   "by_severity": {
@@ -17,9 +28,9 @@
    "medium": 68,
    "low": 54
   },
-  "attack_paths": 120,
-  "critical_paths": 7,
-  "total_path_risk": 443.0,
+  "attack_paths": 195,
+  "critical_paths": 20,
+  "total_path_risk": 711.5,
   "endpoints": 35,
   "shadow_endpoints": 35,
   "services": 9,

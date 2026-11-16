@@ -7,10 +7,25 @@
   "G107": 1,
   "G104": 3
  },
- "seconds": 27.49,
+ "seconds": 34.14,
  "findings": 8,
  "covered": 4,
  "services": 10,
+ "cpu_s": 48.1,
+ "user_s": 36.74,
+ "sys_s": 11.37,
+ "cores": 1.41,
+ "peak_mb": 282.1,
+ "avg_mb": 102.9,
+ "read_mb": 363.116,
+ "write_mb": 178.599,
+ "processes": 823,
+ "names": {
+  "G404": "Use of weak random number generator (math/rand or math/rand/v2 instead of crypto/rand)",
+  "G114": "Use of net/http serve function that has no support for setting timeouts",
+  "G107": "Potential HTTP request made with variable url",
+  "G104": "Errors unhandled."
+ },
  "score": {
   "labels": 55,
   "found": 0,

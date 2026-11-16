@@ -19,7 +19,7 @@ else
 fi
 if [ -d output ]; then
   # files written by the container can belong to root on Linux; remove them through Docker if needed
-  rm -rf output 2>/dev/null || docker run --rm -v "$PWD/output:/o" api-threat-graph:1.5 sh -c 'rm -rf /o/* /o/.[!.]*' && rm -rf output
+  rm -rf output 2>/dev/null || docker run --rm -v "$PWD/output:/o" api-threat-graph:1.6 sh -c 'rm -rf /o/* /o/.[!.]*' && rm -rf output
 fi
 [ -d output ] && { echo "Could not delete output/. Delete that folder by hand."; exit 1; }
 echo "Done. No data of the review is left in this folder or in Docker."

@@ -20,10 +20,25 @@
   "B311": 6,
   "B413": 2
  },
- "seconds": 0.91,
+ "seconds": 1.59,
  "findings": 21,
  "covered": 3,
  "services": 6,
+ "cpu_s": 0.84,
+ "user_s": 0.77,
+ "sys_s": 0.08,
+ "cores": 0.53,
+ "peak_mb": 31.6,
+ "avg_mb": 25.4,
+ "read_mb": 13.891,
+ "write_mb": 0.026,
+ "processes": 3,
+ "names": {
+  "B113": "request_without_timeout",
+  "B105": "hardcoded_password_string",
+  "B311": "blacklist",
+  "B413": "blacklist"
+ },
  "score": {
   "labels": 44,
   "found": 1,

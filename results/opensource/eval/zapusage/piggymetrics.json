@@ -1,0 +1,47 @@
+{
+ "system": "piggymetrics",
+ "zap": {
+  "bases": [
+   "http://172.18.0.7:4000"
+  ],
+  "ips": {
+   "account-service": "172.18.0.4",
+   "auth-service": "172.18.0.5",
+   "gateway": "172.18.0.7",
+   "monitoring": "172.18.0.6",
+   "notification-service": "172.18.0.8",
+   "statistics-service": "172.18.0.2"
+  },
+  "by_ip": {
+   "172.18.0.4": "account-service",
+   "172.18.0.5": "auth-service",
+   "172.18.0.7": "gateway",
+   "172.18.0.6": "monitoring",
+   "172.18.0.8": "notification-service",
+   "172.18.0.2": "statistics-service"
+  },
+  "total_s": 4.2,
+  "messages": 192,
+  "urls": [
+   "http://172.18.0.7:4000",
+   "http://172.18.0.7:4000/",
+   "http://172.18.0.7:4000/robots.txt",
+   "http://172.18.0.7:4000/sitemap.xml"
+  ],
+  "alerts": [],
+  "usage": {
+   "cpu_s": 3.62,
+   "user_s": 3.51,
+   "sys_s": 0.11,
+   "cores": 0.86,
+   "peak_mb": 362.5,
+   "avg_mb": 350.2,
+   "read_mb": 2.5,
+   "write_mb": 0.1,
+   "threads": 61,
+   "processes": 1,
+   "startup_s": 8.1,
+   "startup_cpu_s": 9.89
+  }
+ }
+}

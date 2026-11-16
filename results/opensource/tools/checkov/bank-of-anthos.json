@@ -99,8 +99,6 @@
   ]
  ],
  "raw": {
-  "CKV_SECRET_4": 1,
-  "CKV_SECRET_6": 2,
   "CKV_K8S_21": 24,
   "CKV_K8S_9": 3,
   "CKV_K8S_37": 2,
@@ -114,10 +112,39 @@
   "CKV_K8S_22": 2,
   "CKV_K8S_8": 6,
   "CKV_K8S_31": 9,
-  "CKV2_K8S_6": 9
+  "CKV2_K8S_6": 9,
+  "CKV_SECRET_4": 1,
+  "CKV_SECRET_6": 2
  },
- "seconds": 2.43,
+ "seconds": 2.66,
  "findings": 86,
+ "cpu_s": 2.96,
+ "user_s": 2.66,
+ "sys_s": 0.3,
+ "cores": 1.11,
+ "peak_mb": 896.2,
+ "avg_mb": 173.5,
+ "read_mb": 43.434,
+ "write_mb": 1.792,
+ "processes": 7,
+ "names": {
+  "CKV_K8S_21": "The default namespace should not be used",
+  "CKV_K8S_9": "Readiness Probe Should be Configured",
+  "CKV_K8S_37": "Minimize the admission of containers with capabilities assigned",
+  "CKV_K8S_28": "Minimize the admission of containers with the NET_RAW capability",
+  "CKV_K8S_23": "Minimize the admission of root containers",
+  "CKV_K8S_38": "Ensure that Service Account Tokens are only mounted where necessary",
+  "CKV_K8S_40": "Containers should run as a high UID to avoid host conflict",
+  "CKV_K8S_29": "Apply security context to your pods and containers",
+  "CKV_K8S_20": "Containers should not run with allowPrivilegeEscalation",
+  "CKV_K8S_30": "Apply security context to your containers",
+  "CKV_K8S_22": "Use read-only filesystem for containers where possible",
+  "CKV_K8S_8": "Liveness Probe Should be Configured",
+  "CKV_K8S_31": "Ensure that the seccomp profile is set to docker/default or runtime/default",
+  "CKV2_K8S_6": "Minimize the admission of pods which lack an associated NetworkPolicy",
+  "CKV_SECRET_4": "Basic Auth Credentials",
+  "CKV_SECRET_6": "Base64 High Entropy String"
+ },
  "score": {
   "labels": 44,
   "found": 15,
@@ -342,7 +369,7 @@
    ]
   ],
   "in_reach": {
-   "labels": 34,
+   "labels": 35,
    "found": 15
   }
  }

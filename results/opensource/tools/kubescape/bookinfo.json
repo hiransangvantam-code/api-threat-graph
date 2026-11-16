@@ -83,34 +83,68 @@
   ]
  ],
  "raw": {
-  "C-0270": 6,
-  "C-0269": 6,
-  "C-0237": 6,
-  "C-0050": 6,
-  "C-0260": 6,
-  "C-0056": 6,
-  "C-0034": 6,
-  "C-0055": 6,
-  "C-0061": 6,
-  "C-0077": 6,
-  "C-0004": 6,
-  "C-0018": 6,
-  "C-0016": 6,
-  "C-0211": 6,
-  "C-0236": 6,
-  "C-0271": 6,
-  "C-0268": 6,
-  "C-0210": 6,
-  "C-0030": 6,
   "C-0013": 6,
+  "C-0271": 6,
+  "C-0055": 6,
   "C-0017": 6,
+  "C-0050": 6,
+  "C-0016": 6,
+  "C-0030": 6,
+  "C-0056": 6,
+  "C-0210": 6,
+  "C-0270": 6,
+  "C-0018": 6,
+  "C-0236": 6,
+  "C-0269": 6,
+  "C-0009": 6,
+  "C-0077": 6,
+  "C-0260": 6,
+  "C-0034": 6,
+  "C-0004": 6,
+  "C-0237": 6,
   "C-0190": 6,
-  "C-0009": 6
+  "C-0268": 6,
+  "C-0211": 6,
+  "C-0061": 6
  },
- "seconds": 1.72,
+ "seconds": 1.91,
  "findings": 138,
+ "cpu_s": 1.72,
+ "user_s": 1.63,
+ "sys_s": 0.08,
+ "cores": 0.9,
+ "peak_mb": 119.5,
+ "avg_mb": 104.7,
+ "read_mb": 4.66,
+ "write_mb": 1.953,
+ "processes": 1,
+ "names": {
+  "C-0013": "Non-root containers",
+  "C-0271": "Ensure memory limits are set",
+  "C-0055": "Linux hardening",
+  "C-0017": "Immutable container filesystem",
+  "C-0050": "Resources CPU limit and request",
+  "C-0016": "Allow privilege escalation",
+  "C-0030": "Ingress and Egress blocked",
+  "C-0056": "Configured liveness probe",
+  "C-0210": "Ensure that the seccomp profile is set to docker/default in your pod definitions",
+  "C-0270": "Ensure CPU limits are set",
+  "C-0018": "Configured readiness probe",
+  "C-0236": "Verify image signature",
+  "C-0269": "Ensure memory requests are set",
+  "C-0009": "Resource limits",
+  "C-0077": "K8s common labels usage",
+  "C-0260": "Missing network policy",
+  "C-0034": "Automatic mapping of service account",
+  "C-0004": "Resources memory limit and request",
+  "C-0237": "Check if signature exists",
+  "C-0190": "Ensure that Service Account Tokens are only mounted where necessary",
+  "C-0268": "Ensure CPU requests are set",
+  "C-0211": "Apply Security Context to Your Pods and Containers",
+  "C-0061": "Pods in default namespace"
+ },
  "score": {
-  "labels": 38,
+  "labels": 34,
   "found": 20,
   "reported": 20,
   "confirmed": 20,
@@ -128,7 +162,7 @@
     "confirmed": 0
    },
    "Inventory and visibility": {
-    "labels": 12,
+    "labels": 8,
     "found": 0,
     "reported": 0,
     "confirmed": 0
@@ -168,7 +202,7 @@
     "found": 4
    },
    "O1": {
-    "labels": 12,
+    "labels": 8,
     "found": 0
    }
   },
@@ -200,22 +234,6 @@
    [
     "O1",
     "ep:productpage:GET:/"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/ratings"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/reviews"
    ],
    [
     "O1",

@@ -62,11 +62,23 @@ if errorlevel 1 (
   goto onewait
 )
 :onerun
+rem CPU and memory of ATG's four containers during this review (bench\usage.py; read by BENCH)
+set "U=results\opensource\atg-laptop\usage"
+if "!F!"=="opensource" (
+  if not exist "!U!" mkdir "!U!"
+  echo users> "!U!\%CO%.stage"
+  docker rm -f atg-usage >nul 2>nul
+  docker run -d --name atg-usage --network none -v /var/run/docker.sock:/var/run/docker.sock -v "%cd%:/repo" api-threat-graph:1.6 python /repo/bench/usage.py /repo/results/opensource/atg-laptop/usage/%CO%.json >nul 2>nul
+)
 echo    users send their requests through the ATG sidecar
 !C! run --rm users >nul 2>nul
 echo    scanning
+if "!F!"=="opensource" echo scan> "!U!\%CO%.stage"
 docker compose exec -T atg python docker/scan.py --label %CO% --manifests k8s > "demo\%CO%.log" 2>&1
-if errorlevel 1 (
+set "SCANERR=!errorlevel!"
+docker rm -f atg-usage >nul 2>nul
+if exist "!U!\%CO%.stage" del "!U!\%CO%.stage"
+if not "!SCANERR!"=="0" (
   echo    the scan failed: demo\%CO%.log
   set "BAD=!BAD! %CO%"
 ) else (
@@ -87,6 +99,7 @@ exit /b
 
 :onefail
 echo    did not start, skipped ("!C! logs" shows why)
+docker rm -f atg-usage >nul 2>nul
 set "BAD=!BAD! %CO%"
 docker compose down -v --remove-orphans >nul 2>nul
 !C! --profile users down -v --remove-orphans >nul 2>nul

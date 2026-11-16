@@ -11,3 +11,7 @@ results/*/*/capture/
 results/*/*/telemetry/
 companies/
 opensource/
+# the open-source evaluation runs, the demo copies and the report sources: not needed inside the image
+results/opensource/
+demo/
+paper/

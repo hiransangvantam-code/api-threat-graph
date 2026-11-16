@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
+from urllib.parse import urlparse
 
 import httpx
 import yaml
@@ -105,9 +106,24 @@ def _auth_level(sec) -> str:
     return "required" if len(non_empty) == len(sec) else "optional"
 
 
+def base_path(doc: dict) -> str:
+    """The path every operation of a document sits under: Swagger 2.0 basePath, or the path part of the first
+    OpenAPI 3 server URL. "" when that is the root. (Before 1.6.5 it was ignored, so Bookinfo's /products,
+    documented under basePath /api/v1, did not match the /api/v1/products the service serves.)"""
+    if "swagger" in doc:
+        bp = doc.get("basePath") or ""
+    else:
+        servers = doc.get("servers") or []
+        url = str((servers[0] or {}).get("url") or "") if servers and isinstance(servers[0], dict) else ""
+        bp = urlparse(url).path if "://" in url else url
+    bp = "/" + bp.strip("/") if bp.strip("/") else ""
+    return "" if "{" in bp else bp          # a server variable: leave the paths as they are
+
+
 def _operations(doc: dict) -> list[dict]:
     is_v2 = "swagger" in doc
     global_sec = doc.get("security")
+    base = base_path(doc)
     ops = []
     for path, item in (doc.get("paths") or {}).items():
         item = _deref(doc, item)
@@ -150,7 +166,7 @@ def _operations(doc: dict) -> list[dict]:
             sec = op.get("security", global_sec)
             ops.append({
                 "method": m.upper(),
-                "path": path,
+                "path": base + path if base else path,
                 "operation_id": op.get("operationId"),
                 "summary": op.get("summary"),
                 "tags": op.get("tags", []),

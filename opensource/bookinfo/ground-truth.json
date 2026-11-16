@@ -172,38 +172,6 @@
    "source": "deployment files"
   },
   {
-   "cat": "O1",
-   "target": "ep:productpage:GET:/api/v1/products",
-   "at": "GET /api/v1/products",
-   "why": "Not in samples/bookinfo/swagger.yaml.",
-   "evidence": "samples/bookinfo/swagger.yaml",
-   "source": "deployment files"
-  },
-  {
-   "cat": "O1",
-   "target": "ep:productpage:GET:/api/v1/products/{}",
-   "at": "GET /api/v1/products/{product_id}",
-   "why": "Not in samples/bookinfo/swagger.yaml.",
-   "evidence": "samples/bookinfo/swagger.yaml",
-   "source": "deployment files"
-  },
-  {
-   "cat": "O1",
-   "target": "ep:productpage:GET:/api/v1/products/{}/reviews",
-   "at": "GET /api/v1/products/{product_id}/reviews",
-   "why": "Not in samples/bookinfo/swagger.yaml.",
-   "evidence": "samples/bookinfo/swagger.yaml",
-   "source": "deployment files"
-  },
-  {
-   "cat": "O1",
-   "target": "ep:productpage:GET:/api/v1/products/{}/ratings",
-   "at": "GET /api/v1/products/{product_id}/ratings",
-   "why": "Not in samples/bookinfo/swagger.yaml.",
-   "evidence": "samples/bookinfo/swagger.yaml",
-   "source": "deployment files"
-  },
-  {
    "cat": "C1",
    "target": "svc:details",
    "at": "details",

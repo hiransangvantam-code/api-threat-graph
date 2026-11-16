@@ -75,16 +75,16 @@ and Bank of Anthos (Google), Stan's Robot Shop and Acme Air (IBM), Spring PetCli
 Lakeside Mutual, FTGO, DeathStarBench Hotel Reservation and Istio Bookinfo. Together they have 65
 services in eight languages and 201 API operations. Three are deployed with Docker Compose rather than
 Kubernetes, and they use five gateway styles; five have no gateway. Each was pinned to one commit. We
-labelled 716 weaknesses: 91 by reading the code, and the rest derived by fixed rules from the deployment
+labelled 712 weaknesses: 91 by reading the code, and the rest derived by fixed rules from the deployment
 files, the call graph and the API documents. The platform read each system's own deployment files and
 API documents. Because the evaluation environment could not pull container images, the running services
 were stand-ins that reproduce each system's operations, call graph and authentication checks.
 
 Table 27 (from `results/opensource/atg-v1.4/tables.md` and `atg-v1.5/tables.md`): the platform found 189
-of the 201 operations. Version 1.4 found 337 of the 716 labels (47%) at 66% precision. Its misses
+of the 201 operations. Version 1.4 found 333 of the 712 labels (47%) at 66% precision. Its misses
 revealed general gaps: Kubernetes Service and workload names were not unified, Compose files, Zuul
 configurations and multi-profile Spring files were not read, and there was no notion of an edge service
-when no gateway exists. Version 1.5 closes these gaps and finds 466 labels (65%) at 75% precision. These
+when no gateway exists. Version 1.5 closes these gaps and finds 462 labels (65%) at 75% precision. These
 fixes were made after inspecting the same ten systems, so the version 1.4 figures are the unbiased
 estimate. Version 1.5 gives the same results as version 1.4 on the demonstration system and on the ten
 generated companies.

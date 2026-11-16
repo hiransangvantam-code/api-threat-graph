@@ -202,8 +202,12 @@ def build_graph(eujf: dict, findings: list[dict]) -> tuple[list[dict], list[dict
         # service an Istio Gateway or Ingress installed outside the manifests sends traffic to
         front_door = s["name"] == eujf.get("edge") and any(
             x.get("source") in ("Istio Gateway", "Ingress") and not x.get("workload") for x in eujf.get("edge_tls", []))
-        if s["exposure"]["level"] == "internet" or front_door:
-            edge("actor:internet", s["id"], "REACHES", via=(s["exposure"]["via"] or ["Istio Gateway / Ingress"])[0])
+        # a service the internet reaches only through gateway routes is not published itself: the internet
+        # reaches it through the gateway and only for the routed operations (ROUTES_TO), so an operation the
+        # gateway does not route (for example ShopLite's /internal/users/export) stays out of reach (v1.7)
+        direct = [v for v in s["exposure"]["via"] if not v.startswith("gateway route")]
+        if (s["exposure"]["level"] == "internet" and (direct or not s["exposure"]["via"])) or front_door:
+            edge("actor:internet", s["id"], "REACHES", via=(direct or ["Istio Gateway / Ingress"])[0])
         elif s["node_port"]:
             edge("actor:internet", s["id"], "REACHES", via="NodePort")
         if s["in_manifests"] and not s["network_policy"]["present"]:

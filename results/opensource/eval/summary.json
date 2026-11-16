@@ -563,7 +563,7 @@
     "O": {
      "real": 13,
      "listed": 4,
-     "correct": 0
+     "correct": 4
     },
     "T": {
      "real": 13,
@@ -587,27 +587,27 @@
     },
     "OKC": {
      "real": 13,
-     "listed": 17,
+     "listed": 13,
      "correct": 13
     },
     "OTC": {
      "real": 13,
-     "listed": 17,
+     "listed": 13,
      "correct": 13
     },
     "OTK": {
      "real": 13,
-     "listed": 17,
+     "listed": 13,
      "correct": 13
     },
     "OTKC": {
      "real": 13,
-     "listed": 17,
+     "listed": 13,
      "correct": 13
     }
    },
    "no_reconcile": {
-    "listed": 17,
+    "listed": 13,
     "correct": 13
    },
    "traffic_only_extra": 0,
@@ -617,7 +617,7 @@
    "probes": 40,
    "spec_operations": 4,
    "single_source_entries": 30,
-   "merged": 17,
+   "merged": 13,
    "scan_endpoints_match": true
   }
  },
@@ -1109,12 +1109,12 @@
      1.0
     ],
     "OTK": [
-     0.23076923076923078,
-     0.38461538461538464,
-     0.46153846153846156,
      0.5384615384615384,
-     0.6153846153846154,
+     0.6923076923076923,
      0.7692307692307693,
+     0.8461538461538461,
+     0.9230769230769231,
+     0.9230769230769231,
      1.0
     ]
    }
@@ -1134,8 +1134,8 @@
    "labels": 55,
    "atg_labels_found": 43,
    "atg_probes": 100,
-   "atg_ops": 25,
-   "gateway": "frontend"
+   "gateway": "frontend",
+   "atg_ops": 25
   },
   "bank-of-anthos": {
    "requests": 192,
@@ -1148,8 +1148,8 @@
    "labels": 44,
    "atg_labels_found": 22,
    "atg_probes": 60,
-   "atg_ops": 15,
-   "gateway": "frontend"
+   "gateway": "frontend",
+   "atg_ops": 15
   },
   "robot-shop": {
    "requests": 192,
@@ -1162,8 +1162,8 @@
    "labels": 76,
    "atg_labels_found": 42,
    "atg_probes": 70,
-   "atg_ops": 29,
-   "gateway": "web"
+   "gateway": "web",
+   "atg_ops": 29
   },
   "acme-air": {
    "requests": 22,
@@ -1176,8 +1176,8 @@
    "labels": 79,
    "atg_labels_found": 53,
    "atg_probes": 60,
-   "atg_ops": 20,
-   "gateway": "ingress-nginx-controller"
+   "gateway": "ingress-nginx-controller",
+   "atg_ops": 20
   },
   "petclinic": {
    "requests": 192,
@@ -1190,8 +1190,8 @@
    "labels": 67,
    "atg_labels_found": 54,
    "atg_probes": 70,
-   "atg_ops": 15,
-   "gateway": "api-gateway"
+   "gateway": "api-gateway",
+   "atg_ops": 15
   },
   "piggymetrics": {
    "requests": 192,
@@ -1204,8 +1204,8 @@
    "labels": 88,
    "atg_labels_found": 62,
    "atg_probes": 60,
-   "atg_ops": 13,
-   "gateway": "gateway"
+   "gateway": "gateway",
+   "atg_ops": 13
   },
   "lakeside-mutual": {
    "requests": 12240,
@@ -1224,8 +1224,8 @@
    "labels": 80,
    "atg_labels_found": 52,
    "atg_probes": 22,
-   "atg_ops": 38,
-   "gateway": "customer-core"
+   "gateway": "customer-core",
+   "atg_ops": 38
   },
   "ftgo": {
    "requests": 1538,
@@ -1241,8 +1241,8 @@
    "labels": 82,
    "atg_labels_found": 46,
    "atg_probes": 60,
-   "atg_ops": 9,
-   "gateway": "ftgo-api-gateway"
+   "gateway": "ftgo-api-gateway",
+   "atg_ops": 9
   },
   "hotel-reservation": {
    "requests": 192,
@@ -1255,12 +1255,12 @@
    "labels": 107,
    "atg_labels_found": 68,
    "atg_probes": 80,
-   "atg_ops": 12,
-   "gateway": "frontend"
+   "gateway": "frontend",
+   "atg_ops": 12
   },
   "bookinfo": {
-   "requests": 1076,
-   "seconds": 12.6,
+   "requests": 1075,
+   "seconds": 12.9,
    "alerts": 8,
    "alert_types": {
     "X-Content-Type-Options Header Missing (CWE-693, Low)": 5,
@@ -1269,11 +1269,11 @@
    "ops_reached": 5,
    "ops_real": 13,
    "labels_found": 0,
-   "labels": 38,
-   "atg_labels_found": 24,
+   "labels": 34,
+   "atg_labels_found": 20,
    "atg_probes": 40,
-   "atg_ops": 13,
-   "gateway": "productpage"
+   "gateway": "productpage",
+   "atg_ops": 13
   }
  },
  "controls": {
@@ -1388,10 +1388,10 @@
   "bookinfo": {
    "n": 300,
    "path": "/",
-   "direct_p50": 1.5875049999749535,
-   "direct_p95": 3.0212860000347064,
-   "sidecar_p50": 6.703270999992128,
-   "sidecar_p95": 10.39197599993713
+   "direct_p50": 1.477633999968475,
+   "direct_p95": 3.3242599999994127,
+   "sidecar_p50": 5.949485000030563,
+   "sidecar_p95": 11.909038999988297
   }
  },
  "fixes": [
@@ -1934,8 +1934,8 @@
   },
   {
    "system": "bookinfo",
-   "R_before": 236.05,
-   "findings_before": 32,
+   "R_before": 184.05,
+   "findings_before": 28,
    "applied": [
     "harden:svc:details",
     "harden:svc:productpage",
@@ -1951,7 +1951,7 @@
     "clusterip": 0,
     "harden": 4
    },
-   "R_predicted": 201.4,
+   "R_predicted": 149.4,
    "edits": [
     "harden details-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
     "harden ratings-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
@@ -1962,9 +1962,9 @@
     "netpol ratings",
     "netpol reviews"
    ],
-   "R_measured": 201.4,
-   "findings_after": 24,
-   "paths_after": 25
+   "R_measured": 149.4,
+   "findings_after": 20,
+   "paths_after": 21
   }
  ],
  "stress": {
@@ -2365,8 +2365,8 @@
    "labels": 55,
    "atg_labels_found": 43,
    "atg_probes": 100,
-   "atg_ops": 25,
-   "gateway": "frontend"
+   "gateway": "frontend",
+   "atg_ops": 25
   },
   "bank-of-anthos": {
    "requests": 3854,
@@ -2383,8 +2383,8 @@
    "labels": 44,
    "atg_labels_found": 22,
    "atg_probes": 60,
-   "atg_ops": 15,
-   "gateway": "frontend"
+   "gateway": "frontend",
+   "atg_ops": 15
   },
   "robot-shop": {
    "requests": 9848,
@@ -2401,8 +2401,8 @@
    "labels": 76,
    "atg_labels_found": 42,
    "atg_probes": 70,
-   "atg_ops": 29,
-   "gateway": "web"
+   "gateway": "web",
+   "atg_ops": 29
   },
   "acme-air": {
    "requests": 6545,
@@ -2418,8 +2418,8 @@
    "labels": 79,
    "atg_labels_found": 53,
    "atg_probes": 60,
-   "atg_ops": 20,
-   "gateway": "ingress-nginx-controller"
+   "gateway": "ingress-nginx-controller",
+   "atg_ops": 20
   },
   "petclinic": {
    "requests": 5885,
@@ -2437,8 +2437,8 @@
    "labels": 67,
    "atg_labels_found": 54,
    "atg_probes": 70,
-   "atg_ops": 15,
-   "gateway": "api-gateway"
+   "gateway": "api-gateway",
+   "atg_ops": 15
   },
   "piggymetrics": {
    "requests": 3260,
@@ -2454,8 +2454,8 @@
    "labels": 88,
    "atg_labels_found": 62,
    "atg_probes": 60,
-   "atg_ops": 13,
-   "gateway": "gateway"
+   "gateway": "gateway",
+   "atg_ops": 13
   },
   "lakeside-mutual": {
    "requests": 9905,
@@ -2472,8 +2472,8 @@
    "labels": 80,
    "atg_labels_found": 52,
    "atg_probes": 22,
-   "atg_ops": 38,
-   "gateway": "customer-core"
+   "gateway": "customer-core",
+   "atg_ops": 38
   },
   "ftgo": {
    "requests": 6604,
@@ -2489,8 +2489,8 @@
    "labels": 82,
    "atg_labels_found": 46,
    "atg_probes": 60,
-   "atg_ops": 9,
-   "gateway": "ftgo-api-gateway"
+   "gateway": "ftgo-api-gateway",
+   "atg_ops": 9
   },
   "hotel-reservation": {
    "requests": 7101,
@@ -2508,12 +2508,12 @@
    "labels": 107,
    "atg_labels_found": 68,
    "atg_probes": 80,
-   "atg_ops": 12,
-   "gateway": "frontend"
+   "gateway": "frontend",
+   "atg_ops": 12
   },
   "bookinfo": {
-   "requests": 3817,
-   "seconds": 20.4,
+   "requests": 3083,
+   "seconds": 25.1,
    "alerts": 17,
    "alert_types": {
     "X-Content-Type-Options Header Missing (CWE-693, Low)": 13,
@@ -2522,11 +2522,11 @@
    "ops_reached": 13,
    "ops_real": 13,
    "labels_found": 0,
-   "labels": 38,
-   "atg_labels_found": 24,
+   "labels": 34,
+   "atg_labels_found": 20,
    "atg_probes": 40,
-   "atg_ops": 13,
-   "gateway": "productpage"
+   "gateway": "productpage",
+   "atg_ops": 13
   }
  }
 }

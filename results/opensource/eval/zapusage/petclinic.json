@@ -1,0 +1,49 @@
+{
+ "system": "petclinic",
+ "zap": {
+  "bases": [
+   "http://172.18.0.6:8080"
+  ],
+  "ips": {
+   "admin-server": "172.18.0.7",
+   "api-gateway": "172.18.0.6",
+   "config-server": "172.18.0.8",
+   "customers-service": "172.18.0.9",
+   "genai-service": "172.18.0.3",
+   "vets-service": "172.18.0.5",
+   "visits-service": "172.18.0.2"
+  },
+  "by_ip": {
+   "172.18.0.7": "admin-server",
+   "172.18.0.6": "api-gateway",
+   "172.18.0.8": "config-server",
+   "172.18.0.9": "customers-service",
+   "172.18.0.3": "genai-service",
+   "172.18.0.5": "vets-service",
+   "172.18.0.2": "visits-service"
+  },
+  "total_s": 4.3,
+  "messages": 192,
+  "urls": [
+   "http://172.18.0.6:8080",
+   "http://172.18.0.6:8080/",
+   "http://172.18.0.6:8080/robots.txt",
+   "http://172.18.0.6:8080/sitemap.xml"
+  ],
+  "alerts": [],
+  "usage": {
+   "cpu_s": 4.46,
+   "user_s": 4.22,
+   "sys_s": 0.24,
+   "cores": 1.04,
+   "peak_mb": 439.9,
+   "avg_mb": 407.6,
+   "read_mb": 2.5,
+   "write_mb": 0.1,
+   "threads": 62,
+   "processes": 1,
+   "startup_s": 10.2,
+   "startup_cpu_s": 10.03
+  }
+ }
+}

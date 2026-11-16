@@ -1,0 +1,158 @@
+{
+ "project": "atg",
+ "interval_s": 0.5,
+ "samples": 21,
+ "start": {
+  "cpu_s": {
+   "atg": 0.626,
+   "atg-collector": 0.335,
+   "atg-postgres": 0.986,
+   "atg-proxy": 1.122
+  }
+ },
+ "stages": {
+  "users": {
+   "seconds": 3.88,
+   "cpu_s": {
+    "atg": 0.154,
+    "atg-collector": 0.098,
+    "atg-postgres": 0.082,
+    "atg-proxy": 1.491
+   },
+   "user_s": {
+    "atg": 0.14,
+    "atg-collector": 0.09,
+    "atg-postgres": 0.05,
+    "atg-proxy": 1.4
+   },
+   "kernel_s": {
+    "atg": 0.01,
+    "atg-collector": 0.02,
+    "atg-postgres": 0.02,
+    "atg-proxy": 0.09
+   },
+   "mem_peak_mb": {
+    "atg": 36.7,
+    "atg-collector": 42.4,
+    "atg-postgres": 87.9,
+    "atg-proxy": 60.1
+   },
+   "mem_sum_mb": {
+    "atg": 283.35546875,
+    "atg-collector": 270.46875,
+    "atg-postgres": 701.953125,
+    "atg-proxy": 476.2109375
+   },
+   "mem_avg_mb": {
+    "atg": 35.4,
+    "atg-collector": 33.8,
+    "atg-postgres": 87.7,
+    "atg-proxy": 59.5
+   },
+   "samples": 8,
+   "net_in_mb": {
+    "atg": 0.003,
+    "atg-collector": 0.214,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.364
+   },
+   "net_out_mb": {
+    "atg": 0.004,
+    "atg-collector": 0.007,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.358
+   },
+   "disk_read_mb": {
+    "atg": 0.0,
+    "atg-collector": 0.0,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.0
+   },
+   "disk_write_mb": {
+    "atg": 0.0,
+    "atg-collector": 0.0,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.0
+   },
+   "pids_peak": {
+    "atg": 3,
+    "atg-collector": 7,
+    "atg-postgres": 7,
+    "atg-proxy": 3
+   },
+   "mem_peak_total_mb": 226.6
+  },
+  "scan": {
+   "seconds": 7.05,
+   "cpu_s": {
+    "atg": 0.526,
+    "atg-collector": 0.02,
+    "atg-postgres": 0.105,
+    "atg-proxy": 0.007
+   },
+   "user_s": {
+    "atg": 0.49,
+    "atg-collector": 0.01,
+    "atg-postgres": 0.1,
+    "atg-proxy": 0.01
+   },
+   "kernel_s": {
+    "atg": 0.04,
+    "atg-collector": 0.0,
+    "atg-postgres": 0.02,
+    "atg-proxy": 0.0
+   },
+   "mem_peak_mb": {
+    "atg": 70.0,
+    "atg-collector": 43.4,
+    "atg-postgres": 89.2,
+    "atg-proxy": 59.8
+   },
+   "mem_sum_mb": {
+    "atg": 801.71875,
+    "atg-collector": 559.578125,
+    "atg-postgres": 1142.34765625,
+    "atg-proxy": 776.83203125
+   },
+   "mem_avg_mb": {
+    "atg": 61.7,
+    "atg-collector": 43.0,
+    "atg-postgres": 87.9,
+    "atg-proxy": 59.8
+   },
+   "samples": 13,
+   "net_in_mb": {
+    "atg": 0.014,
+    "atg-collector": 0.022,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.002
+   },
+   "net_out_mb": {
+    "atg": 0.017,
+    "atg-collector": 0.001,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.001
+   },
+   "disk_read_mb": {
+    "atg": 0.0,
+    "atg-collector": 0.0,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.0
+   },
+   "disk_write_mb": {
+    "atg": 0.0,
+    "atg-collector": 0.0,
+    "atg-postgres": 0.0,
+    "atg-proxy": 0.0
+   },
+   "pids_peak": {
+    "atg": 4,
+    "atg-collector": 7,
+    "atg-postgres": 13,
+    "atg-proxy": 3
+   },
+   "mem_peak_total_mb": 260.0
+  }
+ },
+ "updated": "2026-11-16 08:27:22"
+}

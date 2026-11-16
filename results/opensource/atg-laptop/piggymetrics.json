@@ -1,14 +1,24 @@
 {
  "company": "piggymetrics",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
- "scan_s": 0.3,
+ "scan_s": 0.4,
  "timings": {
-  "phase1_ms": 215.92967600008706,
-  "phase2_ms": 4.334546999871236,
-  "phase3_ms": 52.02502099996309,
-  "phase4_ms": 7.796029000019189
+  "phase1_ms": 364.4620520000217,
+  "phase2_ms": 2.3118700000850367,
+  "phase3_ms": 40.426916000001256,
+  "phase4_ms": 9.422420999953829,
+  "resources": {
+   "cpu_s": 0.268,
+   "user_s": 0.58,
+   "sys_s": 0.06,
+   "read_mb": 3.53,
+   "write_mb": 2.8,
+   "peak_mb": 55.9
+  }
  },
- "run_id": "20261115-223815-b99c0d",
+ "flows": 661,
+ "span_batches": 0,
+ "run_id": "20261116-071631-aaac39",
  "summary": {
   "findings": 114,
   "by_severity": {

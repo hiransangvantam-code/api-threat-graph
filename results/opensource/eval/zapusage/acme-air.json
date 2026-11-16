@@ -1,0 +1,44 @@
+{
+ "system": "acme-air",
+ "zap": {
+  "bases": [
+   "http://172.18.0.2:80"
+  ],
+  "ips": {
+   "acmeair-auth-service": "172.18.0.6",
+   "acmeair-booking-service": "172.18.0.4",
+   "acmeair-customer-service": "172.18.0.3",
+   "acmeair-flight-service": "172.18.0.7",
+   "acmeair-main-service": "172.18.0.5",
+   "ingress-nginx-controller": "172.18.0.2"
+  },
+  "by_ip": {
+   "172.18.0.6": "acmeair-auth-service",
+   "172.18.0.4": "acmeair-booking-service",
+   "172.18.0.3": "acmeair-customer-service",
+   "172.18.0.7": "acmeair-flight-service",
+   "172.18.0.5": "acmeair-main-service",
+   "172.18.0.2": "ingress-nginx-controller"
+  },
+  "total_s": 6.2,
+  "messages": 22,
+  "urls": [
+   "http://172.18.0.2:80/"
+  ],
+  "alerts": [],
+  "usage": {
+   "cpu_s": 3.56,
+   "user_s": 3.39,
+   "sys_s": 0.17,
+   "cores": 0.57,
+   "peak_mb": 446.1,
+   "avg_mb": 430.8,
+   "read_mb": 2.5,
+   "write_mb": 0.1,
+   "threads": 75,
+   "processes": 1,
+   "startup_s": 10.2,
+   "startup_cpu_s": 12.08
+  }
+ }
+}

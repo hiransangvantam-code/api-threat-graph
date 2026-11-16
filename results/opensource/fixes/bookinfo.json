@@ -1,7 +1,7 @@
 {
  "system": "bookinfo",
- "R_before": 236.05,
- "findings_before": 32,
+ "R_before": 184.05,
+ "findings_before": 28,
  "applied": [
   "harden:svc:details",
   "harden:svc:productpage",
@@ -17,7 +17,7 @@
   "clusterip": 0,
   "harden": 4
  },
- "R_predicted": 201.4,
+ "R_predicted": 149.4,
  "edits": [
   "harden details-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",
   "harden ratings-v1 (upstream/samples/bookinfo/platform/kube/bookinfo.yaml)",

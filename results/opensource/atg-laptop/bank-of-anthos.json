@@ -3,12 +3,22 @@
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
  "scan_s": 0.5,
  "timings": {
-  "phase1_ms": 446.05614399995375,
-  "phase2_ms": 2.8354319999834843,
-  "phase3_ms": 28.231022999989364,
-  "phase4_ms": 4.9063210000213076
+  "phase1_ms": 506.260316999942,
+  "phase2_ms": 2.5069999999232095,
+  "phase3_ms": 23.932885000021997,
+  "phase4_ms": 4.832378000060089,
+  "resources": {
+   "cpu_s": 0.41,
+   "user_s": 0.69,
+   "sys_s": 0.05,
+   "read_mb": 3.61,
+   "write_mb": 1.59,
+   "peak_mb": 53.9
+  }
  },
- "run_id": "20261115-223612-4068fd",
+ "flows": 462,
+ "span_batches": 4,
+ "run_id": "20261116-072002-099239",
  "summary": {
   "findings": 45,
   "by_severity": {
@@ -17,9 +27,9 @@
    "medium": 16,
    "low": 15
   },
-  "attack_paths": 65,
-  "critical_paths": 0,
-  "total_path_risk": 173.5,
+  "attack_paths": 99,
+  "critical_paths": 13,
+  "total_path_risk": 316.55,
   "endpoints": 15,
   "shadow_endpoints": 15,
   "services": 9,

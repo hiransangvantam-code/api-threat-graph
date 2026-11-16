@@ -27,7 +27,7 @@ name: atg
 
 x-atg-image: &atg-image
   build: .
-  image: api-threat-graph:1.5
+  image: api-threat-graph:1.6
 
 services:
   atg-proxy:

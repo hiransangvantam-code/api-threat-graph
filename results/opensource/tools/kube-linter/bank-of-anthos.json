@@ -26,8 +26,25 @@
   "readiness-port": 5,
   "startup-port": 3
  },
- "seconds": 0.04,
+ "seconds": 0.06,
  "findings": 17,
+ "cpu_s": 0.05,
+ "user_s": 0.03,
+ "sys_s": 0.01,
+ "cores": 0.74,
+ "peak_mb": 35.1,
+ "avg_mb": 15.8,
+ "read_mb": 0.039,
+ "write_mb": 0.02,
+ "processes": 1,
+ "names": {
+  "deprecated-service-account-field": "deprecated service account field",
+  "no-read-only-root-fs": "no read only root fs",
+  "run-as-non-root": "run as non root",
+  "liveness-port": "liveness port",
+  "readiness-port": "readiness port",
+  "startup-port": "startup port"
+ },
  "score": {
   "labels": 44,
   "found": 4,

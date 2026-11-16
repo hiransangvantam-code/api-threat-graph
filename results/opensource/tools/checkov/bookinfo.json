@@ -2,6 +2,22 @@
  "applicable": true,
  "pairs": [
   [
+   "A1",
+   "ep:productpage:GET:/api/v1/products"
+  ],
+  [
+   "A1",
+   "ep:productpage:GET:/api/v1/products/{}"
+  ],
+  [
+   "A1",
+   "ep:productpage:GET:/api/v1/products/{}/ratings"
+  ],
+  [
+   "A1",
+   "ep:productpage:GET:/api/v1/products/{}/reviews"
+  ],
+  [
    "C1",
    "svc:details"
   ],
@@ -110,14 +126,55 @@
   "CKV_K8S_22": 6,
   "CKV_K8S_8": 6,
   "CKV_K8S_31": 6,
-  "CKV2_K8S_6": 6
+  "CKV2_K8S_6": 6,
+  "CKV_OPENAPI_6": 1,
+  "CKV_OPENAPI_4": 1,
+  "CKV_OPENAPI_5": 1,
+  "CKV_OPENAPI_1": 1,
+  "CKV_OPENAPI_21": 1
  },
- "seconds": 2.15,
- "findings": 128,
+ "seconds": 5.33,
+ "findings": 133,
+ "cpu_s": 5.52,
+ "user_s": 4.99,
+ "sys_s": 0.53,
+ "cores": 1.04,
+ "peak_mb": 609.4,
+ "avg_mb": 133.4,
+ "read_mb": 84.941,
+ "write_mb": 1.415,
+ "processes": 7,
+ "names": {
+  "CKV_K8S_21": "The default namespace should not be used",
+  "CKV_K8S_12": "Memory requests should be set",
+  "CKV_K8S_9": "Readiness Probe Should be Configured",
+  "CKV_K8S_10": "CPU requests should be set",
+  "CKV_K8S_11": "CPU limits should be set",
+  "CKV_K8S_43": "Image should use digest",
+  "CKV_K8S_37": "Minimize the admission of containers with capabilities assigned",
+  "CKV_K8S_28": "Minimize the admission of containers with the NET_RAW capability",
+  "CKV_K8S_23": "Minimize the admission of root containers",
+  "CKV_K8S_38": "Ensure that Service Account Tokens are only mounted where necessary",
+  "CKV_K8S_15": "Image Pull Policy should be Always",
+  "CKV_K8S_40": "Containers should run as a high UID to avoid host conflict",
+  "CKV_K8S_29": "Apply security context to your pods and containers",
+  "CKV_K8S_20": "Containers should not run with allowPrivilegeEscalation",
+  "CKV_K8S_30": "Apply security context to your containers",
+  "CKV_K8S_13": "Memory limits should be set",
+  "CKV_K8S_22": "Use read-only filesystem for containers where possible",
+  "CKV_K8S_8": "Liveness Probe Should be Configured",
+  "CKV_K8S_31": "Ensure that the seccomp profile is set to docker/default or runtime/default",
+  "CKV2_K8S_6": "Minimize the admission of pods which lack an associated NetworkPolicy",
+  "CKV_OPENAPI_6": "Ensure that security requirement defined in securityDefinitions - version 2.0 files",
+  "CKV_OPENAPI_4": "Ensure that the global security field has rules defined",
+  "CKV_OPENAPI_5": "Ensure that security operations is not empty.",
+  "CKV_OPENAPI_1": "Ensure that securityDefinitions is defined and not empty - version 2.0 files",
+  "CKV_OPENAPI_21": "Ensure that arrays have a maximum number of items"
+ },
  "score": {
-  "labels": 38,
+  "labels": 34,
   "found": 16,
-  "reported": 22,
+  "reported": 26,
   "confirmed": 16,
   "by_group": {
    "Configuration": {
@@ -129,11 +186,11 @@
    "API behaviour": {
     "labels": 5,
     "found": 0,
-    "reported": 0,
+    "reported": 4,
     "confirmed": 0
    },
    "Inventory and visibility": {
-    "labels": 12,
+    "labels": 8,
     "found": 0,
     "reported": 0,
     "confirmed": 0
@@ -173,7 +230,7 @@
     "found": 4
    },
    "O1": {
-    "labels": 12,
+    "labels": 8,
     "found": 0
    }
   },
@@ -224,22 +281,6 @@
    ],
    [
     "O1",
-    "ep:productpage:GET:/api/v1/products"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/ratings"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/reviews"
-   ],
-   [
-    "O1",
     "ep:productpage:GET:/index.html"
    ],
    [
@@ -269,6 +310,22 @@
   ],
   "unconfirmed": [
    [
+    "A1",
+    "ep:productpage:GET:/api/v1/products"
+   ],
+   [
+    "A1",
+    "ep:productpage:GET:/api/v1/products/{}"
+   ],
+   [
+    "A1",
+    "ep:productpage:GET:/api/v1/products/{}/ratings"
+   ],
+   [
+    "A1",
+    "ep:productpage:GET:/api/v1/products/{}/reviews"
+   ],
+   [
     "C6",
     "svc:details-v1.app-details.version-v1"
    ],
@@ -294,7 +351,7 @@
    ]
   ],
   "in_reach": {
-   "labels": 20,
+   "labels": 22,
    "found": 16
   }
  }

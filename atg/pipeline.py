@@ -21,6 +21,7 @@ import argparse
 import json
 import os
 import shutil
+import sys
 import time
 from pathlib import Path
 
@@ -37,12 +38,41 @@ def _write(path: Path, data) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False, default=list), encoding="utf-8")
 
 
+def _io() -> tuple[int, int] | None:
+    """Bytes this process has read and written through read/write calls so far (Linux), else None."""
+    try:
+        v = dict(line.split(": ") for line in Path("/proc/self/io").read_text().splitlines())
+        return int(v["rchar"]), int(v["wchar"])
+    except (OSError, ValueError, KeyError):
+        return None
+
+
+def _resources(cpu0: float, io0: tuple[int, int] | None = None) -> dict:
+    """CPU seconds this run used (all threads of this process, also split into user and system time), the
+    process's peak resident memory, and the data it read and wrote during the run."""
+    t = os.times()
+    out = {"cpu_s": round(time.process_time() - cpu0, 3), "user_s": round(t.user, 3), "sys_s": round(t.system, 3)}
+    io1 = _io()
+    if io0 and io1:
+        out["read_mb"] = round((io1[0] - io0[0]) / 2**20, 2)
+        out["write_mb"] = round((io1[1] - io0[1]) / 2**20, 2)
+    try:
+        import resource
+        rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        out["peak_mb"] = round(rss / (2**20 if sys.platform == "darwin" else 1024), 1)   # bytes on macOS, KB on Linux
+    except ImportError:          # Windows
+        pass
+    return out
+
+
 def run(config, extract: bool = True, label: str | None = None, quiet: bool = False) -> dict:
     cfg = config if isinstance(config, dict) else yaml.safe_load(Path(config).read_text(encoding="utf-8"))
     raw_dir = Path(cfg.get("output_dir", "output/raw"))
     out = raw_dir.parent
     say = (lambda *a: None) if quiet else print
     timings = {}
+    cpu0 = time.process_time()
+    io0 = _io()
 
     if extract:
         say("Phase 1 - Extractor")
@@ -93,6 +123,7 @@ def run(config, extract: bool = True, label: str | None = None, quiet: bool = Fa
     for name in ("eujf.json", "analysis.json"):
         shutil.copy(out / name, run_dir / name)
     build_dashboard(analysis, eujf, history, run_dir / "dashboard.html", timings, phase1_report=None)
+    timings["resources"] = _resources(cpu0, io0)
     _write(run_dir / "timings.json", timings)
     store.close()
     say(f"  [ok]   dashboard -> {dash}")

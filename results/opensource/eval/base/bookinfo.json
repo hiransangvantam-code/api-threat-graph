@@ -1,40 +1,40 @@
 {
  "system": "bookinfo",
  "tag": "base",
- "users": "Istio Bookinfo: 244 requests in 2.9 s, 0 sessions; status codes: 200 x244",
- "startup_s": 12.3,
- "scan_wall_s": 7.0,
+ "users": "Istio Bookinfo: 244 requests in 2.8 s, 0 sessions; status codes: 200 x244",
+ "startup_s": 8.8,
+ "scan_wall_s": 7.1,
  "scan_log": [
   "[scan] bookinfo: waiting until the sidecar and the Collector are quiet",
-  "[scan] new since the last scan: 545 HTTP flows from the sidecar, 4 span batches from the Collector (924 KB cleared from their memory)",
-  "[ok]   runtime_traffic    13 records      17.6 ms  -> /work/raw/runtime_traffic.json",
-  "[ok]   openapi             1 records     154.6 ms  -> /work/raw/openapi.json",
+  "[scan] new since the last scan: 545 HTTP flows from the sidecar, 5 span batches from the Collector (924 KB cleared from their memory)",
+  "[ok]   runtime_traffic    13 records      12.5 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             1 records     123.8 ms  -> /work/raw/openapi.json",
   "! productpage: no live spec at any probed path",
   "! details: no live spec at any probed path",
   "! reviews: no live spec at any probed path",
   "! ratings: no live spec at any probed path",
-  "[ok]   infrastructure     22 records      34.5 ms  -> /work/raw/infrastructure.json",
-  "[ok]   callchain          28 records      13.3 ms  -> /work/raw/callchain.json",
-  "[ok]   17 endpoints in 4 services (4 dormant, 13 shadow)  -> /work/eujf.json",
-  "[ok]   32 findings (critical 1, high 11, medium 9, low 11), 58 attack paths, path risk 126.5",
+  "[ok]   infrastructure     22 records      33.4 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          28 records      18.6 ms  -> /work/raw/callchain.json",
+  "[ok]   13 endpoints in 4 services (4 documented, 9 shadow)  -> /work/eujf.json",
+  "[ok]   28 findings (critical 1, high 7, medium 9, low 11), 79 attack paths, path risk 184.05",
   "[ok]   dashboard -> /work/dashboard.html",
-  "[scan] bookinfo: 17 APIs, 32 findings, 58 attack paths, path risk 126.5",
+  "[scan] bookinfo: 13 APIs, 28 findings, 79 attack paths, path risk 184.05",
   "[scan] threat graph exported to output/site/exports/1-bookinfo/ (GraphML, JSON, SARIF, SVG)"
  ],
- "run_id": "20261116-023447-9012ad",
+ "run_id": "20261116-082811-8a97a3",
  "summary": {
-  "findings": 32,
+  "findings": 28,
   "by_severity": {
    "critical": 1,
-   "high": 11,
+   "high": 7,
    "medium": 9,
    "low": 11
   },
-  "attack_paths": 58,
-  "critical_paths": 0,
-  "total_path_risk": 126.5,
-  "endpoints": 17,
-  "shadow_endpoints": 13,
+  "attack_paths": 79,
+  "critical_paths": 7,
+  "total_path_risk": 184.05,
+  "endpoints": 13,
+  "shadow_endpoints": 9,
   "services": 4,
   "rules_evaluated": 27,
   "rules_fired": 8,
@@ -42,17 +42,17 @@
  },
  "eujf_summary": {
   "services": 4,
-  "endpoints": 17,
+  "endpoints": 13,
   "inventory": {
-   "shadow": 13,
-   "dormant": 4
+   "shadow": 9,
+   "documented": 4
   },
   "confidence": {
-   "HIGH": 0,
-   "MEDIUM": 13,
-   "ZOMBIE": 4
+   "HIGH": 4,
+   "MEDIUM": 9,
+   "ZOMBIE": 0
   },
-  "public_endpoints": 13,
+  "public_endpoints": 9,
   "endpoints_with_sensitive_data": 1,
   "dependencies": 4,
   "reconciled_traffic_paths": 0
@@ -90,8 +90,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -104,8 +105,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -118,8 +120,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}/ratings",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -132,8 +135,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}/reviews",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -198,58 +202,6 @@
    ]
   },
   {
-   "id": "ep:productpage:GET:/products",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}/ratings",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}/ratings",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}/ratings"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}/reviews",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}/reviews",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}/reviews"
-   ]
-  },
-  {
    "id": "ep:ratings:GET:/ratings/{}",
    "service": "ratings",
    "method": "GET",
@@ -296,36 +248,8 @@
   },
   {
    "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}",
-   "detail": "GET /api/v1/products/{product_id} (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 16
-  },
-  {
-   "rule": "API9-SHADOW",
    "target": "ep:productpage:GET:/",
    "detail": "GET / (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products",
-   "detail": "GET /api/v1/products (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}/ratings",
-   "detail": "GET /api/v1/products/{product_id}/ratings (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}/reviews",
-   "detail": "GET /api/v1/products/{product_id}/reviews (productpage) is served but in no spec",
    "severity": "high",
    "score": 12
   },
@@ -444,7 +368,7 @@
   {
    "rule": "API9-NOSPEC",
    "target": "svc:productpage",
-   "detail": "productpage: no live spec; 4 of 13 endpoints documented anywhere",
+   "detail": "productpage: no live spec; 4 of 9 endpoints documented anywhere",
    "severity": "low",
    "score": 4
   },
@@ -579,40 +503,40 @@
  "overhead": {
   "n": 300,
   "path": "/",
-  "direct_p50": 1.5875049999749535,
-  "direct_p95": 3.0212860000347064,
-  "sidecar_p50": 6.703270999992128,
-  "sidecar_p95": 10.39197599993713
+  "direct_p50": 1.477633999968475,
+  "direct_p95": 3.3242599999994127,
+  "sidecar_p50": 5.949485000030563,
+  "sidecar_p95": 11.909038999988297
  },
  "zap": {
   "bases": [
-   "http://172.18.0.3:9080"
+   "http://172.18.0.4:9080"
   ],
   "ips": {
-   "details": "172.18.0.4",
-   "productpage": "172.18.0.3",
+   "details": "172.18.0.3",
+   "productpage": "172.18.0.4",
    "ratings": "172.18.0.5",
    "reviews": "172.18.0.2"
   },
   "by_ip": {
-   "172.18.0.4": "details",
-   "172.18.0.3": "productpage",
+   "172.18.0.3": "details",
+   "172.18.0.4": "productpage",
    "172.18.0.5": "ratings",
    "172.18.0.2": "reviews"
   },
-  "total_s": 12.6,
-  "messages": 1076,
+  "total_s": 12.9,
+  "messages": 1075,
   "urls": [
-   "http://172.18.0.3:9080",
-   "http://172.18.0.3:9080/",
-   "http://172.18.0.3:9080/api",
-   "http://172.18.0.3:9080/api/v1",
-   "http://172.18.0.3:9080/api/v1/products",
-   "http://172.18.0.3:9080/api/v1/products/10",
-   "http://172.18.0.3:9080/api/v1/products/10/ratings",
-   "http://172.18.0.3:9080/api/v1/products/10/reviews",
-   "http://172.18.0.3:9080/robots.txt",
-   "http://172.18.0.3:9080/sitemap.xml"
+   "http://172.18.0.4:9080",
+   "http://172.18.0.4:9080/",
+   "http://172.18.0.4:9080/api",
+   "http://172.18.0.4:9080/api/v1",
+   "http://172.18.0.4:9080/api/v1/products",
+   "http://172.18.0.4:9080/api/v1/products/10",
+   "http://172.18.0.4:9080/api/v1/products/10/ratings",
+   "http://172.18.0.4:9080/api/v1/products/10/reviews",
+   "http://172.18.0.4:9080/robots.txt",
+   "http://172.18.0.4:9080/sitemap.xml"
   ],
   "alerts": [
    {
@@ -622,7 +546,7 @@
     "confidence": "Medium",
     "cweid": "693",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products",
+    "url": "http://172.18.0.4:9080/api/v1/products",
     "param": "x-content-type-options"
    },
    {
@@ -632,7 +556,7 @@
     "confidence": "Medium",
     "cweid": "693",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products/10",
+    "url": "http://172.18.0.4:9080/api/v1/products/10",
     "param": "x-content-type-options"
    },
    {
@@ -642,7 +566,7 @@
     "confidence": "Medium",
     "cweid": "693",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products/10/reviews",
+    "url": "http://172.18.0.4:9080/api/v1/products/10/reviews",
     "param": "x-content-type-options"
    },
    {
@@ -652,7 +576,7 @@
     "confidence": "Medium",
     "cweid": "693",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products/10/ratings",
+    "url": "http://172.18.0.4:9080/api/v1/products/10/ratings",
     "param": "x-content-type-options"
    },
    {
@@ -662,7 +586,7 @@
     "confidence": "Medium",
     "cweid": "693",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/",
+    "url": "http://172.18.0.4:9080/",
     "param": "x-content-type-options"
    },
    {
@@ -672,7 +596,7 @@
     "confidence": "Medium",
     "cweid": "134",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
+    "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/ratings",
     "param": "\u00abid\u00bb"
    },
    {
@@ -682,7 +606,7 @@
     "confidence": "Medium",
     "cweid": "134",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/ratings",
+    "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A",
     "param": "\u00abid\u00bb"
    },
    {
@@ -692,7 +616,7 @@
     "confidence": "Medium",
     "cweid": "134",
     "method": "GET",
-    "url": "http://172.18.0.3:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/reviews",
+    "url": "http://172.18.0.4:9080/api/v1/products/ZAP%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%25n%25s%0A/reviews",
     "param": "\u00abid\u00bb"
    }
   ]

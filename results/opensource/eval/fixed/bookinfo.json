@@ -1,40 +1,40 @@
 {
  "system": "bookinfo",
  "tag": "fixed",
- "users": "Istio Bookinfo: 244 requests in 2.6 s, 0 sessions; status codes: 200 x244",
- "startup_s": 17.3,
- "scan_wall_s": 7.1,
+ "users": "Istio Bookinfo: 244 requests in 2.9 s, 0 sessions; status codes: 200 x244",
+ "startup_s": 9.0,
+ "scan_wall_s": 7.0,
  "scan_log": [
   "[scan] bookinfo: waiting until the sidecar and the Collector are quiet",
-  "[scan] new since the last scan: 545 HTTP flows from the sidecar, 4 span batches from the Collector (923 KB cleared from their memory)",
-  "[ok]   runtime_traffic    13 records      13.6 ms  -> /work/raw/runtime_traffic.json",
-  "[ok]   openapi             1 records     147.7 ms  -> /work/raw/openapi.json",
+  "[scan] new since the last scan: 545 HTTP flows from the sidecar, 5 span batches from the Collector (924 KB cleared from their memory)",
+  "[ok]   runtime_traffic    13 records      15.0 ms  -> /work/raw/runtime_traffic.json",
+  "[ok]   openapi             1 records     126.8 ms  -> /work/raw/openapi.json",
   "! productpage: no live spec at any probed path",
   "! details: no live spec at any probed path",
   "! reviews: no live spec at any probed path",
   "! ratings: no live spec at any probed path",
-  "[ok]   infrastructure     26 records      60.6 ms  -> /work/raw/infrastructure.json",
-  "[ok]   callchain          28 records      19.0 ms  -> /work/raw/callchain.json",
-  "[ok]   17 endpoints in 4 services (4 dormant, 13 shadow)  -> /work/eujf.json",
-  "[ok]   24 findings (critical 1, high 11, medium 5, low 7), 25 attack paths, path risk 201.4",
+  "[ok]   infrastructure     26 records      56.9 ms  -> /work/raw/infrastructure.json",
+  "[ok]   callchain          28 records      15.8 ms  -> /work/raw/callchain.json",
+  "[ok]   13 endpoints in 4 services (4 documented, 9 shadow)  -> /work/eujf.json",
+  "[ok]   20 findings (critical 1, high 7, medium 5, low 7), 21 attack paths, path risk 149.4",
   "[ok]   dashboard -> /work/dashboard.html",
-  "[scan] bookinfo: 17 APIs, 24 findings, 25 attack paths, path risk 201.4",
+  "[scan] bookinfo: 13 APIs, 20 findings, 21 attack paths, path risk 149.4",
   "[scan] threat graph exported to output/site/exports/1-bookinfo/ (GraphML, JSON, SARIF, SVG)"
  ],
- "run_id": "20261116-030744-4d6622",
+ "run_id": "20261116-083005-d1dcf2",
  "summary": {
-  "findings": 24,
+  "findings": 20,
   "by_severity": {
    "critical": 1,
-   "high": 11,
+   "high": 7,
    "medium": 5,
    "low": 7
   },
-  "attack_paths": 25,
-  "critical_paths": 11,
-  "total_path_risk": 201.4,
-  "endpoints": 17,
-  "shadow_endpoints": 13,
+  "attack_paths": 21,
+  "critical_paths": 7,
+  "total_path_risk": 149.4,
+  "endpoints": 13,
+  "shadow_endpoints": 9,
   "services": 4,
   "rules_evaluated": 27,
   "rules_fired": 6,
@@ -42,17 +42,17 @@
  },
  "eujf_summary": {
   "services": 4,
-  "endpoints": 17,
+  "endpoints": 13,
   "inventory": {
-   "shadow": 13,
-   "dormant": 4
+   "shadow": 9,
+   "documented": 4
   },
   "confidence": {
-   "HIGH": 0,
-   "MEDIUM": 13,
-   "ZOMBIE": 4
+   "HIGH": 4,
+   "MEDIUM": 9,
+   "ZOMBIE": 0
   },
-  "public_endpoints": 13,
+  "public_endpoints": 9,
   "endpoints_with_sensitive_data": 1,
   "dependencies": 4,
   "reconciled_traffic_paths": 0
@@ -90,8 +90,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -104,8 +105,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -118,8 +120,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}/ratings",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -132,8 +135,9 @@
    "service": "productpage",
    "method": "GET",
    "path": "/api/v1/products/{product_id}/reviews",
-   "inventory": "shadow",
+   "inventory": "documented",
    "seen_in": [
+    "spec",
     "trace",
     "traffic"
    ],
@@ -198,58 +202,6 @@
    ]
   },
   {
-   "id": "ep:productpage:GET:/products",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}/ratings",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}/ratings",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}/ratings"
-   ]
-  },
-  {
-   "id": "ep:productpage:GET:/products/{}/reviews",
-   "service": "productpage",
-   "method": "GET",
-   "path": "/products/{id}/reviews",
-   "inventory": "dormant",
-   "seen_in": [
-    "spec"
-   ],
-   "public_paths": [
-    "/products/{id}/reviews"
-   ]
-  },
-  {
    "id": "ep:ratings:GET:/ratings/{}",
    "service": "ratings",
    "method": "GET",
@@ -296,36 +248,8 @@
   },
   {
    "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}",
-   "detail": "GET /api/v1/products/{product_id} (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 16
-  },
-  {
-   "rule": "API9-SHADOW",
    "target": "ep:productpage:GET:/",
    "detail": "GET / (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products",
-   "detail": "GET /api/v1/products (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}/ratings",
-   "detail": "GET /api/v1/products/{product_id}/ratings (productpage) is served but in no spec",
-   "severity": "high",
-   "score": 12
-  },
-  {
-   "rule": "API9-SHADOW",
-   "target": "ep:productpage:GET:/api/v1/products/{}/reviews",
-   "detail": "GET /api/v1/products/{product_id}/reviews (productpage) is served but in no spec",
    "severity": "high",
    "score": 12
   },
@@ -416,7 +340,7 @@
   {
    "rule": "API9-NOSPEC",
    "target": "svc:productpage",
-   "detail": "productpage: no live spec; 4 of 13 endpoints documented anywhere",
+   "detail": "productpage: no live spec; 4 of 9 endpoints documented anywhere",
    "severity": "low",
    "score": 4
   },

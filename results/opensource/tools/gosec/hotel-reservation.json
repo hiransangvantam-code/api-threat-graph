@@ -6,10 +6,24 @@
   "G112": 1,
   "G104": 10
  },
- "seconds": 3.62,
+ "seconds": 4.08,
  "findings": 12,
  "covered": 8,
  "services": 8,
+ "cpu_s": 5.07,
+ "user_s": 3.0,
+ "sys_s": 2.07,
+ "cores": 1.24,
+ "peak_mb": 74.7,
+ "avg_mb": 37.0,
+ "read_mb": 81.791,
+ "write_mb": 1.428,
+ "processes": 146,
+ "names": {
+  "G109": "Potential Integer overflow made by strconv.Atoi result conversion to int16/32",
+  "G112": "Potential Slowloris Attack because ReadHeaderTimeout is not configured in the http.Server",
+  "G104": "Errors unhandled."
+ },
  "score": {
   "labels": 107,
   "found": 0,

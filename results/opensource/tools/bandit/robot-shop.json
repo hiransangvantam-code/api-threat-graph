@@ -10,10 +10,23 @@
   "B113": 4,
   "B104": 1
  },
- "seconds": 0.26,
+ "seconds": 0.29,
  "findings": 5,
  "covered": 1,
  "services": 8,
+ "cpu_s": 0.27,
+ "user_s": 0.24,
+ "sys_s": 0.03,
+ "cores": 0.91,
+ "peak_mb": 29.8,
+ "avg_mb": 21.3,
+ "read_mb": 4.527,
+ "write_mb": 0.005,
+ "processes": 1,
+ "names": {
+  "B113": "request_without_timeout",
+  "B104": "hardcoded_bind_all_interfaces"
+ },
  "score": {
   "labels": 76,
   "found": 0,

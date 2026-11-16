@@ -1,14 +1,24 @@
 {
  "company": "petclinic",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
- "scan_s": 0.3,
+ "scan_s": 0.6,
  "timings": {
-  "phase1_ms": 280.4894089999834,
-  "phase2_ms": 4.2047110000567045,
-  "phase3_ms": 51.42205800007105,
-  "phase4_ms": 6.04570300015439
+  "phase1_ms": 509.7962889999508,
+  "phase2_ms": 2.240665999920566,
+  "phase3_ms": 65.17555200002789,
+  "phase4_ms": 5.6048069999405925,
+  "resources": {
+   "cpu_s": 0.338,
+   "user_s": 0.71,
+   "sys_s": 0.07,
+   "read_mb": 4.12,
+   "write_mb": 2.59,
+   "peak_mb": 56.1
+  }
  },
- "run_id": "20261115-223746-6c0009",
+ "flows": 626,
+ "span_batches": 4,
+ "run_id": "20261116-071602-913f6e",
  "summary": {
   "findings": 88,
   "by_severity": {

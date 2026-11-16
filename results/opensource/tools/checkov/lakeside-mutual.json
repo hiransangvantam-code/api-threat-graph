@@ -2,6 +2,90 @@
  "applicable": true,
  "pairs": [
   [
+   "A1",
+   "ep:customer-management-backend:GET:/customers"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/customers/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/interaction-logs/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:GET:/notifications"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:PATCH:/interaction-logs/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-management-backend:PUT:/customers/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-self-service-backend:GET:/cities/{}"
+  ],
+  [
+   "A1",
+   "ep:customer-self-service-backend:POST:/auth"
+  ],
+  [
+   "A1",
+   "ep:customer-self-service-backend:POST:/auth/signup"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:DELETE:/policies/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/customers"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/customers/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/customers/{}/policies"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/insurance-quote-requests"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/insurance-quote-requests/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/policies"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:GET:/policies/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:POST:/policies"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:POST:/riskfactor/compute"
+  ],
+  [
+   "A1",
+   "ep:policy-management-backend:PUT:/policies/{}"
+  ],
+  [
    "C1",
    "svc:customer-core"
   ],
@@ -182,6 +266,10 @@
    "svc:spring-boot-admin.app-spring-boot-admin"
   ],
   [
+   "C8",
+   "svc:customer-core"
+  ],
+  [
    "C9",
    "svc:customer-core"
   ],
@@ -238,27 +326,66 @@
   "CKV_K8S_22": 9,
   "CKV_K8S_8": 9,
   "CKV_K8S_31": 9,
-  "CKV2_K8S_6": 9
+  "CKV2_K8S_6": 9,
+  "CKV_OPENAPI_4": 4,
+  "CKV_OPENAPI_20": 1,
+  "CKV_OPENAPI_21": 4,
+  "CKV_OPENAPI_5": 3
  },
- "seconds": 2.32,
- "findings": 190,
+ "seconds": 12.66,
+ "findings": 202,
+ "cpu_s": 13.21,
+ "user_s": 11.88,
+ "sys_s": 1.33,
+ "cores": 1.04,
+ "peak_mb": 760.3,
+ "avg_mb": 126.2,
+ "read_mb": 211.794,
+ "write_mb": 2.353,
+ "processes": 16,
+ "names": {
+  "CKV_K8S_12": "Memory requests should be set",
+  "CKV_K8S_9": "Readiness Probe Should be Configured",
+  "CKV_K8S_14": "Image Tag should be fixed - not latest or blank",
+  "CKV_K8S_10": "CPU requests should be set",
+  "CKV_K8S_11": "CPU limits should be set",
+  "CKV_K8S_43": "Image should use digest",
+  "CKV_K8S_37": "Minimize the admission of containers with capabilities assigned",
+  "CKV_K8S_28": "Minimize the admission of containers with the NET_RAW capability",
+  "CKV_K8S_23": "Minimize the admission of root containers",
+  "CKV_K8S_38": "Ensure that Service Account Tokens are only mounted where necessary",
+  "CKV_K8S_40": "Containers should run as a high UID to avoid host conflict",
+  "CKV_K8S_29": "Apply security context to your pods and containers",
+  "CKV_K8S_20": "Containers should not run with allowPrivilegeEscalation",
+  "CKV_K8S_30": "Apply security context to your containers",
+  "CKV_K8S_21": "The default namespace should not be used",
+  "CKV_K8S_13": "Memory limits should be set",
+  "CKV_K8S_22": "Use read-only filesystem for containers where possible",
+  "CKV_K8S_8": "Liveness Probe Should be Configured",
+  "CKV_K8S_31": "Ensure that the seccomp profile is set to docker/default or runtime/default",
+  "CKV2_K8S_6": "Minimize the admission of pods which lack an associated NetworkPolicy",
+  "CKV_OPENAPI_4": "Ensure that the global security field has rules defined",
+  "CKV_OPENAPI_20": "Ensure that API keys are not sent over cleartext",
+  "CKV_OPENAPI_21": "Ensure that arrays have a maximum number of items",
+  "CKV_OPENAPI_5": "Ensure that security operations is not empty."
+ },
  "score": {
   "labels": 80,
-  "found": 45,
-  "reported": 54,
-  "confirmed": 45,
+  "found": 52,
+  "reported": 76,
+  "confirmed": 52,
   "by_group": {
    "Configuration": {
     "labels": 63,
     "found": 45,
-    "reported": 54,
+    "reported": 55,
     "confirmed": 45
    },
    "API behaviour": {
     "labels": 11,
-    "found": 0,
-    "reported": 0,
-    "confirmed": 0
+    "found": 7,
+    "reported": 21,
+    "confirmed": 7
    },
    "Inventory and visibility": {
     "labels": 6,
@@ -270,7 +397,7 @@
   "by_cat": {
    "A1": {
     "labels": 7,
-    "found": 0
+    "found": 7
    },
    "A2": {
     "labels": 1,
@@ -334,34 +461,6 @@
    }
   },
   "missed": [
-   [
-    "A1",
-    "ep:customer-management-backend:GET:/customers"
-   ],
-   [
-    "A1",
-    "ep:customer-management-backend:GET:/interaction-logs/{}"
-   ],
-   [
-    "A1",
-    "ep:customer-management-backend:PUT:/customers/{}"
-   ],
-   [
-    "A1",
-    "ep:policy-management-backend:DELETE:/policies/{}"
-   ],
-   [
-    "A1",
-    "ep:policy-management-backend:GET:/customers"
-   ],
-   [
-    "A1",
-    "ep:policy-management-backend:GET:/policies"
-   ],
-   [
-    "A1",
-    "ep:policy-management-backend:POST:/policies"
-   ],
    [
     "A2",
     "ep:customer-self-service-backend:GET:/customers/{}"
@@ -477,6 +576,62 @@
   ],
   "unconfirmed": [
    [
+    "A1",
+    "ep:customer-management-backend:GET:/customers/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-management-backend:GET:/notifications"
+   ],
+   [
+    "A1",
+    "ep:customer-management-backend:PATCH:/interaction-logs/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-self-service-backend:GET:/cities/{}"
+   ],
+   [
+    "A1",
+    "ep:customer-self-service-backend:POST:/auth"
+   ],
+   [
+    "A1",
+    "ep:customer-self-service-backend:POST:/auth/signup"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/customers/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/customers/{}/policies"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/insurance-quote-requests"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/insurance-quote-requests/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:GET:/policies/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:PATCH:/insurance-quote-requests/{}"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:POST:/riskfactor/compute"
+   ],
+   [
+    "A1",
+    "ep:policy-management-backend:PUT:/policies/{}"
+   ],
+   [
     "C6",
     "svc:customer-core.app-customer-core"
    ],
@@ -511,11 +666,15 @@
    [
     "C6",
     "svc:spring-boot-admin.app-spring-boot-admin"
+   ],
+   [
+    "C8",
+    "svc:customer-core"
    ]
   ],
   "in_reach": {
-   "labels": 55,
-   "found": 45
+   "labels": 68,
+   "found": 52
   }
  }
 }

@@ -239,8 +239,38 @@
   "runAsRootAllowed": 9,
   "tagNotSpecified": 9
  },
- "seconds": 0.1,
+ "seconds": 0.13,
  "findings": 171,
+ "cpu_s": 0.15,
+ "user_s": 0.12,
+ "sys_s": 0.03,
+ "cores": 1.17,
+ "peak_mb": 37.3,
+ "avg_mb": 28.5,
+ "read_mb": 0.011,
+ "write_mb": 0.097,
+ "processes": 1,
+ "names": {
+  "deploymentMissingReplicas": "Only one replica is scheduled",
+  "metadataAndInstanceMismatched": "Label app.kubernetes.io/instance must match metadata.name",
+  "missingPodDisruptionBudget": "Should have a PodDisruptionBudget",
+  "automountServiceAccountToken": "The ServiceAccount will be automounted",
+  "missingNetworkPolicy": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+  "priorityClassNotSet": "Priority class should be set",
+  "topologySpreadConstraint": "Pod should be configured with a valid topology spread constraint",
+  "cpuLimitsMissing": "CPU limits should be set",
+  "cpuRequestsMissing": "CPU requests should be set",
+  "insecureCapabilities": "Container should not have insecure capabilities",
+  "linuxHardening": "Use one of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities to restrict containers using unwanted privileges",
+  "livenessProbeMissing": "Liveness probe should be configured",
+  "memoryLimitsMissing": "Memory limits should be set",
+  "memoryRequestsMissing": "Memory requests should be set",
+  "notReadOnlyRootFilesystem": "Filesystem should be read only",
+  "privilegeEscalationAllowed": "Privilege escalation should not be allowed",
+  "readinessProbeMissing": "Readiness probe should be configured",
+  "runAsRootAllowed": "Should not be allowed to run as root",
+  "tagNotSpecified": "Image tag should be specified"
+ },
  "score": {
   "labels": 80,
   "found": 54,
@@ -440,7 +470,7 @@
   ],
   "unconfirmed": [],
   "in_reach": {
-   "labels": 54,
+   "labels": 61,
    "found": 54
   }
  }

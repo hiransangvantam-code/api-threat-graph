@@ -137,8 +137,24 @@
   "unset-cpu-requirements": 8,
   "unset-memory-requirements": 8
  },
- "seconds": 0.03,
+ "seconds": 0.04,
  "findings": 40,
+ "cpu_s": 0.04,
+ "user_s": 0.03,
+ "sys_s": 0.01,
+ "cores": 0.92,
+ "peak_mb": 34.1,
+ "avg_mb": 15.7,
+ "read_mb": 0.012,
+ "write_mb": 0.034,
+ "processes": 1,
+ "names": {
+  "latest-tag": "latest tag",
+  "no-read-only-root-fs": "no read only root fs",
+  "run-as-non-root": "run as non root",
+  "unset-cpu-requirements": "unset cpu requirements",
+  "unset-memory-requirements": "unset memory requirements"
+ },
  "score": {
   "labels": 79,
   "found": 32,

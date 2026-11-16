@@ -55,9 +55,14 @@ KUBELINTER = {"run-as-non-root": "C1", "privileged-container": "C2", "unset-cpu-
 POLARIS = {"runAsRootAllowed": "C1", "runAsPrivileged": "C2", "cpuLimitsMissing": "C3", "memoryLimitsMissing": "C3",
            "tagNotSpecified": "C4", "missingNetworkPolicy": "C6", "notReadOnlyRootFilesystem": "C9",
            "privilegeEscalationAllowed": "C9", "insecureCapabilities": "C9", "dangerousCapabilities": "C9",
-           "automountServiceAccountToken": "C10"}
+           "automountServiceAccountToken": "C10",
+           # added in 1.6.4 after listing every check the tools reported (docs/BENCHMARK_OSS.md)
+           "sensitiveContainerEnvVar": "C7", "sensitiveConfigmapContent": "C7", "tlsSettingsMissing": "C8"}
 # what each tool can report at all (for "in reach" recall)
-SCOPE = {"checkov": set(CHECKOV.values()) | {"C7"}, "kubescape": set(KUBESCAPE.values()),
+# Checkov's OpenAPI checks (added in 1.6.4: Checkov also reads API documents, see docs/BENCHMARK_OSS.md)
+CHECKOV_OPENAPI_NOAUTH = {"CKV_OPENAPI_1", "CKV_OPENAPI_4", "CKV_OPENAPI_5", "CKV_OPENAPI_6", "CKV_OPENAPI_19"}
+CHECKOV_OPENAPI_HTTP = {"CKV_OPENAPI_3", "CKV_OPENAPI_7", "CKV_OPENAPI_18", "CKV_OPENAPI_20"}
+SCOPE = {"checkov": set(CHECKOV.values()) | {"C7", "A1", "C8"}, "kubescape": set(KUBESCAPE.values()),
          "kube-linter": set(KUBELINTER.values()), "polaris": set(POLARIS.values()),
          "spectral": {"A1", "A6", "C8"}, "bandit": {"C7"}, "gosec": {"C7"}, "njsscan": {"C7"}}
 
@@ -116,11 +121,117 @@ def spec_files(sid: str) -> list[tuple[str, Path]]:
     return out
 
 
+# computing resources of the current tool run: CPU time (user and system) of the tool and every process it
+# starts, its peak and average memory (resident set of the whole process tree, sampled every 20 ms), and the
+# data its processes read and wrote (bytes through read/write calls, from /proc/<pid>/io)
+USAGE: dict = {}
+NAMES_SEEN: dict = {}       # check id -> the tool's own name or message for it, for the fact-check table
+
+
+def usage_reset() -> None:
+    USAGE.clear()
+    USAGE.update(cpu_s=0.0, user_s=0.0, sys_s=0.0, peak_mb=0.0, mem_samples=[], read_mb=0.0, write_mb=0.0,
+                 processes=0, wall_s=0.0)
+
+
+usage_reset()
+
+
+def _tree(root: int) -> list[int]:
+    kids = {}
+    for d in os.listdir("/proc"):
+        if not d.isdigit():
+            continue
+        try:
+            with open(f"/proc/{d}/stat", "rb") as fh:
+                ppid = int(fh.read().rsplit(b")", 1)[1].split()[1])
+            kids.setdefault(ppid, []).append(int(d))
+        except (OSError, IndexError, ValueError):
+            continue
+    out, todo = [], [root]
+    while todo:
+        p = todo.pop()
+        out.append(p)
+        todo += kids.get(p, [])
+    return out
+
+
+def _sample(root: int, io: dict) -> int:
+    """Resident memory (KB) of the process tree now; records each process's read/write byte counters in io."""
+    page_kb = os.sysconf("SC_PAGE_SIZE") // 1024
+    total = 0
+    for p in _tree(root):
+        try:
+            with open(f"/proc/{p}/statm") as fh:
+                total += int(fh.read().split()[1]) * page_kb
+            with open(f"/proc/{p}/io") as fh:
+                v = dict(line.split(": ") for line in fh.read().splitlines())
+            io[p] = (int(v["rchar"]), int(v["wchar"]))
+        except (OSError, ValueError, KeyError):
+            continue
+    return total
+
+
+def _tree_rss_kb(root: int) -> int:
+    return _sample(root, {})
+
+
 def run(cmd: list[str], cwd=None, timeout=900, env=None) -> tuple[str, float]:
+    """Run one tool command; return its stdout and wall time, and add its resources to USAGE.
+    CPU time and the largest process's peak come from wait4 (the tool and every process it waited for); the
+    process tree's summed memory and its read/write counters are sampled every 20 ms from /proc."""
+    import tempfile as _tf
     t = time.time()
-    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout,
-                       env={**os.environ, **env} if env else None)
-    return r.stdout, time.time() - t
+    io: dict = {}
+    with _tf.TemporaryFile() as out:
+        p = subprocess.Popen(cmd, cwd=cwd, stdout=out, stderr=subprocess.DEVNULL,
+                             env={**os.environ, **env} if env else None)
+        peak_kb, ru, final_io = 0, None, None
+        while True:
+            # has it finished? (WNOWAIT keeps it as a zombie, so its I/O counters, which by now include every
+            # child process it waited for, can still be read before it is reaped)
+            if os.waitid(os.P_PID, p.pid, os.WEXITED | os.WNOHANG | os.WNOWAIT):
+                try:
+                    with open(f"/proc/{p.pid}/io") as fh:
+                        v = dict(line.split(": ") for line in fh.read().splitlines())
+                    final_io = (int(v["rchar"]), int(v["wchar"]))
+                except (OSError, ValueError, KeyError):
+                    pass
+                _, status, ru = os.wait4(p.pid, 0)
+                p.returncode = os.waitstatus_to_exitcode(status)
+                break
+            if os.path.isdir("/proc"):
+                kb = _sample(p.pid, io)
+                peak_kb = max(peak_kb, kb)
+                if kb:
+                    USAGE["mem_samples"].append(kb / 1024)
+            if time.time() - t > timeout:
+                p.kill()
+            time.sleep(0.02)
+        out.seek(0)
+        stdout = out.read().decode("utf-8", "replace")
+    dt = time.time() - t
+    USAGE["user_s"] += ru.ru_utime
+    USAGE["sys_s"] += ru.ru_stime
+    USAGE["cpu_s"] += ru.ru_utime + ru.ru_stime
+    USAGE["wall_s"] += dt
+    USAGE["peak_mb"] = max(USAGE["peak_mb"], peak_kb / 1024, ru.ru_maxrss / 1024)   # ru_maxrss is in KB on Linux
+    if final_io:            # the tool and all the processes it waited for
+        USAGE["read_mb"] += final_io[0] / 2**20
+        USAGE["write_mb"] += final_io[1] / 2**20
+    else:                   # the last samples of each process
+        USAGE["read_mb"] += sum(r for r, _ in io.values()) / 2**20
+        USAGE["write_mb"] += sum(w for _, w in io.values()) / 2**20
+    USAGE["processes"] += len(io) or 1
+    return stdout, dt
+
+
+def usage_summary() -> dict:
+    m = USAGE["mem_samples"]
+    return {"cpu_s": round(USAGE["cpu_s"], 2), "user_s": round(USAGE["user_s"], 2), "sys_s": round(USAGE["sys_s"], 2),
+            "cores": round(USAGE["cpu_s"] / USAGE["wall_s"], 2) if USAGE["wall_s"] else None,
+            "peak_mb": round(USAGE["peak_mb"], 1), "avg_mb": round(sum(m) / len(m), 1) if m else round(USAGE["peak_mb"], 1),
+            "read_mb": round(USAGE["read_mb"], 3), "write_mb": round(USAGE["write_mb"], 3), "processes": USAGE["processes"]}
 
 
 GO_BIN = os.environ.get("ATG_GO_BIN", "/usr/local/go1.24.7/bin")
@@ -172,6 +283,7 @@ def tool_checkov(sid: str) -> dict:
         for d in docs if isinstance(docs, list) else [docs]:
             for c in (d.get("results") or {}).get("failed_checks", []):
                 raw[c["check_id"]] += 1
+                NAMES_SEEN[c["check_id"]] = c.get("check_name") or ""
                 if d.get("check_type") == "secrets":
                     pairs.add(("C7", _object_at(Path(c["file_abs_path"]), c["file_line_range"][0])))
                 elif c["check_id"] in CHECKOV:
@@ -179,6 +291,30 @@ def tool_checkov(sid: str) -> dict:
                     pairs.add((CHECKOV[c["check_id"]], k8s_target(kind, name.split(".", 1)[-1])))
     elif compose:
         return {"applicable": False, "why": "Checkov has no Docker Compose checks"}
+    # Checkov's OpenAPI framework on the system's API documents: a document that declares no security at all
+    # leaves every operation without a declared authentication (A1); http:// servers or schemes mean no TLS (C8)
+    for svc, f in spec_files(sid):
+        out, dt = run([str(T / "venv/bin/checkov"), "-f", str(f), "--framework", "openapi", "-o", "json", "--quiet",
+                       "--skip-download"])
+        secs += dt
+        try:
+            docs = json.loads(out or "[]")
+        except ValueError:
+            docs = []
+        failed = [c for d in (docs if isinstance(docs, list) else [docs])
+                  for c in (d.get("results") or {}).get("failed_checks", [])]
+        for c in failed:
+            raw[c["check_id"]] += 1
+            NAMES_SEEN[c["check_id"]] = c.get("check_name") or ""
+        ids = {c["check_id"] for c in failed}
+        if ids & CHECKOV_OPENAPI_NOAUTH:
+            doc = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+            for path, ops in (doc.get("paths") or {}).items():
+                for m, op in (ops or {}).items():
+                    if m.lower() in ("get", "post", "put", "patch", "delete") and not (op or {}).get("security"):
+                        pairs.add(("A1", f"ep:{svc}:{m.upper()}:{re.sub(r'{[^}]*}', '{}', doc_base(doc) + path)}"))
+        if ids & CHECKOV_OPENAPI_HTTP:
+            pairs.add(("C8", f"svc:{svc}"))
     return {"applicable": True, "pairs": sorted(pairs), "raw": dict(raw), "seconds": round(secs, 2),
             "findings": sum(raw.values())}
 
@@ -203,7 +339,7 @@ def _object_at(f: Path, line: int) -> str:
 def tool_kubescape(sid: str) -> dict:
     files = manifest_files(sid)
     if not files:
-        return {"applicable": False, "why": "reads Kubernetes manifests only (this system ships Docker Compose)"}
+        return {"applicable": False, "why": "reads Kubernetes manifests only"}
     with tempfile.TemporaryDirectory() as d:
         for i, f in enumerate(files):
             (Path(d) / f"{i:03d}-{f.name}").write_bytes(f.read_bytes())
@@ -221,6 +357,7 @@ def tool_kubescape(sid: str) -> dict:
         for c in r.get("controls", []):
             if (c.get("status") or {}).get("status") == "failed":
                 raw[c["controlID"]] += 1
+                NAMES_SEEN[c["controlID"]] = c.get("name") or ""
                 cat = KUBESCAPE.get(c["controlID"])
                 if cat:
                     kind, name = names.get(rid, ("", rid.rsplit("/", 1)[-1]))
@@ -237,10 +374,49 @@ def tool_kubelinter(sid: str) -> dict:
     pairs, raw = set(), Counter()
     for r in doc.get("Reports") or []:
         raw[r["Check"]] += 1
+        NAMES_SEEN[r["Check"]] = r["Check"].replace("-", " ")
         o = r["Object"]["K8sObject"]
         if r["Check"] in KUBELINTER:
             pairs.add((KUBELINTER[r["Check"]], k8s_target(o["GroupVersionKind"]["Kind"], o["Name"])))
     return {"applicable": True, "pairs": sorted(pairs), "raw": dict(raw), "seconds": round(dt, 2), "findings": sum(raw.values())}
+
+
+def doc_base(doc: dict) -> str:
+    """The path an API document's operations sit under: Swagger 2.0 basePath, or the path of the first OpenAPI 3
+    server URL (the same rule as base_path in extractor/openapi_discovery.py, repeated here so the tools image
+    does not need ATG's dependencies)."""
+    from urllib.parse import urlparse
+    doc = doc or {}
+    if "swagger" in doc:
+        bp = doc.get("basePath") or ""
+    else:
+        servers = doc.get("servers") or []
+        url = str((servers[0] or {}).get("url") or "") if servers and isinstance(servers[0], dict) else ""
+        bp = urlparse(url).path if "://" in url else url
+    bp = "/" + bp.strip("/") if bp.strip("/") else ""
+    return "" if "{" in bp else bp
+
+
+def ingress_backends(files: list[Path], name: str) -> set[str]:
+    """The services behind the Ingress called name, from the manifests."""
+    out = set()
+    for f in files:
+        try:
+            docs = list(yaml.safe_load_all(f.read_text(encoding="utf-8")))
+        except (yaml.YAMLError, UnicodeDecodeError):
+            continue
+        for d in docs:
+            if not isinstance(d, dict) or d.get("kind") != "Ingress" or (d.get("metadata") or {}).get("name") != name:
+                continue
+            spec = d.get("spec") or {}
+            bes = [spec.get("defaultBackend") or spec.get("backend") or {}]
+            for rule in spec.get("rules") or []:
+                bes += [p.get("backend") or {} for p in ((rule.get("http") or {}).get("paths") or [])]
+            for be in bes:
+                svc = (be.get("service") or {}).get("name") or be.get("serviceName")
+                if svc:
+                    out.add(svc)
+    return out
 
 
 def tool_polaris(sid: str) -> dict:
@@ -263,7 +439,11 @@ def tool_polaris(sid: str) -> dict:
         for k, v in results.items():
             if not v.get("Success", True):
                 raw[k] += 1
-                if k in POLARIS:
+                NAMES_SEEN[k] = v.get("Message") or ""
+                if k in POLARIS and r.get("Kind") == "Ingress":
+                    for be in ingress_backends(files, r["Name"]):
+                        pairs.add((POLARIS[k], f"svc:{be}"))
+                elif k in POLARIS:
                     pairs.add((POLARIS[k], k8s_target(r["Kind"], r["Name"])))
     return {"applicable": True, "pairs": sorted(pairs), "raw": dict(raw), "seconds": round(secs, 2), "findings": sum(raw.values())}
 
@@ -287,15 +467,16 @@ def tool_spectral(sid: str) -> dict:
         for it in items:
             code = str(it.get("code"))
             raw[code] += 1
+            NAMES_SEEN[code] = NAMES_SEEN.get(code) or str(it.get("message") or "")
             path = it.get("path") or []
             ep = None
             if len(path) >= 3 and path[0] == "paths" and str(path[2]).lower() in ("get", "post", "put", "patch", "delete"):
-                ep = f"ep:{svc}:{path[2].upper()}:{re.sub(r'{[^}]*}', '{}', path[1])}"
+                ep = f"ep:{svc}:{path[2].upper()}:{re.sub(r'{[^}]*}', '{}', doc_base(doc) + path[1])}"
             if re.search(r"api2.*(protection|write-restricted|read-restricted)", code) and ep:
                 pairs.add(("A1", ep))
             elif re.search(r"api4.*rate-limit", code) and ep and re.search(r"(login|token|auth|session)", ep):
                 pairs.add(("A6", ep))
-            elif re.search(r"(api8|https|hosts-https)", code):
+            elif re.search(r"(no-server-http|hosts-https)", code):   # servers on plain http:// (OWASP API8)
                 pairs.add(("C8", f"svc:{svc}"))
         _ = doc
     return {"applicable": True, "pairs": sorted(pairs), "raw": dict(raw), "seconds": round(secs, 2), "findings": sum(raw.values())}
@@ -330,6 +511,7 @@ def _sast(sid: str, tool: str) -> dict:
         secs += dt
         for rid, name_ in items:
             raw[rid] += 1
+            NAMES_SEEN[rid] = name_
             if re.search(r"(hardcoded|B105|B106|B107|G101|secret)", f"{rid} {name_}", re.I):
                 pairs.add(("C7", f"svc:{name}"))
     return {"applicable": True, "pairs": sorted(pairs), "raw": dict(raw), "seconds": round(secs, 2),
@@ -349,7 +531,12 @@ def main() -> int:
     for tool in a.tools.split(","):
         (OUT / tool).mkdir(parents=True, exist_ok=True)
         for sid in a.systems:
+            usage_reset()
+            NAMES_SEEN.clear()
             res = TOOLS[tool](sid)
+            if res.get("applicable"):
+                res.update(usage_summary())
+                res["names"] = {k: NAMES_SEEN.get(k, "") for k in res.get("raw", {})}
             if res.get("applicable"):
                 al = sc.aliases(sid)
                 pairs = {(c, sc.norm(t, al)) for c, t in res["pairs"]}
@@ -357,7 +544,8 @@ def main() -> int:
                 res["score"] = sc.score(sid, pairs, SCOPE.get(tool))
             (OUT / tool / f"{sid}.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
             msg = (f"labels {res['score']['found']}/{res['score']['labels']}, matching {res['score']['confirmed']}/"
-                   f"{res['score']['reported']}, {res['findings']} findings, {res['seconds']} s") if res.get("applicable") \
+                   f"{res['score']['reported']}, {res['findings']} findings, {res['seconds']} s, CPU {res['cpu_s']} s, "
+                   f"peak {res['peak_mb']} MB") if res.get("applicable") \
                 else f"n/a ({res['why']})"
             print(f"{tool:12s} {sid:18s} {msg}", flush=True)
     return 0

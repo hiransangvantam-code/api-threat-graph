@@ -155,8 +155,30 @@
   "livenessProbeMissing": 1,
   "readinessProbeMissing": 1
  },
- "seconds": 0.23,
+ "seconds": 0.18,
  "findings": 109,
+ "cpu_s": 0.21,
+ "user_s": 0.21,
+ "sys_s": 0.01,
+ "cores": 1.16,
+ "peak_mb": 38.0,
+ "avg_mb": 31.5,
+ "read_mb": 0.032,
+ "write_mb": 0.135,
+ "processes": 1,
+ "names": {
+  "deploymentMissingReplicas": "Only one replica is scheduled",
+  "metadataAndInstanceMismatched": "Label app.kubernetes.io/instance must match metadata.name",
+  "missingPodDisruptionBudget": "Should have a PodDisruptionBudget",
+  "automountServiceAccountToken": "The ServiceAccount will be automounted",
+  "missingNetworkPolicy": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+  "priorityClassNotSet": "Priority class should be set",
+  "topologySpreadConstraint": "Pod should be configured with a valid topology spread constraint",
+  "pullPolicyNotAlways": "Image pull policy should be \"Always\"",
+  "tagNotSpecified": "Image tag should be specified",
+  "livenessProbeMissing": "Liveness probe should be configured",
+  "readinessProbeMissing": "Readiness probe should be configured"
+ },
  "score": {
   "labels": 55,
   "found": 35,
@@ -292,7 +314,7 @@
   ],
   "unconfirmed": [],
   "in_reach": {
-   "labels": 35,
+   "labels": 36,
    "found": 35
   }
  }

@@ -8,12 +8,22 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
+\usepackage{placeins}
 \def\UrlBreaks{\do\/\do-\do.\do_}
 \usepackage[hidelinks]{hyperref}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125em X}}
 \newcommand{\apcr}{\mathrm{APCR}}
 \renewcommand{\arraystretch}{1.12}
+\extrafloats{100}
+\setcounter{topnumber}{4}
+\setcounter{totalnumber}{6}
+\setcounter{dbltopnumber}{3}
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\dbltopfraction}{0.92}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\dblfloatpagefraction}{0.8}
 
 \begin{document}
 
@@ -27,7 +37,7 @@ somchart@siit.tu.ac.th}}
 \maketitle
 
 \begin{abstract}
-Microservice applications expose many internal and public APIs whose security depends on how services, gateways and deployment settings fit together. Existing tools look at one layer at a time: configuration scanners read manifests, API linters read specifications, code scanners read one language each, and active scanners probe the endpoints a specification lists. None of them answers the design question of which API weaknesses an outside attacker or a compromised pod can actually reach, and commercial runtime platforms need production traffic to leave the organization. This paper presents ATG (API Threat Graph), a self-hosted platform for automatic API security design review that runs next to a test deployment and exports no data. It merges four evidence sources (traffic captured by a sidecar, API documents, Kubernetes, Docker Compose and gateway configuration, and OpenTelemetry traces) into an Extended Universal JSON Format (EUJF) inventory, evaluates 27 deterministic rules mapped to the OWASP API Security Top 10, builds a typed threat graph and ranks attack paths with an Attack-Path-Aware Contextual Risk (APCR) score. A greedy planner orders the fixes, and a hardening report writes each fix for the technology the system uses. We evaluate ATG on ten published open-source microservice systems from nine domains, with 65 services in eight languages, 201 API operations and 716 labelled weaknesses, against eight free tools and OWASP ZAP. ATG lists 94\% of the operations, finds 65\% of the labelled weaknesses and runs on all ten systems; the best of the other tools finds 46\% and runs on seven, and ZAP finds 4 of them even when given ATG's inventory. Applying the configuration fixes of ATG's plan to the systems' own deployment files and scanning again removed 41\% of the attack-path risk, as the planner predicted; the rest needs changes to code. ATG raised one false alarm on 54 negative controls taken from the systems' code.
+Microservice applications expose many internal and public APIs whose security depends on how services, gateways and deployment settings fit together. Existing tools look at one layer at a time: configuration scanners read manifests, API linters read specifications, code scanners read one language each, and active scanners probe the endpoints a specification lists. None of them answers the design question of which API weaknesses an outside attacker or a compromised pod can actually reach, and commercial runtime platforms need production traffic to leave the organization. This paper presents ATG (API Threat Graph), a self-hosted platform for automatic API security design review that runs next to a test deployment and exports no data. It merges four evidence sources (traffic captured by a sidecar, API documents, Kubernetes, Docker Compose and gateway configuration, and OpenTelemetry traces) into an Extended Universal JSON Format (EUJF) inventory, evaluates 27 deterministic rules mapped to the OWASP API Security Top 10, builds a typed threat graph and ranks attack paths with an Attack-Path-Aware Contextual Risk (APCR) score. A greedy planner orders the fixes, and a hardening report writes each fix for the technology the system uses. We evaluate ATG on ten published open-source microservice systems from nine domains, with 65 services in eight languages, 201 API operations and 712 known weaknesses, against eight free configuration, API-document and code scanners, on speed, computing resources, accuracy, the systems each tool can review and the languages it can read. ATG finds 65\% of the known weaknesses, with 75\% of its reports correct, and lists 94\% of the operations; the best of the other tools finds 49\%. ATG runs on all ten systems and reviews services in all eight languages, while the Kubernetes scanners run on seven systems and the three code scanners together read 40\% of the services. Its analysis takes 0.44~s per system and uses 0.82~s of CPU time and 144~MB of memory. Used together with a Kubernetes scanner, ATG finds 86\% of the known weaknesses.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -43,10 +53,10 @@ Enterprises therefore face two problems. First, no single artefact gives a compl
 
 This paper addresses both problems with a locally deployed design-review platform, which we call ATG (API Threat Graph). ATG runs as a second Docker deployment attached to the network of the system under review. It captures traffic through a sidecar proxy, receives traces through an OpenTelemetry Collector, probes API documents and reads the deployment files read-only. It keeps all evidence in memory and deletes it after the review. We study four research questions:
 \begin{itemize}
-\item \textbf{RQ1:} Does combining four evidence sources discover and reconcile the API inventory better than any single source?
-\item \textbf{RQ2:} How accurate is the threat model, and how does it compare with configuration scanners, an API linter, code scanners and an active scanner on the same systems?
-\item \textbf{RQ3:} Do the fixes the attack-path-aware risk score puts first reduce the risk when they are applied?
-\item \textbf{RQ4:} How large a system can the analysis handle, and what can a passive review not detect?
+\item \textbf{RQ1 (speed):} How long does ATG take to review a system, compared with free configuration, API-document and code scanners?
+\item \textbf{RQ2 (computing resources):} How much CPU time, memory, disk and network does it use, compared with the same tools?
+\item \textbf{RQ3 (accuracy):} How many known weaknesses does it find, and how complete is its API inventory?
+\item \textbf{RQ4 (coverage):} Which systems, and which programming languages, can each tool review?
 \end{itemize}
 
 The main contributions are:
@@ -54,7 +64,7 @@ The main contributions are:
 \item \textit{A privacy-preserving multi-source extractor} that combines runtime traffic, OpenAPI documents, deployment and gateway configuration (Kubernetes, Docker Compose, Kong, nginx, Spring Cloud Gateway, Zuul, Istio) and distributed traces, without access to source code and without data leaving the client's environment.
 \item \textit{The Extended Universal JSON Format (EUJF)}, which joins evidence about each operation across sources, keeps its provenance, and classifies the inventory as documented, shadow, zombie or dormant.
 \item \textit{A threat graph with Attack-Path-Aware Contextual Risk (APCR)}: 27 deterministic rules mapped to OWASP, CWE, MITRE ATT\&CK and NIST, six node types, a recursive attack-path query in the graph store, risk propagation, and a greedy remediation planner with a hardening report that writes each fix for the technology the system uses.
-\item \textit{An evaluation on ten published open-source systems} from nine domains, which we did not write, with ground truth taken from their code and deployment files. We compare ATG with eight free tools and with OWASP ZAP on the same systems, apply the planner's configuration fixes to the systems' own deployment files and measure the result, stress the analysis with a graph built from a real system, and check it against negative controls from the systems' code.
+\item \textit{An evaluation on ten published open-source systems} from nine domains, which we did not write, with an answer key of 712 known weaknesses taken from their code and deployment files. We compare ATG with eight free tools on the same systems on speed, computing resources, accuracy, the systems each tool can review and the languages it can read, and two scripts in the project repository rerun every number.
 \end{enumerate}
 
 The rest of the paper is organized as follows. Section~\ref{sec:related} reviews related work. Section~\ref{sec:system} describes the platform. Section~\ref{sec:setup} describes the experimental setup, and Section~\ref{sec:eval} reports the evaluation. Section~\ref{sec:discussion} discusses limitations and threats to validity, and Section~\ref{sec:conclusion} concludes.
@@ -72,7 +82,7 @@ Threat modeling decomposes a system into a data-flow diagram and applies a threa
 IBM API Connect integrates Akamai (formerly Noname) API security for discovery, posture management, runtime protection and active testing of APIs managed by IBM's gateways \cite{ibm_apic}. Salt Security mirrors API traffic out of band for discovery and behavioural threat detection \cite{salt}. Akamai API Security discovers APIs from traffic, code repositories, documentation and gateways \cite{akamai_api}. Harness (Traceable) builds its picture from distributed traces collected by agents in each service \cite{traceable}. Wiz connects cloud resources, identities and exposure in a security graph with attack paths \cite{wiz}. Palo Alto Prisma Cloud discovers endpoints with agents or VPC mirroring \cite{prisma}, and Microsoft Defender for APIs covers APIs published in Azure API Management \cite{defender_apis}. 42Crunch audits OpenAPI contracts and tests running APIs against them \cite{crunch42}. NVIDIA Morpheus is a GPU framework for building AI detectors over streaming security data, such as digital fingerprinting and sensitive-information detection \cite{morpheus}. These products target production operation and require a subscription, a cloud account, the vendor's gateway or GPUs. We could not run them, and Table~\ref{tab:related} compares them from their documentation.
 
 \subsection{Configuration, specification and code scanners}
-Checkov, Kubescape, kube-linter and Polaris check Kubernetes manifests against best-practice policies \cite{checkov,kubescape,kubelinter,polaris}. Spectral lints OpenAPI documents, with an OWASP ruleset \cite{spectral}. Bandit, gosec and njsscan scan Python, Go and Node.js source \cite{bandit,gosec,njsscan}. Each reads one artefact type, and Section~\ref{sec:eval-b} measures what that means on ten real systems.
+Checkov, Kubescape, kube-linter and Polaris check Kubernetes manifests against best-practice policies \cite{checkov,kubescape,kubelinter,polaris}; Checkov also reads other infrastructure files, secrets and OpenAPI documents. Spectral lints OpenAPI documents, with an OWASP ruleset \cite{spectral}. Bandit, gosec and njsscan scan Python, Go and Node.js source \cite{bandit,gosec,njsscan}. Each reads files of a given type, and Sections~\ref{sec:eval-sys} and~\ref{sec:eval-lang} measure what that means on ten real systems.
 
 \begin{table*}[t]
 \caption{Comparison with representative approaches (commercial tools from their public documentation)}
@@ -86,7 +96,7 @@ Approach & Runtime evidence & Deployment / gateway files & API documents & Attac
 \midrule
 Threat modeling tools \cite{ms_tmt,threat_dragon,threagile} & No & No & No & Per element & Yes & Yes & No \\
 IriusRisk \cite{iriusrisk} & No & Cloud IaC & No & Rules on model & Yes & No (SaaS) & Countermeasures \\
-K8s scanners \cite{checkov,kubescape,kubelinter,polaris} & No & K8s only & No & No & Yes & Yes & Per check \\
+K8s scanners \cite{checkov,kubescape,kubelinter,polaris} & No & K8s only & Checkov & No & Yes & Yes & Per check \\
 Spectral, 42Crunch \cite{spectral,crunch42} & Contract test & No & Yes & No & Yes & Partly & Per issue \\
 OWASP ZAP \cite{zap} & Active probes & No & Yes & No & Yes & Yes & No \\
 IBM API Connect + Akamai \cite{ibm_apic} & Gateway traffic & Gateway policy & Yes & Not stated & Testing & No & Posture \\
@@ -253,7 +263,7 @@ The dashboard shows the API inventory by source and status, the risk summary, th
 
 \section{Experimental Setup}\label{sec:setup}
 \subsection{Implementation and environment}
-ATG is implemented in Python (about 6,000 lines for the platform and 14,000 for the evaluation harness) and uses mitmproxy, the OpenTelemetry Collector (contrib 0.111.0) and PostgreSQL 16. All experiments ran on one Linux host with 2 vCPUs and 8 GB of memory, and every result in this section comes from scripts in the project repository that rerun it: \texttt{DEMO-ALL} and \texttt{BENCH} for the tool comparison, \texttt{bench/oss\_eval.py} for the scans and ZAP, \texttt{bench/oss\_fixes.py} for the fix experiment and \texttt{bench/oss\_stress.py} for the stress test.
+ATG is implemented in Python (about 6,000 lines for the platform and 14,000 for the evaluation harness) and uses mitmproxy, the OpenTelemetry Collector (contrib 0.111.0) and PostgreSQL 16. All experiments ran on one Linux host with 2 vCPUs and 8 GB of memory. Every result in Section~\ref{sec:eval} comes from one run of two scripts in the project repository. \texttt{DEMO-ALL} starts the ten systems one after another, runs each system's users through ATG's sidecar, scans it and records the time and resource use of ATG's containers. \texttt{BENCH} runs the eight free tools on the same systems' files, records their time and resource use, and scores every tool, ATG included, against the same answer key.
 
 \subsection{Systems under test}
 We evaluate ATG only on published open-source systems that we did not write. Table~\ref{tab:systems} lists the ten, each pinned to one commit: Online Boutique and Bank of Anthos (Google) \cite{boutique,anthos}, Stan's Robot Shop and Acme Air (IBM) \cite{robotshop,acmeair}, Spring PetClinic Microservices \cite{petclinic}, PiggyMetrics \cite{piggymetrics}, Lakeside Mutual \cite{lakeside}, FTGO \cite{ftgo}, DeathStarBench Hotel Reservation \cite{deathstarbench} and Istio Bookinfo \cite{bookinfo}. They come from nine domains and have 65 services in eight languages and 201 API operations. Seven are deployed on Kubernetes and three with Docker Compose. Their entry points differ: an nginx gateway, Spring Cloud Gateway, Zuul, an Ingress controller, an Istio Gateway, routes written in Java code, or edge services published directly, only three ship API documents, and five emit distributed traces.
@@ -287,279 +297,393 @@ Total & 9 domains & 65 & 201 & 7 K8s, 3 Compose & 3 & 5 \\
 \end{table}
 
 \subsection{Workload}
-Each system's users run as START runs them: sessions through the entry service that call the system's operations with their own credentials, some requests without credentials, and the system's own background callers (for example Online Boutique's load generator). One run sends 120 to 780 requests, depending on the system, through ATG's sidecar, and ATG scans once afterwards.
+Each system's users run as START runs them: sessions through the entry service that call the system's operations with their own credentials, some requests without credentials, and the system's own background callers (for example Online Boutique's load generator). The sidecar records 366 to 1,516 HTTP exchanges per system in one run, and ATG scans once afterwards.
 
 \subsection{Ground truth and metrics}
 \textit{Operations.} The 201 operations come from each system's code (route definitions, controllers and gateway files). An inventory entry is correct when its service, method and path template match an operation; precision counts every entry, so a second entry for the same operation is a false positive.
 
-\textit{Weakness labels.} Each system has a list of labelled weaknesses, 716 in total. 91 were written by reading the code, each with the source file. 625 were derived by fixed rules from the deployment files, the call graph and the API documents (for example ``a container without \texttt{runAsNonRoot}''). A label is a weakness category on a service or an operation. The 22 categories fall into three groups: API behaviour (A1--A10), deployment configuration (C1--C10) and inventory and visibility (O1--O2). The findings of every tool are mapped to the same categories, and a label counts as found when a tool reports its category at the same place.
+\textit{Known weaknesses (labels).} The evaluation works like an exam with an answer key. Each system has an answer key, \texttt{opensource/<system>/ground-truth.json}, made before any tool was scored, that lists its known weaknesses, 712 in total; we call each one a label. A label is one kind of weakness at one place, a service or an API operation. The 22 kinds fall into three groups: API behaviour (A1--A10), deployment configuration (C1--C10) and inventory and visibility (O1--O2). Each label says where it comes from. 91 come from reading the system's code, each with the file it was found in; for example, Bank of Anthos's login form has no limit on wrong tries (\texttt{src/frontend/frontend.py}). 621 come from fixed rules applied to the system's real deployment files, its service calls and its API documents (\texttt{opensource/config\_labels.py}); for example, every container that does not set \texttt{runAsNonRoot} gets ``may run as root'', and every service that no NetworkPolicy selects gets ``no network segmentation''.
 
-\textit{Calls and negative controls.} The calls each service makes (43 service-to-service calls) and the checks its code performs come from the same code reading. The checks give negative controls: operations that verify the caller's identity, operations that verify the caller owns the object, and services that verify every token themselves. A finding that says such a check is missing is a false alarm.
+\textit{Scoring.} Each tool's findings are translated into the same 22 kinds with a fixed table (\texttt{bench/run\_tools.py} for the tools, \texttt{bench/oss\_scoring.py} for ATG); for example, Checkov's \texttt{CKV\_K8S\_23} and ATG's \texttt{API8-ROOT} both become ``may run as root''. One marking script scores every tool the same way: a label counts as found when the tool reports the same kind at the same service or operation, so a tool that cannot read a system scores 0 there. Found, of what it can check, counts only the labels of the kinds the tool has a check for, on the systems it can read. Correct reports are the share of a tool's reports (kind and place) that are in the answer key; the rest are false alarms or problems the answer key does not list.
+
+\textit{Time and resources.} Time is the wall-clock time to review one system. CPU time is the processor time of all the tool's processes, split into user time (running the tool's own code) and system time (the operating system working for it, such as reading files). Cores used is CPU time divided by the time of the run, so 1.00 means one core busy for the whole run. Memory is the resident memory of all its processes together, at its peak and on average. Data read and written are the bytes those processes moved through read and write calls (files, pipes and sockets), and processes is the number of processes the tool started. For the eight tools, \texttt{bench/run\_tools.py} runs each tool as a child process; CPU time comes from \texttt{wait4}, and memory and the read and write counters from \texttt{/proc}, sampled every 20~ms and read once more before the finished process is removed. For ATG, \texttt{bench/usage.py} reads Docker's counters for ATG's four containers through the Docker Engine API, from a watcher container that starts before the users (CPU time exactly, memory every 0.5~s, the in-memory folders included); data read and written are the scan process's own counters (\texttt{/proc/self/io}). The first run of each tool is slower because it loads its rules, so we report medians over the systems.
 
 \subsection{Baselines}
-We ran eight free tools on the same files: Checkov 3.4.5, Kubescape 3.0.18, kube-linter 0.7.1 and Polaris 9.6.1 on the Kubernetes manifests; Spectral 6.17.1 with the OWASP ruleset on the API documents; and Bandit 1.9.4, gosec 2.21.4 and njsscan 1.0.1 on the source code. As the active-scanner (DAST) baseline, OWASP ZAP 2.16.1 ran its default active-scan policy against the same running systems, from inside their network (the position of ATG's sidecar), without a login, at most six minutes per scan, in two configurations. In the first ZAP gets what an outside tester has: the system's API documents and a spider from the entry service. In the second ZAP is also given every operation ATG found, written as OpenAPI documents.
+We ran eight free tools on the same files: Checkov 3.4.5 on the Kubernetes manifests, secrets and API documents; Kubescape 3.0.18, kube-linter 0.7.1 and Polaris 9.6.1 on the Kubernetes manifests; Spectral 6.17.1 with the OWASP ruleset on the API documents; and Bandit 1.9.4, gosec 2.21.4 and njsscan 1.0.1 on the source code.
+
+\textit{The tools compared.} We describe each tool in its own words where it describes itself (the package description or \texttt{--help} of the version installed by \texttt{bench/tools.Dockerfile} and \texttt{bench/tools\_fetch.py}), with what it is good at and what it cannot see in this benchmark. ATG (this project) reviews a running test deployment. It reads the traffic through its sidecar, the traces, the services' API documents and the Kubernetes, Docker Compose and gateway files, merges the four sources into one API inventory, applies its 27 rules, builds a threat graph and ranks attack paths. It is good at API behaviour and inventory and works for any language and both deployment formats; it cannot see source code, has no rule for container hardening or service-account tokens, and sees nothing that is not sent over HTTP.
+
+The four Kubernetes scanners read deployment files. Checkov 3.4.5 (Bridgecrew), an infrastructure-as-code scanner (``Infrastructure as code static analysis''), reads Kubernetes files, secrets in files and API documents, and also Terraform, Helm, Dockerfiles and more. It evaluates each policy on every resource of the parsed files (``graph-based scanning''), with 119 Kubernetes checks, 18 secret detectors and 21 OpenAPI checks in this version. It is good at many file formats and at secrets, but it cannot read Docker Compose or see the running API, and it needs up to about 1~GB of memory. Kubescape 3.0.18 (ARMO), a Kubernetes posture scanner (``a tool for testing Kubernetes security posture''), reads Kubernetes YAML files or a live cluster and evaluates the controls of its library on each resource (290 controls in the downloaded library). It covers RBAC, hardening and network policy broadly, but cannot read Docker Compose and skips workloads with removed API versions, as it did with FTGO's. kube-linter 0.7.1 (StackRox), a Kubernetes linter (``Lint Kubernetes YAML files and Helm charts''), runs each of its 57 built-in checks on every object of the Kubernetes YAML files; it is the fastest and smallest tool, with fewer checks and no Docker Compose. Polaris 9.6.1 (Fairwinds), a Kubernetes best-practice checker (``Validation of best practices in your Kubernetes clusters''), checks each workload and its containers against its policy, in audit mode on the YAML files or on a cluster, with 32 checks run by default. It is the most precise tool here and it also cannot read Docker Compose.
+
+Spectral 6.17.1 with the OWASP ruleset 2.0.1 (Stoplight) lints OpenAPI documents. It runs rules on the JSON or YAML of the document, and the OWASP ruleset (28 rules) follows the OWASP API Security Top 10 2023. It finds missing security schemes, error responses and rate-limit responses in the document, but nothing that is not written there; in its own words, ``As OpenAPI is only describing the surface level of the API it cannot see what is happening in your code'', and seven of the ten systems have no document. The three code scanners read one language each. Bandit 1.9.4 (PyCQA), a ``Security oriented static analyser for python code'', ``processes each file, builds an AST from it, and runs appropriate plugins against the AST nodes'' with 75 tests, and finds code mistakes such as hard-coded passwords or requests without a timeout. gosec 2.21.4 (securego) ``analyzes Go source code to look for common programming mistakes that can lead to security problems'': it loads each Go package and runs its 41 rules, finding mistakes such as unchecked errors or weak random numbers, and because it must load the packages it is the slowest tool on large Go systems. njsscan 1.0.1 (Ajin Abraham), ``a SAST tool that can find insecure code patterns in your Node.js applications'', matches its 124 rules with libsast and semgrep. None of the three reads other languages, deployment files or the design of the API.
 
 \section{Evaluation}\label{sec:eval}
-\subsection{Endpoint Discovery and Reconciliation Performance}\label{sec:eval-a}
-\textit{Single sources against all four.} Table~\ref{tab:sources} runs Phase 2 on each subset of the Phase 1 output of the ten scans. Traffic finds the most operations (93\%) because the users exercise almost all of them, but 28\% of its entries are wrong: the same operation seen once through the gateway under its public path and once at the backend becomes two entries. Traces are always right but exist for only five systems, and API documents for three. The deployment and gateway files list routes rather than operations, so on their own they find none, yet they are what turns traffic's entries into one inventory: removing them leaves recall unchanged but drops precision from 88\% to 72\%. Removing traffic loses a third of the operations. All four together list 189 of the 201 operations with a precision of 88\%.
+Every number in this section comes from one run of \texttt{DEMO-ALL} and \texttt{BENCH} (Section~\ref{sec:setup}), scored against the answer key of 712 known weaknesses, and the tables and figures reproduce the comparison page that \texttt{BENCH} writes (\texttt{results/opensource/comparison.html}). The section answers five questions in turn. \textit{Speed} (Section~\ref{sec:eval-speed}) asks how long each tool takes to review one system, measured as the wall-clock time of one run on each system; for ATG we time both the scan process (Phases 1--4) and the whole scan. \textit{Computing resources} (Section~\ref{sec:eval-res}) asks how much CPU time, memory, disk and network each tool uses, from the operating system's counters for each tool's processes and Docker's counters for ATG's four containers. \textit{Accuracy} (Section~\ref{sec:eval-acc}) asks how many of the 712 known weaknesses each tool finds and how complete ATG's API inventory is; every tool's findings are translated into the 22 kinds of weakness and matched with the answer key by place. \textit{Systems covered} (Section~\ref{sec:eval-sys}) asks on how many of the ten systems each tool can run at all, and \textit{language limits} (Section~\ref{sec:eval-lang}) which services and programming languages each tool can review. In short, ATG's analysis takes 0.44~s per system (7.7~s for the whole scan) against 0.04--4.1~s for the file scanners, and one ATG scan uses 0.82~s of CPU and 144~MB at most, against 4.1~s and 761~MB for Checkov. ATG finds 462 of the 712 known weaknesses (65\%) with 75\% of its reports correct, while the best other tool, Polaris, finds 349 (49\%), and ATG lists 189 of the 201 operations. ATG runs on all ten systems and reviews all 65 services in eight languages, while each Kubernetes scanner runs on seven systems, Spectral on three and each code scanner on three or four, and the three code scanners together read 26 services (40\%).
 
-\begin{table}[t]
-\caption{Operations found by each source and by subsets (ten systems, 201 operations)}
-\label{tab:sources}
+\FloatBarrier
+\subsection{Speed}\label{sec:eval-speed}
+This part asks how long each tool takes to review one system. Table~\ref{tab:speed} and Fig.~\ref{fig:speed} give the median over the systems each tool can read, with the fastest and slowest system.
+
+For ATG we report two times. The analysis itself (Phases 1--4, timed inside the ATG container) takes 0.44~s per system (0.23--0.88~s): Phase~1, which reads the four sources and probes for API documents, 0.20--0.69~s, Phase~2 2--8~ms, Phase~3 20--138~ms and Phase~4 3--43~ms. The whole scan takes 7.7~s (7.0--8.3~s); most of the difference is a fixed wait for the sidecar and the Collector to go quiet before ATG reads their buffers. Neither time includes starting the system or running its users, which \texttt{DEMO-ALL} does before the scan.
+
+The other tools' time is one run of the tool on the system's files. They take 0.04~s (kube-linter) to 4.1~s (gosec) per system, and their time grows with what they read: gosec loads every Go package and took 34.1~s on Online Boutique, and Checkov took 12.7~s on Lakeside Mutual. The first run of each tool is slower because it loads its rules; the median is not affected by that one run. ATG's analysis is faster than six of the eight tools and slower than Polaris and kube-linter. With the wait, the whole scan is slower than every tool's median, and it took at most 8.3~s on any system.
+
+\begin{table}[!htbp]
+\caption{Time to review one system, slowest first. Systems: systems the tool can read}
+\label{tab:speed}
 \centering
 \footnotesize
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-Sources & Found & Recall & Precision \\
-\midrule
-API documents only & 41 & 20\% & 91\% \\
-Traffic only & 187 & 93\% & 72\% \\
-Deployment / gateway files only & 0 & 0\% & -- \\
-Traces only & 80 & 40\% & 100\% \\
-\midrule
-All but API documents & 188 & 94\% & 89\% \\
-All but traffic & 121 & 60\% & 97\% \\
-All but deployment / gateway files & 189 & 94\% & 72\% \\
-All but traces & 188 & 94\% & 87\% \\
-\textbf{All four} & \textbf{189} & \textbf{94\%} & \textbf{88\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textit{Reconciliation.} Table~\ref{tab:recon} shows how the raw observations collapse into the inventory. The ten scans read 7,266 captured flows and 4,702 spans. The single-source inventories hold 384 entries, and merging gives 216. Traffic alone produces 72 wrong entries, 26 of them in Robot Shop, where nginx exposes every backend under a prefix; with all four sources 27 remain. They come from three systems: Acme Air (15), whose Ingress controller is the gateway for five services and whose operations ATG also lists under the controller; FTGO (8), whose gateway routes are written in Java code that ATG does not read; and Bookinfo (4), whose API document describes the product page's API under a base path the running service does not use. ATG found all 62 operations and services that have no API document and all 26 services that send no traces.
-
-\begin{table}[t]
-\caption{Reconciliation of raw observations, per system}
-\label{tab:recon}
-\centering
-\scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrrrrrr@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.3cm}rrrr@{}}
 \toprule
- & & & Single- & & \multicolumn{2}{c}{Wrong entries} \\
-System & Flows & Spans & source & Merged & Traffic & All four \\
+Tool & Systems & Median & Fastest & Slowest \\
 \midrule
-Online Boutique & 825 & 1,395 & 50 & 25 & 0 & 0 \\
-Bank of Anthos & 461 & 698 & 30 & 15 & 0 & 0 \\
-Robot Shop & 1,515 & -- & 55 & 29 & 26 & 0 \\
-Acme Air & 809 & -- & 35 & 35 & 15 & 15 \\
-PetClinic & 625 & 955 & 43 & 15 & 14 & 0 \\
-PiggyMetrics & 660 & -- & 22 & 13 & 9 & 0 \\
-Lakeside Mutual & 997 & -- & 74 & 38 & 0 & 0 \\
-FTGO & 365 & -- & 21 & 17 & 8 & 8 \\
-Hotel Reservation & 465 & 810 & 24 & 12 & 0 & 0 \\
-Bookinfo & 544 & 844 & 30 & 17 & 0 & 4 \\
-\midrule
-Total & 7,266 & 4,702 & 384 & 216 & 72 & 27 \\
+\textbf{ATG}, whole scan (with the wait for the capture buffers) & 10/10 & 7.7 s & 7.0 s & 8.3 s \\
+gosec & 3/10 & 4.1 s & 0.21 s & 34.1 s \\
+Checkov & 7/10 & 3.8 s & 2.7 s & 12.7 s \\
+Kubescape & 7/10 & 1.9 s & 1.7 s & 2.1 s \\
+Spectral (OWASP) & 3/10 & 1.8 s & 0.83 s & 3.5 s \\
+njsscan & 3/10 & 0.96 s & 0.27 s & 1.1 s \\
+Bandit & 4/10 & 0.56 s & 0.25 s & 1.6 s \\
+\textbf{ATG} (Phases 1-4) & 10/10 & 0.44 s & 0.23 s & 0.88 s \\
+Polaris & 7/10 & 0.14 s & 0.10 s & 0.23 s \\
+kube-linter & 7/10 & 0.04 s & 0.04 s & 0.06 s \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textit{Dependencies.} Of the 43 service-to-service calls in the systems' code, ATG lists 36 (84\%). The seven it misses are in Robot Shop and PiggyMetrics, two Compose systems without tracing, where every caller on the Docker network has the same identity to the sidecar. ATG also lists gateway routes and connections named in the services' settings (for example a cart service's Redis address), which the call list does not contain; we did not score those.
-
-\textit{Observation window.} Runtime sources see only what is used. Fig.~\ref{fig:window} replays each scan's traffic as if the review had stopped earlier in the user session. After the first 5\% of the session, traffic has shown 4.5\% of the operations, and 43\% at the half-way point. Documents and deployment files add a fixed share from the start (25\% at 5\%), but on these systems only where documents exist, so most of the inventory still depends on the users covering the system.
-
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{figs/fig_window.png}
-\caption{Operations found as the observed share of the user session grows (ten systems pooled). Traces follow the same session and are not shown.}
-\label{fig:window}
+\includegraphics[width=\columnwidth]{figs/fig_speed.png}
+\caption{Median time to review one system (log scale).}
+\label{fig:speed}
 \end{figure}
 
-\textit{Overhead and footprint.} The sidecar adds 4.2--5.7~ms to the median latency of a request (300 requests per system, direct against through the sidecar, from inside the network). Apart from the users' own traffic, ATG sends only read-only requests for API documents: 22 to 100 per system, 622 in total.
+\FloatBarrier
+\subsection{Computing resources}\label{sec:eval-res}
+This part asks how much of the computer each tool uses to review one system (Table~\ref{tab:cost}, Figs.~\ref{fig:cpu} and~\ref{fig:mem}). The measures are defined in Section~\ref{sec:setup}.
 
-\subsection{Threat Modeling Accuracy and Baseline DAST Comparison}\label{sec:eval-b}
-\textit{Accuracy against the labels.} ATG finds 466 of the 716 labelled weaknesses (65\%), and 75\% of the places it reports match a label. By category it finds every label for containers that may run as root (90 of 90), mutable image tags (71/71), services published outside the gateway (16/16), missing network segmentation (109/109), missing API documents (62/62) and missing traces (26/26). It is weaker on unauthenticated service-to-service calls (21/29), unauthenticated sensitive operations (16/23), plaintext secrets (10/16), entries without TLS (11/17), missing resource limits (19/58), exposed admin functions (1/7) and debug endpoints (2/7). Container hardening (97 labels) and mounted service-account tokens (72) have no ATG rule.
+During a scan, the ATG and PostgreSQL containers use 0.82~s of CPU time (0.71~s user, 0.11~s system) and hold 144~MB at most and 128~MB on average; the scan process reads 3.9~MB and writes 2.8~MB. Over the 7.7~s of the scan this keeps about a tenth of one core busy (0.11), because most of the scan is the wait described above. The file scanners keep about one core busy while they run (0.84--1.25). By median, kube-linter, Polaris and Bandit stay under 40~MB and half a second of CPU. Checkov uses the most memory, 761~MB per system, and gosec the most CPU time, 5.1~s per system. By median, ATG's scan uses less CPU time than four of the eight tools and more memory than all of them except Checkov.
 
-\textit{Comparison with eight tools.} Table~\ref{tab:tools} and Fig.~\ref{fig:tools} compare ATG with the free tools against the same 716 labels. Only ATG reports API behaviour and inventory problems: 52 of 82 and 88 of 88 labels, against at most 10 and 0 for any other tool. On deployment configuration, ATG (60\%) is level with the best Kubernetes scanner, Polaris (61\%). The two check different things. ATG has no checks for container hardening (read-only file systems, dropped capabilities) or service-account tokens, which account for 169 labels. Polaris cannot read Docker Compose, so it skips three of the ten systems. Polaris is more precise (95\% against 75\%) because it checks exact manifest fields; Section~\ref{sec:eval-e} looks at ATG's unmatched reports.
-
-\begin{table*}[t]
-\caption{ATG and eight free tools on the ten open-source systems (716 labelled weaknesses). Times are from one run of the benchmark script on the 2-vCPU host; a whole ATG scan, including the wait for the capture buffers, takes 7.2--8.1~s.}
-\label{tab:tools}
+\begin{table*}[!t]
+\caption{Computing resources to review one system: median over the systems each tool can read. Sorted by the number of systems the tool can read, most first; tools that read the same number by CPU time}
+\label{tab:cost}
 \centering
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lrrrrrrr@{}}
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.3cm}rrrrrrrrr@{}}
 \toprule
-Tool & Runs on & Labels found & Configuration (546) & API behaviour (82) & Inventory (88) & Precision & Median time \\
+Tool & Systems & CPU time & User / system & Cores used & Peak memory & Average memory & Data read & Data written & Processes \\
 \midrule
-\textbf{ATG} & \textbf{10/10} & \textbf{466 (65\%)} & 326 (60\%) & \textbf{52 (63\%)} & \textbf{88 (100\%)} & 75\% & 0.35 s (Phases 1--4) \\
-Polaris & 7/10 & 331 (46\%) & \textbf{331 (61\%)} & 0 & 0 & \textbf{95\%} & 0.13 s \\
-Checkov & 7/10 & 262 (37\%) & 262 (48\%) & 0 & 0 & 74\% & 2.3 s \\
-Kubescape & 7/10 & 254 (35\%) & 254 (47\%) & 0 & 0 & 87\% & 1.9 s \\
-kube-linter & 7/10 & 164 (23\%) & 164 (30\%) & 0 & 0 & 89\% & 0.04 s \\
-Spectral (OWASP ruleset) & 3/10 & 14 (2\%) & 4 & 10 (12\%) & 0 & 37\% & 1.4 s \\
-Bandit / gosec / njsscan & 4/3/3 & 1 / 0 / 0 & 1 / 0 / 0 & 0 & 0 & 20\% / -- / -- & 0.47 / 3.6 / 0.61 s \\
-\midrule
-ATG + Checkov (either) & 10/10 & 613 (86\%) & & & & & \\
+\textbf{ATG} scan (ATG + PostgreSQL containers) & 10/10 & 0.82 s & 0.71 s / 0.11 s & 0.11 & 144 MB & 128 MB & 3.9 MB & 2.8 MB & 14 \\
+Checkov & 7/10 & 4.1 s & 3.7 s / 0.39 s & 1.06 & 761 MB & 147 MB & 45 MB & 2.1 MB & 7 \\
+Kubescape & 7/10 & 1.7 s & 1.6 s / 0.10 s & 0.92 & 120 MB & 105 MB & 4.7 MB & 2.0 MB & 1 \\
+Polaris & 7/10 & 0.16 s & 0.14 s / 0.02 s & 1.10 & 37 MB & 30 MB & 16 KB & 99 KB & 1 \\
+kube-linter & 7/10 & 0.05 s & 0.03 s / 0.01 s & 0.92 & 35 MB & 16 MB & 16 KB & 31 KB & 1 \\
+Bandit & 4/10 & 0.46 s & 0.42 s / 0.04 s & 0.84 & 31 MB & 23 MB & 6.9 MB & 16 KB & 2 \\
+gosec & 3/10 & 5.1 s & 3.0 s / 2.1 s & 1.24 & 75 MB & 37 MB & 82 MB & 1.4 MB & 146 \\
+Spectral (OWASP) & 3/10 & 2.2 s & 2.0 s / 0.23 s & 1.25 & 132 MB & 90 MB & 20 MB & 32 KB & 2 \\
+njsscan & 3/10 & 0.80 s & 0.69 s / 0.11 s & 0.95 & 65 MB & 28 MB & 11 MB & 15 KB & 5 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-\begin{figure*}[t]
+\textit{The largest use on one system.} The most CPU time and the highest peak memory any tool needed for one system were: gosec 48.1~s and 282~MB, both on Online Boutique, where it read 363~MB; Checkov 13.2~s on Lakeside Mutual and 954~MB on Online Boutique; Spectral 4.4~s on Lakeside Mutual and 132~MB; Kubescape 2.0~s and 124~MB, both on Hotel Reservation; ATG's scan 1.2~s on Online Boutique and 159~MB; njsscan 1.1~s and 92~MB, both on Robot Shop; Bandit 0.84~s and 32~MB, both on Bank of Anthos; Polaris 0.25~s and 38~MB; and kube-linter 0.05~s and 36~MB.
+
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{figs/fig_oss_groups.png}
-\caption{Labelled weaknesses found by category group on the ten open-source systems (716 labels); in brackets, the number of systems each tool can run on. Drawn by the benchmark script from the saved runs.}
-\label{fig:tools}
-\end{figure*}
+\includegraphics[width=\columnwidth]{figs/fig_cpu.png}
+\caption{CPU time to review one system (median, log scale). ATG: the ATG and PostgreSQL containers during the scan.}
+\label{fig:cpu}
+\end{figure}
 
-\begin{figure*}[t]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{figs/fig_oss_reach.png}
-\caption{Where the other tools stop: systems each tool can run on (left) and services whose source code each single-language scanner can read (right).}
-\label{fig:reach}
-\end{figure*}
+\includegraphics[width=\columnwidth]{figs/fig_memory.png}
+\caption{Peak memory to review one system (median, log scale). ATG: the ATG and PostgreSQL containers during the scan.}
+\label{fig:mem}
+\end{figure}
 
-Every other tool stops at a coverage limit that ATG does not have (Fig.~\ref{fig:reach}). The four Kubernetes scanners cannot run on the three Compose systems, and Kubescape skipped FTGO's workloads because they use removed Kubernetes API versions. Spectral needs an API document, which seven of the ten systems do not have, and the documents that exist are incomplete: Bookinfo's lists 4 of its 13 operations. Each code scanner reads one language: Bandit could read 7 of the 65 services, gosec 13 and njsscan 6, so together they covered 26 services (40\%), and no free scanner here reads the Java, C\#, Ruby or PHP services. The code scanners found almost none of the labels, which is expected: they look for code flaws such as injection or weak cryptography, which none of the labels describe. ATG and a Kubernetes scanner complement each other. Together, ATG and Checkov find 613 of the 716 labels (86\%).
+\textit{ATG's whole review.} Unlike the file scanners, ATG is also running while the users send their requests. Table~\ref{tab:containers} splits its use over its four containers and over the two stages of a review. While the users run, the sidecar does most of the work: 1.5~s of CPU per system, or 2.4~ms of CPU for each request it carries (median; 2.0--2.7~ms). During the scan the ATG container uses 0.69~s and PostgreSQL 0.16~s. All four containers together used 2.8~s of CPU time over a whole review (5.1~s at most) and held at most 232~MB at once (260~MB on the largest system). They read and wrote nothing on disk, because ATG keeps the captured traffic and its database in memory, and the median container received and sent under 0.5~MB over the network in a review (the sidecar's traffic counts twice: in from a caller and out to the service, and back).
 
-\textit{Baseline DAST comparison.} Table~\ref{tab:zap} compares ATG with OWASP ZAP on the same running systems. Given only what an outside tester has, ZAP reached 47 of the 201 operations, all in the three systems that publish API documents; on the other seven its spider found nothing to follow, because the entry services serve JSON APIs, forms behind a login or gRPC rather than linked pages. Given every operation ATG found, written as OpenAPI documents, ZAP reached 195 of the 201 operations, sent 63,881 requests in 6.7 minutes, and raised 593 alerts. They match 4 of the 716 labels: credentials in a URL query string in Bank of Anthos and Hotel Reservation (CWE-598) and an exposed Spring actuator in PetClinic. 163 of its alerts are a missing \texttt{X-Content-Type-Options} header and 408 are informational user-agent fuzzing results. The 12 format-string alerts come from how the stand-in services answer malformed input and say nothing about the real code. The labels describe design and deployment weaknesses (missing authentication between services, missing segmentation, admin consoles published outside the gateway, undocumented operations), which an anonymous active scanner cannot see in responses. Injection flaws, its strength, are not what these systems were labelled for. ATG found 466 labels while sending 622 read-only requests of its own. The two approaches are complementary, and ATG's inventory raised ZAP's coverage of the operations from 23\% to 97\%.
-
-\begin{table*}[t]
-\caption{ATG and OWASP ZAP 2.16.1 on the same running systems. Requests: sent to the system by the tool (ATG's are its probes for API documents; it reads the users' traffic passively). Ops: operations reached or found (in brackets: the operations in the code). Labels: labelled weaknesses found. ZAP took 110~s and 405~s in total, ATG 0.2--0.6~s per system for Phase 1}
-\label{tab:zap}
-\centering
-\footnotesize
-\setlength{\tabcolsep}{3.6pt}
-\begin{tabular}{@{}lrrrrrrrrrr@{}}
-\toprule
- & \multicolumn{3}{c}{ZAP as an outside tester} & \multicolumn{4}{c}{ZAP given ATG's inventory} & \multicolumn{3}{c}{ATG} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-8}\cmidrule(l){9-11}
-System & Requests & Ops & Labels & Requests & Ops & Alerts & Labels & Requests & Ops & Labels \\
-\midrule
-Online Boutique (26) & 194 & 1 & 0 & 7,062 & 25 & 49 & 0 & 100 & 25 & 43 \\
-Bank of Anthos (17) & 192 & 0 & 0 & 3,854 & 17 & 8 & 1 & 60 & 15 & 22 \\
-Robot Shop (30) & 192 & 0 & 0 & 9,848 & 29 & 93 & 0 & 70 & 29 & 42 \\
-Acme Air (22) & 22 & 0 & 0 & 6,545 & 20 & 47 & 0 & 60 & 20 & 53 \\
-PetClinic (16) & 192 & 0 & 0 & 5,885 & 15 & 89 & 1 & 70 & 15 & 54 \\
-PiggyMetrics (13) & 192 & 0 & 0 & 3,260 & 13 & 15 & 0 & 60 & 13 & 62 \\
-Lakeside Mutual (38) & 12,240 & 37 & 0 & 9,905 & 38 & 109 & 0 & 22 & 38 & 52 \\
-FTGO (14) & 1,538 & 4 & 0 & 6,604 & 13 & 125 & 0 & 60 & 9 & 46 \\
-Hotel Reservation (12) & 192 & 0 & 0 & 7,101 & 12 & 41 & 2 & 80 & 12 & 68 \\
-Bookinfo (13) & 1,076 & 5 & 0 & 3,817 & 13 & 17 & 0 & 40 & 13 & 24 \\
-\midrule
-Total (201 ops, 716 labels) & 16,030 & 47 & 0 & 63,881 & 195 & 593 & 4 & 622 & 189 & 466 \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-\subsection{Attack-Path Risk Reduction and Remediation Impact}\label{sec:eval-c}
-\textit{The plan on each system.} APCR concentrates risk on a few fixes because a finding only counts through its best reachable path \eqref{eq:r}. Fig.~\ref{fig:plan} shows the planner's predicted curve on the ten systems, and Table~\ref{tab:plans} lists the numbers. How many fixes are needed depends on where the risk comes from. Where it comes mostly from inside the cluster (FTGO, Hotel Reservation) or from services published outside the gateway (Lakeside Mutual), 5--9 configuration fixes remove 70\% of $R$: NetworkPolicies that cut the in-cluster paths through each service, and Services made internal. Where the internet reaches operations that answer without authentication, the risk is spread over many findings and 15--39 fixes are needed, most of them code changes (authentication and role checks) and documentation. In Robot Shop, 29 of the first 39 fixes document or remove an undocumented endpoint reachable from the internet. On Bank of Anthos the first fix is an authentication and role check on \texttt{GET /home}, the page that returns an account's balance and transactions (APCR 20, internet $\rightarrow$ frontend $\rightarrow$ \texttt{GET /home} $\rightarrow$ bulk financial data, Fig.~\ref{fig:tg}).
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.7\textwidth]{figs/fig_oss_plans.png}
-\caption{Attack-path risk left after each fix of ATG's plan, as the planner predicts it, on the ten open-source systems.}
-\label{fig:plan}
-\end{figure*}
-
-\begin{table}[t]
-\caption{ATG's fix plan on the ten open-source systems}
-\label{tab:plans}
+\begin{table*}[!t]
+\caption{What ATG's four containers use during a review: median over the ten systems, in brackets the most. Users running: the system's users send their requests through the sidecar; scan: Phases 1--4}
+\label{tab:containers}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrrrrl@{}}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{3.6cm}rrrrrrr@{}}
 \toprule
-System & Findings & $R$ & 70\% & 90\% & First fix \\
+Container & Role & CPU, users running & CPU, scan & Peak memory & Average memory & Network in / out & Disk read / write & Processes \\
 \midrule
-Online Boutique & 97 & 714.5 & 36 & 61 & TLS on the LoadBalancer \\
-Bank of Anthos & 45 & 316.6 & 19 & 30 & auth check, \texttt{GET /home} \\
-Robot Shop$^{c}$ & 121 & 917.5 & 39 & 75 & route auth, \texttt{/api/cart/} \\
-Acme Air & 143 & 711.5 & 35 & 63 & Secret for booking's keys \\
-PetClinic$^{c}$ & 88 & 850.0 & 29 & 44 & route auth, \texttt{/api/customer} \\
-PiggyMetrics$^{c}$ & 114 & 773.5 & 27 & 45 & route auth, \texttt{/accounts} \\
-Lakeside Mutual & 118 & 793.5 & 8 & 13 & ClusterIP, policy backend \\
-FTGO & 98 & 338.0 & 5 & 8 & NetworkPolicy, API gateway \\
-Hotel Reservation & 113 & 331.0 & 9 & 16 & NetworkPolicy, frontend \\
-Bookinfo & 32 & 236.1 & 15 & 25 & auth check, product API \\
+atg-proxy & sidecar (mitmproxy): carries and records the traffic & 1.5 s (3.6 s) & 0.03 s (0.15 s) & 54 MB (60 MB) & 53 MB & 484 KB / 474 KB & 0 KB / 0 KB & 3 \\
+atg-collector & OpenTelemetry Collector: receives the spans & 0.02 s (0.16 s) & 0.01 s (0.04 s) & 35 MB (45 MB) & 30 MB & 104 KB / 5 KB & 0 KB / 0 KB & 7 \\
+atg-postgres & PostgreSQL: EUJF records, threat graph, attack-path query & 0.08 s (0.14 s) & 0.16 s (0.19 s) & 70 MB (89 MB) & 66 MB & 387 KB / 76 KB & 0 KB / 0 KB & 11 \\
+atg & ATG: scan (Phases 1-4), pages, web view & 0.20 s (0.64 s) & 0.69 s (1.0 s) & 73 MB (80 MB) & 36 MB & 113 KB / 424 KB & 0 KB / 0 KB & 4 \\
+\textbf{All four} &  & 2.8 s (5.1 s) in all &  & 232 MB (260 MB) &  &  &  &  \\
 \bottomrule
-\multicolumn{6}{@{}l}{\scriptsize 70\%, 90\%: fixes needed to remove that share of $R$. $^{c}$Docker Compose.}
 \end{tabular}
-\end{table}
+\end{table*}
 
-\textit{Measured reduction.} To check the plan against what actually happens, we applied every fix in it that changes deployment files rather than code to a copy of each system's own files, and scanned again with the same users (Table~\ref{tab:fixes}, Fig.~\ref{fig:fixes}). The NetworkPolicies are ATG's YAML from the hardening report, unchanged. The 195 configuration fixes removed 41\% of the total attack-path risk. The measured risk equals the planner's prediction on seven systems and is within 1.1\% on PetClinic and PiggyMetrics, whose second user session differed slightly. FTGO kept 14.5: one of its workloads is a Job whose pods carry no labels, so the policy ATG wrote selects nothing.
+\FloatBarrier
+\subsection{Accuracy}\label{sec:eval-acc}
+This part asks how many of the 712 known weaknesses each tool finds, and how complete ATG's API inventory is. The known weaknesses fall into three groups. \textit{Configuration} (546) are mistakes in the deployment files (Kubernetes manifests, Docker Compose files, gateway settings), for example a container that may run as root, no network policy, no memory or CPU limit, a password written in a plain file, an image without a fixed version, or a public entry without HTTPS; the Kubernetes scanners and ATG can find these. \textit{API behaviour} (82) is how the running API behaves when it is used, for example an operation that returns private data without a login, one service calling another without credentials, an admin or debug page open to everyone, a password sent in the URL, or a login with no limit on wrong tries; only a tool that sees the API in use (ATG) or reads its API document (Spectral and Checkov's OpenAPI checks, partly) can find these. \textit{Inventory and visibility} (84) is what the owners do not know about their own APIs, for example operations that no API document describes (shadow APIs) and services that send no traces; only ATG compares what runs with what is documented.
 
-Configuration removed all or nearly all of the risk where it lay inside the cluster or in services published outside the gateway (Lakeside Mutual, Hotel Reservation, FTGO). Lakeside's 100\% is optimistic, because its LoadBalancer Services, once internal, need an Ingress for their users, which we did not add. Where the internet reaches operations that answer without authentication, configuration removed 5--36\%, and the rest of the plan is code changes, which would be meaningless on the stand-ins.
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_oss_groups.png}
+\caption{Known weaknesses found in the configuration and API-behaviour groups; in brackets, the number of systems each tool can run on. Inventory and visibility is in Table~\ref{tab:inventory}.}
+\label{fig:tools}
+\end{figure}
 
-In its first run the experiment also found faults in ATG itself. The internet actor reached only gateways behind an Ingress and NodePort Services, so an edge service published through a LoadBalancer or behind an Istio Gateway (Online Boutique, Bank of Anthos, Lakeside Mutual, Bookinfo) had no attack path from the internet. The generated NetworkPolicies used the label \texttt{app:} although Acme Air labels its pods \texttt{name:}, admitted only in-cluster callers to an entry service and would have cut off its users, and gave untraced services no callers at all. Version 1.6 fixes all of them. No finding changes, and all risk numbers in this paper are version 1.6's, recomputed from the saved Phase 1 output of the same scans.
+\textit{Inventory and visibility: detected or not.} Finding these needs the running system compared with the API documents and the deployment files, so it is a capability a tool either has or does not have. Table~\ref{tab:inventory} therefore shows it as detected or not detected rather than as a score, and Fig.~\ref{fig:tools} leaves it out. ATG detects all 58 operations and services without an API document and all 26 services that send no traces; none of the other tools detects either.
 
-\begin{table}[t]
-\caption{Applying ATG's configuration fixes to the systems' own deployment files and scanning again}
-\label{tab:fixes}
+\begin{table}[!htbp]
+\caption{Inventory and visibility: detected or not}
+\label{tab:inventory}
 \centering
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\begin{tabular}{@{}lrrrrr@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{2.0cm}@{}}
 \toprule
- & Fixes & \multicolumn{3}{c}{Attack-path risk $R$} & \\
-\cmidrule(lr){3-5}
-System & N/C/H & Before & Predicted & Measured & Cut \\
+Tool & Shadow APIs and services without an API document & Services that send no traces & Inventory and visibility (84) \\
 \midrule
-Online Boutique & 12/0/11 & 714.5 & 584.1 & 584.1 & 18\% \\
-Bank of Anthos & 9/0/2 & 316.6 & 258.1 & 258.1 & 18\% \\
-Robot Shop$^{c}$ & 0/0/12 & 917.5 & 874.0 & 874.0 & 5\% \\
-Acme Air & 8/0/8 & 711.5 & 527.0 & 527.0 & 26\% \\
-PetClinic$^{c}$ & 0/10/11 & 850.0 & 548.0 & 542.0 & 36\% \\
-PiggyMetrics$^{c}$ & 0/4/14 & 773.5 & 541.0 & 538.0 & 30\% \\
-Lakeside Mutual & 9/8/9 & 793.5 & 0.0 & 0.0 & 100\% \\
-FTGO & 11/0/11 & 338.0 & 0.0 & 14.5 & 96\% \\
-Hotel Reservation & 19/0/19 & 331.0 & 0.0 & 0.0 & 100\% \\
-Bookinfo & 4/0/4 & 236.1 & 201.4 & 201.4 & 15\% \\
-\midrule
-Total & 72/22/101 & 5,982.1 & 3,533.5 & 3,539.0 & 41\% \\
+\textbf{ATG} & Detected (58/58) & Detected (26/26) & \textbf{Detected (84/84)} \\
+Checkov & Not detected & Not detected & Not detected \\
+Kubescape & Not detected & Not detected & Not detected \\
+kube-linter & Not detected & Not detected & Not detected \\
+Polaris & Not detected & Not detected & Not detected \\
+Spectral (OWASP) & Not detected & Not detected & Not detected \\
+Bandit & Not detected & Not detected & Not detected \\
+gosec & Not detected & Not detected & Not detected \\
+njsscan & Not detected & Not detected & Not detected \\
 \bottomrule
-\multicolumn{6}{@{}l}{\scriptsize N: NetworkPolicy, C: ClusterIP / unpublished port, H: hardening. $^{c}$Compose.}
 \end{tabular}
 \end{table}
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.78\textwidth]{figs/fig_fixes.png}
-\caption{Attack-path risk before the configuration fixes, as the plan predicts it after them, and as measured by scanning the fixed deployment files again.}
-\label{fig:fixes}
-\end{figure*}
+\textit{Operations ATG listed.} No other tool lists a system's operations, so the inventory is measured for ATG alone (Table~\ref{tab:ops}). Of the 201 operations in the systems' code, ATG's inventory from the same \texttt{DEMO-ALL} run lists 189 (94\%), and 189 of its 212 entries (89\%) are real operations; an operation listed twice, for example once at the gateway and once at the service, counts as one wrong entry. All 23 wrong entries come from two systems. In Acme Air the Ingress controller is the gateway for five services, and ATG lists their operations a second time under the controller (15 entries). In FTGO the gateway's routes are written in Java code, which ATG does not read, so 8 of its entries stay under the gateway and are not matched to the services behind it. Runtime sources see only what is used, so an operation that the users never call and no document lists stays invisible.
 
-\textit{From score to action.} The hardening report turns each step of the plan into work for the system's own stack (Fig.~\ref{fig:fixcard}). The fix for an unauthenticated route is written for the gateway that Phase 1 found. A NetworkPolicy lists the callers the traces show, or the configuration names when there are no traces, and keeps an entry service open to its outside users. A code fix names the finding's own operation. Each fix comes with a test that confirms it, for example ``\texttt{kubectl get networkpolicy}: one must select frontend; a pod not on the allow list must time out''.
-
-\subsection{System Scalability and Graph Density Stress Testing}\label{sec:eval-d}
-\textit{Per-system cost.} On the ten systems, Phase 1 (reading all four sources, including the live probes for API documents) takes 0.20--0.59~s, Phase 2 2--8~ms and Phase 3 18--102~ms. A complete scan takes 7.2--8.1~s, most of it a fixed wait for the sidecar and the Collector to go quiet before their buffers are read. ATG's own processing is therefore not what limits a review of a system of this size; the length of the user session is (Fig.~\ref{fig:window}).
-
-\textit{Stress test.} To find the limits, the EUJF of ATG's scan of Online Boutique was cloned $k$ times into one cluster, renaming every service in each copy, so that every copy carries the real records and the rules fire as they do on Online Boutique. A second experiment kept five copies (60 workloads) and added $d$ random operation-to-operation calls per operation. Fig.~\ref{fig:stress} shows Phase~3 time on PostgreSQL. Size is handled: 100 copies (1,200 workloads, 2,500 operations, 30,200 attack paths) take 64~s and 581~MB, and 30 copies (360 workloads) take 5.6~s.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.82\textwidth]{figs/fig_stress_oss.png}
-\caption{Phase 3 time on PostgreSQL as the system grows (left, $k$ copies of Online Boutique) and as the call graph gets denser (right, five copies).}
-\label{fig:stress}
-\end{figure*}
-
-\textit{The remaining limit.} Call-chain density is the limit that remains. The attack-path query enumerates every simple path of up to nine hops, and their number grows quickly with the number of calls per operation. With 60 workloads the analysis takes 26~s at 2.5 calls per operation (21,726 paths) and exhausts PostgreSQL's 4~GB of temporary space at three. Since APCR keeps one best path per finding \eqref{eq:r}, a k-best-paths search would avoid the full enumeration. For comparison, the densest of the ten real systems, Online Boutique, has 21 traced call edges among 12 workloads.
-
-\subsection{Negative Controls and Passive Detection Boundaries}\label{sec:eval-e}
-\textit{Negative controls from the systems' code.} Table~\ref{tab:controls} lists the checks the systems' code performs and how often ATG nevertheless reports them as missing. Of 54 controls, ATG flags one: Lakeside Mutual's customer lookup checks that the caller owns the customer record, but no user ever asked for someone else's record, so the traffic held no 403 and the possible-BOLA rule fired. That is the limit of a passive check, which cannot tell an owner check that exists from one that is never triggered.
-
-\begin{table}[t]
-\caption{Negative controls taken from the systems' code}
-\label{tab:controls}
+\begin{table}[!htbp]
+\caption{Operations ATG listed (its API inventory) against every operation in the systems' code. Correct: the share of ATG's entries that are real operations}
+\label{tab:ops}
 \centering
 \footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}p{3.5cm}rr@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-The code checks that & Controls & Flagged \\
+System & In the code & Listed correctly & ATG's entries & Correct \\
 \midrule
-the caller is authenticated (TS-01, TS-03 must not fire) & 29 & 0 \\
-the caller owns the object (API1 must not fire) & 14 & 1 \\
-the service verifies each token itself (TS-08 must not fire) & 11 & 0 \\
-\midrule
-Total & 54 & 1 \\
+Lakeside Mutual & 38 & 38 (100\%) & 38 & 100\% \\
+Robot Shop & 30 & 29 (97\%) & 29 & 100\% \\
+Online Boutique & 26 & 25 (96\%) & 25 & 100\% \\
+Acme Air & 22 & 20 (91\%) & 35 & 57\% \\
+Bank of Anthos & 17 & 15 (88\%) & 15 & 100\% \\
+PetClinic & 16 & 15 (94\%) & 15 & 100\% \\
+FTGO & 14 & 9 (64\%) & 17 & 53\% \\
+PiggyMetrics & 13 & 13 (100\%) & 13 & 100\% \\
+Bookinfo & 13 & 13 (100\%) & 13 & 100\% \\
+Hotel Reservation & 12 & 12 (100\%) & 12 & 100\% \\
+\textbf{All} & 201 & 189 (94\%) & 212 & 89\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textit{Reports that match no label.} 236 of ATG's 954 reports (25\%) match no label. 147 are inventory reports: operations without an API document and workloads without traces, mostly databases and caches, which are true but which the labels count once per service rather than per operation or workload. 62 report a sensitive operation without authentication; 53 of them are operations whose code indeed has no authentication check but serve public data (catalogues, flight search), so the labels did not count them as sensitive, and 9 sit on gateway routes or on the extra entries of Acme Air and FTGO. The remaining 27 are bulk data, debug, publication, ownership and login reports.
+\textit{How many known weaknesses each tool found.} Table~\ref{tab:tools} counts, for each tool, the known weaknesses it found of all 712, so a tool that cannot read a system scores 0 there; the known weaknesses it found of what it can check, that is, of the kinds it has a check for on the systems it can read; and its correct reports, the share of its reports (kind and place) that are in the answer key. The rest are false alarms or problems the answer key does not list.
 
-\textit{What a passive review cannot see.} ATG never sends an attack request. This makes it safe to run next to a working system, and it also bounds what it can find. Table~\ref{tab:limits} summarizes the boundary by OWASP category. The largest gaps on the ten systems are exposed admin functions (1 of 7) and debug endpoints (2 of 7), whose paths (\texttt{/loader/load}, \texttt{/memory}) do not follow the naming the rules know or which are whole consoles such as Spring Boot Admin, and missing resource limits (19 of 58), because ATG reports them only on internet-reachable services. These are known false negatives, which we report instead of tuning the rules to the labels.
+ATG finds 462 of the 712 (65\%), and 714 of its 950 reports (75\%) match a known weakness. The best other tool, Polaris, finds 349 (49\%) with 95\% of its reports correct, followed by Checkov (271), Kubescape (254) and kube-linter (164); Spectral finds 13 and the three code scanners 1 together. On configuration Polaris finds a little more than ATG (64\% against 60\%). The two check different things: ATG has no rule for container hardening (C9, 97 known weaknesses) or mounted service-account tokens (C10, 72), and it reports missing resource limits only on services the internet reaches, while Polaris cannot read the three Compose systems. On API behaviour ATG finds 52 of 82 (63\%). The most any other tool finds is 10 (Spectral) and 9 (Checkov's OpenAPI checks), both only on the three systems that have an API document.
+
+\begin{table*}[!t]
+\caption{How many known weaknesses each tool found (712 known weaknesses on the ten systems). Inventory and visibility is in Table~\ref{tab:inventory}}
+\label{tab:tools}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Tool & Systems it can read & Found (of 712) & Configuration & API behaviour & Found, of what it can check & Correct reports \\
+\midrule
+\textbf{ATG} & 10/10 & 462/712 (65\%) & 326/546 (60\%) & 52/82 (63\%) & 462/543 (85\%) & 714/950 (75\%) \\
+Checkov & 7/10 & 271/712 (38\%) & 262/546 (48\%) & 9/82 (11\%) & 271/382 (71\%) & 271/385 (70\%) \\
+Kubescape & 7/10 & 254/712 (36\%) & 254/546 (47\%) & 0/82 (0\%) & 254/370 (69\%) & 254/291 (87\%) \\
+kube-linter & 7/10 & 164/712 (23\%) & 164/546 (30\%) & 0/82 (0\%) & 164/282 (58\%) & 164/184 (89\%) \\
+Polaris & 7/10 & 349/712 (49\%) & 349/546 (64\%) & 0/82 (0\%) & 349/368 (95\%) & 349/368 (95\%) \\
+Spectral (OWASP) & 3/10 & 13/712 (2\%) & 3/546 (1\%) & 10/82 (12\%) & 13/22 (59\%) & 13/35 (37\%) \\
+Bandit & 4/10 & 1/712 (0\%) & 1/546 (0\%) & 0/82 (0\%) & 1/5 (20\%) & 1/5 (20\%) \\
+gosec & 3/10 & 0/712 (0\%) & 0/546 (0\%) & 0/82 (0\%) & 0/0 (–) & 0/0 (–) \\
+njsscan & 3/10 & 0/712 (0\%) & 0/546 (0\%) & 0/82 (0\%) & 0/0 (–) & 0/0 (–) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textit{ATG's reports that are not in the answer key.} 236 of ATG's 950 reports (25\%) match no known weakness. 147 are inventory reports: 98 are on workloads the answer key does not count as API services (databases, caches, message brokers, registries, monitoring, load generators and web front ends), and 49 are on operations, mostly the extra entries in Acme Air and FTGO. 62 report a sensitive operation without authentication on operations that have no authentication check but that the answer key does not count as sensitive; most serve public data, such as a catalogue or a flight search. The remaining 27 are 9 bulk-sensitive-data reports, 8 debug-endpoint reports, 6 services published outside the gateway, 3 broken-object-level-authorization reports and 1 login without a rate limit.
+
+\textit{Why the file scanners find configuration but no API behaviour or inventory.} API behaviour is how the running API answers: who may call an operation, what it returns, whether one service calls another without credentials. Kubernetes and Compose files do not describe API operations at all, and code scanners look for coding mistakes, not for who may call what. Only an API document says something about the API, which is why Spectral and Checkov's OpenAPI checks find a few API-behaviour weaknesses where a document exists; even there, the OWASP ruleset of Spectral, in its own description, ``cannot see what is happening in your code''. Inventory and visibility compare what runs with what is documented and traced, and a tool that reads one kind of file has nothing to compare it with.
+
+Section~\ref{sec:discussion} checks that these zeros are not a scoring gap by listing every check the tools reported.
+
+\textit{Found, by kind of weakness.} Table~\ref{tab:kinds} breaks the result down by kind. ATG finds every known case of containers that may run as root (90), mutable image tags (71), services published outside the gateway (16), missing network segmentation (109), credentials in a URL (3), bulk sensitive data (3), missing API documents (58) and missing traces (26). Its weakest kinds are exposed admin functions (1 of 7) and debug endpoints (2 of 7), whose paths (\texttt{/loader/load}, \texttt{/memory}) do not follow the names the rules know or which are whole consoles such as Spring Boot Admin, and missing resource limits (19 of 58). ATG reports missing resource limits (C3) only for services reachable from the internet, where they matter for API4 (resource consumption); the scanners report every container, which is why they find more C3 cases.
+
+\begin{table*}[!t]
+\caption{Found, by kind of weakness (the two kinds without known weaknesses in these systems, A8 SSRF-prone input and C2 privileged container, are left out). $\cdot$: the tool has no check for this kind}
+\label{tab:kinds}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{4.6cm}rrrrrrrrrr@{}}
+\toprule
+Code & Kind of weakness & Known & ATG & Checkov & Kubescape & kube-linter & Polaris & Spectral & Bandit & gosec & njsscan \\
+\midrule
+A1 & no authentication on a sensitive operation & 23 & 16 & 9 & $\cdot$ & $\cdot$ & $\cdot$ & 9 & $\cdot$ & $\cdot$ & $\cdot$ \\
+A2 & broken object level authorization & 1 & 1 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+A3 & admin function exposed & 7 & 1 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+A4 & debug or diagnostic endpoint exposed & 7 & 2 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+A5 & service-to-service call without credentials & 29 & 21 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+A6 & login without rate limit & 6 & 4 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & 1 & $\cdot$ & $\cdot$ & $\cdot$ \\
+A7 & credential in the URL & 3 & 3 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+A9 & bulk sensitive data & 3 & 3 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+A10 & third-party API use & 3 & 1 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+\midrule
+C1 & may run as root & 90 & 90 & 53 & 43 & 47 & 53 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+C3 & no resource limits & 58 & 19 & 32 & 22 & 26 & 32 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+C4 & mutable image tag & 71 & 71 & 49 & 5 & 43 & 49 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+C5 & published outside the gateway & 16 & 16 & $\cdot$ & 0 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+C6 & no network segmentation & 109 & 109 & 0 & 62 & 0 & 72 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+C7 & secret in deployment files & 16 & 10 & 3 & 10 & 1 & 13 & $\cdot$ & 1 & 0 & 0 \\
+C8 & public entry without TLS & 17 & 11 & 0 & 0 & $\cdot$ & 5 & 3 & $\cdot$ & $\cdot$ & $\cdot$ \\
+C9 & missing container hardening & 97 & $\cdot$ & 53 & 50 & 47 & 53 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+C10 & service account token mounted & 72 & $\cdot$ & 72 & 62 & $\cdot$ & 72 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+\midrule
+O1 & no API document & 58 & 58 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+O2 & not traced & 26 & 26 & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ & $\cdot$ \\
+\midrule
+ & Total & 712 & 462 & 271 & 254 & 164 & 349 & 13 & 1 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textit{Found on each system.} Fig.~\ref{fig:persystem} and Table~\ref{tab:persystem} give the result per system, against each system's own answer key. ATG finds the most on four systems (Online Boutique and the three Compose systems), ties on Bookinfo, and finds fewer than the best Kubernetes scanner on the other five. On the seven Kubernetes systems Polaris finds 349 and ATG 304, mostly because of the container-hardening and service-account-token checks ATG does not have (125 of Polaris's finds). ATG's overall lead comes from the three Compose systems, where it finds 158 and no Kubernetes scanner can run, and from the API-behaviour and inventory kinds.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figs/fig_systems_grid.png}
+\caption{Known weaknesses found on each system by every tool, the systems with the most known weaknesses first (in brackets, the system's known weaknesses). n/a: the tool cannot read that system's files.}
+\label{fig:persystem}
+\end{figure*}
+
+\begin{table*}[!t]
+\caption{Found on each system, the systems with the most known weaknesses first. n/a: the tool cannot read that system's files; 0: it ran and found none}
+\label{tab:persystem}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrrrrrr@{}}
+\toprule
+System & Known & \textbf{ATG} & Checkov & Kubescape & kube-linter & Polaris & Spectral & Bandit & gosec & njsscan \\
+\midrule
+Hotel Reservation & 107 & \textbf{68} & 70 & 76 & 51 & 89 & n/a & n/a & 0 & n/a \\
+PiggyMetrics$^{c}$ & 88 & \textbf{62} & n/a & n/a & n/a & n/a & n/a & n/a & n/a & n/a \\
+FTGO & 82 & \textbf{46} & 55 & 6 & 18 & 67 & 2 & n/a & n/a & n/a \\
+Lakeside Mutual & 80 & \textbf{52} & 52 & 45 & 36 & 54 & 11 & n/a & n/a & n/a \\
+Acme Air & 79 & \textbf{53} & 40 & 50 & 32 & 58 & n/a & n/a & n/a & n/a \\
+Robot Shop$^{c}$ & 76 & \textbf{42} & n/a & n/a & n/a & n/a & n/a & 0 & 0 & 0 \\
+PetClinic$^{c}$ & 67 & \textbf{54} & n/a & n/a & n/a & n/a & n/a & n/a & n/a & n/a \\
+Online Boutique & 55 & \textbf{43} & 23 & 24 & 11 & 35 & n/a & 0 & 0 & 0 \\
+Bank of Anthos & 44 & \textbf{22} & 15 & 33 & 4 & 26 & n/a & 1 & n/a & n/a \\
+Bookinfo & 34 & \textbf{20} & 16 & 20 & 12 & 20 & 0 & 0 & n/a & 0 \\
+\midrule
+Total & 712 & 462 & 271 & 254 & 164 & 349 & 13 & 1 & 0 & 0 \\
+\bottomrule
+\multicolumn{11}{@{}l}{\scriptsize $^{c}$Docker Compose.}
+\end{tabular}
+\end{table*}
+
+\textit{ATG and a Kubernetes scanner used together.} Because ATG and the Kubernetes scanners check different things, their results add up. The scanners add the container-hardening checks ATG does not have (C9, C10), and ATG adds the API, inventory and Compose findings they cannot make. ATG finds 462 and Polaris 349; 202 are found by both, so the pair finds 609 of the 712 (86\%). With Kubescape (254) the overlap is 130 and the pair finds 586 (82\%); with Checkov (271) the overlap is 122 and the pair finds 611 (86\%). Measured on the same answer key, every combination gives: ATG alone 462 (65\%), ATG and Polaris 609 (86\%), ATG and Checkov 611 (86\%), ATG, Polaris and Kubescape 616 (87\%), ATG and the four Kubernetes scanners 619 (87\%), and ATG and all eight tools 622 (87\%). ATG with the three code scanners (Bandit, gosec, njsscan) still finds 462 (65\%), so they add nothing, and the eight tools without ATG find 370 (52\%).
+
+Even all nine tools together leave 90 of the 712 known weaknesses unfound. Section~\ref{sec:conclusion} lists what ATG and every tool still miss, by kind, and turns it into the future plan.
+
+\FloatBarrier
+\subsection{Systems covered}\label{sec:eval-sys}
+This part asks on how many of the ten systems each tool can run at all (Fig.~\ref{fig:reach}). ATG runs on all ten: it needs a running test deployment, in any language, and reads whatever files the system has. The four Kubernetes scanners need Kubernetes manifests (Kubescape also needs current API versions) and cannot read Docker Compose, so all four skip Robot Shop, PetClinic and PiggyMetrics; Checkov has no Docker Compose checks, and the other three read Kubernetes manifests only. Kubescape also ran on FTGO but found only 6 of its 82 known weaknesses, because FTGO declares its Deployments and StatefulSets with API versions Kubernetes has removed (\texttt{extensions/v1beta1}, \texttt{apps/v1beta1}) and Kubescape skipped them, scanning only the Services, the Secret and the Job; the other scanners read them. Spectral needs an OpenAPI document, which only Lakeside Mutual, FTGO and Bookinfo have, so it could not read the other seven: Online Boutique, Bank of Anthos, Robot Shop, Acme Air, PetClinic, PiggyMetrics and Hotel Reservation. Each code scanner needs a service in its language. Bandit found Python in four systems and could not read the six without a Python service (Acme Air, PetClinic, PiggyMetrics, Lakeside Mutual, FTGO and Hotel Reservation). gosec found Go in three and could not read the seven without a Go service (Bank of Anthos, Acme Air, PetClinic, PiggyMetrics, Lakeside Mutual, FTGO and Bookinfo). njsscan found Node.js in three and could not read the seven without a Node.js service (Bank of Anthos, Acme Air, PetClinic, PiggyMetrics, Lakeside Mutual, FTGO and Hotel Reservation).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_systems_covered.png}
+\caption{Systems each tool can run on, of the ten.}
+\label{fig:reach}
+\end{figure}
+
+\FloatBarrier
+\subsection{Language limits}\label{sec:eval-lang}
+This part asks which services, and which programming languages, each tool can review. The 65 services of the ten systems are written in eight languages: Java (35 services), Go (13), Python (7), Node.js (6), and C\#, Ruby, PHP and JavaScript served to the browser (one each). Figs.~\ref{fig:services} and~\ref{fig:langs} and Table~\ref{tab:langs} count, for each tool, the services it could review and their languages; Table~\ref{tab:syslangs} lists every service of each system with its language.
+
+The three code scanners read one language each. Bandit could read 7 services, gosec 13 and njsscan 6, so together they read 26 of the 65 (40\%), and no free scanner in this comparison reads the 35 Java services or the C\#, Ruby, PHP and browser JavaScript ones. Five of the ten systems (Acme Air, PetClinic, PiggyMetrics, Lakeside Mutual and FTGO) are written only in Java, so none of their services was read by a code scanner. The Kubernetes scanners and Spectral do not read code, so their limit is the kind of file rather than the language: the Kubernetes scanners reach the 44 services deployed with Kubernetes files, in six languages, and Spectral the 7 services that an API document describes, in Java and Python. ATG does not read code either. It reviews the running services through their HTTP traffic and traces, and it reads all their files, so it reviewed all 65 services in all eight languages. By language, the Java services (35) were reviewed by ATG, the four Kubernetes scanners and Spectral, but by no code scanner; Go (13) by ATG, the Kubernetes scanners and gosec; Python (7) by ATG, the Kubernetes scanners, Spectral and Bandit; Node.js (6) by ATG, the Kubernetes scanners and njsscan; C\# and Ruby (one service each) by ATG and the Kubernetes scanners; and PHP and the browser JavaScript, both in Robot Shop, a Compose system, only by ATG.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_services.png}
+\caption{Services each tool can review, of the 65.}
+\label{fig:services}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_languages.png}
+\caption{Languages of the services each tool can review, of the eight.}
+\label{fig:langs}
+\end{figure}
+
+\begin{table}[!htbp]
+\caption{Services and languages each tool can review (of 65 services and eight languages)}
+\label{tab:langs}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.35cm}>{\raggedright\arraybackslash}p{1.5cm}rr>{\raggedright\arraybackslash}p{2.75cm}@{}}
+\toprule
+Tool & What it reads & Services & Lang. & Which languages \\
+\midrule
+\textbf{ATG} & the running system and all its files & 65 & 8 & C\#, Go, Java, JavaScript (browser page), Node.js, PHP, Python, Ruby \\
+Checkov & Kubernetes files & 44 & 6 & C\#, Go, Java, Node.js, Python, Ruby \\
+Kubescape & Kubernetes files & 44 & 6 & C\#, Go, Java, Node.js, Python, Ruby \\
+kube-linter & Kubernetes files & 44 & 6 & C\#, Go, Java, Node.js, Python, Ruby \\
+Polaris & Kubernetes files & 44 & 6 & C\#, Go, Java, Node.js, Python, Ruby \\
+Spectral (OWASP) & API documents & 7 & 2 & Java, Python \\
+Bandit & Python code & 7 & 1 & Python \\
+gosec & Go code & 13 & 1 & Go \\
+njsscan & Node.js code & 6 & 1 & Node.js \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table*}[!t]
+\caption{The services of each system and their languages, and the services each code scanner can read (Bandit: Python, gosec: Go, njsscan: Node.js)}
+\label{tab:syslangs}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lr>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{8.4cm}rrr@{}}
+\toprule
+System & Services & Languages & Each service (language) & Bandit & gosec & njsscan \\
+\midrule
+Online Boutique & 10 & Go, C\#, Node.js, Python, Java & frontend (Go), cartservice (C\#), productcatalogservice (Go), currencyservice (Node.js), recommendationservice (Python), shippingservice (Go), paymentservice (Node.js), emailservice (Python), checkoutservice (Go), adservice (Java) & 2 & 4 & 2 \\
+Bank of Anthos & 6 & Python, Java & frontend (Python), userservice (Python), contacts (Python), balancereader (Java), transactionhistory (Java), ledgerwriter (Java) & 3 & 0 & 0 \\
+Robot Shop & 8 & JavaScript (browser page), Node.js, Java, Python, PHP, Go & web (JavaScript (browser page)), catalogue (Node.js), user (Node.js), cart (Node.js), shipping (Java), payment (Python), ratings (PHP), dispatch (Go) & 1 & 1 & 3 \\
+Acme Air & 5 & Java & acmeair-main-service (Java), acmeair-auth-service (Java), acmeair-booking-service (Java), acmeair-customer-service (Java), acmeair-flight-service (Java) & 0 & 0 & 0 \\
+PetClinic & 7 & Java & api-gateway (Java), customers-service (Java), visits-service (Java), vets-service (Java), genai-service (Java), admin-server (Java), config-server (Java) & 0 & 0 & 0 \\
+PiggyMetrics & 6 & Java & gateway (Java), auth-service (Java), account-service (Java), statistics-service (Java), notification-service (Java), monitoring (Java) & 0 & 0 & 0 \\
+Lakeside Mutual & 5 & Java & customer-core (Java), customer-self-service-backend (Java), customer-management-backend (Java), policy-management-backend (Java), spring-boot-admin (Java) & 0 & 0 & 0 \\
+FTGO & 6 & Java & ftgo-api-gateway (Java), ftgo-consumer-service (Java), ftgo-order-service (Java), ftgo-order-history-service (Java), ftgo-kitchen-service (Java), ftgo-restaurant-service (Java) & 0 & 0 & 0 \\
+Hotel Reservation & 8 & Go & frontend (Go), search (Go), geo (Go), rate (Go), profile (Go), recommendation (Go), user (Go), reservation (Go) & 0 & 8 & 0 \\
+Bookinfo & 4 & Python, Ruby, Java, Node.js & productpage (Python), details (Ruby), reviews (Java), ratings (Node.js) & 1 & 0 & 1 \\
+\textbf{All} & 65 & 8 languages &  & 7 (11\%) & 13 (20\%) & 6 (9\%) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\section{Discussion and Threats to Validity}\label{sec:discussion}
+\textit{What a passive review cannot see.} ATG never sends an attack request. This makes it safe to run next to a working system, and it also bounds what it can find. Table~\ref{tab:limits} summarizes the boundary by OWASP category. On the ten systems the largest gaps are exposed admin functions (1 of 7), debug endpoints (2 of 7) and missing resource limits (19 of 58) (Section~\ref{sec:eval-acc}). These are known false negatives, which we report instead of tuning the rules to the answer key.
+
+\textit{What ATG cannot read.} ATG's limit is not the programming language (Section~\ref{sec:eval-lang}) but what it can observe: it sees what is sent over HTTP and used during the review. It does not read source code in any language, so code bugs such as injection need a code scanner or an active scanner. It does not see messages on a queue (RabbitMQ in Robot Shop and PiggyMetrics, Kafka in FTGO), because the sidecar records HTTP only; Robot Shop's dispatch service, which only reads RabbitMQ, has no API to see. It does not see database traffic (MongoDB, MySQL, PostgreSQL, Redis or Memcached in eight systems), which is not HTTP; ATG only lists which services connect to a database, from their settings. And it does not see operations nobody uses during the review, since traffic and traces show only what is used, and documents and deployment files show the rest only if they list it.
 
 \begin{table*}[t]
 \caption{Detection boundary by OWASP API Security Top 10 (2023) category}
@@ -585,21 +709,52 @@ Injection & -- & needs payloads: an active scanner's job \\
 \end{tabular}
 \end{table*}
 
-\section{Discussion and Threats to Validity}\label{sec:discussion}
-\textit{Stand-in services.} ATG read each system's real deployment files, gateway configuration and API documents, but the services it observed were stand-ins configured from the code. They reproduce operations, calls and authentication checks, not business logic, so rules that read response content fire less than they would on the real services, and ZAP's results on them say little about the real code. The ATG findings that come from files are unaffected; those that come from runtime behaviour depend on how faithfully the stand-ins follow the code. For the same reason the fix experiment measured only fixes to deployment files. The kit for real images covers seven of the systems.
+\textit{Stand-in services.} ATG read each system's real deployment files, gateway configuration and API documents, but the services it observed were stand-ins configured from the code. They reproduce operations, calls and authentication checks, not business logic, so rules that read response content fire less than they would on the real services. The ATG findings that come from files are unaffected; those that come from runtime behaviour depend on how faithfully the stand-ins follow the code. For the same reason the comparison does not include an active scanner: what it finds in responses, such as injection flaws, would come from the stand-ins rather than from the systems' code. The sidecar's CPU time and memory also depend on the stand-ins' traffic. The kit for real images covers seven of the systems.
 
-\textit{Who wrote the ground truth.} The 91 hand-written labels, the call lists and the negative controls were produced by the authors of the rules, which favours ATG. Each label names its source file so it can be checked. The 625 rule-derived configuration labels resemble the checks of the Kubernetes scanners, which favours those scanners.
+\textit{Who wrote the ground truth.} The 91 known weaknesses taken from the code were written by the authors of the rules, which favours ATG. Each names its source file so it can be checked. The 621 derived by fixed rules from the deployment files resemble the checks of the Kubernetes scanners, which favours those scanners.
 
-\textit{Tuning on the test systems.} ATG was changed during the evaluation. Version 1.4, the version that first saw these systems, found 337 of the 716 labels (47\%) with 66\% precision; this is the fair estimate for systems the tool has never seen. The gaps it showed (Docker Compose and Zuul files were not read, multi-profile Spring Cloud Gateway files failed to parse, Services and workloads were counted twice, TLS on entry points was not checked) were fixed in version 1.5, which scores 65\% and 75\%. The fix experiment of Section~\ref{sec:eval-c} then found one fault in the threat graph (the internet did not reach services published through a LoadBalancer or an Istio Gateway) and faults in the NetworkPolicy advice, fixed in version 1.6. Version 1.6 changes attack paths, risk and plans, not findings, so the label and tool comparisons hold for both versions. All are general fixes.
+\textit{Tuning on the test systems.} ATG was changed during the evaluation. Version 1.4, the version that first saw these systems, found 333 of the 712 known weaknesses (47\%) with 66\% of its reports correct; this is the fair estimate for systems the tool has never seen. The gaps it showed (Docker Compose and Zuul files were not read, multi-profile Spring Cloud Gateway files failed to parse, Services and workloads were counted twice, TLS on entry points was not checked) were fixed in version 1.5, which scores 65\% and 75\%. Version 1.6 fixed how the internet reaches services published through a LoadBalancer or an Istio Gateway and the NetworkPolicy advice; it changes attack paths, risk and plans, not findings. Version 1.6.5 fixed one more fault found while checking the shadow-API results: ATG and our answer-key generator both ignored the base path of a Swagger 2.0 document, so four of Bookinfo's documented operations were counted as undocumented; fixing both removed those four known weaknesses and four findings. All are general fixes.
 
-\textit{Baselines.} Other tools' check identifiers were mapped to our categories by hand, so a real issue under an unmapped check counts as nothing. ZAP ran without a login and against stand-ins, and its alerts were mapped to categories generously, by CWE family. Commercial tools were compared only from their documentation. All times come from one host with two vCPUs.
+\textit{Baselines.} Other tools' check identifiers were mapped to our categories by hand, so a real issue under an unmapped check counts as nothing. To check that the zeros of the file scanners in API behaviour and inventory (Section~\ref{sec:eval-acc}) are not a scoring gap, \texttt{BENCH} lists every check each tool reported on the ten systems (Table~\ref{tab:checks}). Counted checks are translated into a kind of known weakness; the others are not about any of the 22 kinds, and most are about probes, labels, namespaces, resource requests or image signatures. The listing found three mapping errors, corrected before the final scoring (version 1.6.4): Polaris's \texttt{sensitiveContainerEnvVar} and \texttt{sensitiveConfigmapContent} now count as secrets in deployment files and \texttt{tlsSettingsMissing} as an entry without TLS (they had been left out, 18 more for Polaris); Spectral's error-response rules no longer count as ``no TLS'', only its \texttt{http://} server rule does (one fewer); and Checkov now also reads the API documents with its OpenAPI checks (9 more).
+
+\begin{table*}[!t]
+\caption{Every check each tool reported on the ten systems. Counted: checks translated into a kind of known weakness, and their findings}
+\label{tab:checks}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrr>{\raggedright\arraybackslash}p{12.2cm}@{}}
+\toprule
+Tool & Checks & Findings & Counted & Not counted: the most frequent \\
+\midrule
+% bench:checks
+Checkov & 30 & 1288 & 17 / 584 & CKV\_K8S\_21 (The default namespace should not be used) x173; CKV\_K8S\_40 (Containers should run as a high UID to avoid host conflict) x74; CKV\_K8S\_31 (Ensure that the seccomp profile is set to docker/default or ) x74; CKV\_K8S\_43 (Image should use digest) x65; CKV\_K8S\_29 (Apply security context to your pods and containers) x55; CKV\_K8S\_30 (Apply security context to your containers) x55 \\
+Kubescape & 32 & 1252 & 16 / 653 & C-0077 (K8s common labels usage) x64; C-0061 (Pods in default namespace) x64; C-0210 (Ensure that the seccomp profile is set to docker/default in ) x64; C-0211 (Apply Security Context to Your Pods and Containers) x64; C-0237 (Check if signature exists) x64; C-0236 (Verify image signature) x64 \\
+kube-linter & 12 & 244 & 6 / 219 & readiness-port (readiness port) x6; no-extensions-v1beta (no extensions v1beta) x6; liveness-port (liveness port) x4; mismatching-selector (mismatching selector) x4; startup-port (startup port) x3; deprecated-service-account-field (deprecated service account field) x2 \\
+Polaris & 23 & 1171 & 12 / 522 & metadataAndInstanceMismatched (Label app.kubernetes.io/instance must match metadata.name) x74; priorityClassNotSet (Priority class should be set) x74; topologySpreadConstraint (Pod should be configured with a valid topology spread constr) x73; deploymentMissingReplicas (Only one replica is scheduled) x67; missingPodDisruptionBudget (Should have a PodDisruptionBudget) x67; pullPolicyNotAlways (Image pull policy should be ``Always'') x59 \\
+Spectral (OWASP) & 16 & 712 & 5 / 160 & owasp:api4:2023-string-limit (Schema of type string must specify maxLength, enum, or const) x101; owasp:api4:2023-string-restricted (Schema of type string should specify a format, pattern, enum) x101; owasp:api8:2023-define-error-responses-401 (Operation is missing responses[401].) x90; owasp:api8:2023-define-error-responses-500 (Operation is missing responses[500].) x90; owasp:api4:2023-integer-limit-legacy (Schema of type integer must specify minimum and maximum.) x55; owasp:api8:2023-define-error-validation (Missing error response of either 400, 422 or 4XX.) x42 \\
+Bandit & 5 & 29 & 1 / 6 & B113 (request\_without\_timeout) x12; B311 (blacklist) x7; B413 (blacklist) x2; B104 (hardcoded\_bind\_all\_interfaces) x2 \\
+gosec & 6 & 24 & 0 / 0 & G104 (Errors unhandled.) x13; G404 (Use of weak random number generator (math/rand or math/rand/) x7; G114 (Use of net/http serve function that has no support for setti) x1; G107 (Potential HTTP request made with variable url) x1; G109 (Potential Integer overflow made by strconv.Atoi result conve) x1; G112 (Potential Slowloris Attack because ReadHeaderTimeout is not ) x1 \\
+njsscan & 0 & 0 & 0 / 0 & – \\
+% bench:end checks
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Commercial tools were compared only from their documentation, and all times come from one host with two vCPUs.
 
 \textit{Generality.} The ten systems are reference and benchmark applications, smaller and cleaner than most production systems. They do cover nine domains, eight languages, two deployment styles and six kinds of entry point, which is where single-artefact tools showed their limits.
 
 \section{Conclusion and Future Work}\label{sec:conclusion}
-This paper presented ATG, a self-hosted platform for automatic API security design review of microservice systems. ATG merges runtime traffic, API documents, deployment and gateway configuration and distributed traces into one inventory, evaluates 27 deterministic rules, builds a threat graph and ranks attack paths with APCR. On ten published open-source systems it listed 94\% of the operations with a precision of 88\%. No single source came close on both: traffic found as many operations but a quarter of its entries were wrong, and the deployment files were what made them one inventory. ATG found 65\% of 716 labelled weaknesses and ran on all ten systems. The best of eight free tools found 46\% and could not read three of the systems, no other tool found API behaviour or inventory problems, and OWASP ZAP found 4 of the labels even when given ATG's inventory. Applying the configuration fixes of ATG's plan to the systems' own files removed 41\% of the attack-path risk, as the planner predicted, and ATG raised one false alarm on 54 negative controls from the systems' code.
+This paper presented ATG, a self-hosted platform for automatic API security design review of microservice systems. ATG merges runtime traffic, API documents, deployment and gateway configuration and distributed traces into one inventory, evaluates 27 deterministic rules, builds a threat graph and ranks attack paths with APCR. We compared it with eight free tools on ten published open-source systems. ATG found 65\% of 712 known weaknesses with 75\% of its reports correct, and listed 94\% of the API operations with 89\% of its entries correct. The best other tool, Polaris, found 49\%: more than ATG in deployment configuration (64\% against 60\%), but nothing in API behaviour or inventory, where ATG found 63\% and all 84. ATG ran on all ten systems and reviewed services in all eight languages, while the Kubernetes scanners ran on seven systems and the three code scanners together read 40\% of the services. One scan took 0.44~s of analysis, 0.82~s of CPU time and 144~MB of memory, within the range of the file scanners, and ATG's four containers together held at most 260~MB during a review.
 
-Future work will run the ten systems on their published images, measure the code fixes of the plan on the real services, add rules for container hardening, mass assignment and query-parameter BOLA, replace full path enumeration with a k-best-paths search, and use ATG's inventory to drive an active scanner with a login.
+\textit{Future work.} Combining tools already closes most of the gap: ATG with Checkov finds 611 of the 712 known weaknesses (86\%), and all nine tools together 622 (87\%); adding the three code scanners to ATG adds none. ATG still misses 250 of the 712 known weaknesses, and even all nine tools together leave 90 unfound. By kind, with the number every tool misses in brackets, ATG misses 7 sensitive operations without authentication (5), 6 exposed admin functions (6), 5 debug endpoints (5), 8 service-to-service calls without credentials (8), 2 logins without a rate limit (2), 2 third-party API uses (2), 39 missing resource limits (20), 6 secrets in deployment files (2), 6 public entries without TLS (3), 97 missing container-hardening settings (37) and 72 mounted service-account tokens (0, since the scanners find them all). For 32 of ATG's misses (all its API-behaviour misses, one secret and one TLS case) the answer key's evidence is a source-code file, and so it is for 29 of the 90 that every tool misses (the API-behaviour ones and one secret); only something that reads the code could confirm them. The other 61 that every tool misses are deployment settings (37 container-hardening cases, 20 resource limits, 3 TLS cases and 1 secret). These misses lead to two plans. Each step below is given with the most it could add, that is, the known weaknesses of that kind ATG misses today. These are upper bounds counted from the answer key, not results: a step is only proven once it is built and measured again, and because the steps were chosen after seeing ATG's misses on these systems, they would have to be checked on systems ATG has not seen.
+
+\textit{Plan A, first choice: no source code needed.} ATG keeps working from the running system and its files, so it stays independent of the programming language and works where the code is not available. Step A1 adds container-hardening and service-account-token rules: ATG already reads \texttt{readOnlyRootFilesystem}, \texttt{allowPrivilegeEscalation}, capabilities and \texttt{automountServiceAccountToken} from the manifests but has no rule for them (C9, C10). This could add up to 169, so ATG alone would reach at most 631 of the 712 (89\%). Step A2 reports missing resource limits on every service. Today ATG reports them only on the services the internet reaches (API4); an option to report all of them (C3) could add up to 39, for at most 670 (94\%). Step A3 covers the plaintext-secret and missing-TLS cases ATG misses in deployment files (C7, C8), up to 10 more, for at most 680 (96\%). Step A4 merges ATG and a Kubernetes scanner into one report: importing Checkov's or Polaris's SARIF into ATG's threat graph and hardening report would let the two run as one review, and ATG with Checkov already finds 611 of the 712. Step A5 uses longer or guided user sessions. Operations nobody calls during the review stay invisible, because the traffic and traces show only what is used (Table~\ref{tab:ops}); replaying a fuller user session or the API documents' examples could add up to 12 operations, from 189 to all 201.
+
+\textit{Plan B, second choice: when the source code is available.} An optional fifth source would read the code to list every route, the authentication each one checks, the calls it makes to other services and to third-party APIs, and the admin or debug consoles registered in it. It is the second choice because the code is often not available to the reviewer (bought or outsourced services, only container images delivered, code the owner will not share), and because it needs a reader for each language and framework (the ten systems use eight languages), which gives up ATG's independence from the language. Step B1 reads the routes from the code, so every operation is listed, even one nobody calls during the review: up to 12 more operations, for all 201. Step B2 reads authentication, calls and consoles from the code. It targets the API-behaviour weaknesses ATG misses today, all of which have their proof in the code (7 operations without authentication, 6 admin functions, 5 debug endpoints, 8 service calls without credentials, 2 logins without a rate limit and 2 third-party APIs), and the secret and TLS cases with their proof in the code: up to 32 more. Together the two plans cover every kind of weakness ATG misses today, but how many each step really finds can only be measured once it is built. Plan B matters most for the 29 known weaknesses with proof in the code that no tool finds today, since no combination of the tools in this benchmark can find them without reading the code.
+
+Future work will also run the ten systems on their published images, measure how much the plan's fixes lower the risk on the real services, add rules for mass assignment and query-parameter BOLA, replace the full attack-path enumeration with a k-best-paths search for systems whose services call each other densely, and use ATG's inventory to drive an active scanner with a login.
 
 \begin{thebibliography}{99}
 \bibitem{r1} A. M. Abdurrahman and E. Husni, ``A Secure Digital Image Marketplace: Microservices and OWASP API Security Using Spring Boot,'' in \textit{Proc. IEEE ICISS}, 2024, pp. 1--8.

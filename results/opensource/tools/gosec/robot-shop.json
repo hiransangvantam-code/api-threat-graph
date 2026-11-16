@@ -4,10 +4,22 @@
  "raw": {
   "G404": 4
  },
- "seconds": 0.22,
+ "seconds": 0.21,
  "findings": 4,
  "covered": 1,
  "services": 8,
+ "cpu_s": 0.24,
+ "user_s": 0.16,
+ "sys_s": 0.08,
+ "cores": 1.15,
+ "peak_mb": 46.9,
+ "avg_mb": 31.3,
+ "read_mb": 5.219,
+ "write_mb": 0.075,
+ "processes": 7,
+ "names": {
+  "G404": "Use of weak random number generator (math/rand or math/rand/v2 instead of crypto/rand)"
+ },
  "score": {
   "labels": 76,
   "found": 0,

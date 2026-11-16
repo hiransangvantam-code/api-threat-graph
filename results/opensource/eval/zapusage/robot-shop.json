@@ -1,0 +1,49 @@
+{
+ "system": "robot-shop",
+ "zap": {
+  "bases": [
+   "http://172.18.0.4:8080"
+  ],
+  "ips": {
+   "cart": "172.18.0.6",
+   "catalogue": "172.18.0.7",
+   "payment": "172.18.0.8",
+   "ratings": "172.18.0.5",
+   "shipping": "172.18.0.2",
+   "user": "172.18.0.9",
+   "web": "172.18.0.4"
+  },
+  "by_ip": {
+   "172.18.0.6": "cart",
+   "172.18.0.7": "catalogue",
+   "172.18.0.8": "payment",
+   "172.18.0.5": "ratings",
+   "172.18.0.2": "shipping",
+   "172.18.0.9": "user",
+   "172.18.0.4": "web"
+  },
+  "total_s": 6.3,
+  "messages": 192,
+  "urls": [
+   "http://172.18.0.4:8080",
+   "http://172.18.0.4:8080/",
+   "http://172.18.0.4:8080/robots.txt",
+   "http://172.18.0.4:8080/sitemap.xml"
+  ],
+  "alerts": [],
+  "usage": {
+   "cpu_s": 3.74,
+   "user_s": 3.62,
+   "sys_s": 0.12,
+   "cores": 0.59,
+   "peak_mb": 342.6,
+   "avg_mb": 331.9,
+   "read_mb": 2.5,
+   "write_mb": 0.1,
+   "threads": 59,
+   "processes": 1,
+   "startup_s": 8.2,
+   "startup_cpu_s": 10.37
+  }
+ }
+}

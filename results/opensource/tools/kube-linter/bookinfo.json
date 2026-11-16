@@ -56,10 +56,25 @@
   "unset-cpu-requirements": 6,
   "unset-memory-requirements": 6
  },
- "seconds": 0.04,
+ "seconds": 0.06,
  "findings": 24,
+ "cpu_s": 0.05,
+ "user_s": 0.03,
+ "sys_s": 0.02,
+ "cores": 0.76,
+ "peak_mb": 34.6,
+ "avg_mb": 20.9,
+ "read_mb": 0.009,
+ "write_mb": 0.024,
+ "processes": 1,
+ "names": {
+  "no-read-only-root-fs": "no read only root fs",
+  "run-as-non-root": "run as non root",
+  "unset-cpu-requirements": "unset cpu requirements",
+  "unset-memory-requirements": "unset memory requirements"
+ },
  "score": {
-  "labels": 38,
+  "labels": 34,
   "found": 12,
   "reported": 12,
   "confirmed": 12,
@@ -77,7 +92,7 @@
     "confirmed": 0
    },
    "Inventory and visibility": {
-    "labels": 12,
+    "labels": 8,
     "found": 0,
     "reported": 0,
     "confirmed": 0
@@ -117,7 +132,7 @@
     "found": 4
    },
    "O1": {
-    "labels": 12,
+    "labels": 8,
     "found": 0
    }
   },
@@ -181,22 +196,6 @@
    [
     "O1",
     "ep:productpage:GET:/"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/ratings"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/reviews"
    ],
    [
     "O1",

@@ -1,0 +1,336 @@
+{
+ "system": "ftgo",
+ "zap": {
+  "bases": [
+   "http://172.18.0.4:8080",
+   "http://172.18.0.5:8080",
+   "http://172.18.0.2:8080"
+  ],
+  "ips": {
+   "ftgo-api-gateway": "172.18.0.4",
+   "ftgo-consumer-service": "172.18.0.5",
+   "ftgo-kitchen-service": "172.18.0.3",
+   "ftgo-order-history-service": "172.18.0.6",
+   "ftgo-order-service": "172.18.0.7",
+   "ftgo-restaurant-service": "172.18.0.2"
+  },
+  "by_ip": {
+   "172.18.0.4": "ftgo-api-gateway",
+   "172.18.0.5": "ftgo-consumer-service",
+   "172.18.0.3": "ftgo-kitchen-service",
+   "172.18.0.6": "ftgo-order-history-service",
+   "172.18.0.7": "ftgo-order-service",
+   "172.18.0.2": "ftgo-restaurant-service"
+  },
+  "total_s": 12.2,
+  "messages": 1537,
+  "urls": [
+   "http://172.18.0.2:8080",
+   "http://172.18.0.2:8080/restaurants",
+   "http://172.18.0.2:8080/restaurants/10",
+   "http://172.18.0.4:8080",
+   "http://172.18.0.4:8080/",
+   "http://172.18.0.4:8080/robots.txt",
+   "http://172.18.0.4:8080/sitemap.xml",
+   "http://172.18.0.5:8080",
+   "http://172.18.0.5:8080/consumers",
+   "http://172.18.0.5:8080/consumers/10"
+  ],
+  "alerts": [
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.5:8080/consumers/10",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.5:8080/consumers",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.2:8080/restaurants/10",
+    "param": "x-content-type-options"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   },
+   {
+    "pluginId": "10104",
+    "alert": "User Agent Fuzzer",
+    "risk": "Informational",
+    "confidence": "Medium",
+    "cweid": "0",
+    "method": "POST",
+    "url": "http://172.18.0.2:8080/restaurants",
+    "param": "Header User-Agent"
+   }
+  ],
+  "usage": {
+   "cpu_s": 9.94,
+   "user_s": 9.47,
+   "sys_s": 0.47,
+   "cores": 0.81,
+   "peak_mb": 465.1,
+   "avg_mb": 440.0,
+   "read_mb": 3.9,
+   "write_mb": 0.8,
+   "threads": 86,
+   "processes": 1,
+   "startup_s": 8.3,
+   "startup_cpu_s": 10.85
+  }
+ }
+}

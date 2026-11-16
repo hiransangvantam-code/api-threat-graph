@@ -16,14 +16,6 @@
   [
    "A1",
    "ep:ftgo-restaurant-service:POST:/restaurants"
-  ],
-  [
-   "C8",
-   "svc:ftgo-consumer-service"
-  ],
-  [
-   "C8",
-   "svc:ftgo-restaurant-service"
   ]
  ],
  "raw": {
@@ -38,18 +30,39 @@
   "owasp:api4:2023-string-restricted": 12,
   "owasp:api4:2023-array-limit": 1
  },
- "seconds": 1.44,
+ "seconds": 1.79,
  "findings": 63,
+ "cpu_s": 2.25,
+ "user_s": 2.02,
+ "sys_s": 0.23,
+ "cores": 1.25,
+ "peak_mb": 131.4,
+ "avg_mb": 89.5,
+ "read_mb": 19.565,
+ "write_mb": 0.031,
+ "processes": 2,
+ "names": {
+  "owasp:api2:2023-write-restricted": "This write operation is not protected by any security scheme.",
+  "owasp:api4:2023-rate-limit-responses-429": "Operation is missing rate limiting response in responses[429].",
+  "owasp:api8:2023-define-error-responses-401": "Operation is missing responses[401].",
+  "owasp:api8:2023-define-error-responses-500": "Operation is missing responses[500].",
+  "owasp:api8:2023-define-error-validation": "Missing error response of either 400, 422 or 4XX.",
+  "owasp:api2:2023-read-restricted": "This read operation is not protected by any security scheme.",
+  "owasp:api4:2023-integer-limit-legacy": "Schema of type integer must specify minimum and maximum.",
+  "owasp:api4:2023-string-limit": "Schema of type string must specify maxLength, enum, or const.",
+  "owasp:api4:2023-string-restricted": "Schema of type string should specify a format, pattern, enum, or const.",
+  "owasp:api4:2023-array-limit": "Schema of type array must specify maxItems."
+ },
  "score": {
   "labels": 82,
   "found": 2,
-  "reported": 6,
+  "reported": 4,
   "confirmed": 2,
   "by_group": {
    "Configuration": {
     "labels": 68,
     "found": 0,
-    "reported": 2,
+    "reported": 0,
     "confirmed": 0
    },
    "API behaviour": {
@@ -437,14 +450,6 @@
    [
     "A1",
     "ep:ftgo-restaurant-service:GET:/restaurants/{}"
-   ],
-   [
-    "C8",
-    "svc:ftgo-consumer-service"
-   ],
-   [
-    "C8",
-    "svc:ftgo-restaurant-service"
    ]
   ],
   "in_reach": {

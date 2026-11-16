@@ -1,0 +1,66 @@
+{
+ "system": "online-boutique",
+ "zap": {
+  "bases": [
+   "http://172.18.0.8:8080"
+  ],
+  "ips": {
+   "adservice": "172.18.0.4",
+   "cartservice": "172.18.0.5",
+   "checkoutservice": "172.18.0.7",
+   "currencyservice": "172.18.0.3",
+   "emailservice": "172.18.0.6",
+   "frontend": "172.18.0.8",
+   "paymentservice": "172.18.0.11",
+   "productcatalogservice": "172.18.0.9",
+   "recommendationservice": "172.18.0.10",
+   "shippingservice": "172.18.0.2"
+  },
+  "by_ip": {
+   "172.18.0.4": "adservice",
+   "172.18.0.5": "cartservice",
+   "172.18.0.7": "checkoutservice",
+   "172.18.0.3": "currencyservice",
+   "172.18.0.6": "emailservice",
+   "172.18.0.8": "frontend",
+   "172.18.0.11": "paymentservice",
+   "172.18.0.9": "productcatalogservice",
+   "172.18.0.10": "recommendationservice",
+   "172.18.0.2": "shippingservice"
+  },
+  "total_s": 6.3,
+  "messages": 194,
+  "urls": [
+   "http://172.18.0.8:8080",
+   "http://172.18.0.8:8080/",
+   "http://172.18.0.8:8080/robots.txt",
+   "http://172.18.0.8:8080/sitemap.xml"
+  ],
+  "alerts": [
+   {
+    "pluginId": "10021",
+    "alert": "X-Content-Type-Options Header Missing",
+    "risk": "Low",
+    "confidence": "Medium",
+    "cweid": "693",
+    "method": "GET",
+    "url": "http://172.18.0.8:8080/",
+    "param": "x-content-type-options"
+   }
+  ],
+  "usage": {
+   "cpu_s": 3.96,
+   "user_s": 3.73,
+   "sys_s": 0.23,
+   "cores": 0.63,
+   "peak_mb": 439.4,
+   "avg_mb": 422.7,
+   "read_mb": 2.6,
+   "write_mb": 0.1,
+   "threads": 75,
+   "processes": 1,
+   "startup_s": 20.4,
+   "startup_cpu_s": 12.48
+  }
+ }
+}

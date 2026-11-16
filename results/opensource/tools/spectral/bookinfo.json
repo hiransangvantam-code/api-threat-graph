@@ -3,23 +3,19 @@
  "pairs": [
   [
    "A1",
-   "ep:productpage:GET:/products"
+   "ep:productpage:GET:/api/v1/products"
   ],
   [
    "A1",
-   "ep:productpage:GET:/products/{}"
+   "ep:productpage:GET:/api/v1/products/{}"
   ],
   [
    "A1",
-   "ep:productpage:GET:/products/{}/ratings"
+   "ep:productpage:GET:/api/v1/products/{}/ratings"
   ],
   [
    "A1",
-   "ep:productpage:GET:/products/{}/reviews"
-  ],
-  [
-   "C8",
-   "svc:productpage"
+   "ep:productpage:GET:/api/v1/products/{}/reviews"
   ]
  ],
  "raw": {
@@ -34,19 +30,40 @@
   "owasp:api4:2023-string-limit": 10,
   "owasp:api4:2023-string-restricted": 10
  },
- "seconds": 0.74,
+ "seconds": 0.83,
  "findings": 67,
+ "cpu_s": 1.05,
+ "user_s": 0.97,
+ "sys_s": 0.08,
+ "cores": 1.27,
+ "peak_mb": 132.0,
+ "avg_mb": 92.4,
+ "read_mb": 9.785,
+ "write_mb": 0.028,
+ "processes": 1,
+ "names": {
+  "owasp:api2:2023-read-restricted": "This read operation is not protected by any security scheme.",
+  "owasp:api4:2023-rate-limit-responses-429": "Operation is missing rate limiting response in responses[429].",
+  "owasp:api8:2023-define-error-responses-401": "Operation is missing responses[401].",
+  "owasp:api8:2023-define-error-responses-500": "Operation is missing responses[500].",
+  "owasp:api8:2023-define-error-validation": "Missing error response of either 400, 422 or 4XX.",
+  "parser": "Mapping key must be a string scalar rather than number",
+  "owasp:api4:2023-array-limit": "Schema of type array must specify maxItems.",
+  "owasp:api4:2023-integer-limit-legacy": "Schema of type integer must specify minimum and maximum.",
+  "owasp:api4:2023-string-limit": "Schema of type string must specify maxLength, enum, or const.",
+  "owasp:api4:2023-string-restricted": "Schema of type string should specify a format, pattern, enum, or const."
+ },
  "score": {
-  "labels": 38,
-  "found": 1,
-  "reported": 5,
-  "confirmed": 1,
+  "labels": 34,
+  "found": 0,
+  "reported": 4,
+  "confirmed": 0,
   "by_group": {
    "Configuration": {
     "labels": 21,
-    "found": 1,
-    "reported": 1,
-    "confirmed": 1
+    "found": 0,
+    "reported": 0,
+    "confirmed": 0
    },
    "API behaviour": {
     "labels": 5,
@@ -55,7 +72,7 @@
     "confirmed": 0
    },
    "Inventory and visibility": {
-    "labels": 12,
+    "labels": 8,
     "found": 0,
     "reported": 0,
     "confirmed": 0
@@ -88,14 +105,14 @@
    },
    "C8": {
     "labels": 1,
-    "found": 1
+    "found": 0
    },
    "C9": {
     "labels": 4,
     "found": 0
    },
    "O1": {
-    "labels": 12,
+    "labels": 8,
     "found": 0
    }
   },
@@ -185,6 +202,10 @@
     "svc:reviews"
    ],
    [
+    "C8",
+    "svc:productpage"
+   ],
+   [
     "C9",
     "svc:details"
    ],
@@ -203,22 +224,6 @@
    [
     "O1",
     "ep:productpage:GET:/"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/ratings"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/reviews"
    ],
    [
     "O1",
@@ -252,24 +257,24 @@
   "unconfirmed": [
    [
     "A1",
-    "ep:productpage:GET:/products"
+    "ep:productpage:GET:/api/v1/products"
    ],
    [
     "A1",
-    "ep:productpage:GET:/products/{}"
+    "ep:productpage:GET:/api/v1/products/{}"
    ],
    [
     "A1",
-    "ep:productpage:GET:/products/{}/ratings"
+    "ep:productpage:GET:/api/v1/products/{}/ratings"
    ],
    [
     "A1",
-    "ep:productpage:GET:/products/{}/reviews"
+    "ep:productpage:GET:/api/v1/products/{}/reviews"
    ]
   ],
   "in_reach": {
    "labels": 2,
-   "found": 1
+   "found": 0
   }
  }
 }

@@ -103,10 +103,40 @@
   "readinessProbeMissing": 6,
   "runAsRootAllowed": 6
  },
- "seconds": 0.07,
+ "seconds": 0.1,
  "findings": 114,
+ "cpu_s": 0.1,
+ "user_s": 0.09,
+ "sys_s": 0.02,
+ "cores": 1.02,
+ "peak_mb": 36.5,
+ "avg_mb": 27.8,
+ "read_mb": 0.009,
+ "write_mb": 0.066,
+ "processes": 1,
+ "names": {
+  "deploymentMissingReplicas": "Only one replica is scheduled",
+  "metadataAndInstanceMismatched": "Label app.kubernetes.io/instance must match metadata.name",
+  "missingPodDisruptionBudget": "Should have a PodDisruptionBudget",
+  "automountServiceAccountToken": "The ServiceAccount will be automounted",
+  "missingNetworkPolicy": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+  "priorityClassNotSet": "Priority class should be set",
+  "topologySpreadConstraint": "Pod should be configured with a valid topology spread constraint",
+  "cpuLimitsMissing": "CPU limits should be set",
+  "cpuRequestsMissing": "CPU requests should be set",
+  "insecureCapabilities": "Container should not have insecure capabilities",
+  "linuxHardening": "Use one of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities to restrict containers using unwanted privileges",
+  "livenessProbeMissing": "Liveness probe should be configured",
+  "memoryLimitsMissing": "Memory limits should be set",
+  "memoryRequestsMissing": "Memory requests should be set",
+  "notReadOnlyRootFilesystem": "Filesystem should be read only",
+  "privilegeEscalationAllowed": "Privilege escalation should not be allowed",
+  "pullPolicyNotAlways": "Image pull policy should be \"Always\"",
+  "readinessProbeMissing": "Readiness probe should be configured",
+  "runAsRootAllowed": "Should not be allowed to run as root"
+ },
  "score": {
-  "labels": 38,
+  "labels": 34,
   "found": 20,
   "reported": 20,
   "confirmed": 20,
@@ -124,7 +154,7 @@
     "confirmed": 0
    },
    "Inventory and visibility": {
-    "labels": 12,
+    "labels": 8,
     "found": 0,
     "reported": 0,
     "confirmed": 0
@@ -164,7 +194,7 @@
     "found": 4
    },
    "O1": {
-    "labels": 12,
+    "labels": 8,
     "found": 0
    }
   },
@@ -199,22 +229,6 @@
    ],
    [
     "O1",
-    "ep:productpage:GET:/api/v1/products"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/ratings"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/reviews"
-   ],
-   [
-    "O1",
     "ep:productpage:GET:/index.html"
    ],
    [
@@ -244,7 +258,7 @@
   ],
   "unconfirmed": [],
   "in_reach": {
-   "labels": 20,
+   "labels": 21,
    "found": 20
   }
  }

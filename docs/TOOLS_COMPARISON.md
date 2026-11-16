@@ -33,14 +33,14 @@ and on stand-in services its attack results would mean nothing.
 The results tables (accuracy by category group, what each tool can reach, speed, and where each
 tool stops) are in `results/opensource/comparison.md` and summarised in `docs/BENCHMARK_OSS.md`. In short:
 
-| | ATG v1.5 | Polaris | Checkov | Kubescape | kube-linter | Spectral | Bandit / gosec / njsscan |
+| | ATG v1.6.5 | Polaris | Checkov | Kubescape | kube-linter | Spectral | Bandit / gosec / njsscan |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Systems it runs on | 10 | 7 | 7 | 7 | 7 | 3 | 4 / 3 / 3 |
-| Labels found (of 716) | 466 | 331 | 262 | 254 | 164 | 14 | 1 / 0 / 0 |
-| API behaviour (82) and inventory (88) labels | 52 + 88 | 0 | 0 | 0 | 0 | 10 + 0 | 0 |
-| Configuration labels (546) | 326 | 331 | 262 | 254 | 164 | 4 | 1 / 0 / 0 |
-| Precision | 75% | 95% | 74% | 87% | 89% | 37% | – |
-| Time per system (median) | 0.35 s for Phases 1-4 (~8 s per whole scan) | 0.13 s | 2.3 s | 1.9 s | 0.04 s | 1.4 s | 0.5-3.6 s |
+| Labels found (of 712) | 462 | 349 | 271 | 254 | 164 | 13 | 1 / 0 / 0 |
+| API behaviour (82) and inventory (84) labels | 52 + 84 | 0 | 9 + 0 | 0 | 0 | 10 + 0 | 0 |
+| Configuration labels (546) | 326 | 349 | 262 | 254 | 164 | 3 | 1 / 0 / 0 |
+| Precision | 75% | 95% | 70% | 87% | 89% | 37% | – |
+| Time per system (median) | 0.44 s for Phases 1-4 (~8 s per whole scan) | 0.14 s | 3.8 s | 1.9 s | 0.04 s | 1.8 s | 0.6-4.1 s |
 
 The Kubernetes scanners are as good as ATG on deployment configuration and more precise, but they stop
 at the manifests: three systems ship Docker Compose, which none of them reads, and they say nothing about

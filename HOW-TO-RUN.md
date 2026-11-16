@@ -166,11 +166,23 @@ sh bench.sh
 
 BENCH builds one Docker image with Checkov, Kubescape, kube-linter, Polaris, Spectral (OWASP ruleset),
 Bandit, gosec and njsscan, runs each of them on the ten systems' files, scores them and ATG against the
-same 716 labels, and opens `results\opensource\comparison.html`: five charts (found by category, per
-system, where each tool stops, speed, the fix plans) and every table. The charts are also saved as PNG
-files in `results\opensource\figures\`, and the tables in `results\opensource\comparison.md`.
+same 712 labels, and opens `results\opensource\comparison.html`. The page starts with how the test works and
+then explains how each tool works (in its own words, from the installed version), and has one section per
+question, each with its chart and tables:
 
-## Review another system (not ShopLite)
+1. **Speed**: time per system for ATG and each tool.
+2. **Computing resources**: CPU time and peak memory per system for ATG's scan and each tool, and what ATG's
+   four containers use while the system's users run and during the scan. DEMO-ALL records ATG's figures
+   (`bench/usage.py` reads Docker's own counters into `results\opensource\atg-laptop\usage\`); BENCH measures
+   each tool while it runs.
+3. **Accuracy**: known weaknesses found, by group, by category and on each system (one chart per system with every tool), where the known weaknesses come from, and precision.
+4. **Systems covered**: which systems each tool can read at all.
+5. **Language limits**: the services and languages each tool can review, the language of every service, and what ATG cannot read.
+
+The charts are also saved as PNG files in `results\opensource\figures\`, and the tables in
+`results\opensource\comparison.md`.
+
+## Review another system
 
 The company changes two settings in its own deployment for the duration of the review:
 

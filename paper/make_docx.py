@@ -181,7 +181,7 @@ def convert(tex: str) -> str:
             break
         new_txt, stop = tabnote(m)
         b = b[:m.start()] + new_txt + b[stop:]
-    b = b.replace(r"$^{c}$", r"\textsuperscript{c}")
+    b = re.sub(r"\$\^\{([a-z])\}\$", r"\\textsuperscript{\1}", b)   # table footnote marks
     while True:
         m = re.search(r"\\multicolumn\{(\d+)\}\{(?:[^{}]|\{[^{}]*\})*\}\{", b)
         if not m:
@@ -314,9 +314,10 @@ def postprocess(raw: Path, out: Path):
 
     def notep(m):
         p = m.group(0).replace("TABNOTE ", "", 1)
+        p = p.replace('<w:r><w:t xml:space="preserve">TABNOTE</w:t></w:r><w:r><w:t xml:space="preserve"> </w:t></w:r>', "", 1)
         p = re.sub(r"<w:pPr>.*?</w:pPr>", "", p, count=1, flags=re.S)
         return p.replace("<w:p>", '<w:p><w:pPr><w:pStyle w:val="Compact"/><w:spacing w:before="20" w:after="120"/></w:pPr>', 1)
-    d = re.sub(r"<w:p>(?:(?!<w:p>).)*?TABNOTE .*?</w:p>", notep, d, flags=re.S)
+    d = re.sub(r"<w:p>(?:(?!<w:p>).)*?TABNOTE(?: |</w:t>).*?</w:p>", notep, d, flags=re.S)
     d = d.replace('<w:pStyle w:val="SourceCode" /><w:jc w:val="center" />', '<w:pStyle w:val="SourceCode" /><w:jc w:val="left" />')
 
     # images: fit the column, or the page width inside a one-column section

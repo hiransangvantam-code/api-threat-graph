@@ -1,14 +1,24 @@
 {
  "company": "hotel-reservation",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
- "scan_s": 0.6,
+ "scan_s": 0.5,
  "timings": {
-  "phase1_ms": 523.8369850001163,
-  "phase2_ms": 2.135458999873663,
-  "phase3_ms": 31.2304789999871,
-  "phase4_ms": 8.080847000201175
+  "phase1_ms": 432.04759599996123,
+  "phase2_ms": 2.9766979999976684,
+  "phase3_ms": 49.585715000034725,
+  "phase4_ms": 10.10828500000116,
+  "resources": {
+   "cpu_s": 0.423,
+   "user_s": 0.71,
+   "sys_s": 0.05,
+   "read_mb": 3.93,
+   "write_mb": 2.7,
+   "peak_mb": 55.6
+  }
  },
- "run_id": "20261115-223943-e104c6",
+ "flows": 466,
+ "span_batches": 4,
+ "run_id": "20261116-071807-b08ae7",
  "summary": {
   "findings": 113,
   "by_severity": {

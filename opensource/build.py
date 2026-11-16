@@ -329,7 +329,8 @@ def undocumented_labels(s: dict) -> list[dict]:
     for f in s["artifacts"].get("spec_files", []):
         p = HERE / s["id"] / "upstream" / f["path"]
         doc = yaml.safe_load(p.read_text(encoding="utf-8"))
-        documented = {(m.upper(), re.sub(r"{[^}]*}", "{}", path)) for path, item in (doc.get("paths") or {}).items()
+        base = (doc.get("basePath") or "").rstrip("/") if "swagger" in doc else ""   # Swagger 2.0: paths sit under basePath
+        documented = {(m.upper(), re.sub(r"{[^}]*}", "{}", base + path)) for path, item in (doc.get("paths") or {}).items()
                       for m in item if m in ("get", "post", "put", "patch", "delete")}
         for r in s["services"][f["service"]]["routes"]:
             if INFRA_PATHS.match(r["path"]):

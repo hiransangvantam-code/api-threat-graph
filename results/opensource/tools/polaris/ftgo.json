@@ -210,6 +210,22 @@
    "svc:ftgo-zookeeper"
   ],
   [
+   "C7",
+   "svc:ftgo-consumer-service"
+  ],
+  [
+   "C7",
+   "svc:ftgo-dynamodb-local-init"
+  ],
+  [
+   "C7",
+   "svc:ftgo-mysql"
+  ],
+  [
+   "C7",
+   "svc:ftgo-order-history-service"
+  ],
+  [
    "C9",
    "svc:ftgo-api-gateway"
   ],
@@ -277,19 +293,51 @@
   "livenessProbeMissing": 3,
   "readinessProbeMissing": 3
  },
- "seconds": 0.13,
+ "seconds": 0.14,
  "findings": 188,
+ "cpu_s": 0.16,
+ "user_s": 0.14,
+ "sys_s": 0.02,
+ "cores": 1.1,
+ "peak_mb": 37.4,
+ "avg_mb": 30.4,
+ "read_mb": 0.016,
+ "write_mb": 0.113,
+ "processes": 1,
+ "names": {
+  "deploymentMissingReplicas": "Only one replica is scheduled",
+  "metadataAndInstanceMismatched": "Label app.kubernetes.io/instance must match metadata.name",
+  "missingPodDisruptionBudget": "Should have a PodDisruptionBudget",
+  "automountServiceAccountToken": "The ServiceAccount will be automounted",
+  "missingNetworkPolicy": "A NetworkPolicy should match pod labels and contain applied egress and ingress rules",
+  "priorityClassNotSet": "Priority class should be set",
+  "topologySpreadConstraint": "Pod should be configured with a valid topology spread constraint",
+  "cpuLimitsMissing": "CPU limits should be set",
+  "cpuRequestsMissing": "CPU requests should be set",
+  "insecureCapabilities": "Container should not have insecure capabilities",
+  "linuxHardening": "Use one of AppArmor, Seccomp, SELinux, or dropping Linux Capabilities to restrict containers using unwanted privileges",
+  "memoryLimitsMissing": "Memory limits should be set",
+  "memoryRequestsMissing": "Memory requests should be set",
+  "notReadOnlyRootFilesystem": "Filesystem should be read only",
+  "privilegeEscalationAllowed": "Privilege escalation should not be allowed",
+  "runAsRootAllowed": "Should not be allowed to run as root",
+  "tagNotSpecified": "Image tag should be specified",
+  "pullPolicyNotAlways": "Image pull policy should be \"Always\"",
+  "sensitiveContainerEnvVar": "The container sets potentially sensitive environment variables",
+  "livenessProbeMissing": "Liveness probe should be configured",
+  "readinessProbeMissing": "Readiness probe should be configured"
+ },
  "score": {
   "labels": 82,
-  "found": 63,
-  "reported": 63,
-  "confirmed": 63,
+  "found": 67,
+  "reported": 67,
+  "confirmed": 67,
   "by_group": {
    "Configuration": {
     "labels": 68,
-    "found": 63,
-    "reported": 63,
-    "confirmed": 63
+    "found": 67,
+    "reported": 67,
+    "confirmed": 67
    },
    "API behaviour": {
     "labels": 6,
@@ -331,7 +379,7 @@
    },
    "C7": {
     "labels": 5,
-    "found": 0
+    "found": 4
    },
    "C9": {
     "labels": 11,
@@ -376,22 +424,6 @@
     "secret:ftgo-db-secret"
    ],
    [
-    "C7",
-    "svc:ftgo-consumer-service"
-   ],
-   [
-    "C7",
-    "svc:ftgo-dynamodb-local-init"
-   ],
-   [
-    "C7",
-    "svc:ftgo-mysql"
-   ],
-   [
-    "C7",
-    "svc:ftgo-order-history-service"
-   ],
-   [
     "O1",
     "svc:ftgo-kitchen-service"
    ],
@@ -426,8 +458,8 @@
   ],
   "unconfirmed": [],
   "in_reach": {
-   "labels": 63,
-   "found": 63
+   "labels": 68,
+   "found": 67
   }
  }
 }

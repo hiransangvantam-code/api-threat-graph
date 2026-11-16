@@ -10,12 +10,25 @@
   "B113": 1,
   "B104": 1
  },
- "seconds": 0.22,
+ "seconds": 0.25,
  "findings": 2,
  "covered": 1,
  "services": 4,
+ "cpu_s": 0.23,
+ "user_s": 0.22,
+ "sys_s": 0.01,
+ "cores": 0.95,
+ "peak_mb": 30.1,
+ "avg_mb": 21.5,
+ "read_mb": 4.57,
+ "write_mb": 0.003,
+ "processes": 1,
+ "names": {
+  "B113": "request_without_timeout",
+  "B104": "hardcoded_bind_all_interfaces"
+ },
  "score": {
-  "labels": 38,
+  "labels": 34,
   "found": 0,
   "reported": 1,
   "confirmed": 0,
@@ -33,7 +46,7 @@
     "confirmed": 0
    },
    "Inventory and visibility": {
-    "labels": 12,
+    "labels": 8,
     "found": 0,
     "reported": 0,
     "confirmed": 0
@@ -73,7 +86,7 @@
     "found": 0
    },
    "O1": {
-    "labels": 12,
+    "labels": 8,
     "found": 0
    }
   },
@@ -185,22 +198,6 @@
    [
     "O1",
     "ep:productpage:GET:/"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/ratings"
-   ],
-   [
-    "O1",
-    "ep:productpage:GET:/api/v1/products/{}/reviews"
    ],
    [
     "O1",

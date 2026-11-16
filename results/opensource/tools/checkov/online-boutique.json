@@ -162,8 +162,33 @@
   "CKV_K8S_8": 1,
   "CKV2_K8S_6": 12
  },
- "seconds": 4.0,
+ "seconds": 3.82,
  "findings": 113,
+ "cpu_s": 4.11,
+ "user_s": 3.72,
+ "sys_s": 0.39,
+ "cores": 1.07,
+ "peak_mb": 953.9,
+ "avg_mb": 163.1,
+ "read_mb": 44.653,
+ "write_mb": 2.101,
+ "processes": 7,
+ "names": {
+  "CKV_K8S_14": "Image Tag should be fixed - not latest or blank",
+  "CKV_K8S_43": "Image should use digest",
+  "CKV_K8S_38": "Ensure that Service Account Tokens are only mounted where necessary",
+  "CKV_K8S_40": "Containers should run as a high UID to avoid host conflict",
+  "CKV_K8S_21": "The default namespace should not be used",
+  "CKV_K8S_31": "Ensure that the seccomp profile is set to docker/default or runtime/default",
+  "CKV_K8S_15": "Image Pull Policy should be Always",
+  "CKV_K8S_12": "Memory requests should be set",
+  "CKV_K8S_9": "Readiness Probe Should be Configured",
+  "CKV_K8S_10": "CPU requests should be set",
+  "CKV_K8S_11": "CPU limits should be set",
+  "CKV_K8S_13": "Memory limits should be set",
+  "CKV_K8S_8": "Liveness Probe Should be Configured",
+  "CKV2_K8S_6": "Minimize the admission of pods which lack an associated NetworkPolicy"
+ },
  "score": {
   "labels": 55,
   "found": 23,
@@ -400,7 +425,7 @@
    ]
   ],
   "in_reach": {
-   "labels": 35,
+   "labels": 36,
    "found": 23
   }
  }

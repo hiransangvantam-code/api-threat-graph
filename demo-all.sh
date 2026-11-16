@@ -33,8 +33,19 @@ for CO in $SYSTEMS; do
   fi
   i=0
   until curl -s -o /dev/null "http://localhost:$PORT/"; do i=$((i + 1)); [ "$i" -gt 90 ] && break; sleep 2; done
+  U=results/opensource/atg-laptop/usage   # CPU and memory of ATG's four containers (bench/usage.py; read by bench.sh)
+  if [ "$F" = opensource ]; then
+    mkdir -p "$U"; echo users > "$U/$CO.stage"
+    docker rm -f atg-usage >/dev/null 2>&1
+    docker run -d --name atg-usage --network none -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:/repo" \
+      api-threat-graph:1.6 python /repo/bench/usage.py "/repo/$U/$CO.json" >/dev/null 2>&1
+  fi
   echo "   users: $($C run --rm users 2>/dev/null | tail -1)"
-  if docker compose exec -T atg python docker/scan.py --label "$CO" --manifests k8s > "demo/$CO.log" 2>&1; then
+  [ "$F" = opensource ] && echo scan > "$U/$CO.stage"
+  docker compose exec -T atg python docker/scan.py --label "$CO" --manifests k8s > "demo/$CO.log" 2>&1
+  rc=$?
+  docker rm -f atg-usage >/dev/null 2>&1; rm -f "$U/$CO.stage"
+  if [ "$rc" -eq 0 ]; then
     echo "   $(grep '^\[scan\] '"$CO"':' "demo/$CO.log" | tail -1)"
     rm -rf "demo/$CO"; cp -r output/site "demo/$CO"; mv "demo/$CO.log" "demo/$CO/scan.log"
     if [ "$F" = opensource ]; then   # ATG's endpoints and findings, for bench.sh (the comparison with other tools)

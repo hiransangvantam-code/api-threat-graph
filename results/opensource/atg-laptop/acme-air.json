@@ -1,7 +1,6 @@
 {
  "company": "acme-air",
  "users": "real images, own load generator and opensource/real/<id>/load.txt",
- "scan_s": 0.3,
  "scan_s": 0.4,
  "timings": {
   "phase1_ms": 385.3646669999762,
